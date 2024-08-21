@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.qltv"
+    namespace = "com.example.qlda"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.qltv"
+        applicationId = "com.example.qlda"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
