@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QLDA</string>
+    <string name="app_name">com.d22.qlda</string>
     <string name="need_help_signing_in">Need help signing in?</string>
     <string name="sign_in">Sign In</string>
     <string name="remember_me">Remember me</string>
