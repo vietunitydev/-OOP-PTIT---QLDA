@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.qlda.home.HomeActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -38,14 +39,13 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             } else {
                 // Perform sign-in logic here (e.g., API call)
-                // Example: Show a simple Toast message
+
                 Toast.makeText(this, "Signed in as $email", Toast.LENGTH_SHORT).show()
 
-                // If successful, you can navigate to another activity
-                // Example:
-                // val intent = Intent(this, HomeActivity::class.java)
-                // startActivity(intent)
-                // finish()
+                // If successful, we open home activity
+                 val intent = Intent(this, HomeActivity::class.java)
+                 startActivity(intent)
+                 finish()
             }
         }
 
