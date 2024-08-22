@@ -1,19 +1,18 @@
 package com.example.qlda.login
 
 import android.content.Intent
-import com.example.qlda.R;
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.qlda.R
 import com.example.qlda.home.HomeActivity
-import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnSignIn: Button
     private lateinit var tvNeedHelp: TextView
 
-    // auth
+    // Firebase authentication instance
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,11 @@ class LoginActivity : AppCompatActivity() {
         btnSignIn = findViewById(R.id.btnSignIn)
         tvNeedHelp = findViewById(R.id.tvNeedHelp)
 
-        auth = Firebase.auth
+        Log.d("Firebase", "1: Firebase Auth instance created")
+
+        auth = FirebaseAuth.getInstance()
+
+        Log.d("Firebase", "2: Firebase Auth instance initialized")
 
         // Set click listener for Sign In button
         btnSignIn.setOnClickListener {
@@ -46,35 +49,27 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
-            }
-            else{
+            } else {
+                Log.d("Firebase", "3: Attempting to sign in with email: $email")
+
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "signInWithEmail:success")
+                            // Sign in success
+                            Log.d("Firebase", "4: Sign-in successful")
                             val user = auth.currentUser
-
-                            // If successful, we open home activity
                             Toast.makeText(
                                 baseContext,
                                 "Signed in as $email",
                                 Toast.LENGTH_SHORT).show();
-
+                            // Navigate to another activity
                             val intent = Intent(this, HomeActivity::class.java)
                             startActivity(intent)
-                            finish()
-
-                            //updateUI(user)
+                            finish() // Optionally close the current activity
                         } else {
                             // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "signInWithEmail:failure", task.exception)
-                            Toast.makeText(
-                                baseContext,
-                                "Authentication failed.",
-                                Toast.LENGTH_SHORT,
-                            ).show()
-                            //updateUI(null)
+                            Log.w("Firebase", "5: Sign-in failed", task.exception)
+                            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                         }
                     }
             }
