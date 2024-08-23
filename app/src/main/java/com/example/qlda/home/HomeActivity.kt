@@ -44,7 +44,6 @@ class HomeActivity : AppCompatActivity() {
 
         val layout = findViewById<LinearLayout>(R.id.buttonContainer)
 
-        // Tạo 4 phần tử CustomButton
         val buttonsData = listOf(
             Triple(1, "CTDL", ContextCompat.getColor(this, R.color.blue)),
             Triple(2, "English", ContextCompat.getColor(this, R.color.purple)),
