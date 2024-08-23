@@ -44,10 +44,6 @@ class HomeActivity : AppCompatActivity() {
             showToast("Account button clicked")
         }
 
-
-
-
-
         val buttonsData = listOf(
             Triple(1, "CTDL", ContextCompat.getColor(this, R.color.blue)),
             Triple(2, "English", ContextCompat.getColor(this, R.color.purple)),
@@ -75,17 +71,40 @@ class HomeActivity : AppCompatActivity() {
 
             layout.addView(button)
         }
-
+        var i:Int = 5
         val addBtn = findViewById<Button>(R.id.btnAdd)
         val toastMessage = String.format("Click Add Table Button")
         addBtn.setOnClickListener {
             (showToast(toastMessage))
+            val button = inflater.inflate(R.layout.custom_button_table_workspace, layout, false) as AppCompatButton
+            button.id = i
+            button.text = "New Table"
+            button.setBackgroundColor(getRandomColor())
+
+            val toastMessage = String.format("Click Button ID: %d, Text: %s",button.id,button.text)
+            button.setOnClickListener{
+                (showToast(toastMessage))
+            }
+
+            layout.addView(button)
+            i++
         }
 
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getRandomColor(): Int {
+        val colors = listOf(
+            ContextCompat.getColor(this, R.color.blue),
+            ContextCompat.getColor(this, R.color.purple),
+            ContextCompat.getColor(this, R.color.pink),
+            ContextCompat.getColor(this, R.color.deep_purple)
+        )
+
+        return colors.random()
     }
 }
 
