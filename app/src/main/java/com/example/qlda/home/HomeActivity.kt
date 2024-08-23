@@ -1,10 +1,13 @@
 package com.example.qlda.home
 
+import CustomButtonWorkspace
 import android.os.Bundle
 import com.example.qlda.R
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 class HomeActivity : AppCompatActivity() {
 
@@ -38,10 +41,35 @@ class HomeActivity : AppCompatActivity() {
         btnAccount.setOnClickListener {
             showToast("Account button clicked")
         }
+
+        val layout = findViewById<LinearLayout>(R.id.buttonContainer)
+
+        // Tạo 4 phần tử CustomButton
+        val buttonsData = listOf(
+            Triple(1, "CTDL", ContextCompat.getColor(this, R.color.blue)),
+            Triple(2, "English", ContextCompat.getColor(this, R.color.purple)),
+            Triple(3, "Meta rush", ContextCompat.getColor(this, R.color.pink)),
+            Triple(4, "Study", ContextCompat.getColor(this, R.color.deep_purple))
+        )
+
+        //TODO: need map to manage the id of specific button
+
+        buttonsData.forEach { (id,text, color) ->
+            val button = CustomButtonWorkspace(this)
+            button.setButtonProperties(id,text, color)
+
+            val toastMessage = String.format("Click Button ID: %d, Text: %s",id,text)
+            button.setOnClickListener{
+                (showToast(toastMessage))
+            }
+            layout.addView(button)
+        }
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
+
+
 

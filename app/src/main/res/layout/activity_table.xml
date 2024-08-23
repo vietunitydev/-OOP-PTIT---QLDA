@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Trello"
+            android:text="@string/const_string_qlda"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -40,9 +40,10 @@
         android:padding="8dp">
 
         <ImageView
-            android:layout_width="24dp"
+            android:layout_width="34dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_magnifying_glass" />
+            android:src="@drawable/ic_magnifying_glass"
+            android:importantForAccessibility="no" />
 
         <EditText
             android:id="@+id/etSearch"
@@ -50,9 +51,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:hint="Tìm kiếm"
+            android:hint="@string/text_hint_find"
             android:textSize="16sp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:autofillHints="autoHint"
+            android:inputType="textCapCharacters" />
     </LinearLayout>
 
     <!-- Workspace List -->
@@ -69,18 +72,65 @@
             android:id="@+id/tvWorkspaceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CÁC KHÔNG GIAN LÀM VIỆC CỦA BẠN"
+            android:text="@string/text_your_workspace"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
-        <ListView
-            android:id="@+id/lvWorkspace"
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="1dp" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/buttonContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_ctdl"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="CTDL"-->
+<!--                    android:backgroundTint="#3F51B5"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:layout_marginBottom="8dp" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_english"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="English"-->
+<!--                    android:backgroundTint="#8E24AA"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:layout_marginBottom="8dp" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_meta_rush"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Meta rush"-->
+<!--                    android:backgroundTint="#D81B60"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:layout_marginBottom="8dp" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_study"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Study"-->
+<!--                    android:backgroundTint="#5E35B1"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:layout_marginBottom="8dp" />-->
+
+<!--                &lt;!&ndash; Thêm nhiều button hơn nếu cần &ndash;&gt;-->
+
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
     <!-- Bottom Navigation -->
