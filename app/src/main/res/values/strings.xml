@@ -10,4 +10,5 @@
     <string name="const_string_qlda">QLDA</string>
     <string name="text_hint_find">Tìm kiếm</string>
     <string name="text_your_workspace">CÁC KHÔNG GIAN LÀM VIỆC CỦA BẠN</string>
+    <string name="text_plus_icon">+</string>
 </resources>

@@ -44,7 +44,9 @@ class HomeActivity : AppCompatActivity() {
             showToast("Account button clicked")
         }
 
-        val layout = findViewById<LinearLayout>(R.id.buttonContainer)
+
+
+
 
         val buttonsData = listOf(
             Triple(1, "CTDL", ContextCompat.getColor(this, R.color.blue)),
@@ -54,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
         )
 
         //TODO: need map to manage the id of specific button
-
+        val layout = findViewById<LinearLayout>(R.id.buttonContainer)
         val inflater = LayoutInflater.from(this)
 
         buttonsData.forEach { (id,text, color) ->
@@ -73,6 +75,13 @@ class HomeActivity : AppCompatActivity() {
 
             layout.addView(button)
         }
+
+        val addBtn = findViewById<Button>(R.id.btnAdd)
+        val toastMessage = String.format("Click Add Table Button")
+        addBtn.setOnClickListener {
+            (showToast(toastMessage))
+        }
+
     }
 
     private fun showToast(message: String) {
