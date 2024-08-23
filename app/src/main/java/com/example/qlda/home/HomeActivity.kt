@@ -2,11 +2,13 @@ package com.example.qlda.home
 
 import CustomButtonWorkspace
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.example.qlda.R
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 
 class HomeActivity : AppCompatActivity() {
@@ -53,14 +55,22 @@ class HomeActivity : AppCompatActivity() {
 
         //TODO: need map to manage the id of specific button
 
+        val inflater = LayoutInflater.from(this)
+
         buttonsData.forEach { (id,text, color) ->
-            val button = CustomButtonWorkspace(this)
-            button.setButtonProperties(id,text, color)
+//            val button = CustomButtonWorkspace(this)
+//            button.setButtonProperties(id,text, color)
+
+            val button = inflater.inflate(R.layout.custom_button_table_workspace, layout, false) as AppCompatButton
+            button.id = id
+            button.text = text
+            button.setBackgroundColor(color)
 
             val toastMessage = String.format("Click Button ID: %d, Text: %s",id,text)
             button.setOnClickListener{
                 (showToast(toastMessage))
             }
+
             layout.addView(button)
         }
     }
