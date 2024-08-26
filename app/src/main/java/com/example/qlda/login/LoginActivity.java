@@ -36,86 +36,93 @@ public class LoginActivity extends AppCompatActivity {
         cbRememberMe = findViewById(R.id.cbRememberMe);
         btnSignIn = findViewById(R.id.btnSignIn);
         tvNeedHelp = findViewById(R.id.tvNeedHelp);
-        Log.d("Firebase", "1: Firebase Auth instance created");
 
         auth = FirebaseAuth.getInstance();
 
-        Log.d("Firebase", "2: Firebase Auth instance initialized");
+        // Retrieve stored user data
+        UserData data = GetUserData();
+
+        // Populate fields if rememberMe is true
+        if (data.rememberMe) {
+            etEmail.setText(data.username);
+            etPassword.setText(data.password);
+            cbRememberMe.setChecked(true);
+        }
 
         // Set click listener for Sign In button
         btnSignIn.setOnClickListener(v -> {
-        String email = etEmail.getText().toString();
-        String password = etPassword.getText().toString();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+            boolean rememberMe = cbRememberMe.isChecked();
 
-        Log.d("cbRememberMe", String.valueOf(cbRememberMe.isActivated()));
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.d("Firebase", "Attempting to sign in with email: " + email);
 
-        if(cbRememberMe.isChecked()){
-            UserData data = GetUserData();
-            email = data.username;
-            password = data.password;
-        }
-
-        if (email.isEmpty() || password.isEmpty())
-        {
-            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Log.d("Firebase", "3: Attempting to sign in with email: " + email);
-
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                if (task.isSuccessful()) {
-                    // Sign in success
-                    Log.d("Firebase", "4: Sign-in successful");
-//                    Toast.makeText(this, "Signed in as " + email, Toast.LENGTH_SHORT).show();
-                    // Navigate to another activity
-                    Intent intent = new Intent(this, HomeActivity.class);
-                    startActivity(intent);
-                    finish(); // Optionally close the current activity
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("Firebase", "5: Sign-in failed", task.getException());
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
+                auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                // Save user data if rememberMe is checked
+                                if (rememberMe) {
+                                    saveUserData(email, password, true);
+                                } else {
+                                    saveUserData("", "", false);
+                                }
+                                // Sign in success
+                                Log.d("Firebase", "Sign-in successful");
+                                Intent intent = new Intent(this, HomeActivity.class);
+                                startActivity(intent);
+                                finish(); // Optionally close the current activity
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Firebase", "Sign-in failed", task.getException());
+                                Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
         });
 
         // Set click listener for "Need help signing in?" text
         tvNeedHelp.setOnClickListener(v -> {
-        // Example: Show a Toast message or navigate to a help screen
-        Toast.makeText(this, "Help is on the way!", Toast.LENGTH_SHORT).show();
-    });
+            // Example: Show a Toast message or navigate to a help screen
+            Toast.makeText(this, "Help is on the way!", Toast.LENGTH_SHORT).show();
+        });
     }
 
-    public UserData GetUserData(){
+    private UserData GetUserData() {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
         String storedUsername = sharedPreferences.getString("username", null);
         String storedPassword = sharedPreferences.getString("password", null);
+        boolean storedRememberMe = sharedPreferences.getBoolean("rememberMe", false);
 
-        if (storedUsername == null && storedPassword == null) {
-            editor.putString("username", "doanviet@gmail.com");
-            editor.putString("password", "123456");
-            storedUsername = "doanviet@gmail.com";
-            storedPassword = "123456";
-
-            editor.apply();
+        if (storedUsername == null && storedPassword == null && !storedRememberMe) {
+            storedUsername = "";
+            storedPassword = "";
+            storedRememberMe = false;
         }
 
-        return new UserData(storedUsername, storedPassword);
+        return new UserData(storedUsername, storedPassword, storedRememberMe);
     }
 
-    private static class UserData{
+    private void saveUserData(String username, String password, boolean rememberMe) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.putBoolean("rememberMe", rememberMe);
+        editor.apply();
+    }
+
+    private static class UserData {
         String username;
         String password;
+        boolean rememberMe;
 
-        UserData(String name, String pass){
-            this.username = name;
-            this.password = pass;
+        UserData(String username, String password, boolean rememberMe) {
+            this.username = username;
+            this.password = password;
+            this.rememberMe = rememberMe;
         }
     }
 }
