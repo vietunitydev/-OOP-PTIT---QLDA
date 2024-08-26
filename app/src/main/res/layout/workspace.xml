@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
@@ -75,25 +74,12 @@
             tools:ignore="ButtonStyle"
             android:importantForAccessibility="no"/>
     </LinearLayout>
-    <RelativeLayout
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topPanel"
-        android:layout_alignParentBottom="true">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_user"
-                app:srcCompat="@drawable/ic_launcher_background" />
-        </RelativeLayout>
-
-    </RelativeLayout>
-
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

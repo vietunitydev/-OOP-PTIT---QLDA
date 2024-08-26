@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
+import androidx.viewpager2.widget.ViewPager2
 
 class HomeActivity : AppCompatActivity() {
 
@@ -67,6 +68,18 @@ class HomeActivity : AppCompatActivity() {
             val toastMessage = String.format("Click Button ID: %d, Text: %s",id,text)
             button.setOnClickListener{
                 (showToast(toastMessage))
+
+                setContentView(R.layout.workspace)
+
+                val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+                val imageList = listOf(
+                    R.drawable.ic_bell,
+                    R.drawable.ic_card,
+                    R.drawable.ic_table
+                )
+
+                val adapter = ImagePagerAdapter(imageList)
+                viewPager.adapter = adapter
             }
 
             layout.addView(button)
