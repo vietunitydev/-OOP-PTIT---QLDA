@@ -49,9 +49,7 @@ public class WorkSpaceFragment extends Fragment {
 
         TextView titleTextView = view.findViewById(R.id.itemTextView);
         titleTextView.setText(title);
-        titleTextView.setBackgroundColor(ContextCompat.getColor(requireContext(), color));
         setupViewPager(view);
-
         return view;
     }
 
@@ -61,11 +59,11 @@ public class WorkSpaceFragment extends Fragment {
         ImagePagerAdapter adapter = new ImagePagerAdapter(imageList);
         viewPager.setAdapter(adapter);
 
-//        Button backButton = view.findViewById(R.id.bt);
-//        backButton.setOnClickListener(v -> {
-//            if (getActivity() != null) {
-//                ((HomeActivity) getActivity()).goBackToPreviousFragment();
-//            }
-//        });
+        Button backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            if (getActivity() != null) {
+                ((HomeActivity) getActivity()).goBackToPreviousFragment();
+            }
+        });
     }
 }
