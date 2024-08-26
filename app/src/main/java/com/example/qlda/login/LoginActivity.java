@@ -1,6 +1,7 @@
 package com.example.qlda.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -35,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         cbRememberMe = findViewById(R.id.cbRememberMe);
         btnSignIn = findViewById(R.id.btnSignIn);
         tvNeedHelp = findViewById(R.id.tvNeedHelp);
-
         Log.d("Firebase", "1: Firebase Auth instance created");
 
         auth = FirebaseAuth.getInstance();
@@ -47,9 +47,20 @@ public class LoginActivity extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
-        if (email.isEmpty() || password.isEmpty()) {
+        Log.d("cbRememberMe", String.valueOf(cbRememberMe.isActivated()));
+
+        if(cbRememberMe.isChecked()){
+            UserData data = GetUserData();
+            email = data.username;
+            password = data.password;
+        }
+
+        if (email.isEmpty() || password.isEmpty())
+        {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else
+        {
             Log.d("Firebase", "3: Attempting to sign in with email: " + email);
 
             auth.signInWithEmailAndPassword(email, password)
@@ -57,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Sign in success
                     Log.d("Firebase", "4: Sign-in successful");
-                    Toast.makeText(this, "Signed in as " + email, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "Signed in as " + email, Toast.LENGTH_SHORT).show();
                     // Navigate to another activity
                     Intent intent = new Intent(this, HomeActivity.class);
                     startActivity(intent);
@@ -69,12 +80,42 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
-    });
+
+        });
 
         // Set click listener for "Need help signing in?" text
         tvNeedHelp.setOnClickListener(v -> {
         // Example: Show a Toast message or navigate to a help screen
         Toast.makeText(this, "Help is on the way!", Toast.LENGTH_SHORT).show();
     });
+    }
+
+    public UserData GetUserData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        String storedUsername = sharedPreferences.getString("username", null);
+        String storedPassword = sharedPreferences.getString("password", null);
+
+        if (storedUsername == null && storedPassword == null) {
+            editor.putString("username", "doanviet@gmail.com");
+            editor.putString("password", "123456");
+            storedUsername = "doanviet@gmail.com";
+            storedPassword = "123456";
+
+            editor.apply();
+        }
+
+        return new UserData(storedUsername, storedPassword);
+    }
+
+    private static class UserData{
+        String username;
+        String password;
+
+        UserData(String name, String pass){
+            this.username = name;
+            this.password = pass;
+        }
     }
 }
