@@ -13,6 +13,7 @@
         android:background="@drawable/item_background">
 
         <Button
+            android:id="@+id/backButton"
             android:layout_width="48dp"
             android:layout_height="55dp"
             android:padding="0dp"
@@ -80,6 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topPanel"
+        android:background="@color/white"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

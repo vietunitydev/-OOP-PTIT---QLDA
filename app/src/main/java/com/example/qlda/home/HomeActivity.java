@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.qlda.R;
 
@@ -20,6 +21,8 @@ public class HomeActivity extends AppCompatActivity {
     private int buttonIdCounter = 5;
     private LayoutInflater inflater;
     private LinearLayout layout;
+
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,19 +65,28 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(v -> {
             String toastMessage = String.format("Click Button ID: %d, Text: %s", id, text);
             showToast(toastMessage);
-            setContentView(R.layout.workspace);
-            setupViewPager();
+//            setContentView(R.layout.workspace);
+//            setupViewPager();
+            WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(text, color);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, contentFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         layout.addView(button);
     }
 
-    private void setupViewPager() {
-        ViewPager2 viewPager = findViewById(R.id.viewPager);
-        List<Integer> imageList = Arrays.asList(R.drawable.ic_bell, R.drawable.ic_card, R.drawable.ic_table);
-        ImagePagerAdapter adapter = new ImagePagerAdapter(imageList);
-        viewPager.setAdapter(adapter);
+    public void goBackToPreviousFragment() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            // out activity
+            finish();
+        }
     }
+
 
     private void showToast(String message) {
         VLog.Toast(this,message);
