@@ -9,10 +9,6 @@ class CustomButtonWorkspace @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : AppCompatButton(context, attrs, defStyleAttr) {
 
-//    init {
-//
-//    }
-
     fun setButtonProperties(id: Int, text: String, color: Int) {
         this.id = id
         this.text = text
