@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.qlda.R;
 import com.example.qlda.home.HomeActivity;
+import com.example.qlda.home.LoginFragment;
+import com.example.qlda.home.WorkSpaceFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
@@ -20,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private CheckBox cbRememberMe;
     private Button btnSignIn;
+    private Button btnSignUp;
     private TextView tvNeedHelp;
 
     // Firebase authentication instance
@@ -35,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         cbRememberMe = findViewById(R.id.cbRememberMe);
         btnSignIn = findViewById(R.id.btnSignIn);
+        btnSignUp = findViewById(R.id.btnSignUp);
         tvNeedHelp = findViewById(R.id.tvNeedHelp);
 
         auth = FirebaseAuth.getInstance();
@@ -81,6 +85,17 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
             }
+        });
+
+        btnSignUp.setOnClickListener(v -> {
+            Toast.makeText(this, "btnSignUp", Toast.LENGTH_SHORT).show();
+
+            LoginFragment contentFragment = LoginFragment.newInstance();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_login, contentFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         // Set click listener for "Need help signing in?" text

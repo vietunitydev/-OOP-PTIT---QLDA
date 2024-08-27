@@ -6,13 +6,17 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="16dp"
-        >
+        android:padding="16dp">
         <ImageView
             android:id="@+id/logo"
             android:layout_width="100dp"
@@ -26,7 +30,7 @@
             android:id="@+id/tvSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in"
+            android:text="@string/sign_up"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
@@ -48,6 +52,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_marginTop="16dp"
+            android:autofillHints="" />
+
+        <!-- Password EditText -->
+        <EditText
+            android:id="@+id/etRePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ConfirmPass"
             android:inputType="textPassword"
             android:layout_marginTop="16dp"
             android:autofillHints="" />
@@ -99,8 +113,4 @@
             android:layout_gravity="center" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment_container_login"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 </RelativeLayout>
