@@ -7,14 +7,13 @@
     android:gravity="center"
     android:padding="16dp">
 
-    <!-- Logo ImageView -->
-<!--    <ImageView-->
-<!--        android:id="@+id/logo"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:src="@drawable/trane_logo" &lt;!&ndash; Your logo image &ndash;&gt;-->
-<!--    android:contentDescription="Logo"-->
-<!--    android:layout_gravity="center" />-->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_user"
+        android:contentDescription="Logo"
+        android:layout_gravity="center" />
 
     <!-- Sign In TextView -->
     <TextView
@@ -56,14 +55,32 @@
         android:layout_marginTop="16dp" />
 
     <!-- Sign In Button -->
-    <Button
-        android:id="@+id/btnSignIn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sign_in"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/black"
-        android:textColor="@android:color/white" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_in"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/black"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/black"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
 
     <!-- Need Help TextView -->
     <TextView
