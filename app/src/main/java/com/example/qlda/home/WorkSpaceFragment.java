@@ -54,9 +54,12 @@ public class WorkSpaceFragment extends Fragment {
     }
 
     private void setupViewPager(View view) {
+
+        // container chứa view của các page mình cần show
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
+
         List<Integer> imageList = Arrays.asList(R.drawable.ic_bell, R.drawable.ic_card, R.drawable.ic_table);
-        ImagePagerAdapter adapter = new ImagePagerAdapter(imageList);
+        WorkListAdapter adapter = new WorkListAdapter(imageList);
         viewPager.setAdapter(adapter);
 
         Button backButton = view.findViewById(R.id.backButton);
