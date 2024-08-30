@@ -13,6 +13,7 @@
     <string name="text_hint_find">Tìm kiếm</string>
     <string name="text_your_workspace">CÁC KHÔNG GIAN LÀM VIỆC CỦA BẠN</string>
     <string name="text_plus_icon">+</string>
+    <string name="text_x_icon">x</string>
     <string name="signal_icon">signal_icon</string>
     <string name="profile_image">profile_image</string>
 </resources>
