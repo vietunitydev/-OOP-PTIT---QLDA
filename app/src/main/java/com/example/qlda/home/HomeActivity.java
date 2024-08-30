@@ -56,11 +56,6 @@ public class HomeActivity extends AppCompatActivity {
         button.setBackgroundColor(ContextCompat.getColor(this, table.getRandomColor()));
 
         button.setOnClickListener(v -> {
-//            String toastMessage = String.format("Click Button ID: %d, Text: %s", id, text);
-//            MyCustomLog.Toast(this,toastMessage);
-//            setContentView(R.layout.workspace);
-//            setupViewPager();
-
             WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(table);
 
             getSupportFragmentManager().beginTransaction()
@@ -79,15 +74,6 @@ public class HomeActivity extends AppCompatActivity {
             // out activity
             finish();
         }
-    }
-    private int getRandomColor() {
-        int[] colors = {
-            R.color.blue,
-            R.color.purple,
-            R.color.pink,
-            R.color.deep_purple
-        };
-        return colors[new Random().nextInt(colors.length)];
     }
 }
 
