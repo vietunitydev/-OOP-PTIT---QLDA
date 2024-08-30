@@ -11,8 +11,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.qlda.R;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -44,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
             createButton(data);
         }
 
-        Button addBtn = findViewById(R.id.btnAdd);
+        Button addBtn = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
 //        addBtn.setOnClickListener(v -> {
 //            MyCustomLog.Toast(this,"Click Add Table Button");

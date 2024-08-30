@@ -60,7 +60,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             this.inflater = inflater;
 
             this.wl_content = itemView.findViewById(R.id.wl_content);
-            this.addElement = itemView.findViewById(R.id.btnAdd);
+            this.addElement = itemView.findViewById(R.id.wl_content_btnAdd);
         }
 
         private void Init(WorkListPage workListPage)

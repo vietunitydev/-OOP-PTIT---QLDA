@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/item_drag"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="horizontal"
-android:layout_marginTop="10dp"
-android:background="@color/white">
-<TextView
-    android:id="@+id/item_drag_text"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_drag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="15dp"
-    android:paddingTop="5dp"
-    android:text="AAAAAA"
-    android:textSize="20sp"
-    android:textColor="@color/black" />
+        android:layout_margin="3dp"
+    android:elevation="4dp"
+    android:background="@drawable/rounded_background">
+    <Button
+        android:id="@+id/item_drag_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@android:color/transparent"/>
+    <TextView
+        android:id="@+id/item_drag_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        tools:ignore="RtlSymmetry" />
 </FrameLayout>
