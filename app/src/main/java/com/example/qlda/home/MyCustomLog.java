@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-public class VLog {
+public class MyCustomLog {
     public static void Toast(Context context,String message) {
         Toast.makeText(context , message, Toast.LENGTH_SHORT).show();
     }

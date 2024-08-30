@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -61,7 +60,7 @@ public class WorkSpaceFragment extends Fragment {
         // truyển ảnh vào để set content cho 1 worklist adapter
         // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
 
-        VLog.DebugLog("Crash UI Content","Set Up View Pager = 1");
+        MyCustomLog.DebugLog("Crash UI Content","Set Up View Pager = 1");
         List<Integer> imageList = Arrays.asList(R.drawable.ic_bell, R.drawable.ic_card, R.drawable.ic_table);
         WorkListAdapter adapter = new WorkListAdapter(inflater,imageList,5);
         viewPager.setAdapter(adapter);
