@@ -1,8 +1,12 @@
 package com.example.qlda.home;
 
+import com.example.qlda.R;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class AppData {
     private List<Table> tables;
@@ -45,7 +49,7 @@ public class AppData {
     }
 }
 
-class Table {
+class Table implements Serializable {
     private int id;
     private String tableName;
     private String color;
@@ -84,6 +88,16 @@ class Table {
 
     public void addWorkListPage(WorkListPage workListPage) {
         workListPages.add(workListPage);
+    }
+
+    public int getRandomColor() {
+        int[] colors = {
+                R.color.blue,
+                R.color.purple,
+                R.color.pink,
+                R.color.deep_purple
+        };
+        return colors[new Random().nextInt(colors.length)];
     }
 }
 

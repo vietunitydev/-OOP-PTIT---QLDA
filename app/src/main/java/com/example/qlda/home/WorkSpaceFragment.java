@@ -17,17 +17,13 @@ import java.util.List;
 
 public class WorkSpaceFragment extends Fragment {
 
-    private static final String ARG_TITLE = "title";
-    private static final String ARG_COLOR = "color";
+    private static final String ARG_TABLE = "arg_table";
+    Table table;
 
-    private String title;
-    private int color;
-
-    public static WorkSpaceFragment newInstance(String title, int color) {
+    public static WorkSpaceFragment newInstance(Table table) {
         WorkSpaceFragment fragment = new WorkSpaceFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_TITLE, title);
-        args.putInt(ARG_COLOR, color);
+        args.putSerializable(ARG_TABLE, table);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,8 +32,7 @@ public class WorkSpaceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            title = getArguments().getString(ARG_TITLE);
-            color = getArguments().getInt(ARG_COLOR);
+            table = (Table) getArguments().getSerializable(ARG_TABLE);
         }
     }
 
@@ -47,8 +42,11 @@ public class WorkSpaceFragment extends Fragment {
         View view = inflater.inflate(R.layout.workspace, container, false);
 
         TextView titleTextView = view.findViewById(R.id.itemTextView);
-        titleTextView.setText(title);
-        setupViewPager(inflater, view);
+        if(table != null){
+            titleTextView.setText(table.getTableName());
+            setupViewPager(inflater, view);
+        }
+
         return view;
     }
 

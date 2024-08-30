@@ -41,29 +41,30 @@ public class HomeActivity extends AppCompatActivity {
         List<Table> table = appData.getTables();
 
         for (Table data : table) {
-            createButton(data.getId(), data.getTableName(), getRandomColor());
+            createButton(data);
         }
 
         Button addBtn = findViewById(R.id.btnAdd);
         // Add new button on click
-        addBtn.setOnClickListener(v -> {
-            MyCustomLog.Toast(this,"Click Add Table Button");
-            createButton(buttonIdCounter++, "New Table", getRandomColor());
-        });
+//        addBtn.setOnClickListener(v -> {
+//            MyCustomLog.Toast(this,"Click Add Table Button");
+//            createButton(buttonIdCounter++, "New Table", getRandomColor());
+//        });
     }
 
-    private void createButton(int id, String text, int color) {
+    private void createButton(Table table) {
         AppCompatButton button = (AppCompatButton) inflater.inflate(R.layout.custom_button_table_workspace, layout, false);
-        button.setId(id);
-        button.setText(text);
-        button.setBackgroundColor(ContextCompat.getColor(this, color));
+        button.setId(table.getId());
+        button.setText(table.getTableName());
+        button.setBackgroundColor(ContextCompat.getColor(this, table.getRandomColor()));
 
         button.setOnClickListener(v -> {
-            String toastMessage = String.format("Click Button ID: %d, Text: %s", id, text);
-            MyCustomLog.Toast(this,toastMessage);
+//            String toastMessage = String.format("Click Button ID: %d, Text: %s", id, text);
+//            MyCustomLog.Toast(this,toastMessage);
 //            setContentView(R.layout.workspace);
 //            setupViewPager();
-            WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(text, color);
+
+            WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(table);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, contentFragment)
