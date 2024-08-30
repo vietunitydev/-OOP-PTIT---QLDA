@@ -42,7 +42,7 @@ public class WorkSpaceFragment extends Fragment {
         View view = inflater.inflate(R.layout.workspace, container, false);
 
         TextView titleTextView = view.findViewById(R.id.itemTextView);
-        if(table != null){
+        if (table != null) {
             titleTextView.setText(table.getTableName());
             setupViewPager(inflater, view);
         }
@@ -51,15 +51,8 @@ public class WorkSpaceFragment extends Fragment {
     }
 
     private void setupViewPager(LayoutInflater inflater, View view) {
-
-        // container chứa view của các page mình cần show
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
-
-        // truyển ảnh vào để set content cho 1 worklist adapter
-        // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
-
-        MyCustomLog.DebugLog("Crash UI Content","Set Up View Pager = 1");
-        WorkListAdapter adapter = new WorkListAdapter(inflater,table.getWorkListPages());
+        WorkListAdapter adapter = new WorkListAdapter(inflater, table.getWorkListPages(), this::showItemDetailFragment);
         viewPager.setAdapter(adapter);
 
         Button backButton = view.findViewById(R.id.backButton);
@@ -68,5 +61,13 @@ public class WorkSpaceFragment extends Fragment {
                 ((HomeActivity) getActivity()).goBackToPreviousFragment();
             }
         });
+    }
+
+    private void showItemDetailFragment() {
+        ItemDetailFragment contentFragment = ItemDetailFragment.newInstance();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, contentFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

@@ -17,14 +17,15 @@ import com.example.qlda.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWorkHolder>{
-    LayoutInflater inflater;
+public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWorkHolder> {
+    private final LayoutInflater inflater;
+    private final List<WorkListPage> workListPages;
+    private final OnElementClickListener onElementClickListener;
 
-    List<WorkListPage> workListPages;
-
-    public WorkListAdapter(LayoutInflater inflater, List<WorkListPage> workListPage) {
+    public WorkListAdapter(LayoutInflater inflater, List<WorkListPage> workListPage, OnElementClickListener onElementClickListener) {
         this.inflater = inflater;
         this.workListPages = workListPage;
+        this.onElementClickListener = onElementClickListener;
     }
 
     @NonNull
@@ -32,17 +33,12 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
     public ListWorkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.work_list, parent, false);
-
-        return new WorkListAdapter.ListWorkHolder(view, inflater);
+        return new ListWorkHolder(view, inflater, onElementClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListWorkHolder holder, int position) {
-        // hàm này dùng để set content cho cái adapter mà mình cần
-        // ví dụ set image cho background
-        // holder.imageView.setImageResource(imageList.get(position));
         WorkListPage currentPage = workListPages.get(position);
-        // Truyền WorkListPage hiện tại vào holder
         holder.Init(currentPage);
     }
 
@@ -51,42 +47,40 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
         return workListPages.size();
     }
 
+    public interface OnElementClickListener {
+        void onElementClick();
+    }
+
     public static class ListWorkHolder extends RecyclerView.ViewHolder {
-        LayoutInflater inflater;
-        final LinearLayout wl_content;
-        final LinearLayout wl_content_scroll;
-        final Button addElement;
-        List<FrameLayout> elements = new ArrayList<>();
-        public ListWorkHolder(@NonNull View itemView, LayoutInflater inflater) {
+        private final LayoutInflater inflater;
+        private final LinearLayout wl_content;
+        private final LinearLayout wl_content_scroll;
+        private final Button addElement;
+        private final OnElementClickListener onElementClickListener;
+        private final List<FrameLayout> elements = new ArrayList<>();
+
+        public ListWorkHolder(@NonNull View itemView, LayoutInflater inflater, OnElementClickListener onElementClickListener) {
             super(itemView);
             this.inflater = inflater;
-
             this.wl_content = itemView.findViewById(R.id.wl_content);
             this.wl_content_scroll = itemView.findViewById(R.id.wl_content_scrollview);
             this.addElement = itemView.findViewById(R.id.wl_content_btnAdd);
+            this.onElementClickListener = onElementClickListener;
         }
 
-        private void Init(WorkListPage workListPage)
-        {
-            // init tên của page
+        private void Init(WorkListPage workListPage) {
             TextView text = wl_content.findViewById(R.id.wl_content_worklist_name);
             text.setText(workListPage.getWorkListName());
 
             List<Element> elms = workListPage.getElements();
-            for (int i =0; i< elms.size(); i++)
-            {
-                // tạo các element dựa vào số element của page này được truyền vào
+            for (int i = 0; i < elms.size(); i++) {
                 CreateElement(i, elms.get(i).getElementName());
             }
 
-            addElement.setOnClickListener(v -> {
-                CreateElement(elements.size(), "new element");
-            });
+            addElement.setOnClickListener(v -> CreateElement(elements.size(), "new element"));
         }
 
-        private void CreateElement(int index, String cnt)
-        {
-            // create các element ở đây
+        private void CreateElement(int index, String cnt) {
             FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, wl_content, false);
             elements.add(element);
             TextView text = element.findViewById(R.id.item_drag_text);
@@ -94,7 +88,9 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
             Button btn = element.findViewById(R.id.item_drag_btn);
             btn.setOnClickListener(v -> {
-                MyCustomLog.DebugLog("Element", "On Click one Element");
+                if (onElementClickListener != null) {
+                    onElementClickListener.onElementClick();
+                }
             });
 
             wl_content_scroll.addView(element, index);
