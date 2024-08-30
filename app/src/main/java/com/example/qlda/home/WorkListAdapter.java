@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +31,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
     @Override
     public ListWorkHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.work_list, parent, false);
+                .inflate(R.layout.layout_worklist, parent, false);
         return new ListWorkHolder(view, inflater, onElementClickListener);
     }
 

@@ -12,9 +12,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.qlda.R;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class WorkSpaceFragment extends Fragment {
 
     private static final String ARG_TABLE = "arg_table";
@@ -39,7 +36,7 @@ public class WorkSpaceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.workspace, container, false);
+        View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
         TextView titleTextView = view.findViewById(R.id.itemTextView);
         if (table != null) {

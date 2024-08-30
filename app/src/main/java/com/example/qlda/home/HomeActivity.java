@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat;
 import com.example.qlda.R;
 
 import java.util.List;
-import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -50,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createButton(Table table) {
-        AppCompatButton button = (AppCompatButton) inflater.inflate(R.layout.custom_button_table_workspace, layout, false);
+        AppCompatButton button = (AppCompatButton) inflater.inflate(R.layout.button_table, layout, false);
         button.setId(table.getId());
         button.setText(table.getTableName());
         button.setBackgroundColor(ContextCompat.getColor(this, table.getRandomColor()));
