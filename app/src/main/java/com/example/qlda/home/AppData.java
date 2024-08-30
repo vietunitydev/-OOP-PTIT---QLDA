@@ -27,10 +27,18 @@ public class AppData {
         Table table1 = new Table(1, "Project Management", "FF5733");
         Table table2 = new Table(2, "CTDL", "FF5733");
         Table table3 = new Table(3, "Meta Rush", "FF5733");
+        Table table4 = new Table(3, "Meta Rush", "FF5733");
+        Table table5 = new Table(3, "Meta Rush", "FF5733");
+        Table table6 = new Table(3, "Meta Rush", "FF5733");
+        Table table7 = new Table(3, "Meta Rush", "FF5733");
 
         addTable(table1);
         addTable(table2);
         addTable(table3);
+        addTable(table4);
+        addTable(table5);
+        addTable(table6);
+        addTable(table7);
 
         for (Table table : tables) {
             for (int i = 1; i <= 4; i++) {
