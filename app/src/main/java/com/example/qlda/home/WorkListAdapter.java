@@ -65,11 +65,15 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
         private void Init(WorkListPage workListPage)
         {
+            // init tên của page
+            TextView text = wl_content.findViewById(R.id.wl_content_worklist_name);
+            text.setText(workListPage.getWorkListName());
+
             List<Element> elms = workListPage.getElements();
             for (int i =0; i< elms.size(); i++)
             {
                 // tạo các element dựa vào số element của page này được truyền vào
-                CreateElement(i, elms.get(i).getElementName());
+                CreateElement(i+1, elms.get(i).getElementName());
             }
         }
 

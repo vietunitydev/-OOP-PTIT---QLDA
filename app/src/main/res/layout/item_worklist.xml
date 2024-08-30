@@ -5,7 +5,7 @@
     android:id="@+id/item_drag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:layout_margin="3dp"
+    android:layout_margin="3dp"
     android:elevation="4dp"
     android:background="@drawable/rounded_background">
     <Button
