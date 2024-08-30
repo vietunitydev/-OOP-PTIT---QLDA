@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
@@ -29,7 +30,7 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.screen_user, container, false);
+        View view = inflater.inflate(R.layout.screen_detail_worklist_element, container, false);
 
         setupItemDetail(inflater, view);
 
@@ -44,11 +45,11 @@ public class ItemDetailFragment extends Fragment {
         // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
 
         // back button implement
-//        Button backButton = view.findViewById(R.id.backButton);
-//        backButton.setOnClickListener(v -> {
-//            if (getActivity() != null) {
-//                ((HomeActivity) getActivity()).goBackToPreviousFragment();
-//            }
-//        });
+        Button backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            if (getActivity() != null) {
+                ((HomeActivity) getActivity()).goBackToPreviousFragment();
+            }
+        });
     }
 }
