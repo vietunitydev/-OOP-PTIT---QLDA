@@ -22,8 +22,6 @@ public class HomeActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private LinearLayout layout;
 
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
