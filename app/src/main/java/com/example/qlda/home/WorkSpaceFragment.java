@@ -49,17 +49,21 @@ public class WorkSpaceFragment extends Fragment {
 
         TextView titleTextView = view.findViewById(R.id.itemTextView);
         titleTextView.setText(title);
-        setupViewPager(view);
+        setupViewPager(inflater, view);
         return view;
     }
 
-    private void setupViewPager(View view) {
+    private void setupViewPager(LayoutInflater inflater, View view) {
 
         // container chứa view của các page mình cần show
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
 
+        // truyển ảnh vào để set content cho 1 worklist adapter
+        // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
+
+        VLog.DebugLog("Crash UI Content","Set Up View Pager = 1");
         List<Integer> imageList = Arrays.asList(R.drawable.ic_bell, R.drawable.ic_card, R.drawable.ic_table);
-        WorkListAdapter adapter = new WorkListAdapter(imageList);
+        WorkListAdapter adapter = new WorkListAdapter(inflater,imageList,5);
         viewPager.setAdapter(adapter);
 
         Button backButton = view.findViewById(R.id.backButton);
