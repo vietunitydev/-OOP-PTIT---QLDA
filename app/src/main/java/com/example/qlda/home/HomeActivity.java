@@ -16,7 +16,6 @@ import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private int buttonIdCounter = 5;
     private LayoutInflater inflater;
     private LinearLayout layout;
 

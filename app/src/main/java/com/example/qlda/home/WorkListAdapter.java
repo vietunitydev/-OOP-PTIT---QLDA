@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
     public static class ListWorkHolder extends RecyclerView.ViewHolder {
         LayoutInflater inflater;
         final LinearLayout wl_content;
+        final LinearLayout wl_content_scroll;
         final Button addElement;
         List<FrameLayout> elements = new ArrayList<>();
         public ListWorkHolder(@NonNull View itemView, LayoutInflater inflater) {
@@ -60,6 +62,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             this.inflater = inflater;
 
             this.wl_content = itemView.findViewById(R.id.wl_content);
+            this.wl_content_scroll = itemView.findViewById(R.id.wl_content_scrollview);
             this.addElement = itemView.findViewById(R.id.wl_content_btnAdd);
         }
 
@@ -73,8 +76,12 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             for (int i =0; i< elms.size(); i++)
             {
                 // tạo các element dựa vào số element của page này được truyền vào
-                CreateElement(i+1, elms.get(i).getElementName());
+                CreateElement(i, elms.get(i).getElementName());
             }
+
+            addElement.setOnClickListener(v -> {
+                CreateElement(elements.size(), "new element");
+            });
         }
 
         private void CreateElement(int index, String cnt)
@@ -85,7 +92,12 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             TextView text = element.findViewById(R.id.item_drag_text);
             text.setText(cnt);
 
-            wl_content.addView(element, index);
+            Button btn = element.findViewById(R.id.item_drag_btn);
+            btn.setOnClickListener(v -> {
+                MyCustomLog.DebugLog("Element", "On Click one Element");
+            });
+
+            wl_content_scroll.addView(element, index);
         }
     }
 }
