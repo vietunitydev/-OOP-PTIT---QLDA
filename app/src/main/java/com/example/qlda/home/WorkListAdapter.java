@@ -18,15 +18,12 @@ import java.util.List;
 
 public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWorkHolder>{
     LayoutInflater inflater;
-    private final List<Integer> imageList;
 
-    private int numberAdapt;
+    List<WorkListPage> workListPages;
 
-
-    public WorkListAdapter(LayoutInflater inflater, List<Integer> imageList, int numberApt) {
+    public WorkListAdapter(LayoutInflater inflater, List<WorkListPage> workListPage) {
         this.inflater = inflater;
-        this.imageList = imageList;
-        this.numberAdapt = numberApt;
+        this.workListPages = workListPage;
     }
 
     @NonNull
@@ -48,7 +45,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
     @Override
     public int getItemCount() {
-        return numberAdapt;
+        return workListPages.size();
     }
 
     public static class ListWorkHolder extends RecyclerView.ViewHolder {

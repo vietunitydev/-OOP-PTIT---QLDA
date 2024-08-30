@@ -59,8 +59,7 @@ public class WorkSpaceFragment extends Fragment {
         // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
 
         MyCustomLog.DebugLog("Crash UI Content","Set Up View Pager = 1");
-        List<Integer> imageList = Arrays.asList(R.drawable.ic_bell, R.drawable.ic_card, R.drawable.ic_table);
-        WorkListAdapter adapter = new WorkListAdapter(inflater,imageList,5);
+        WorkListAdapter adapter = new WorkListAdapter(inflater,table.getWorkListPages());
         viewPager.setAdapter(adapter);
 
         Button backButton = view.findViewById(R.id.backButton);
