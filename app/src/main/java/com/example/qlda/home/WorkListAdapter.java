@@ -32,7 +32,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.work_list, parent, false);
 
-        return new WorkListAdapter.ListWorkHolder(view, inflater,6);
+        return new WorkListAdapter.ListWorkHolder(view, inflater);
     }
 
     @Override
@@ -40,7 +40,9 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
         // hàm này dùng để set content cho cái adapter mà mình cần
         // ví dụ set image cho background
         // holder.imageView.setImageResource(imageList.get(position));
-
+        WorkListPage currentPage = workListPages.get(position);
+        // Truyền WorkListPage hiện tại vào holder
+        holder.Init(currentPage);
     }
 
     @Override
@@ -50,27 +52,24 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
     public static class ListWorkHolder extends RecyclerView.ViewHolder {
         LayoutInflater inflater;
-
-        int numberElement = 0;
-
         final LinearLayout wl_content;
         final Button addElement;
         List<FrameLayout> elements = new ArrayList<>();
-        public ListWorkHolder(@NonNull View itemView, LayoutInflater inflater, int numberE) {
+        public ListWorkHolder(@NonNull View itemView, LayoutInflater inflater) {
             super(itemView);
             this.inflater = inflater;
+
             this.wl_content = itemView.findViewById(R.id.wl_content);
             this.addElement = itemView.findViewById(R.id.btnAdd);
-            this.numberElement = numberE;
-            Init();
         }
 
-        private void Init()
+        private void Init(WorkListPage workListPage)
         {
-            for (int i =0; i<numberElement; i++)
+            List<Element> elms = workListPage.getElements();
+            for (int i =0; i< elms.size(); i++)
             {
                 // tạo các element dựa vào số element của page này được truyền vào
-                CreateElement(i, "have to custom content");
+                CreateElement(i, elms.get(i).getElementName());
             }
         }
 
