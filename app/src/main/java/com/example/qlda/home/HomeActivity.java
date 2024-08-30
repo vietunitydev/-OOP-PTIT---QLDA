@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.qlda.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -33,22 +34,20 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayout downLayout = findViewById(R.id.bottom_navigation);
         DownNavigation downNavigation = new DownNavigation(this, downLayout);
 
-        // Create buttons dynamically
-        List<ButtonData> buttonsData = Arrays.asList(
-                new ButtonData(1, "CTDL", R.color.blue),
-                new ButtonData(2, "English", R.color.purple),
-                new ButtonData(3, "Meta rush", R.color.pink),
-                new ButtonData(4, "Study", R.color.deep_purple)
-        );
+        // fetch Data for app
+        AppData appData = new AppData();
+        appData.fetchData();
 
-        for (ButtonData data : buttonsData) {
-            createButton(data.getId(), data.getText(), data.getColor());
+        List<Table> table = appData.getTables();
+
+        for (Table data : table) {
+            createButton(data.getId(), data.getTableName(), getRandomColor());
         }
 
         Button addBtn = findViewById(R.id.btnAdd);
         // Add new button on click
         addBtn.setOnClickListener(v -> {
-            showToast("Click Add Table Button");
+            MyCustomLog.Toast(this,"Click Add Table Button");
             createButton(buttonIdCounter++, "New Table", getRandomColor());
         });
     }
@@ -61,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
 
         button.setOnClickListener(v -> {
             String toastMessage = String.format("Click Button ID: %d, Text: %s", id, text);
-            showToast(toastMessage);
+            MyCustomLog.Toast(this,toastMessage);
 //            setContentView(R.layout.workspace);
 //            setupViewPager();
             WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(text, color);
@@ -83,12 +82,6 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
-    private void showToast(String message) {
-        MyCustomLog.Toast(this,message);
-    }
-
     private int getRandomColor() {
         int[] colors = {
             R.color.blue,
@@ -97,30 +90,6 @@ public class HomeActivity extends AppCompatActivity {
             R.color.deep_purple
         };
         return colors[new Random().nextInt(colors.length)];
-    }
-
-    private static class ButtonData {
-        private final int id;
-        private final String text;
-        private final int color;
-
-        ButtonData(int id, String text, int color) {
-            this.id = id;
-            this.text = text;
-            this.color = color;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public int getColor() {
-            return color;
-        }
     }
 }
 

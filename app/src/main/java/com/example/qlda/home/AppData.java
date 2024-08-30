@@ -20,7 +20,7 @@ public class AppData {
     }
 
     public void fetchData() {
-        Table table = new Table(1, "Project Management", "#FF5733");
+        Table table = new Table(1, "Project Management", "FF5733");
 
         addTable(table);
 
