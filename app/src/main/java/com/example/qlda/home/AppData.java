@@ -1,15 +1,18 @@
 package com.example.qlda.home;
 
 import com.example.qlda.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.Random;
 
 public class AppData {
-    private List<Table> tables;
+    public List<Table> tables;
 
     public AppData() {
         tables = new ArrayList<>();
@@ -18,6 +21,7 @@ public class AppData {
     public List<Table> getTables() {
         return tables;
     }
+    FireStoreHelper firestoreHelper = new FireStoreHelper();
 
     public void addTable(Table table) {
         tables.add(table);
@@ -61,6 +65,34 @@ public class AppData {
             }
         }
     }
+
+    public void SaveData(){
+        MyCustomLog.DebugLog("FireBase Store", "Saving Data");
+        for(Table table : tables){
+            firestoreHelper.saveTable(table);
+        }
+        MyCustomLog.DebugLog("FireBase Store", "Saved Data");
+    }
+
+    public void FetchData() {
+        MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
+        firestoreHelper.fetchAllTables(new FireStoreHelper.OnCompleteListener<List<Table>>() {
+            @Override
+            public void onSuccess(List<Table> fetchedTables) {
+                tables.clear();
+
+                tables.addAll(fetchedTables);
+
+                MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                MyCustomLog.DebugLog("FireBase Store", "Failed to Fetch Data: " + e.getMessage());
+            }
+        });
+    }
+
 }
 
 class Table implements Serializable {

@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // fetch Data for app
         AppData appData = new AppData();
-        appData.fetchData();
+        appData.FetchData();
 
         List<Table> table = appData.getTables();
 
