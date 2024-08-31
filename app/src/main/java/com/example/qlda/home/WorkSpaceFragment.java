@@ -60,8 +60,8 @@ public class WorkSpaceFragment extends Fragment {
         });
     }
 
-    private void showItemDetailFragment() {
-        ItemDetailFragment contentFragment = ItemDetailFragment.newInstance();
+    private void showItemDetailFragment(Element e) {
+        ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(e);
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, contentFragment)
                 .addToBackStack(null)

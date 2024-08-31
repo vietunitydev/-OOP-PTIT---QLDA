@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -12,9 +13,13 @@ import com.example.qlda.R;
 
 public class ItemDetailFragment extends Fragment {
 
-    public static ItemDetailFragment newInstance() {
+    private static final String ARG_Element = "arg_element";
+    Element element;
+
+    public static ItemDetailFragment newInstance(Element e) {
         ItemDetailFragment fragment = new ItemDetailFragment();
         Bundle args = new Bundle();
+        args.putSerializable(ARG_Element, e);
         fragment.setArguments(args);
         return fragment;
     }
@@ -23,7 +28,7 @@ public class ItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            table = (Table) getArguments().getSerializable(ARG_TABLE);
+            element = (Element) getArguments().getSerializable(ARG_Element);
         }
     }
 
@@ -43,6 +48,12 @@ public class ItemDetailFragment extends Fragment {
 
         // truyển ảnh vào để set content cho 1 worklist adapter
         // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
+
+        TextView name = view.findViewById(R.id.Title);
+        name.setText(element.getElementName());
+
+        TextView des = view.findViewById(R.id.describe_content);
+        des.setText(element.getDescription());
 
         // back button implement
         Button backButton = view.findViewById(R.id.backButton);

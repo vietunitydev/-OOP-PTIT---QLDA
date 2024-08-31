@@ -115,7 +115,7 @@ class Table implements Serializable {
     }
 }
 
-class WorkListPage {
+class WorkListPage implements Serializable {
     private int id;
     private String workListName;
     private List<Element> elements;
@@ -147,7 +147,7 @@ class WorkListPage {
     }
 }
 
-class Element {
+class Element implements Serializable {
     private int id;
     private String elementName;
     private String description;
