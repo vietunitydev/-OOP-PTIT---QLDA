@@ -82,7 +82,7 @@ public class FireStoreHelper {
 
                     for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
 
-                        MyCustomLog.DebugLog("Firebase Store", document.toString());
+                        MyCustomLog.DebugLog("Firebase Store = Table Doc", document.toString());
                         Table table = document.toObject(Table.class);
 
                         // Fetch WorkListPages for each Table
@@ -115,11 +115,13 @@ public class FireStoreHelper {
     }
 
     private void fetchWorkListPages(int tableId, Table table, OnCompleteListener<Table> listener) {
+        MyCustomLog.DebugLog("Firebase Store = Work List doc", "Fetching");
         db.collection("tables").document(String.valueOf(tableId))
                 .collection("workListPages")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                        MyCustomLog.DebugLog("Firebase Store = Work List doc", document.toString());
                         WorkListPage page = document.toObject(WorkListPage.class);
                         table.addWorkListPage(page);
 
@@ -130,27 +132,31 @@ public class FireStoreHelper {
                     listener.onSuccess(table);
                 })
                 .addOnFailureListener(e -> {
+                    MyCustomLog.DebugLog("Firebase Store = Work List doc", "Failure");
+
                     listener.onFailure(e);
                 });
     }
 
     private void fetchElements(int tableId, WorkListPage page) {
+        MyCustomLog.DebugLog("Firebase Store = Element doc", "Fetching");
+
         db.collection("tables").document(String.valueOf(tableId))
                 .collection("workListPages").document(String.valueOf(page.getId()))
                 .collection("elements")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                        MyCustomLog.DebugLog("Firebase Store = Element Doc", document.toString());
                         Element element = document.toObject(Element.class);
                         page.addElement(element);
                     }
                 })
                 .addOnFailureListener(e -> {
-                    // Xử lý lỗi
+                    MyCustomLog.DebugLog("Firebase Store = Element doc", "Failure");
                 });
     }
 
-    // Định nghĩa interface OnCompleteListener để xử lý kết quả trả về
     public interface OnCompleteListener<T> {
         void onSuccess(T result);
         void onFailure(Exception e);

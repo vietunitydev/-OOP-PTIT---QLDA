@@ -44,6 +44,15 @@ public class AppData {
                 tables.clear();
                 tables.addAll(fetchedTables);
                 MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
+
+                for (Table table : tables) {
+                    for (WorkListPage workListPage : table.getWorkListPages()) {
+                        for (Element element : workListPage.getElements()) {
+                            MyCustomLog.DebugLog("FireBase Store", "Element: " + element.getElementName());
+                        }
+                    }
+                }
+
                 if (listener != null) {
                     listener.onDataFetched();
                 }
@@ -67,10 +76,10 @@ class Table implements Serializable {
     private int id;
     private String tableName;
     private String color;
-    private List<WorkListPage> workListPages;
+    private final List<WorkListPage> workListPages;
 
     public Table(){
-
+        this.workListPages = new ArrayList<>();
     }
 
     public Table(int id, String tableName, String color) {
@@ -122,10 +131,10 @@ class Table implements Serializable {
 class WorkListPage implements Serializable {
     private int id;
     private String workListName;
-    private List<Element> elements;
+    private final List<Element> elements;
 
     public WorkListPage(){
-
+        this.elements = new ArrayList<>();
     }
 
     public WorkListPage(int id, String workListName) {
