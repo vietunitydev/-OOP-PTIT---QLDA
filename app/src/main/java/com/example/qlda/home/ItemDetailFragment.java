@@ -14,12 +14,16 @@ import com.example.qlda.R;
 public class ItemDetailFragment extends Fragment {
 
     private static final String ARG_Element = "arg_element";
-    Element element;
+    private static final String ARG_Parent = "arg_parent";
 
-    public static ItemDetailFragment newInstance(Element e) {
+    Element element;
+    WorkListPage parent;
+
+    public static ItemDetailFragment newInstance(WorkListPage parent, Element e) {
         ItemDetailFragment fragment = new ItemDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_Element, e);
+        args.putSerializable(ARG_Parent, parent);
         fragment.setArguments(args);
         return fragment;
     }
@@ -29,6 +33,7 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             element = (Element) getArguments().getSerializable(ARG_Element);
+            parent = (WorkListPage) getArguments().getSerializable(ARG_Parent);
         }
     }
 
@@ -52,8 +57,11 @@ public class ItemDetailFragment extends Fragment {
         TextView name = view.findViewById(R.id.Title);
         name.setText(element.getElementName());
 
+        TextView parentName = view.findViewById(R.id.Parent);
+        parentName.setText("Nằm bên trong " + parent.getWorkListName());
+
         TextView des = view.findViewById(R.id.describe_content);
-        des.setText(element.getDescription());
+        des.setText("Mô tả : " + element.getDescription());
 
         // back button implement
         Button backButton = view.findViewById(R.id.backButton);

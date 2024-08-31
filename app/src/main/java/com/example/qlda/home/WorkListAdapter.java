@@ -47,7 +47,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
     }
 
     public interface OnElementClickListener {
-        void onElementClick(Element e);
+        void onElementClick(WorkListPage parent, Element e);
     }
 
     public static class ListWorkHolder extends RecyclerView.ViewHolder {
@@ -93,7 +93,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             Button btn = element.findViewById(R.id.item_drag_btn);
             btn.setOnClickListener(v -> {
                 if (onElementClickListener != null) {
-                    onElementClickListener.onElementClick(workListPage.getElements().get(index));
+                    onElementClickListener.onElementClick(workListPage, workListPage.getElements().get(index));
                 }
             });
 
