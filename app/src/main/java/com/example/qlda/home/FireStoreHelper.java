@@ -81,6 +81,8 @@ public class FireStoreHelper {
                     List<Table> tables = new ArrayList<>();
 
                     for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+
+                        MyCustomLog.DebugLog("Firebase Store", document.toString());
                         Table table = document.toObject(Table.class);
 
                         // Fetch WorkListPages for each Table

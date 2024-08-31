@@ -74,25 +74,32 @@ public class AppData {
         MyCustomLog.DebugLog("FireBase Store", "Saved Data");
     }
 
-    public void FetchData() {
+    public void FetchData(OnDataFetchedListener listener) {
         MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
+
         firestoreHelper.fetchAllTables(new FireStoreHelper.OnCompleteListener<List<Table>>() {
             @Override
             public void onSuccess(List<Table> fetchedTables) {
                 tables.clear();
-
                 tables.addAll(fetchedTables);
-
                 MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
+                if (listener != null) {
+                    listener.onDataFetched();
+                }
             }
 
             @Override
             public void onFailure(Exception e) {
                 MyCustomLog.DebugLog("FireBase Store", "Failed to Fetch Data: " + e.getMessage());
+                // Xử lý lỗi nếu cần
             }
         });
     }
 
+    // Interface để thông báo khi dữ liệu đã được lấy
+    public interface OnDataFetchedListener {
+        void onDataFetched();
+    }
 }
 
 class Table implements Serializable {
@@ -100,6 +107,10 @@ class Table implements Serializable {
     private String tableName;
     private String color;
     private List<WorkListPage> workListPages;
+
+    public Table(){
+
+    }
 
     public Table(int id, String tableName, String color) {
         this.id = id;
@@ -152,6 +163,10 @@ class WorkListPage implements Serializable {
     private String workListName;
     private List<Element> elements;
 
+    public WorkListPage(){
+
+    }
+
     public WorkListPage(int id, String workListName) {
         this.id = id;
         this.workListName = workListName;
@@ -185,6 +200,9 @@ class Element implements Serializable {
     private String description;
     private Date startDate;
     private Date endDate;
+    public Element(){
+
+    }
 
     public Element(int id, String elementName, String description, Date startDate, Date endDate) {
         this.id = id;
