@@ -54,10 +54,10 @@ public class ItemDetailFragment extends Fragment {
         // truyển ảnh vào để set content cho 1 worklist adapter
         // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
 
-        TextView name = view.findViewById(R.id.Title);
+        TextView name = view.findViewById(R.id.edittext_element);
         name.setText(element.getElementName());
 
-        TextView parentName = view.findViewById(R.id.Parent);
+        TextView parentName = view.findViewById(R.id.text_parent_name);
         parentName.setText("Nằm bên trong " + parent.getWorkListName());
 
         TextView des = view.findViewById(R.id.text_describe);

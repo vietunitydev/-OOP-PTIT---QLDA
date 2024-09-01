@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -38,7 +39,7 @@ public class WorkSpaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
-        TextView titleTextView = view.findViewById(R.id.itemTextView);
+        EditText titleTextView = view.findViewById(R.id.itemTextView);
         if (table != null) {
             titleTextView.setText(table.getTableName());
             setupViewPager(inflater, view);
