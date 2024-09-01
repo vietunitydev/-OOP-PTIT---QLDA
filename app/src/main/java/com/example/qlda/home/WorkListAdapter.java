@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.qlda.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWorkHolder> {
@@ -81,7 +82,12 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
                 CreateElement(i, elms.get(i).getElementName());
             }
 
-            addElement.setOnClickListener(v -> CreateElement(elements.size(), "new element"));
+            addElement.setOnClickListener(v -> {
+                // tạo 1 element data mới
+                Element newElement = new Element(1,"New element","", new Date(), new Date() );
+                workListPage.addElement(newElement);
+                CreateElement(elements.size(), newElement.getElementName());
+            });
         }
 
         private void CreateElement(int index, String cnt) {
