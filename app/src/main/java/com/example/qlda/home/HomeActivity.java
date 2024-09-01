@@ -1,5 +1,6 @@
 package com.example.qlda.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Button;
@@ -18,6 +19,8 @@ public class HomeActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private LinearLayout layout;
 
+    List<Table> tables;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +36,21 @@ public class HomeActivity extends AppCompatActivity {
         // fetch Data for app
         AppData appData = new AppData();
         appData.FetchData(() -> {
-            List<Table> table = appData.getTables();
-            MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", table.size()));
-            for (Table data : table) {
+            tables = appData.getTables();
+            MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
+            for (Table data : tables) {
                 createButton(data);
             }
         });
 
         Button addBtn = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
-//        addBtn.setOnClickListener(v -> {
-//            MyCustomLog.Toast(this,"Click Add Table Button");
-//            createButton(buttonIdCounter++, "New Table", getRandomColor());
-//        });
+        addBtn.setOnClickListener(v -> {
+            MyCustomLog.Toast(this,"Click Add Table Button");
+            Table newTable = new Table(1,"New Table", "color");
+            tables.add(newTable);
+            createButton(newTable);
+        });
     }
 
     private void createButton(Table table) {
