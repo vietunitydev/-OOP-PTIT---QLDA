@@ -1,11 +1,17 @@
 package com.example.qlda.home;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.text.TextWatcher;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -39,11 +45,35 @@ public class WorkSpaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
-        EditText titleTextView = view.findViewById(R.id.itemTextView);
+        EditText edittext_wspaceName = view.findViewById(R.id.edittext_workspaceName);
         if (table != null) {
-            titleTextView.setText(table.getTableName());
+            edittext_wspaceName.setText(table.getTableName());
             setupViewPager(inflater, view);
         }
+        edittext_wspaceName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    // Ghi log khi nhấn Enter
+                    MyCustomLog.DebugLog("Custom Name", "Completed Edit");
+
+                    // sync với app data để truyền lên server
+
+                    // Ẩn bàn phím ảo
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                    // Làm mất focus khỏi EditText
+                    v.clearFocus();
+
+                    // Trả về true để chỉ ra rằng sự kiện đã được xử lý
+                    return true;
+                }
+                // Trả về false nếu sự kiện không được xử lý
+                return false;
+            }
+        });
+
 
         return view;
     }
