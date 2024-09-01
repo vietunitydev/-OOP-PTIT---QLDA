@@ -70,6 +70,47 @@ public class AppData {
     public interface OnDataFetchedListener {
         void onDataFetched();
     }
+
+    public static Map<String, Table> tableMap = new HashMap<>();
+    public static Map<String, WorkListPage> workListPageMap = new HashMap<>();
+    public static Map<String, Element> elementMap = new HashMap<>();
+
+    public static void updateTable(int id, String tableName, String color) {
+        String key = "Table_" + id;
+        Table table = tableMap.get(key);
+        if (table == null) {
+            table = new Table(id, tableName, color);
+            tableMap.put(key, table);
+        } else {
+            table.setTableName(tableName);
+            table.setColor(color);
+        }
+    }
+
+    public static void updateWorkListPage(int id, String workListName) {
+        String key = "WorkListPage_" + id;
+        WorkListPage workListPage = workListPageMap.get(key);
+        if (workListPage == null) {
+            workListPage = new WorkListPage(id, workListName);
+            workListPageMap.put(key, workListPage);
+        } else {
+            workListPage.setWorkListName(workListName);
+        }
+    }
+
+    public static void updateElement(int id, String elementName, String description, Date startDate, Date endDate) {
+        String key = "Element_" + id;
+        Element element = elementMap.get(key);
+        if (element == null) {
+            element = new Element(id, elementName, description, startDate, endDate);
+            elementMap.put(key, element);
+        } else {
+            element.setElementName(elementName);
+            element.setDescription(description);
+            element.setStartDate(startDate);
+            element.setEndDate(endDate);
+        }
+    }
 }
 
 class Table implements Serializable {
