@@ -2,6 +2,7 @@ package com.example.qlda.home;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -34,14 +35,18 @@ public class HomeActivity extends AppCompatActivity {
         DownNavigation downNavigation = new DownNavigation(this, downLayout);
 
         // fetch Data for app
-        AppData appData = new AppData();
-        appData.FetchData(() -> {
-            tables = appData.getTables();
+        AppData.FetchData(() -> {
+            tables = AppData.getTables();
+
+//            MyCustomLog.DebugLog("Result JSON",AppData.convertToJson(tables));
+
             MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
             for (Table data : tables) {
                 createButton(data);
             }
         });
+
+
 
         Button addBtn = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
@@ -59,9 +64,14 @@ public class HomeActivity extends AppCompatActivity {
         button.setText(table.getTableName());
         button.setBackgroundColor(ContextCompat.getColor(this, table.getRandomColor()));
 
+        // wait 2s
+        new Handler().postDelayed(() -> {
+            MyCustomLog.DebugLog("JSON TABLE Waiter",AppData.convertToJson(AppData.getTables()));
+        }, 2000);
+
         button.setOnClickListener(v -> {
             WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(table);
-
+            MyCustomLog.DebugLog("JSON TABLE",AppData.convertToJson(AppData.getTables()));
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, contentFragment)
                     .addToBackStack(null)

@@ -2,6 +2,8 @@ package com.example.qlda.home;
 
 import com.example.qlda.R;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,30 +14,26 @@ import java.util.Map;
 import java.util.Random;
 
 public class AppData {
-    public List<Table> tables;
+    public static List<Table> tables = new ArrayList<>();
+    private static final FireStoreHelper firestoreHelper = new FireStoreHelper();
 
-    public AppData() {
-        tables = new ArrayList<>();
-    }
-
-    public List<Table> getTables() {
+    public static List<Table> getTables() {
         return tables;
     }
-    FireStoreHelper firestoreHelper = new FireStoreHelper();
 
-    public void addTable(Table table) {
+    public static void addTable(Table table) {
         tables.add(table);
     }
 
-    public void SaveData(){
+    public static void SaveData() {
         MyCustomLog.DebugLog("FireBase Store", "Saving Data");
-        for(Table table : tables){
+        for (Table table : tables) {
             firestoreHelper.saveTable(table);
         }
         MyCustomLog.DebugLog("FireBase Store", "Saved Data");
     }
 
-    public void FetchData(OnDataFetchedListener listener) {
+    public static void FetchData(OnDataFetchedListener listener) {
         MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
 
         firestoreHelper.fetchAllTables(new FireStoreHelper.OnCompleteListener<List<Table>>() {
@@ -45,14 +43,6 @@ public class AppData {
                 tables.addAll(fetchedTables);
                 MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
 
-                for (Table table : tables) {
-                    for (WorkListPage workListPage : table.getWorkListPages()) {
-                        for (Element element : workListPage.getElements()) {
-                            MyCustomLog.DebugLog("FireBase Store", "Element: " + element.getElementName());
-                        }
-                    }
-                }
-
                 if (listener != null) {
                     listener.onDataFetched();
                 }
@@ -61,9 +51,64 @@ public class AppData {
             @Override
             public void onFailure(Exception e) {
                 MyCustomLog.DebugLog("FireBase Store", "Failed to Fetch Data: " + e.getMessage());
-                // Xử lý lỗi nếu cần
             }
         });
+    }
+
+    // Cập nhật Table theo id
+    public static void updateTable(int id, String tableName, String color) {
+        for (Table table : tables) {
+            if (table.getId() == id) {
+                table.setTableName(tableName);
+                table.setColor(color);
+//                firestoreHelper.saveTable(table); // Cập nhật trên Firestore
+                break;
+            }
+        }
+    }
+
+    // Cập nhật WorkListPage theo id
+    public static void updateWorkListPage(int tableId, int pageId, String workListName) {
+        for (Table table : tables) {
+            if (table.getId() == tableId) {
+                for (WorkListPage page : table.getWorkListPages()) {
+                    MyCustomLog.DebugLog("UpdateElement",String.format("page id %d count : %d name %s",pageId,page.getElements().size(),page.getWorkListName()));
+                    if (page.getId() == pageId) {
+                        page.setWorkListName(workListName);
+//                        firestoreHelper.saveWorkListPage(tableId, page); // Cập nhật trên Firestore
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    // Cập nhật Element theo id
+    public static void updateElement(int tableId, int pageId, int elementId, String elementName, String description, Date startDate, Date endDate) {
+        for (Table table : tables) {
+            if (table.getId() == tableId) {
+//                MyCustomLog.DebugLog("UpdateElement",String.format("table id %d",tableId));
+                for (WorkListPage page : table.getWorkListPages()) {
+                    if (page.getId() == pageId) {
+//                        MyCustomLog.DebugLog("UpdateElement",String.format("page id %d count : %d name %s",pageId,page.getElements().size(),page.getWorkListName()));
+                        for (Element element : page.getElements()) {
+//                            MyCustomLog.DebugLog("UpdateElement",String.format("element id %d",element));
+                            if (element.getId() == elementId) {
+                                element.setElementName(elementName);
+                                element.setDescription(description);
+                                element.setStartDate(startDate);
+                                element.setEndDate(endDate);
+//                                firestoreHelper.saveElement(tableId, pageId, element); // Cập nhật trên Firestore
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
     }
 
     // Interface để thông báo khi dữ liệu đã được lấy
@@ -71,45 +116,9 @@ public class AppData {
         void onDataFetched();
     }
 
-    public static Map<String, Table> tableMap = new HashMap<>();
-    public static Map<String, WorkListPage> workListPageMap = new HashMap<>();
-    public static Map<String, Element> elementMap = new HashMap<>();
-
-    public static void updateTable(int id, String tableName, String color) {
-        String key = "Table_" + id;
-        Table table = tableMap.get(key);
-        if (table == null) {
-            table = new Table(id, tableName, color);
-            tableMap.put(key, table);
-        } else {
-            table.setTableName(tableName);
-            table.setColor(color);
-        }
-    }
-
-    public static void updateWorkListPage(int id, String workListName) {
-        String key = "WorkListPage_" + id;
-        WorkListPage workListPage = workListPageMap.get(key);
-        if (workListPage == null) {
-            workListPage = new WorkListPage(id, workListName);
-            workListPageMap.put(key, workListPage);
-        } else {
-            workListPage.setWorkListName(workListName);
-        }
-    }
-
-    public static void updateElement(int id, String elementName, String description, Date startDate, Date endDate) {
-        String key = "Element_" + id;
-        Element element = elementMap.get(key);
-        if (element == null) {
-            element = new Element(id, elementName, description, startDate, endDate);
-            elementMap.put(key, element);
-        } else {
-            element.setElementName(elementName);
-            element.setDescription(description);
-            element.setStartDate(startDate);
-            element.setEndDate(endDate);
-        }
+    public static <T> String convertToJson(T item) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(item);
     }
 }
 

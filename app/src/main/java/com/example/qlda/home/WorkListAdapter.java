@@ -75,7 +75,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             this.workListPage = workListPage;
 
             TextView text = wl_content.findViewById(R.id.wl_content_worklist_name);
-            text.setText(workListPage.getWorkListName());
+            text.setText(workListPage.getWorkListName() + " " + workListPage.getId() + " " + getWorkListPage().getElements().size());
 
             List<Element> elms = workListPage.getElements();
             for (int i = 0; i < elms.size(); i++) {
