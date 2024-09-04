@@ -48,6 +48,15 @@ public class AppData {
         });
     }
 
+    public static TableData getTableById(String id){
+        for (TableData table : Tables){
+            if(Objects.equals(table.getId(),id)){
+                return table;
+            }
+        }
+        return null;
+    }
+
     public static void UpdateElement(ElementData ele){
         for (TableData table : Tables){
             for(WorkListPageData page : table.getWorkListPages()){

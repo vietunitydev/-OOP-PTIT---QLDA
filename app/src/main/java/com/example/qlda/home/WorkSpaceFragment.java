@@ -43,6 +43,8 @@ public class WorkSpaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
+        table = AppData.getTableById(table.getId());
+
         EditText edittext_wspaceName = view.findViewById(R.id.edittext_workspaceName);
         if (table != null) {
             edittext_wspaceName.setText(table.getTitle());

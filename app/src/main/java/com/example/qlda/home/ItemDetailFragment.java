@@ -1,9 +1,13 @@
 package com.example.qlda.home;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -57,6 +61,33 @@ public class ItemDetailFragment extends Fragment {
         TextView name = view.findViewById(R.id.edittext_element);
         name.setText(element.getTitle());
 
+        name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    // Ghi log khi nhấn Enter
+                    MyCustomLog.DebugLog("Custom Name", "Completed Edit");
+
+                    // sync với app data để truyền lên server
+                    element.setTitle(String.valueOf(name.getText()));
+                    AppData.UpdateElement(element);
+                    AppData.uploadDataToServerStatic();
+
+                    // Ẩn bàn phím ảo
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                    // Làm mất focus khỏi EditText
+                    v.clearFocus();
+
+                    // Trả về true để chỉ ra rằng sự kiện đã được xử lý
+                    return true;
+                }
+                // Trả về false nếu sự kiện không được xử lý
+                return false;
+            }
+        });
+
         TextView parentName = view.findViewById(R.id.text_parent_name);
         parentName.setText("Nằm bên trong " + parent.getTitle());
 
@@ -77,4 +108,6 @@ public class ItemDetailFragment extends Fragment {
             }
         });
     }
+
+
 }
