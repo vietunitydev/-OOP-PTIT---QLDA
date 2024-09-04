@@ -5,27 +5,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WorkListPage implements Serializable {
+public class TableData implements Serializable {
     private String id;
-    private String tableId;
     private String title;
-    private List<String> elementIds;
-    private List<Element> elements;
+    private String color;
+    private List<String> workListPageIds;
+    private List<WorkListPageData> workListPages;
     private Date createdAt;
     private Date updatedAt;
     private boolean destroy;
 
-    public WorkListPage(){
+    public TableData(){
 
     }
 
     // Constructor
-    public WorkListPage(String id, String tableId, String title, Date createdAt) {
+    public TableData(String id, String title, String color, Date createdAt) {
         this.id = id;
-        this.tableId = tableId;
         this.title = title;
-        this.elementIds = new ArrayList<>();
-        this.elements = new ArrayList<>();
+        this.color = color;
+        this.workListPageIds = new ArrayList<>();
+        this.workListPages = new ArrayList<>();
         this.createdAt = createdAt;
         this.updatedAt = new Date();
         this.destroy = false;
@@ -40,14 +40,6 @@ public class WorkListPage implements Serializable {
         this.id = id;
     }
 
-    public String getTableId() {
-        return tableId;
-    }
-
-    public void setTableId(String tableId) {
-        this.tableId = tableId;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -56,20 +48,28 @@ public class WorkListPage implements Serializable {
         this.title = title;
     }
 
-    public List<String> getElementIds() {
-        return elementIds;
+    public String getColor() {
+        return color;
     }
 
-    public void setElementIds(List<String> elementIds) {
-        this.elementIds = elementIds;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public List<Element> getElements() {
-        return elements;
+    public List<String> getWorkListPageIds() {
+        return workListPageIds;
     }
 
-    public void setElements(List<Element> elements) {
-        this.elements = elements;
+    public void setWorkListPageIds(List<String> workListPageIds) {
+        this.workListPageIds = workListPageIds;
+    }
+
+    public List<WorkListPageData> getWorkListPages() {
+        return workListPages;
+    }
+
+    public void setWorkListPages(List<WorkListPageData> workListPages) {
+        this.workListPages = workListPages;
     }
 
     public Date getCreatedAt() {
@@ -96,12 +96,10 @@ public class WorkListPage implements Serializable {
         this.destroy = destroy;
     }
 
-    // Method to add Element
-    public void addElement(Element element) {
-        this.elements.add(element);
-        this.elementIds.add(element.getId());
+    // Method to add WorkListPage
+    public void addWorkListPage(WorkListPageData workListPage) {
+        this.workListPages.add(workListPage);
+        this.workListPageIds.add(workListPage.getId());
         this.updatedAt = new Date();
     }
 }
-
-

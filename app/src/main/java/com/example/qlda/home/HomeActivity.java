@@ -2,14 +2,12 @@ package com.example.qlda.home;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
 
 import com.example.qlda.R;
 
@@ -21,7 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private LinearLayout layout;
 
-    private List<Table> tables;
+    private List<TableData> tables;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         appData.uploadDataToServer();
         tables = appData.getTables();
 
-        for (Table data : tables) {
+        for (TableData data : tables) {
                 createButton(data);
         }
 
@@ -61,13 +59,13 @@ public class HomeActivity extends AppCompatActivity {
         // Add new button on click
         addBtn.setOnClickListener(v -> {
             MyCustomLog.Toast(this,"Click Add Table Button");
-            Table newTable = new Table("table-id-2","New Table", "color", new Date());
+            TableData newTable = new TableData("table-id-2","New Table", "color", new Date());
             tables.add(newTable);
             createButton(newTable);
         });
     }
 
-    private void createButton(Table table) {
+    private void createButton(TableData table) {
         AppCompatButton button = (AppCompatButton) inflater.inflate(R.layout.button_table, layout, false);
 
         button.setText(table.getTitle());

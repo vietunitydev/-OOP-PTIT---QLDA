@@ -10,15 +10,16 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.example.qlda.R;
 
+
 public class ItemDetailFragment extends Fragment {
 
     private static final String ARG_Element = "arg_element";
     private static final String ARG_Parent = "arg_parent";
 
-    Element element;
-    WorkListPage parent;
+    private ElementData element;
+    private WorkListPageData parent;
 
-    public static ItemDetailFragment newInstance(WorkListPage parent, Element e) {
+    public static ItemDetailFragment newInstance(WorkListPageData parent, ElementData e) {
         ItemDetailFragment fragment = new ItemDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_Element, e);
@@ -31,8 +32,8 @@ public class ItemDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            element = (Element) getArguments().getSerializable(ARG_Element);
-            parent = (WorkListPage) getArguments().getSerializable(ARG_Parent);
+            element = (ElementData) getArguments().getSerializable(ARG_Element);
+            parent = (WorkListPageData) getArguments().getSerializable(ARG_Parent);
         }
     }
 

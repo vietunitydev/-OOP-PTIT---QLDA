@@ -14,15 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.qlda.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWorkHolder> {
     private final LayoutInflater inflater;
-    private final List<WorkListPage> workListPages;
+    private final List<WorkListPageData> workListPages;
     private final OnElementClickListener onElementClickListener;
 
-    public WorkListAdapter(LayoutInflater inflater, List<WorkListPage> workListPage, OnElementClickListener onElementClickListener) {
+    public WorkListAdapter(LayoutInflater inflater, List<WorkListPageData> workListPage, OnElementClickListener onElementClickListener) {
         this.inflater = inflater;
         this.workListPages = workListPage;
         this.onElementClickListener = onElementClickListener;
@@ -38,7 +37,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
     @Override
     public void onBindViewHolder(@NonNull ListWorkHolder holder, int position) {
-        WorkListPage currentPage = workListPages.get(position);
+        WorkListPageData currentPage = workListPages.get(position);
         holder.Init(currentPage);
     }
 
@@ -48,7 +47,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
     }
 
     public interface OnElementClickListener {
-        void onElementClick(WorkListPage parent, Element e);
+        void onElementClick(WorkListPageData parent, ElementData e);
     }
 
     public static class ListWorkHolder extends RecyclerView.ViewHolder {
@@ -59,7 +58,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
         private final OnElementClickListener onElementClickListener;
         private final List<FrameLayout> elements = new ArrayList<>();
 
-        private WorkListPage workListPage;
+        private WorkListPageData workListPage;
 
         public ListWorkHolder(@NonNull View itemView, LayoutInflater inflater, OnElementClickListener onElementClickListener) {
             super(itemView);
@@ -70,21 +69,21 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             this.onElementClickListener = onElementClickListener;
         }
 
-        private void Init(WorkListPage workListPage) {
+        private void Init(WorkListPageData workListPage) {
 
             this.workListPage = workListPage;
 
             TextView text = wl_content.findViewById(R.id.wl_content_worklist_name);
             text.setText(workListPage.getTitle() + " " + workListPage.getId() + " " + getWorkListPage().getElements().size());
 
-            List<Element> elms = workListPage.getElements();
+            List<ElementData> elms = workListPage.getElements();
             for (int i = 0; i < elms.size(); i++) {
                 CreateElement(i, elms.get(i).getTitle());
             }
 
             addElement.setOnClickListener(v -> {
                 // tạo 1 element data mới
-                Element newElement = new Element();
+                ElementData newElement = new ElementData();
                 workListPage.addElement(newElement);
                 CreateElement(elements.size(), newElement.getTitle());
             });
@@ -106,7 +105,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             wl_content_scroll.addView(element, index);
         }
 
-        public WorkListPage getWorkListPage() {
+        public WorkListPageData getWorkListPage() {
             return workListPage;
         }
     }

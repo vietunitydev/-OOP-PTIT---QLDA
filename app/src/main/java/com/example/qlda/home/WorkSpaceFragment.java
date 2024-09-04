@@ -2,7 +2,6 @@ package com.example.qlda.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.text.TextWatcher;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -22,9 +20,9 @@ import com.example.qlda.R;
 public class WorkSpaceFragment extends Fragment {
 
     private static final String ARG_TABLE = "arg_table";
-    Table table;
+    TableData table;
 
-    public static WorkSpaceFragment newInstance(Table table) {
+    public static WorkSpaceFragment newInstance(TableData table) {
         WorkSpaceFragment fragment = new WorkSpaceFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_TABLE, table);
@@ -36,7 +34,7 @@ public class WorkSpaceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            table = (Table) getArguments().getSerializable(ARG_TABLE);
+            table = (TableData) getArguments().getSerializable(ARG_TABLE);
         }
     }
 
@@ -91,7 +89,7 @@ public class WorkSpaceFragment extends Fragment {
         });
     }
 
-    private void showItemDetailFragment(WorkListPage parent, Element e) {
+    private void showItemDetailFragment(WorkListPageData parent, ElementData e) {
         ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(parent, e);
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, contentFragment)

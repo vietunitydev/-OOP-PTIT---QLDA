@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Element implements Serializable {
+public class ElementData implements Serializable {
     private String id;
     private String workListPageID;
     private String tableID;
@@ -74,11 +74,11 @@ public class Element implements Serializable {
         }
     }
 
-    public Element(){
+    public ElementData(){
 
     }
 
-    public Element(String id, String wlId, String tID, String tit, String description, List<Comment> cmt, Date create,Date update, Boolean des){
+    public ElementData(String id, String wlId, String tID, String tit, String description, List<Comment> cmt, Date create, Date update, Boolean des){
         this.id = id;
         this.workListPageID = wlId;
         this.tableID = tID;

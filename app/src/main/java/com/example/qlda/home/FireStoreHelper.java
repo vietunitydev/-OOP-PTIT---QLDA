@@ -8,16 +8,16 @@ import java.util.Map;
 public class FireStoreHelper {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public void uploadAllData(Table table) {
+    public void uploadAllData(TableData table) {
         // Đẩy dữ liệu của Table
         saveTable(table, success -> {
             if (success) {
                 // Sau khi lưu Table thành công, lưu các WorkListPage
-                for (WorkListPage page : table.getWorkListPages()) {
+                for (WorkListPageData page : table.getWorkListPages()) {
                     saveWorkListPage(table.getId(), page, pageSuccess -> {
                         if (pageSuccess) {
                             // Sau khi lưu WorkListPage thành công, lưu các Element
-                            for (Element element : page.getElements()) {
+                            for (ElementData element : page.getElements()) {
                                 saveElement(table.getId(), page.getId(), element);
                             }
                         }
@@ -27,7 +27,7 @@ public class FireStoreHelper {
         });
     }
 
-    private void saveTable(Table table, OnCompleteListener<Boolean> listener) {
+    private void saveTable(TableData table, OnCompleteListener<Boolean> listener) {
         Map<String, Object> tableData = mapTableToData(table);
         db.collection("tables").document(table.getId())
                 .set(tableData)
@@ -38,7 +38,7 @@ public class FireStoreHelper {
                 });
     }
 
-    private void saveWorkListPage(String tableId, WorkListPage page, OnCompleteListener<Boolean> listener) {
+    private void saveWorkListPage(String tableId, WorkListPageData page, OnCompleteListener<Boolean> listener) {
         Map<String, Object> pageData = mapWorkListPageToData(page);
         db.collection("tables").document(tableId)
                 .collection("workListPages").document(page.getId())
@@ -50,7 +50,7 @@ public class FireStoreHelper {
                 });
     }
 
-    private void saveElement(String tableId, String pageId, Element element) {
+    private void saveElement(String tableId, String pageId, ElementData element) {
         Map<String, Object> elementData = mapElementToData(element);
         db.collection("tables").document(tableId)
                 .collection("workListPages").document(pageId)
@@ -60,7 +60,7 @@ public class FireStoreHelper {
                 .addOnFailureListener(e -> handleError("Error saving element", e));
     }
 
-    private Map<String, Object> mapTableToData(Table table) {
+    private Map<String, Object> mapTableToData(TableData table) {
         Map<String, Object> tableData = new HashMap<>();
         tableData.put("id", table.getId());
         tableData.put("title", table.getTitle());
@@ -71,7 +71,7 @@ public class FireStoreHelper {
         return tableData;
     }
 
-    private Map<String, Object> mapWorkListPageToData(WorkListPage page) {
+    private Map<String, Object> mapWorkListPageToData(WorkListPageData page) {
         Map<String, Object> pageData = new HashMap<>();
         pageData.put("id", page.getId());
         pageData.put("title", page.getTitle());
@@ -81,7 +81,7 @@ public class FireStoreHelper {
         return pageData;
     }
 
-    private Map<String, Object> mapElementToData(Element element) {
+    private Map<String, Object> mapElementToData(ElementData element) {
         Map<String, Object> elementData = new HashMap<>();
         elementData.put("id", element.getId());
         elementData.put("title", element.getTitle());
