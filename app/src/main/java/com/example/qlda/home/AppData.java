@@ -58,6 +58,7 @@ public class AppData {
                         element.setTableID(ele.getTableID());
                         element.setWorkListPageID(ele.getWorkListPageID());
                         element.setDestroy(ele.isDestroy());
+                        break;
                     }
                 }
             }
@@ -74,6 +75,7 @@ public class AppData {
                     page.setElementIds(page.getElementIds());
                     page.setElements(p.getElements());
                     page.setDestroy(p.isDestroy());
+                    break;
                 }
             }
         }
@@ -88,6 +90,16 @@ public class AppData {
                 table.setWorkListPageIds(t.getWorkListPageIds());
                 table.setWorkListPages(t.getWorkListPages());
                 table.setDestroy(t.isDestroy());
+                break;
+            }
+        }
+
+    }
+
+    public static void uploadDataToServerStatic() {
+        if (Tables != null && !Tables.isEmpty()) {
+            for (TableData table : Tables) {
+                firestoreHelper.uploadAllData(table);
             }
         }
     }

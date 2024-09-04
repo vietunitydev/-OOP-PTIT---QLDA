@@ -56,6 +56,8 @@ public class WorkSpaceFragment extends Fragment {
                     MyCustomLog.DebugLog("Custom Name", "Completed Edit");
 
                     // sync với app data để truyền lên server
+                    AppData.UpdateTable(table);
+                    AppData.uploadDataToServerStatic();
 
                     // Ẩn bàn phím ảo
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
