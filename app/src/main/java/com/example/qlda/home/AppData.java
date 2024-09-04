@@ -16,6 +16,34 @@ public class AppData {
         return tables;
     }
 
+//    public static void SaveData() {
+//        MyCustomLog.DebugLog("FireBase Store", "Saving Data");
+//        for (TableData table : tables) {
+//            firestoreHelper.saveTable(table);
+//        }
+//        MyCustomLog.DebugLog("FireBase Store", "Saved Data");
+//    }
+
+    public void fetchData(OnDataFetchedListener listener) {
+        MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
+
+        firestoreHelper.fetchAllData(new FireStoreHelper.OnCompleteListener<List<TableData>>() {
+            @Override
+            public void onComplete(List<TableData> fetchedTables) {
+                if(fetchedTables == null){
+                    return;
+                }
+                tables.clear();
+                tables.addAll(fetchedTables);
+                MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
+
+                if (listener != null) {
+                    listener.onDataFetched();
+                }
+            }
+        });
+    }
+
     public void InitTable(){
 
         tables = new ArrayList<>();

@@ -16,7 +16,14 @@ public class TableData implements Serializable {
     private boolean destroy;
 
     public TableData(){
-
+        this.id = "";
+        this.title = "";
+        this.color = "";
+        this.workListPageIds = new ArrayList<>();
+        this.workListPages = new ArrayList<>();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.destroy = false;
     }
 
     // Constructor

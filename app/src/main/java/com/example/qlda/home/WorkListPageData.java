@@ -16,7 +16,14 @@ public class WorkListPageData implements Serializable {
     private boolean destroy;
 
     public WorkListPageData(){
-
+        this.id = "";
+        this.tableId = "";
+        this.title = "";
+        this.elementIds = new ArrayList<>();
+        this.elements = new ArrayList<>();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.destroy = false;
     }
 
     // Constructor

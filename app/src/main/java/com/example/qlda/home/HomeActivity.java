@@ -36,24 +36,14 @@ public class HomeActivity extends AppCompatActivity {
         AppData appData = new AppData();
 
         // fetch Data for app
-//        appData.FetchData(() -> {
-//            tables = appData.getTable();
-//
-//            MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
-//            for (Table data : tables) {
-//                createButton(data);
-//            }
-//        });
+        appData.fetchData(() -> {
+            tables = appData.getTables();
 
-        appData.InitTable();
-        appData.uploadDataToServer();
-        tables = appData.getTables();
-
-        for (TableData data : tables) {
+            MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
+            for (TableData data : tables) {
                 createButton(data);
-        }
-
-
+            }
+        });
 
         Button addBtn = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click

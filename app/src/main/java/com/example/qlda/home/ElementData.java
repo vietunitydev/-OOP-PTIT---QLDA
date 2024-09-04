@@ -1,6 +1,7 @@
 package com.example.qlda.home;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -75,7 +76,15 @@ public class ElementData implements Serializable {
     }
 
     public ElementData(){
-
+        this.id = "";
+        this.workListPageID = "";
+        this.tableID = "";
+        this.title = "";
+        this.description = "";
+        this.comments = new ArrayList<>();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.destroy = false;
     }
 
     public ElementData(String id, String wlId, String tID, String tit, String description, List<Comment> cmt, Date create, Date update, Boolean des){
