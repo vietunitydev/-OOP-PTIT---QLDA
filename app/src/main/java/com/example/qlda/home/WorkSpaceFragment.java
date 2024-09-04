@@ -56,6 +56,7 @@ public class WorkSpaceFragment extends Fragment {
                     MyCustomLog.DebugLog("Custom Name", "Completed Edit");
 
                     // sync với app data để truyền lên server
+                    table.setTitle(String.valueOf(edittext_wspaceName.getText()));
                     AppData.UpdateTable(table);
                     AppData.uploadDataToServerStatic();
 

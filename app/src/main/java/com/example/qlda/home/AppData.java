@@ -1,5 +1,7 @@
 package com.example.qlda.home;
 
+import android.os.Debug;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -84,6 +86,7 @@ public class AppData {
     public static void UpdateTable(TableData t){
         for (TableData table : Tables){
             if(Objects.equals(table.getId(),t.getId())){
+                MyCustomLog.DebugLog("Update AppData","Table" + table.getId());
                 table.setUpdatedAt(new Date());
                 table.setColor(t.getColor());
                 table.setTitle(t.getTitle());
