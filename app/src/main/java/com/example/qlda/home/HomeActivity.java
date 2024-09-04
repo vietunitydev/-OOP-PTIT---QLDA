@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.qlda.R;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private LinearLayout layout;
 
-    private List<TableData> tables;
+    private List<TableData> tables = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

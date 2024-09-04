@@ -12,6 +12,10 @@ public class AppData {
 
     private List<TableData> tables;
 
+    public AppData(){
+        tables = new ArrayList<>();
+    }
+
     public List<TableData> getTables(){
         return tables;
     }
