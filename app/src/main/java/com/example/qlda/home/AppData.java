@@ -88,12 +88,9 @@ public class AppData {
     public static void updateElement(int tableId, int pageId, int elementId, String elementName, String description, Date startDate, Date endDate) {
         for (Table table : tables) {
             if (table.getId() == tableId) {
-//                MyCustomLog.DebugLog("UpdateElement",String.format("table id %d",tableId));
                 for (WorkListPage page : table.getWorkListPages()) {
                     if (page.getId() == pageId) {
-//                        MyCustomLog.DebugLog("UpdateElement",String.format("page id %d count : %d name %s",pageId,page.getElements().size(),page.getWorkListName()));
                         for (Element element : page.getElements()) {
-//                            MyCustomLog.DebugLog("UpdateElement",String.format("element id %d",element));
                             if (element.getId() == elementId) {
                                 element.setElementName(elementName);
                                 element.setDescription(description);

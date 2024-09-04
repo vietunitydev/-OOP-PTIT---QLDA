@@ -38,8 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         AppData.FetchData(() -> {
             tables = AppData.getTables();
 
-//            MyCustomLog.DebugLog("Result JSON",AppData.convertToJson(tables));
-
             MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
             for (Table data : tables) {
                 createButton(data);
