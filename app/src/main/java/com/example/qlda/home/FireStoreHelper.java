@@ -14,8 +14,6 @@ public class FireStoreHelper {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public void fetchAllData(OnCompleteListener<List<TableData>> listener) {
-        MyCustomLog.DebugLog("FireBase Store", "Start fetch Table Data");
-
         db.collection("tables").get().addOnSuccessListener(queryDocumentSnapshots -> {
             List<TableData> tables = new ArrayList<>();
             for (DocumentSnapshot document : queryDocumentSnapshots) {
@@ -28,7 +26,6 @@ public class FireStoreHelper {
                 });
             }
         }).addOnFailureListener(e -> {
-            MyCustomLog.DebugLog("FireBase Store", "Error fetching tables");
             handleError("Error fetching tables", e);
             listener.onComplete(null);
         });
@@ -47,28 +44,21 @@ public class FireStoreHelper {
                         });
                     }
                 }).addOnFailureListener(e -> {
-                    MyCustomLog.DebugLog("FireBase Store", "Error fetching work list pages");
                     handleError("Error fetching work list pages", e);
                     listener.onComplete(null);
                 });
     }
 
     private void fetchElements(TableData table, WorkListPageData page, OnCompleteListener<WorkListPageData> listener) {
-        MyCustomLog.DebugLog("FireBase Store", "Start fetch Element Data");
         db.collection("tables").document(table.getId())
                 .collection("workListPages").document(page.getId())
                 .collection("elements").get().addOnSuccessListener(queryDocumentSnapshots -> {
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
                         ElementData element = document.toObject(ElementData.class);
-                        MyCustomLog.DebugLog("FireBase Store", "Element : " + AppData.convertToJson(element));
                         page.addElement(element);
                     }
-                    MyCustomLog.DebugLog("FireBase Store", "Page : " + AppData.convertToJson(page));
-//                    MyCustomLog.DebugLog("FireBase Store", String.format("Before Invoke OnCompleteListener Element Data %b ", listener));
-                    listener.onComplete(page); // All elements for this page fetched
-                    MyCustomLog.DebugLog("FireBase Store", "Invoke OnCompleteListener Element Data");
+                    listener.onComplete(page);
                 }).addOnFailureListener(e -> {
-                    MyCustomLog.DebugLog("FireBase Store", "Error fetching elements");
                     handleError("Error fetching elements", e);
                     listener.onComplete(null);
                 });
