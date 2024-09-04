@@ -1,112 +1,99 @@
 package com.example.qlda.home;
 
-import com.example.qlda.R;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
-import java.util.Random;
 
 public class AppData {
-    public static List<Table> tables = new ArrayList<>();
     private static final FireStoreHelper firestoreHelper = new FireStoreHelper();
 
-    public static List<Table> getTables() {
+    private List<Table> tables;
+
+    public List<Table> getTables(){
         return tables;
     }
 
-    public static void addTable(Table table) {
-        tables.add(table);
+    public void InitTable(){
+
+        tables = new ArrayList<>();
+
+        // Table 1
+        Table table1 = new Table("table-id-01", "Project A", "#FF5733", new Date());
+
+        WorkListPage workListPage1 = new WorkListPage("worklist-id-01", "table-id-01", "Design Phase", new Date());
+        workListPage1.addElement(new Element("element-id-01", "worklist-id-01", "table-id-01", "Design Phase Task 1", "Description for Design Phase task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage1.addElement(new Element("element-id-02", "worklist-id-01", "table-id-01", "Design Phase Task 2", "Description for Design Phase task 2", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage1.addElement(new Element("element-id-03", "worklist-id-01", "table-id-01", "Design Phase Task 3", "Description for Design Phase task 3", new ArrayList<>(), new Date(), new Date(), false));
+
+        WorkListPage workListPage2 = new WorkListPage("worklist-id-02", "table-id-01", "Development Phase", new Date());
+        workListPage2.addElement(new Element("element-id-04", "worklist-id-02", "table-id-01", "Development Task 1", "Description for development task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage2.addElement(new Element("element-id-05", "worklist-id-02", "table-id-01", "Development Task 2", "Description for development task 2", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage2.addElement(new Element("element-id-06", "worklist-id-02", "table-id-01", "Development Task 3", "Description for development task 3", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage2.addElement(new Element("element-id-07", "worklist-id-02", "table-id-01", "Development Task 4", "Description for development task 4", new ArrayList<>(), new Date(), new Date(), false));
+
+        table1.addWorkListPage(workListPage1);
+        table1.addWorkListPage(workListPage2);
+
+        // Table 2
+        Table table2 = new Table("table-id-02", "Project B", "#33FF57", new Date());
+
+        WorkListPage workListPage3 = new WorkListPage("worklist-id-03", "table-id-02", "Research Phase", new Date());
+        workListPage3.addElement(new Element("element-id-08", "worklist-id-03", "table-id-02", "Research Task 1", "Description for research task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage3.addElement(new Element("element-id-09", "worklist-id-03", "table-id-02", "Research Task 2", "Description for research task 2", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage3.addElement(new Element("element-id-10", "worklist-id-03", "table-id-02", "Research Task 3", "Description for research task 3", new ArrayList<>(), new Date(), new Date(), false));
+
+        WorkListPage workListPage4 = new WorkListPage("worklist-id-04", "table-id-02", "Implementation Phase", new Date());
+        workListPage4.addElement(new Element("element-id-11", "worklist-id-04", "table-id-02", "Implementation Task 1", "Description for implementation task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage4.addElement(new Element("element-id-12", "worklist-id-04", "table-id-02", "Implementation Task 2", "Description for implementation task 2", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage4.addElement(new Element("element-id-13", "worklist-id-04", "table-id-02", "Implementation Task 3", "Description for implementation task 3", new ArrayList<>(), new Date(), new Date(), false));
+
+        WorkListPage workListPage5 = new WorkListPage("worklist-id-05", "table-id-02", "Testing Phase", new Date());
+        workListPage5.addElement(new Element("element-id-14", "worklist-id-05", "table-id-02", "Testing Task 1", "Description for testing task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage5.addElement(new Element("element-id-15", "worklist-id-05", "table-id-02", "Testing Task 2", "Description for testing task 2", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage5.addElement(new Element("element-id-16", "worklist-id-05", "table-id-02", "Testing Task 3", "Description for testing task 3", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage5.addElement(new Element("element-id-17", "worklist-id-05", "table-id-02", "Testing Task 4", "Description for testing task 4", new ArrayList<>(), new Date(), new Date(), false));
+
+        table2.addWorkListPage(workListPage3);
+        table2.addWorkListPage(workListPage4);
+        table2.addWorkListPage(workListPage5);
+
+        // Table 3
+        Table table3 = new Table("table-id-03", "Project C", "#3357FF", new Date());
+
+        WorkListPage workListPage6 = new WorkListPage("worklist-id-06", "table-id-03", "Planning Phase", new Date());
+        workListPage6.addElement(new Element("element-id-18", "worklist-id-06", "table-id-03", "Planning Task 1", "Description for planning task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage6.addElement(new Element("element-id-19", "worklist-id-06", "table-id-03", "Planning Task 2", "Description for planning task 2", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage6.addElement(new Element("element-id-20", "worklist-id-06", "table-id-03", "Planning Task 3", "Description for planning task 3", new ArrayList<>(), new Date(), new Date(), false));
+
+        WorkListPage workListPage7 = new WorkListPage("worklist-id-07", "table-id-03", "Execution Phase", new Date());
+        workListPage7.addElement(new Element("element-id-21", "worklist-id-07", "table-id-03", "Execution Task 1", "Description for execution task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage7.addElement(new Element("element-id-22", "worklist-id-07", "table-id-03", "Execution Task 2", "Description for execution task 2", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage7.addElement(new Element("element-id-23", "worklist-id-07", "table-id-03", "Execution Task 3", "Description for execution task 3", new ArrayList<>(), new Date(), new Date(), false));
+
+        WorkListPage workListPage8 = new WorkListPage("worklist-id-08", "table-id-03", "Review Phase", new Date());
+        workListPage8.addElement(new Element("element-id-24", "worklist-id-08", "table-id-03", "Review Task 1", "Description for review task 1", new ArrayList<>(), new Date(), new Date(), false));
+        workListPage8.addElement(new Element("element-id-25", "worklist-id-08", "table-id-03", "Review Task 2", "Description for review task 2", new ArrayList<>(), new Date(), new Date(), false));
+
+        table3.addWorkListPage(workListPage6);
+        table3.addWorkListPage(workListPage7);
+        table3.addWorkListPage(workListPage8);
+
+        tables.add(table1);
+        tables.add(table2);
+        tables.add(table3);
     }
 
-    public static void SaveData() {
-        MyCustomLog.DebugLog("FireBase Store", "Saving Data");
-        for (Table table : tables) {
-            firestoreHelper.saveTable(table);
-        }
-        MyCustomLog.DebugLog("FireBase Store", "Saved Data");
-    }
-
-    public static void FetchData(OnDataFetchedListener listener) {
-        MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
-
-        firestoreHelper.fetchAllTables(new FireStoreHelper.OnCompleteListener<List<Table>>() {
-            @Override
-            public void onSuccess(List<Table> fetchedTables) {
-                tables.clear();
-                tables.addAll(fetchedTables);
-                MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
-
-                if (listener != null) {
-                    listener.onDataFetched();
-                }
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                MyCustomLog.DebugLog("FireBase Store", "Failed to Fetch Data: " + e.getMessage());
-            }
-        });
-    }
-
-    // Cập nhật Table theo id
-    public static void updateTable(int id, String tableName, String color) {
-        for (Table table : tables) {
-            if (table.getId() == id) {
-                table.setTableName(tableName);
-                table.setColor(color);
-//                firestoreHelper.saveTable(table); // Cập nhật trên Firestore
-                break;
-            }
-        }
-    }
-
-    // Cập nhật WorkListPage theo id
-    public static void updateWorkListPage(int tableId, int pageId, String workListName) {
-        for (Table table : tables) {
-            if (table.getId() == tableId) {
-                for (WorkListPage page : table.getWorkListPages()) {
-                    MyCustomLog.DebugLog("UpdateElement",String.format("page id %d count : %d name %s",pageId,page.getElements().size(),page.getWorkListName()));
-                    if (page.getId() == pageId) {
-                        page.setWorkListName(workListName);
-//                        firestoreHelper.saveWorkListPage(tableId, page); // Cập nhật trên Firestore
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-    }
-
-    // Cập nhật Element theo id
-    public static void updateElement(int tableId, int pageId, int elementId, String elementName, String description, Date startDate, Date endDate) {
-        for (Table table : tables) {
-            if (table.getId() == tableId) {
-                for (WorkListPage page : table.getWorkListPages()) {
-                    if (page.getId() == pageId) {
-                        for (Element element : page.getElements()) {
-                            if (element.getId() == elementId) {
-                                element.setElementName(elementName);
-                                element.setDescription(description);
-                                element.setStartDate(startDate);
-                                element.setEndDate(endDate);
-//                                firestoreHelper.saveElement(tableId, pageId, element); // Cập nhật trên Firestore
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
-                break;
+    public void uploadDataToServer() {
+        if (tables != null && !tables.isEmpty()) {
+            for (Table table : tables) {
+                firestoreHelper.uploadAllData(table);
             }
         }
     }
+
 
     // Interface để thông báo khi dữ liệu đã được lấy
     public interface OnDataFetchedListener {
@@ -116,152 +103,5 @@ public class AppData {
     public static <T> String convertToJson(T item) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(item);
-    }
-}
-
-class Table implements Serializable {
-    private int id;
-    private String tableName;
-    private String color;
-    private final List<WorkListPage> workListPages;
-
-    public Table(){
-        this.workListPages = new ArrayList<>();
-    }
-
-    public Table(int id, String tableName, String color) {
-        this.id = id;
-        this.tableName = tableName;
-        this.color = color;
-        this.workListPages = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public List<WorkListPage> getWorkListPages() {
-        return workListPages;
-    }
-
-    public void addWorkListPage(WorkListPage workListPage) {
-        workListPages.add(workListPage);
-    }
-
-    public int getRandomColor() {
-        int[] colors = {
-                R.color.blue,
-                R.color.purple,
-                R.color.pink,
-                R.color.deep_purple
-        };
-        return colors[new Random().nextInt(colors.length)];
-    }
-}
-
-class WorkListPage implements Serializable {
-    private int id;
-    private String workListName;
-    private final List<Element> elements;
-
-    public WorkListPage(){
-        this.elements = new ArrayList<>();
-    }
-
-    public WorkListPage(int id, String workListName) {
-        this.id = id;
-        this.workListName = workListName;
-        this.elements = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getWorkListName() {
-        return workListName;
-    }
-
-    public void setWorkListName(String workListName) {
-        this.workListName = workListName;
-    }
-
-    public List<Element> getElements() {
-        return elements;
-    }
-
-    public void addElement(Element element) {
-        elements.add(element);
-    }
-}
-
-class Element implements Serializable {
-    private int id;
-    private String elementName;
-    private String description;
-    private Date startDate;
-    private Date endDate;
-    public Element(){
-
-    }
-
-    public Element(int id, String elementName, String description, Date startDate, Date endDate) {
-        this.id = id;
-        this.elementName = elementName;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getElementName() {
-        return elementName;
-    }
-
-    public void setElementName(String elementName) {
-        this.elementName = elementName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 }

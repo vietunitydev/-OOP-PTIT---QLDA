@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-
 import com.example.qlda.R;
 
 public class ItemDetailFragment extends Fragment {
@@ -55,19 +54,19 @@ public class ItemDetailFragment extends Fragment {
         // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
 
         TextView name = view.findViewById(R.id.edittext_element);
-        name.setText(element.getElementName());
+        name.setText(element.getTitle());
 
         TextView parentName = view.findViewById(R.id.text_parent_name);
-        parentName.setText("Nằm bên trong " + parent.getWorkListName());
+        parentName.setText("Nằm bên trong " + parent.getTitle());
 
         TextView des = view.findViewById(R.id.text_describe);
         des.setText("Mô tả : " + element.getDescription());
 
         TextView startDay = view.findViewById(R.id.text_start_date);
-        startDay.setText("Bắt đầu : " + element.getStartDate());
+        startDay.setText("Bắt đầu : " + element.getCreatedAt());
 
         TextView endDay = view.findViewById(R.id.text_end_date);
-        endDay.setText("Kết thúc : " + element.getEndDate());
+        endDay.setText("Kết thúc : " + element.getUpdatedAt());
 
         // back button implement
         Button backButton = view.findViewById(R.id.backButton);

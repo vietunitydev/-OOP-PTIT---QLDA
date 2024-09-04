@@ -75,18 +75,18 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             this.workListPage = workListPage;
 
             TextView text = wl_content.findViewById(R.id.wl_content_worklist_name);
-            text.setText(workListPage.getWorkListName() + " " + workListPage.getId() + " " + getWorkListPage().getElements().size());
+            text.setText(workListPage.getTitle() + " " + workListPage.getId() + " " + getWorkListPage().getElements().size());
 
             List<Element> elms = workListPage.getElements();
             for (int i = 0; i < elms.size(); i++) {
-                CreateElement(i, elms.get(i).getElementName());
+                CreateElement(i, elms.get(i).getTitle());
             }
 
             addElement.setOnClickListener(v -> {
                 // tạo 1 element data mới
-                Element newElement = new Element(1,"New element","", new Date(), new Date() );
+                Element newElement = new Element();
                 workListPage.addElement(newElement);
-                CreateElement(elements.size(), newElement.getElementName());
+                CreateElement(elements.size(), newElement.getTitle());
             });
         }
 

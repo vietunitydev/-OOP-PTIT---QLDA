@@ -47,7 +47,7 @@ public class WorkSpaceFragment extends Fragment {
 
         EditText edittext_wspaceName = view.findViewById(R.id.edittext_workspaceName);
         if (table != null) {
-            edittext_wspaceName.setText(table.getTableName());
+            edittext_wspaceName.setText(table.getTitle());
             setupViewPager(inflater, view);
         }
         edittext_wspaceName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
