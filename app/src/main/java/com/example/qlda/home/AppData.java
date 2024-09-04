@@ -20,14 +20,6 @@ public class AppData {
         return tables;
     }
 
-//    public static void SaveData() {
-//        MyCustomLog.DebugLog("FireBase Store", "Saving Data");
-//        for (TableData table : tables) {
-//            firestoreHelper.saveTable(table);
-//        }
-//        MyCustomLog.DebugLog("FireBase Store", "Saved Data");
-//    }
-
     public void fetchData(OnDataFetchedListener listener) {
         MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
 
@@ -49,9 +41,6 @@ public class AppData {
     }
 
     public void InitTable(){
-
-        tables = new ArrayList<>();
-
         // Table 1
         TableData table1 = new TableData("table-id-01", "Project A", "#FF5733", new Date());
 
@@ -126,8 +115,6 @@ public class AppData {
         }
     }
 
-
-    // Interface để thông báo khi dữ liệu đã được lấy
     public interface OnDataFetchedListener {
         void onDataFetched();
     }
