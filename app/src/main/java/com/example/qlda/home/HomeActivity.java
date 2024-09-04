@@ -78,8 +78,21 @@ public class HomeActivity extends AppCompatActivity {
         layout.addView(button);
     }
 
+    private void UpdateUI(){
+        tables = AppData.Tables;
+        layout.removeAllViews();
+        // ve lai
+        for (TableData data : tables) {
+            createButton(data);
+        }
+//        Yêu cầu LinearLayout vẽ lại
+//        layout.invalidate();
+//        layout.requestLayout();
+    }
+
     public void goBackToPreviousFragment() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            UpdateUI();
             getSupportFragmentManager().popBackStack();
         } else {
             // out activity
