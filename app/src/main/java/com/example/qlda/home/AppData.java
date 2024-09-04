@@ -6,11 +6,14 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class AppData {
     private static final FireStoreHelper firestoreHelper = new FireStoreHelper();
 
-    private List<TableData> tables;
+    public static List<TableData> Tables = new ArrayList<>();
+
+    private final List<TableData> tables;
 
     public AppData(){
         tables = new ArrayList<>();
@@ -31,6 +34,9 @@ public class AppData {
                 }
                 tables.clear();
                 tables.addAll(fetchedTables);
+
+                Tables.clear();
+                Tables.addAll(fetchedTables);
                 MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
 
                 if (listener != null) {
@@ -38,6 +44,52 @@ public class AppData {
                 }
             }
         });
+    }
+
+    public static void UpdateElement(ElementData ele){
+        for (TableData table : Tables){
+            for(WorkListPageData page : table.getWorkListPages()){
+                for (ElementData element : page.getElements()){
+                    if(Objects.equals(ele.getId(), element.getId())){
+                        element.setUpdatedAt(new Date());
+                        element.setComments(ele.getComments());
+                        element.setDescription(ele.getDescription());
+                        element.setTitle(ele.getTitle());
+                        element.setTableID(ele.getTableID());
+                        element.setWorkListPageID(ele.getWorkListPageID());
+                        element.setDestroy(ele.isDestroy());
+                    }
+                }
+            }
+        }
+    }
+
+    public static void UpdatePage(WorkListPageData p){
+        for (TableData table : Tables){
+            for(WorkListPageData page : table.getWorkListPages()){
+                if(Objects.equals(page.getId(), p.getId())){
+                    page.setUpdatedAt(new Date());
+                    page.setTitle(p.getTitle());
+                    page.setTableId(p.getTableId());
+                    page.setElementIds(page.getElementIds());
+                    page.setElements(p.getElements());
+                    page.setDestroy(p.isDestroy());
+                }
+            }
+        }
+    }
+
+    public static void UpdateTable(TableData t){
+        for (TableData table : Tables){
+            if(Objects.equals(table.getId(),t.getId())){
+                table.setUpdatedAt(new Date());
+                table.setColor(t.getColor());
+                table.setTitle(t.getTitle());
+                table.setWorkListPageIds(t.getWorkListPageIds());
+                table.setWorkListPages(t.getWorkListPages());
+                table.setDestroy(t.isDestroy());
+            }
+        }
     }
 
     public void InitTable(){
