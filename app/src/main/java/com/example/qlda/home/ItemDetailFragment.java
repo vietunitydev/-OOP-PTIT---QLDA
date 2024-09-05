@@ -89,16 +89,16 @@ public class ItemDetailFragment extends Fragment {
         });
 
         TextView parentName = view.findViewById(R.id.text_parent_name);
-        parentName.setText("Nằm bên trong " + parent.getTitle());
+        parentName.setText(parent.getTitle());
 
         TextView des = view.findViewById(R.id.text_describe);
-        des.setText("Mô tả : " + element.getDescription());
+        des.setText(element.getDescription());
 
         TextView startDay = view.findViewById(R.id.text_start_date);
-        startDay.setText("Bắt đầu : " + element.getCreatedAt());
+        startDay.setText("" + element.getCreatedAt());
 
         TextView endDay = view.findViewById(R.id.text_end_date);
-        endDay.setText("Kết thúc : " + element.getUpdatedAt());
+        endDay.setText("" + element.getUpdatedAt());
 
         // back button implement
         Button backButton = view.findViewById(R.id.backButton);

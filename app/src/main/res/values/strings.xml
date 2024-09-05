@@ -16,4 +16,8 @@
     <string name="text_x_icon">x</string>
     <string name="signal_icon">signal_icon</string>
     <string name="profile_image">profile_image</string>
+    <string name="text_hint_enterAddName">Nhấp để thêm tên</string>
+    <string name="text_const_inList">Trong danh sách:</string>
+    <string name="text_const_description">Mô tả : </string>
+    <string name="text_hint_comment">Bình luận</string>
 </resources>

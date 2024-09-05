@@ -4,29 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white_1">
 
     <LinearLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/blue_2"
+        android:background="@color/white"
         tools:ignore="UselessParent">
 
         <Button
             android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/ic_x"
+            android:backgroundTint="@color/black"
+            android:elevation="4dp"
             android:padding="0dp"
-            android:layout_marginStart="10dp"
-            android:text="@string/text_x_icon"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:minWidth="50dp"
-            android:minHeight="50dp"
-            android:elevation="4dp"/>
+            android:textAllCaps="false"
+            android:textColorHighlight="#000000"
+            android:textColorLink="#000000"
+            android:tint="@color/black" />
     </LinearLayout>
 
     <!-- Workspace List -->
@@ -38,10 +38,14 @@
         android:orientation="vertical">
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/blue_1">
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:paddingStart="20dp"
+            android:paddingVertical="10dp"
+            tools:ignore="RtlSymmetry">
             <EditText
                 android:id="@+id/edittext_element"
                 android:layout_width="wrap_content"
@@ -50,19 +54,30 @@
                 android:inputType="text"
                 android:imeOptions="actionDone"
                 android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
-                android:paddingBottom="8dp"
-                android:hint="Ấn để thêm tên"
+                android:hint="@string/text_hint_enterAddName"
                 tools:ignore="Autofill" />
-            <TextView
-                android:id="@+id/text_parent_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:paddingBottom="8dp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="7dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="#000000"
+                    android:text="@string/text_const_inList"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/text_parent_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:paddingStart="5dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
         </LinearLayout>
 
         <ScrollView
@@ -74,56 +89,140 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingVertical="16dp">
 
-                <EditText
-                    android:id="@+id/text_describe"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingStart="20dp"
+                    android:layout_marginVertical="5dp"
+                    tools:ignore="RtlSymmetry">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_description"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:importantForAccessibility="no" />
+                    <EditText
+                        android:id="@+id/text_describe"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:hint="Thêm mô tả"
+                        android:paddingStart="10dp"
+                        tools:ignore="Autofill" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp"
-                    tools:ignore="Autofill" />
-                <EditText
-                    android:id="@+id/text_start_date"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingStart="20dp"
+                    android:layout_marginVertical="5dp"
+                    tools:ignore="RtlSymmetry">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_clock"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:importantForAccessibility="no" />
+
+                    <EditText
+                        android:id="@+id/text_start_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:gravity="center_vertical"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:hint="Thêm ngày bắt "
+                        android:paddingStart="10dp"
+                        tools:ignore="Autofill" />
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp"
-                    tools:ignore="Autofill" />
-                <EditText
-                    android:id="@+id/text_end_date"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingStart="20dp"
+                    android:layout_marginVertical="5dp"
+                    tools:ignore="RtlSymmetry">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_clock"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:importantForAccessibility="no" />
+                    <EditText
+                        android:id="@+id/text_end_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:hint="Thêm ngày kết thúc"
+                        android:paddingStart="10dp"
+                        tools:ignore="TextFields"
+                        android:importantForAutofill="no" />
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp"
-                    tools:ignore="TextFields" />
-                <EditText
-                    android:id="@+id/text_member"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp"
-                    tools:ignore="Autofill" />
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:paddingStart="20dp"
+                    android:layout_marginVertical="5dp"
+                    tools:ignore="RtlSymmetry">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/ic_person"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:importantForAccessibility="no" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:text="Các thành viên : "
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:textColor="#000000"
+                        android:textSize="15sp"
+                        android:paddingStart="8dp"
+                        tools:ignore="Autofill" />
+
+                    <EditText
+                        android:id="@+id/text_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:gravity="center_vertical"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:ignore="Autofill" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
@@ -133,23 +232,41 @@
     <LinearLayout
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="#FFFFFF"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_marginStart="20dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="0dp"
-            android:background="@drawable/ic_user"/>
-
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Bình luận"
+            android:padding="0dp"
+            android:background="@drawable/ic_avatar_male"
+            android:importantForAccessibility="no"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:hint="@string/text_hint_comment"
             android:inputType="textLongMessage"
-            tools:ignore="LabelFor" />
+            android:textSize="15sp"
+            android:background="@drawable/border_edit_text"
+            android:paddingStart="8dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            tools:ignore="LabelFor,RtlSymmetry"
+            android:importantForAutofill="no" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:background="@drawable/ic_attachment"
+            android:importantForAccessibility="no"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp" />
     </LinearLayout>
 </RelativeLayout>
