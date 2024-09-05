@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_drag"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="40dp"
     android:layout_margin="3dp"
-    android:elevation="4dp"
+    android:elevation="2dp"
     android:background="@drawable/rounded_background">
     <Button
         android:id="@+id/item_drag_btn"
@@ -17,8 +17,8 @@
         android:id="@+id/item_drag_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="10dp"
-        android:textSize="20sp"
+        android:paddingStart="5dp"
+        android:textSize="15sp"
         android:textColor="@color/black"
         android:gravity="center_vertical"
         tools:ignore="RtlSymmetry" />

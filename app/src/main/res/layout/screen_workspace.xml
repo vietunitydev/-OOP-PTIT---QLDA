@@ -2,35 +2,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_1">
 
     <LinearLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@color/blue_2">
+        android:background="@color/steel_blue">
 
         <Button
             android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/ic_x"
+            android:elevation="4dp"
             android:padding="0dp"
-            android:text="@string/text_x_icon"
-
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:minWidth="50dp"
-            android:minHeight="50dp"
-            android:elevation="4dp"/>
+            android:tint="@color/black" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="10dp">
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center">
 
             <EditText
                 android:id="@+id/edittext_workspaceName"
@@ -38,48 +35,18 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:inputType="text"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Workspace"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="13sp" />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/button_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:orientation="horizontal"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp">
-
-<!--        <Button-->
-<!--            android:layout_width="48dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            tools:ignore="ButtonStyle"-->
-<!--            android:importantForAccessibility="no"/>-->
-
-<!--        <Button-->
-<!--            android:layout_width="48dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            tools:ignore="ButtonStyle"-->
-<!--            android:importantForAccessibility="no"/>-->
-
-<!--        <Button-->
-<!--            android:layout_width="48dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            tools:ignore="ButtonStyle"-->
-<!--            android:importantForAccessibility="no"/>-->
     </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -87,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topPanel"
-        android:background="@color/white"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
