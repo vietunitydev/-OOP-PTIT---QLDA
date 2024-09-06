@@ -4,7 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -57,17 +60,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createButton(TableData table) {
-        AppCompatButton button = (AppCompatButton) inflater.inflate(R.layout.button_table, layout, false);
+        FrameLayout customButton = (FrameLayout) inflater.inflate(R.layout.button_table, layout, false);
 
-        button.setText(table.getTitle());
-        button.setBackgroundColor(Color.parseColor(table.getColor()));
-
-//         wait 2s
-//        new Handler().postDelayed(() -> {
-//            MyCustomLog.DebugLog("JSON TABLE Waiter",AppData.convertToJson(AppData.getTables()));
-//        }, 2000);
-
-        button.setOnClickListener(v -> {
+        Button btn = customButton.findViewById(R.id.custom_table_btn);
+        btn.setOnClickListener(v -> {
             WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(table);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, contentFragment)
@@ -75,7 +71,17 @@ public class HomeActivity extends AppCompatActivity {
                     .commit();
         });
 
-        layout.addView(button);
+        ImageView img = customButton.findViewById(R.id.custom_table_img);
+        img.setBackgroundColor(Color.parseColor(table.getColor()));
+
+        TextView name = customButton.findViewById(R.id.custom_table_displayName);
+        name.setText(table.getTitle());
+//         wait 2s
+//        new Handler().postDelayed(() -> {
+//            MyCustomLog.DebugLog("JSON TABLE Waiter",AppData.convertToJson(AppData.getTables()));
+//        }, 2000);
+
+        layout.addView(customButton);
     }
 
     private void UpdateUI(){

@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatButton
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/custom_button"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_table"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:textColor="#FFFFFF"
-    android:textSize="16sp"/>
-<!--    android:backgroundTint="@color/design_default_color_primary"/>-->
+    android:background="@color/white">
+    <Button
+        android:id="@+id/custom_table_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:backgroundTint="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:id="@+id/custom_table_img"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@color/steel_blue"
+            android:importantForAccessibility="no" />
+        <TextView
+            android:id="@+id/custom_table_displayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:paddingStart="10dp"
+            android:layout_gravity="center_vertical"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+</FrameLayout>
