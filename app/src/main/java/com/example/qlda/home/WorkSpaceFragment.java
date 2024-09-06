@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -90,6 +91,20 @@ public class WorkSpaceFragment extends Fragment {
         backButton.setOnClickListener(v -> {
             if (getActivity() != null) {
                 ((HomeActivity) getActivity()).goBackToPreviousFragment();
+            }
+        });
+
+        // disable by code
+        LinearLayout popup = view.findViewById(R.id.table_setting_popup);
+        popup.setVisibility(View.GONE);
+
+        Button edit_pencil = view.findViewById((R.id.btn_pencil_edit));
+        edit_pencil.setOnClickListener(v -> {
+            if(popup.getVisibility() == View.VISIBLE){
+                popup.setVisibility(View.GONE);
+            }
+            else if(popup.getVisibility() == View.GONE){
+                popup.setVisibility(View.VISIBLE);
             }
         });
     }
