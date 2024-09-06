@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.qlda.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWorkHolder> {
@@ -83,8 +84,13 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
             addElement.setOnClickListener(v -> {
                 // tạo 1 element data mới
-                ElementData newElement = new ElementData();
+                FireStoreHelper fs = new FireStoreHelper();
+                String newID = fs.getNewIDTable();
+
+                ElementData newElement = new ElementData("element-id-"+ newID,workListPage.getId(),workListPage.getTableId(),"New Element","",new ArrayList<>(),new Date(), new Date(), false);
                 workListPage.addElement(newElement);
+                AppData.UpdatePage(workListPage);
+                AppData.uploadDataToServerStatic();
                 CreateElement(elements.size(), newElement.getTitle());
             });
         }

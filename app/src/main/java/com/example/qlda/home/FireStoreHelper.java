@@ -83,6 +83,28 @@ public class FireStoreHelper {
         });
     }
 
+    public String getNewIDTable() {
+        return db.collection("tables").document().getId();
+    }
+
+    public String getNewIDPage(String idTable) {
+        return db.collection("tables")
+                .document(idTable)
+                .collection("workListPages")
+                .document().getId();
+    }
+
+    public String getNewIDElement(String idTable,String idPage) {
+        MyCustomLog.DebugLog("Create New Element", "New Element 1");
+
+        return db.collection("tables")
+                .document(idTable)
+                .collection("workListPages")
+                .document(idPage)
+                .collection("elements")
+                .document().getId();
+    }
+
     private void saveTable(TableData table, OnCompleteListener<Boolean> listener) {
         Map<String, Object> tableData = mapTableToData(table);
         db.collection("tables").document(table.getId())
