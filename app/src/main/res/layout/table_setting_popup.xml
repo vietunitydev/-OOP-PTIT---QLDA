@@ -7,21 +7,31 @@
     android:padding="10dp"
     android:elevation="4dp">
 
-    <Button
-        android:id="@+id/btn_edit_name"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sửa tên" />
+        android:text="Thiết lập bảng"
+        android:layout_gravity="center"
+        android:paddingVertical="10dp"/>
 
     <Button
         android:id="@+id/btn_change_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phông nền" />
+        android:text="Phông nền"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/btn_edit_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm thành viên"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/btn_delete_table"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xoá bảng" />
+        android:text="Xoá bảng"
+        android:layout_gravity="center"/>
 </LinearLayout>
