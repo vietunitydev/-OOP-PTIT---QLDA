@@ -52,8 +52,9 @@ public class HomeActivity extends AppCompatActivity {
         Button addBtn = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
         addBtn.setOnClickListener(v -> {
+            FireStoreHelper fs = new FireStoreHelper();
             MyCustomLog.Toast(this,"Click Add Table Button");
-            TableData newTable = new TableData("table-id-2","New Table", "color", new Date());
+            TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),"New Table", "#AAAAAA", new Date());
             tables.add(newTable);
             createButton(newTable);
         });
