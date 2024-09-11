@@ -47,9 +47,10 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
         return workListPages.size();
     }
 
-    public void addWorkListPage(WorkListPageData newWorkListPage) {
+    public int addWorkListPage(WorkListPageData newWorkListPage) {
         workListPages.add(newWorkListPage);
         notifyItemInserted(workListPages.size() - 1);
+        return workListPages.size() - 1;
     }
 
     public interface OnElementClickListener {
