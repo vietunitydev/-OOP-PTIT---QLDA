@@ -115,6 +115,7 @@ public class WorkSpaceFragment extends Fragment {
             FireStoreHelper fs = new FireStoreHelper();
             // create new page
             WorkListPageData wlp = new WorkListPageData("table-id-" + fs.getNewIDTable(),table.getId(),"New Page", new Date());
+            MyCustomLog.DebugLog("LOG PAGE Create : ", AppData.convertToJson(wlp));
             int index = adapter.addWorkListPage(wlp);
             viewPager.setCurrentItem(index, true);
 //            AppData.UpdateTable(table);

@@ -79,6 +79,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
         private void Init(WorkListPageData workListPage) {
 
             this.workListPage = workListPage;
+            wl_content_scroll.removeAllViews();
 
             TextView text = wl_content.findViewById(R.id.wl_content_worklist_name);
             text.setText(workListPage.getTitle());
@@ -95,8 +96,8 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
                 ElementData newElement = new ElementData("element-id-"+ newID,workListPage.getId(),workListPage.getTableId(),"New Element","",new ArrayList<>(),new Date(), new Date(), false);
                 workListPage.addElement(newElement);
-                AppData.UpdatePage(workListPage);
-                AppData.uploadDataToServerStatic();
+//                AppData.UpdatePage(workListPage);
+//                AppData.uploadDataToServerStatic();
                 CreateElement(elements.size(), newElement.getTitle());
             });
         }
