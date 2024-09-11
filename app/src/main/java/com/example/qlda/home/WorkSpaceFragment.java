@@ -18,6 +18,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.qlda.R;
 
+import java.util.Date;
+
 public class WorkSpaceFragment extends Fragment {
 
     private static final String ARG_TABLE = "arg_table";
@@ -106,6 +108,16 @@ public class WorkSpaceFragment extends Fragment {
             else if(popup.getVisibility() == View.GONE){
                 popup.setVisibility(View.VISIBLE);
             }
+        });
+
+        Button edit_plus = view.findViewById((R.id.btn_plus_edit));
+        edit_plus.setOnClickListener(v -> {
+            FireStoreHelper fs = new FireStoreHelper();
+            // create new page
+            WorkListPageData wlp = new WorkListPageData("table-id-" + fs.getNewIDTable(),table.getId(),"New Page", new Date());
+            adapter.addWorkListPage(wlp);
+//            AppData.UpdateTable(table);
+//            AppData.uploadDataToServerStatic();
         });
     }
 
