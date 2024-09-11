@@ -31,8 +31,8 @@ public class WorkListPageData implements Serializable {
         this.id = id;
         this.tableId = tableId;
         this.title = title;
-        this.elementIds = new ArrayList<>();
-        this.elements = new ArrayList<>();
+        this.elementIds = new ArrayList<>(0);
+        this.elements = new ArrayList<>(0);
         this.createdAt = createdAt;
         this.updatedAt = new Date();
         this.destroy = false;
