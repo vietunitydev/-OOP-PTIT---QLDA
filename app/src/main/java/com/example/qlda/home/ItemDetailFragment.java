@@ -70,8 +70,8 @@ public class ItemDetailFragment extends Fragment {
 
                     // sync với app data để truyền lên server
                     element.setTitle(String.valueOf(name.getText()));
-                    AppData.UpdateElement(element);
-                    AppData.uploadDataToServerStatic();
+//                    AppData.UpdateElement(element);
+//                    AppData.uploadDataToServerStatic();
 
                     // Ẩn bàn phím ảo
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

@@ -62,8 +62,8 @@ public class WorkSpaceFragment extends Fragment {
 
                     // sync với app data để truyền lên server
                     table.setTitle(String.valueOf(edittext_wspaceName.getText()));
-                    AppData.UpdateTable(table);
-                    AppData.uploadDataToServerStatic();
+//                    AppData.UpdateTable(table);
+//                    AppData.uploadDataToServerStatic();
 
                     // Ẩn bàn phím ảo
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
