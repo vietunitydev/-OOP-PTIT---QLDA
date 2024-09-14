@@ -48,24 +48,47 @@
                 android:textColor="@color/white"
                 android:textSize="13sp" />
         </LinearLayout>
-        <Button
-            android:id="@+id/btn_pencil_edit"
+        <FrameLayout
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_margin="15dp"
-            android:background="@drawable/ic_pencil"
-            android:elevation="4dp"
-            android:padding="0dp"
-            android:tint="@color/black" />
-        <Button
-            android:id="@+id/btn_plus_edit"
+            android:gravity="center"
+            android:layout_margin="15dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_pencil"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
+            <Button
+                android:id="@+id/btn_pencil_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text=""
+                android:textColor="@android:color/transparent"/>
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_margin="15dp"
-            android:background="@drawable/ic_plus"
-            android:elevation="4dp"
-            android:padding="0dp"
-            android:tint="@color/black" />
+            android:gravity="center"
+            android:layout_margin="15dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_plus"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
+            <Button
+                android:id="@+id/btn_plus_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text=""
+                android:textColor="@android:color/transparent"/>
+        </FrameLayout>
     </LinearLayout>
 
     <include
