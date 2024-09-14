@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.qlda.R;
 
@@ -55,8 +54,15 @@ public class HomeActivity extends AppCompatActivity {
             FireStoreHelper fs = new FireStoreHelper();
             MyCustomLog.Toast(this,"Click Add Table Button");
             TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),"New Table", "#AAAAAA", new Date());
-            tables.add(newTable);
+            WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
+            newTable.addWorkListPage(newPage);
             createButton(newTable);
+
+            // add vao APPDATA
+            AppData.addTable(newTable);
+            MyCustomLog.DebugLog("Debug DATA", AppData.convertToJson(AppData.Tables));
+
+            updateUI();
         });
     }
 
@@ -77,29 +83,21 @@ public class HomeActivity extends AppCompatActivity {
 
         TextView name = customButton.findViewById(R.id.custom_table_displayName);
         name.setText(table.getTitle());
-//         wait 2s
-//        new Handler().postDelayed(() -> {
-//            MyCustomLog.DebugLog("JSON TABLE Waiter",AppData.convertToJson(AppData.getTables()));
-//        }, 2000);
-
         layout.addView(customButton);
     }
 
-    private void UpdateUI(){
+    private void updateUI(){
         tables = AppData.Tables;
         layout.removeAllViews();
         // ve lai
         for (TableData data : tables) {
             createButton(data);
         }
-//        Yêu cầu LinearLayout vẽ lại
-//        layout.invalidate();
-//        layout.requestLayout();
     }
 
     public void goBackToPreviousFragment() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            UpdateUI();
+            updateUI();
             getSupportFragmentManager().popBackStack();
         } else {
             // out activity

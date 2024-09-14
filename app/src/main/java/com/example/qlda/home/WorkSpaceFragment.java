@@ -91,24 +91,17 @@ public class WorkSpaceFragment extends Fragment {
 
         Button backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                ((HomeActivity) getActivity()).goBackToPreviousFragment();
-            }
+            backToHomeScreen();
         });
 
         // disable by code
         LinearLayout popup = view.findViewById(R.id.table_setting_popup);
-        popup.setVisibility(View.GONE);
+        WorkListSettingPopup settingPopup = new WorkListSettingPopup(popup,this);
 
         Button edit_pencil = view.findViewById((R.id.btn_pencil_edit));
-        edit_pencil.setOnClickListener(v -> {
-            if(popup.getVisibility() == View.VISIBLE){
-                popup.setVisibility(View.GONE);
-            }
-            else if(popup.getVisibility() == View.GONE){
-                popup.setVisibility(View.VISIBLE);
-            }
-        });
+        edit_pencil.setOnClickListener(v -> settingPopup.showUI());
+
+
 
         Button edit_plus = view.findViewById((R.id.btn_plus_edit));
         edit_plus.setOnClickListener(v -> {
@@ -118,8 +111,7 @@ public class WorkSpaceFragment extends Fragment {
             MyCustomLog.DebugLog("LOG PAGE Create : ", AppData.convertToJson(wlp));
             int index = adapter.addWorkListPage(wlp);
             viewPager.setCurrentItem(index, true);
-//            AppData.UpdateTable(table);
-//            AppData.uploadDataToServerStatic();
+
         });
     }
 
@@ -129,5 +121,15 @@ public class WorkSpaceFragment extends Fragment {
                 .replace(R.id.fragment_container, contentFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public void backToHomeScreen(){
+        if (getActivity() != null) {
+            ((HomeActivity) getActivity()).goBackToPreviousFragment();
+        }
+    }
+
+    public void removeThisTable(){
+        AppData.deleteTable(table.getId());
     }
 }
