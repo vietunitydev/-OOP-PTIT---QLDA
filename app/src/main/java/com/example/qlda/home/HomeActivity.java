@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         DownNavigation downNavigation = new DownNavigation(this, downLayout);
 
         AppData appData = new AppData();
+//        appData.InitTable();
 
         // fetch Data for app
         appData.fetchData(() -> {

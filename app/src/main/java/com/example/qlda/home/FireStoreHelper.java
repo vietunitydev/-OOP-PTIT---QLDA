@@ -21,6 +21,7 @@ public class FireStoreHelper {
                 fetchWorkListPages(table, fetchedTable -> {
                     tables.add(fetchedTable);
                     if (tables.size() == queryDocumentSnapshots.size()) {
+                        MyCustomLog.DebugLog("Fetch ALl Data", AppData.convertToJson(tables));
                         listener.onComplete(tables);
                     }
                 });
@@ -152,6 +153,7 @@ public class FireStoreHelper {
     private Map<String, Object> mapWorkListPageToData(WorkListPageData page) {
         Map<String, Object> pageData = new HashMap<>();
         pageData.put("id", page.getId());
+        pageData.put("tableId", page.getTableId());
         pageData.put("title", page.getTitle());
         pageData.put("createdAt", page.getCreatedAt());
         pageData.put("updatedAt", page.getUpdatedAt());
@@ -162,6 +164,8 @@ public class FireStoreHelper {
     private Map<String, Object> mapElementToData(ElementData element) {
         Map<String, Object> elementData = new HashMap<>();
         elementData.put("id", element.getId());
+        elementData.put("workListPageID", element.getWorkListPageID());
+        elementData.put("tableID", element.getTableID());
         elementData.put("title", element.getTitle());
         elementData.put("description", element.getDescription());
         elementData.put("createdAt", element.getCreatedAt());

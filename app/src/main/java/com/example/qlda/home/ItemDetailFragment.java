@@ -23,6 +23,8 @@ public class ItemDetailFragment extends Fragment {
     private ElementData element;
     private WorkListPageData parent;
 
+    private WorkListAdapter.ListWorkHolder workSpaceFragment;
+
     public static ItemDetailFragment newInstance(WorkListPageData parent, ElementData e) {
         ItemDetailFragment fragment = new ItemDetailFragment();
         Bundle args = new Bundle();
@@ -88,6 +90,11 @@ public class ItemDetailFragment extends Fragment {
             }
         });
 
+        Button deleteButton = view.findViewById(R.id.btn_bin);
+        deleteButton.setOnClickListener(v -> {
+            deleteMe();
+        });
+
         TextView parentName = view.findViewById(R.id.text_parent_name);
         parentName.setText(parent.getTitle());
 
@@ -103,11 +110,23 @@ public class ItemDetailFragment extends Fragment {
         // back button implement
         Button backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                ((HomeActivity) getActivity()).goBackToPreviousFragment();
-            }
+            backToPageListScreen();
         });
     }
 
+    private void deleteMe(){
+        AppData.deleteElement(element.getTableID(),element.getWorkListPageID(),element.getId());
+        backToPageListScreen();
+        workSpaceFragment.showUI();
+    }
 
+    private void backToPageListScreen(){
+        if (getActivity() != null) {
+            ((HomeActivity) getActivity()).goBackToPreviousFragment();
+        }
+    }
+
+    public void setWorkListAdapterParent(WorkListAdapter.ListWorkHolder wp){
+        this.workSpaceFragment = wp;
+    }
 }

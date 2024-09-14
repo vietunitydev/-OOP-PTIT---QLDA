@@ -17,12 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.qlda.R;
+import com.google.common.collect.Tables;
 
 import java.util.Date;
 
 public class WorkSpaceFragment extends Fragment {
 
     private static final String ARG_TABLE = "arg_table";
+    WorkListAdapter adapter;
     TableData table;
 
     public static WorkSpaceFragment newInstance(TableData table) {
@@ -86,7 +88,7 @@ public class WorkSpaceFragment extends Fragment {
 
     private void setupViewPager(LayoutInflater inflater, View view) {
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
-        WorkListAdapter adapter = new WorkListAdapter(inflater, table.getWorkListPages(), this::showItemDetailFragment);
+        adapter = new WorkListAdapter(inflater, table.getWorkListPages(), this::showItemDetailFragment);
         viewPager.setAdapter(adapter);
 
         Button backButton = view.findViewById(R.id.backButton);
@@ -115,8 +117,9 @@ public class WorkSpaceFragment extends Fragment {
         });
     }
 
-    private void showItemDetailFragment(WorkListPageData parent, ElementData e) {
+    private void showItemDetailFragment(WorkListPageData parent, ElementData e, WorkListAdapter.ListWorkHolder holder) {
         ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(parent, e);
+        contentFragment.setWorkListAdapterParent(holder);
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, contentFragment)
                 .addToBackStack(null)

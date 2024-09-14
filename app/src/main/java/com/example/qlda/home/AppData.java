@@ -85,6 +85,7 @@ public class AppData {
     }
 
     public static WorkListPageData getWorkListPage(WorkListPageData page) {
+        MyCustomLog.DebugLog("WorkList Adapter",page.getId() + " " + page.getTableId());
         for (TableData table : Tables) {
             if (Objects.equals(table.getId(), page.getTableId())) {
                 for (WorkListPageData p : table.getWorkListPages()) {
@@ -94,6 +95,7 @@ public class AppData {
                 }
             }
         }
+        MyCustomLog.DebugLog("WorkList Adapter","Null");
         return null;
     }
 

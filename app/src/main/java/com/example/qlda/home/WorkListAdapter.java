@@ -55,7 +55,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
     }
 
     public interface OnElementClickListener {
-        void onElementClick(WorkListPageData parent, ElementData e);
+        void onElementClick(WorkListPageData parent, ElementData e, WorkListAdapter.ListWorkHolder holder);
     }
 
     public static class ListWorkHolder extends RecyclerView.ViewHolder {
@@ -103,6 +103,14 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             });
         }
 
+        public void showUI(){
+            MyCustomLog.DebugLog("WorkList Adapter", AppData.convertToJson(workListPage));
+            workListPage = AppData.getWorkListPage(workListPage);
+            if(workListPage!= null){
+               Init(workListPage);
+            }
+        }
+
         private void CreateElement(int index, String cnt) {
             FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, wl_content, false);
             elements.add(element);
@@ -112,7 +120,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             Button btn = element.findViewById(R.id.item_drag_btn);
             btn.setOnClickListener(v -> {
                 if (onElementClickListener != null) {
-                    onElementClickListener.onElementClick(workListPage, workListPage.getElements().get(index));
+                    onElementClickListener.onElementClick(workListPage, workListPage.getElements().get(index), this);
                 }
             });
 
