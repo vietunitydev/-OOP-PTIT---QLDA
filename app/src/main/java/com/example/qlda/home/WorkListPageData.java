@@ -101,7 +101,7 @@ public class WorkListPageData implements Serializable {
 
     public ElementData getElementById(String id){
         for (ElementData e : elements){
-            if(Objects.equals(e.getId(), id));{
+            if(Objects.equals(e.getId(), id)){
                 return e;
             }
         }

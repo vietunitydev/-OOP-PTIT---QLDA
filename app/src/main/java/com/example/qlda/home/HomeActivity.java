@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // fetch Data for app
         appData.fetchData(() -> {
-            tables = appData.getTables();
+            tables = AppData.Tables;
 
             MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
             for (TableData data : tables) {

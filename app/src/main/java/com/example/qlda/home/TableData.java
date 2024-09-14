@@ -100,7 +100,7 @@ public class TableData implements Serializable {
     }
     public WorkListPageData getWorkListPageById(String id){
         for (WorkListPageData p : workListPages){
-            if(Objects.equals(p.getId(), id));{
+            if(Objects.equals(p.getId(), id)){
                 return p;
             }
         }

@@ -13,16 +13,6 @@ public class AppData {
 
     public static List<TableData> Tables = new ArrayList<>();
 
-    private final List<TableData> tables;
-
-    public AppData(){
-        tables = new ArrayList<>();
-    }
-
-    public List<TableData> getTables(){
-        return tables;
-    }
-
     public void fetchData(OnDataFetchedListener listener) {
         MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
 
@@ -32,9 +22,6 @@ public class AppData {
                 if(fetchedTables == null){
                     return;
                 }
-                tables.clear();
-                tables.addAll(fetchedTables);
-
                 Tables.clear();
                 Tables.addAll(fetchedTables);
                 MyCustomLog.DebugLog("FireBase Store", "Fetched Data Successfully");
@@ -202,6 +189,29 @@ public class AppData {
         }
     }
 
+    public interface OnDataFetchedListener {
+        void onDataFetched();
+    }
+
+    public static <T> String convertToJson(T item) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(item);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////      OLD           //////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+
+    private final List<TableData> tables;
+
+    public AppData(){
+        tables = new ArrayList<>();
+    }
+
+    public List<TableData> getTables(){
+        return tables;
+    }
+
     public void InitTable(){
         // Table 1
         TableData table1 = new TableData("table-id-01", "Project A", "#FF5733", new Date());
@@ -267,6 +277,10 @@ public class AppData {
         tables.add(table1);
         tables.add(table2);
         tables.add(table3);
+
+        for (TableData table : tables) {
+            firestoreHelper.uploadAllData(table);
+        }
     }
 
     public void uploadDataToServer() {
@@ -276,16 +290,4 @@ public class AppData {
             }
         }
     }
-
-    public interface OnDataFetchedListener {
-        void onDataFetched();
-    }
-
-    public static <T> String convertToJson(T item) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(item);
-    }
-
 }
-
-
