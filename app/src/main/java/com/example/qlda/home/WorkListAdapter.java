@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,7 +60,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
 
     public static class ListWorkHolder extends RecyclerView.ViewHolder {
         private final LayoutInflater inflater;
-        private final LinearLayout wl_content;
+        private final RelativeLayout wl_content;
         private final LinearLayout wl_content_scroll;
         private final Button addElement;
         private final OnElementClickListener onElementClickListener;
@@ -71,7 +72,7 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
             super(itemView);
             this.inflater = inflater;
             this.wl_content = itemView.findViewById(R.id.wl_content);
-            this.wl_content_scroll = itemView.findViewById(R.id.wl_content_scrollview);
+            this.wl_content_scroll = itemView.findViewById(R.id.wl_content_scroll);
             this.addElement = itemView.findViewById(R.id.wl_content_btnAdd);
             this.onElementClickListener = onElementClickListener;
         }
