@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class WorkListPageData implements Serializable {
     private String id;
     private String tableId;
     private String title;
-    private List<String> elementIds;
     private List<ElementData> elements;
     private Date createdAt;
     private Date updatedAt;
@@ -19,7 +19,6 @@ public class WorkListPageData implements Serializable {
         this.id = "";
         this.tableId = "";
         this.title = "";
-        this.elementIds = new ArrayList<>();
         this.elements = new ArrayList<>();
         this.createdAt = new Date();
         this.updatedAt = new Date();
@@ -31,7 +30,6 @@ public class WorkListPageData implements Serializable {
         this.id = id;
         this.tableId = tableId;
         this.title = title;
-        this.elementIds = new ArrayList<>(0);
         this.elements = new ArrayList<>(0);
         this.createdAt = createdAt;
         this.updatedAt = new Date();
@@ -61,14 +59,6 @@ public class WorkListPageData implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public List<String> getElementIds() {
-        return elementIds;
-    }
-
-    public void setElementIds(List<String> elementIds) {
-        this.elementIds = elementIds;
     }
 
     public List<ElementData> getElements() {
@@ -106,8 +96,16 @@ public class WorkListPageData implements Serializable {
     // Method to add Element
     public void addElement(ElementData element) {
         this.elements.add(element);
-        this.elementIds.add(element.getId());
         this.updatedAt = new Date();
+    }
+
+    public ElementData getElementById(String id){
+        for (ElementData e : elements){
+            if(Objects.equals(e.getId(), id));{
+                return e;
+            }
+        }
+        return null;
     }
 }
 

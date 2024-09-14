@@ -1,7 +1,5 @@
 package com.example.qlda.home;
 
-import android.os.Debug;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -57,56 +55,144 @@ public class AppData {
         return null;
     }
 
-    public static void UpdateElement(ElementData ele){
-        for (TableData table : Tables){
-            for(WorkListPageData page : table.getWorkListPages()){
-                for (ElementData element : page.getElements()){
-                    if(Objects.equals(ele.getId(), element.getId())){
-                        element.setUpdatedAt(new Date());
-                        element.setComments(ele.getComments());
-                        element.setDescription(ele.getDescription());
-                        element.setTitle(ele.getTitle());
-                        element.setTableID(ele.getTableID());
-                        element.setWorkListPageID(ele.getWorkListPageID());
-                        element.setDestroy(ele.isDestroy());
-                        break;
+    // CREATE
+    public static void addTable(TableData table) {
+        if (table != null) {
+            Tables.add(table);
+        }
+    }
+
+    public static void addWorkListPage(WorkListPageData page) {
+        if (page == null){
+            MyCustomLog.DebugLog("Create", "page null");
+            return;
+        }
+        TableData table = getTableById(page.getTableId());
+        if (table != null) {
+            table.addWorkListPage(page);
+        }
+    }
+
+    public static void addElement(ElementData element) {
+        if(element == null){
+            MyCustomLog.DebugLog("Create","element null");
+            return;
+        }
+        TableData table = getTableById(element.getTableID());
+        if (table != null) {
+            WorkListPageData page = table.getWorkListPageById(element.getWorkListPageID());
+            if (page != null) {
+                page.addElement(element);
+            }
+        }
+    }
+
+    // READ
+    public static TableData getTable(String id) {
+        for (TableData table : Tables) {
+            if (Objects.equals(table.getId(), id)) {
+                return table;
+            }
+        }
+        return null;
+    }
+
+    public static WorkListPageData getWorkListPage(WorkListPageData page) {
+        for (TableData table : Tables) {
+            if (Objects.equals(table.getId(), page.getTableId())) {
+                for (WorkListPageData p : table.getWorkListPages()) {
+                    if (Objects.equals(p.getId(), page.getId())) {
+                        return p;
                     }
                 }
             }
         }
+        return null;
     }
 
-    public static void UpdatePage(WorkListPageData p){
-        for (TableData table : Tables){
-            for(WorkListPageData page : table.getWorkListPages()){
-                if(Objects.equals(page.getId(), p.getId())){
-                    page.setUpdatedAt(new Date());
-                    page.setTitle(p.getTitle());
-                    page.setTableId(p.getTableId());
-                    page.setElementIds(page.getElementIds());
-                    page.setElements(p.getElements());
-                    page.setDestroy(p.isDestroy());
-                    break;
+    public static ElementData getElement(String elementId, String tableId, String workListPageId) {
+        TableData table = getTable(tableId);
+        if (table != null) {
+            WorkListPageData page = table.getWorkListPageById(workListPageId);
+            if (page != null) {
+                for (ElementData element : page.getElements()) {
+                    if (Objects.equals(element.getId(), elementId)) {
+                        return element;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    // UPDATE
+    public static void updateTable(String id, TableData newTable) {
+        TableData table = getTable(id);
+        if (table != null && newTable != null) {
+           MyCustomLog.DebugLog("Update AppData","Table" + table.getId());
+            table.setUpdatedAt(new Date());
+            table.setColor(newTable.getColor());
+            table.setTitle(newTable.getTitle());
+            table.setWorkListPages(newTable.getWorkListPages());
+            table.setDestroy(newTable.isDestroy());
+        }
+    }
+
+    public static void updateWorkListPage(String tableId, WorkListPageData updatedPage) {
+        TableData table = getTable(tableId);
+        if (table != null) {
+            WorkListPageData page = table.getWorkListPageById(updatedPage.getId());
+            if (page != null) {
+                page.setUpdatedAt(new Date());
+                page.setTitle(updatedPage.getTitle());
+                page.setTableId(updatedPage.getTableId());
+                page.setElements(updatedPage.getElements());
+                page.setDestroy(updatedPage.isDestroy());
+            }
+        }
+    }
+
+    public static void updateElement(String tableId, String pageId, ElementData updatedElement) {
+        TableData table = getTable(tableId);
+        if (table != null) {
+            WorkListPageData page = table.getWorkListPageById(pageId);
+            if (page != null) {
+                ElementData element = page.getElementById(updatedElement.getId());
+                if (element != null) {
+                    element.setUpdatedAt(new Date());
+                    element.setComments(updatedElement.getComments());
+                    element.setDescription(updatedElement.getDescription());
+                    element.setTitle(updatedElement.getTitle());
+                    element.setTableID(updatedElement.getTableID());
+                    element.setWorkListPageID(updatedElement.getWorkListPageID());
+                    element.setDestroy(updatedElement.isDestroy());
                 }
             }
         }
     }
 
-    public static void UpdateTable(TableData t){
-        for (TableData table : Tables){
-            if(Objects.equals(table.getId(),t.getId())){
-                MyCustomLog.DebugLog("Update AppData","Table" + table.getId());
-                table.setUpdatedAt(new Date());
-                table.setColor(t.getColor());
-                table.setTitle(t.getTitle());
-                table.setWorkListPageIds(t.getWorkListPageIds());
-                table.setWorkListPages(t.getWorkListPages());
-                table.setDestroy(t.isDestroy());
-                break;
+    // DELETE
+    public static void deleteTable(String id) {
+        Tables.removeIf(table -> Objects.equals(table.getId(), id));
+    }
+
+    public static void deleteWorkListPage(String tableId, String pageId) {
+        TableData table = getTable(tableId);
+        if (table != null) {
+            table.getWorkListPages().removeIf(page -> Objects.equals(page.getId(), pageId));
+        }
+    }
+
+    public static void deleteElement(String tableId, String pageId, String elementId) {
+        TableData table = getTable(tableId);
+        if (table != null) {
+            WorkListPageData page = table.getWorkListPageById(pageId);
+            if (page != null) {
+                page.getElements().removeIf(element -> Objects.equals(element.getId(), elementId));
             }
         }
-
     }
+
 
     public static void uploadDataToServerStatic() {
         if (Tables != null && !Tables.isEmpty()) {
@@ -199,4 +285,7 @@ public class AppData {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(item);
     }
+
 }
+
+

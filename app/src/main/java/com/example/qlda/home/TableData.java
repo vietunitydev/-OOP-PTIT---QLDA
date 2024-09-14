@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class TableData implements Serializable {
     private String id;
     private String title;
     private String color;
-    private List<String> workListPageIds;
     private List<WorkListPageData> workListPages;
     private Date createdAt;
     private Date updatedAt;
@@ -19,7 +19,6 @@ public class TableData implements Serializable {
         this.id = "";
         this.title = "";
         this.color = "";
-        this.workListPageIds = new ArrayList<>();
         this.workListPages = new ArrayList<>();
         this.createdAt = new Date();
         this.updatedAt = new Date();
@@ -31,7 +30,6 @@ public class TableData implements Serializable {
         this.id = id;
         this.title = title;
         this.color = color;
-        this.workListPageIds = new ArrayList<>();
         this.workListPages = new ArrayList<>();
         this.createdAt = createdAt;
         this.updatedAt = new Date();
@@ -61,14 +59,6 @@ public class TableData implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public List<String> getWorkListPageIds() {
-        return workListPageIds;
-    }
-
-    public void setWorkListPageIds(List<String> workListPageIds) {
-        this.workListPageIds = workListPageIds;
     }
 
     public List<WorkListPageData> getWorkListPages() {
@@ -106,7 +96,14 @@ public class TableData implements Serializable {
     // Method to add WorkListPage
     public void addWorkListPage(WorkListPageData workListPage) {
         this.workListPages.add(workListPage);
-        this.workListPageIds.add(workListPage.getId());
         this.updatedAt = new Date();
+    }
+    public WorkListPageData getWorkListPageById(String id){
+        for (WorkListPageData p : workListPages){
+            if(Objects.equals(p.getId(), id));{
+                return p;
+            }
+        }
+        return null;
     }
 }
