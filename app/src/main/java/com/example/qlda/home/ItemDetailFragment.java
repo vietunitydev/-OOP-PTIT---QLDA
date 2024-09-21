@@ -50,22 +50,16 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        inflaterOwner = inflater;
-        View view = inflater.inflate(R.layout.screen_detail_worklist_element, container, false);
+        this.inflaterOwner = inflater;
+        this.view = inflater.inflate(R.layout.screen_detail_worklist_element, container, false);
 
-        setupItemDetail(inflater, view);
-
+        setupItemDetail(inflater);
         return view;
     }
 
-    private void setupItemDetail(LayoutInflater inflater, View v_) {
-
+    private void setupItemDetail(LayoutInflater inflater) {
         // container chứa view của các page mình cần show
 
-        // truyển ảnh vào để set content cho 1 worklist adapter
-        // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
-
-        this.view = v_;
         TextView name = view.findViewById(R.id.edittext_element);
         name.setText(element.getTitle());
 
