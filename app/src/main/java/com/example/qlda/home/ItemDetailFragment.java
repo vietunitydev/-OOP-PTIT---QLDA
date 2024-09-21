@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +27,8 @@ public class ItemDetailFragment extends Fragment {
 
     private WorkListAdapter.ListWorkHolder workSpaceFragment;
 
+    private LayoutInflater inflaterOwner;
+    private View view;
     public static ItemDetailFragment newInstance(WorkListPageData parent, ElementData e) {
         ItemDetailFragment fragment = new ItemDetailFragment();
         Bundle args = new Bundle();
@@ -46,6 +50,7 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        inflaterOwner = inflater;
         View view = inflater.inflate(R.layout.screen_detail_worklist_element, container, false);
 
         setupItemDetail(inflater, view);
@@ -53,13 +58,14 @@ public class ItemDetailFragment extends Fragment {
         return view;
     }
 
-    private void setupItemDetail(LayoutInflater inflater, View view) {
+    private void setupItemDetail(LayoutInflater inflater, View v_) {
 
         // container chứa view của các page mình cần show
 
         // truyển ảnh vào để set content cho 1 worklist adapter
         // bây giờ cần truyền vào số lượng adapter, số element của 1 adapter, content của 1 element
 
+        this.view = v_;
         TextView name = view.findViewById(R.id.edittext_element);
         name.setText(element.getTitle());
 
@@ -112,12 +118,55 @@ public class ItemDetailFragment extends Fragment {
         backButton.setOnClickListener(v -> {
             backToPageListScreen();
         });
+
+        TextView commentText = view.findViewById(R.id.edit_comment);
+        commentText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    // Ghi log khi nhấn Enter
+                    // MyCustomLog.DebugLog("Custom Name", "Completed Edit");
+
+                    // get information user
+                    addNewComment("Name", commentText.getText().toString());
+
+                    commentText.setText("");
+
+                    // Ẩn bàn phím ảo
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                    // Làm mất focus khỏi EditText
+                    v.clearFocus();
+
+                    // Trả về true để chỉ ra rằng sự kiện đã được xử lý
+                    return true;
+                }
+                // Trả về false nếu sự kiện không được xử lý
+                return false;
+            }
+        });
+
+
     }
 
     private void deleteMe(){
         AppData.deleteElement(element.getTableID(),element.getWorkListPageID(),element.getId());
         backToPageListScreen();
         workSpaceFragment.showUI();
+    }
+
+    private void addNewComment(String name, String content){
+        LinearLayout listComment = view.findViewById(R.id.list_comment);
+        View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
+
+        TextView nameText = commentTemplate.findViewById(R.id.text_name);
+        nameText.setText(name);
+
+        TextView contentText = commentTemplate.findViewById(R.id.text_content);
+        contentText.setText(content);
+
+        listComment.addView(commentTemplate);
     }
 
     private void backToPageListScreen(){
