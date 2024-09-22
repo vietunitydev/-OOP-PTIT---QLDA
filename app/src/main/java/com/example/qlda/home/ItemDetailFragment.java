@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.example.qlda.R;
 
+import java.util.Date;
+
 
 public class ItemDetailFragment extends Fragment {
 
@@ -122,7 +124,7 @@ public class ItemDetailFragment extends Fragment {
                     // MyCustomLog.DebugLog("Custom Name", "Completed Edit");
 
                     // get information user
-                    addNewComment("Name", commentText.getText().toString());
+                    addNewComment(commentText.getText().toString());
 
                     commentText.setText("");
 
@@ -150,17 +152,29 @@ public class ItemDetailFragment extends Fragment {
         workSpaceFragment.showUI();
     }
 
-    private void addNewComment(String name, String content){
+    private void addNewComment(String content){
         LinearLayout listComment = view.findViewById(R.id.list_comment);
         View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
 
+        UserData user = AppData.myUserData;
+
         TextView nameText = commentTemplate.findViewById(R.id.text_name);
-        nameText.setText(name);
+        nameText.setText(user.getDisplayName());
 
         TextView contentText = commentTemplate.findViewById(R.id.text_content);
         contentText.setText(content);
 
         listComment.addView(commentTemplate,0);
+
+        ElementData.Comment newComment = new ElementData.Comment(user.getId(), user.getEmail(), user.getAvatar(), user.getDisplayName(), content, new Date());
+        element.addComments(newComment);
+
+        MyCustomLog.DebugLog("ADD new comment", AppData.convertToJson(newComment));
+        MyCustomLog.DebugLog("ADD new comment", "element " + AppData.convertToJson(element));
+
+        AppData.updateElement(element.getTableID(),element.getWorkListPageID(),element);
+        AppData.uploadDataToServerStatic();
+
     }
 
     private void backToPageListScreen(){

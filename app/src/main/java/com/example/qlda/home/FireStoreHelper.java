@@ -229,6 +229,7 @@ public class FireStoreHelper {
         elementData.put("tableID", element.getTableID());
         elementData.put("title", element.getTitle());
         elementData.put("description", element.getDescription());
+        elementData.put("comments", element.getComments());
         elementData.put("createdAt", element.getCreatedAt());
         elementData.put("updatedAt", element.getUpdatedAt());
         elementData.put("destroy", element.isDestroy());

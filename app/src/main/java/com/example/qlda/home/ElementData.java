@@ -24,6 +24,15 @@ public class ElementData implements Serializable {
         private String content;
         private Date createdAt;
 
+        public Comment(String userID, String userEmail, String userAvatar, String userDisplayName, String content, Date createdAt) {
+            this.userID = userID;
+            this.userEmail = userEmail;
+            this.userAvatar = userAvatar;
+            this.userDisplayName = userDisplayName;
+            this.content = content;
+            this.createdAt = createdAt;
+        }
+
         // Getters
         public String getUserID() {
             return userID;
@@ -159,6 +168,10 @@ public class ElementData implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void addComments(Comment com){
+        this.comments.add(com);
     }
 
     public void setCreatedAt(Date createdAt) {
