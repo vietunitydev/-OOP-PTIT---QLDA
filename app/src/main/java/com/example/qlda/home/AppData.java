@@ -214,6 +214,28 @@ public class AppData {
         }
     }
 
+    public static void uploadUser() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        assert currentUser != null;
+        UserData user = new UserData(
+                currentUser.getUid(),
+                currentUser.getEmail(),
+                currentUser.getDisplayName(),
+                "Objects.requireNonNull(currentUser.getPhotoUrl()).toString()",
+                "admin",
+                new Date(),
+                new Date()
+        );
+
+        user.addManagedProject("table-id-01");
+        user.addManagedProject("table-id-02");
+        user.addOwnedProject("table-id-03");
+
+        firestoreHelper.saveUserToFirestore(user);
+    }
+
     public interface OnDataFetchedListener {
         void onDataFetched();
     }
@@ -307,25 +329,7 @@ public class AppData {
             firestoreHelper.uploadAllData(table);
         }
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = auth.getCurrentUser();
-
-        assert currentUser != null;
-        UserData user = new UserData(
-                currentUser.getUid(),
-                currentUser.getEmail(),
-                currentUser.getDisplayName(),
-                "Objects.requireNonNull(currentUser.getPhotoUrl()).toString()",
-                "admin",
-                new Date(),
-                new Date()
-        );
-
-        user.addOwnedProject("table-id-01");
-        user.addOwnedProject("table-id-02");
-        user.addManagedProject("table-id-03");
-
-        firestoreHelper.saveUserToFirestore(user);
+        uploadUser();
     }
 
     public void uploadDataToServer() {
