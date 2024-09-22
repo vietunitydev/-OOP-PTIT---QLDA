@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.qlda.R;
 
 import java.util.Date;
+import java.util.List;
 
 
 public class ItemDetailFragment extends Fragment {
@@ -143,7 +144,7 @@ public class ItemDetailFragment extends Fragment {
             }
         });
 
-
+        showComment();
     }
 
     private void deleteMe(){
@@ -169,8 +170,8 @@ public class ItemDetailFragment extends Fragment {
         ElementData.Comment newComment = new ElementData.Comment(user.getId(), user.getEmail(), user.getAvatar(), user.getDisplayName(), content, new Date());
         element.addComments(newComment);
 
-        MyCustomLog.DebugLog("ADD new comment", AppData.convertToJson(newComment));
-        MyCustomLog.DebugLog("ADD new comment", "element " + AppData.convertToJson(element));
+//        MyCustomLog.DebugLog("ADD new comment", AppData.convertToJson(newComment));
+//        MyCustomLog.DebugLog("ADD new comment", "element " + AppData.convertToJson(element));
 
         AppData.updateElement(element.getTableID(),element.getWorkListPageID(),element);
         AppData.uploadDataToServerStatic();
@@ -185,5 +186,22 @@ public class ItemDetailFragment extends Fragment {
 
     public void setWorkListAdapterParent(WorkListAdapter.ListWorkHolder wp){
         this.workSpaceFragment = wp;
+    }
+
+    private void showComment(){
+//        List<ElementData.Comment> comments = element.getComments();
+//
+//        for (ElementData.Comment c : comments){
+//            LinearLayout listComment = view.findViewById(R.id.list_comment);
+//            View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
+//
+//            TextView nameText = commentTemplate.findViewById(R.id.text_name);
+//            nameText.setText(c.getUserDisplayName());
+//
+//            TextView contentText = commentTemplate.findViewById(R.id.text_content);
+//            contentText.setText(c.getContent());
+//
+//            listComment.addView(commentTemplate,0);
+//        }
     }
 }
