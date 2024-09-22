@@ -189,19 +189,19 @@ public class ItemDetailFragment extends Fragment {
     }
 
     private void showComment(){
-//        List<ElementData.Comment> comments = element.getComments();
-//
-//        for (ElementData.Comment c : comments){
-//            LinearLayout listComment = view.findViewById(R.id.list_comment);
-//            View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
-//
-//            TextView nameText = commentTemplate.findViewById(R.id.text_name);
-//            nameText.setText(c.getUserDisplayName());
-//
-//            TextView contentText = commentTemplate.findViewById(R.id.text_content);
-//            contentText.setText(c.getContent());
-//
-//            listComment.addView(commentTemplate,0);
-//        }
+        List<ElementData.Comment> comments = element.getComments();
+
+        for (ElementData.Comment c : comments){
+            LinearLayout listComment = view.findViewById(R.id.list_comment);
+            View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
+
+            TextView nameText = commentTemplate.findViewById(R.id.text_name);
+            nameText.setText(c.getUserDisplayName());
+
+            TextView contentText = commentTemplate.findViewById(R.id.text_content);
+            contentText.setText(c.getContent());
+
+            listComment.addView(commentTemplate,0);
+        }
     }
 }

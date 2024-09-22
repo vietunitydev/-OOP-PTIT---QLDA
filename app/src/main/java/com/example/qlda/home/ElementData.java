@@ -24,6 +24,15 @@ public class ElementData implements Serializable {
         private String content;
         private Date createdAt;
 
+        public Comment(){
+            this.userID = "";
+            this.userEmail = "";
+            this.userAvatar = "";
+            this.userDisplayName = "";
+            this.content = "";
+            this.createdAt = new Date();
+        }
+
         public Comment(String userID, String userEmail, String userAvatar, String userDisplayName, String content, Date createdAt) {
             this.userID = userID;
             this.userEmail = userEmail;
