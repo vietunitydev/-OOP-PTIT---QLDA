@@ -160,7 +160,7 @@ public class ItemDetailFragment extends Fragment {
         TextView contentText = commentTemplate.findViewById(R.id.text_content);
         contentText.setText(content);
 
-        listComment.addView(commentTemplate);
+        listComment.addView(commentTemplate,0);
     }
 
     private void backToPageListScreen(){

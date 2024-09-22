@@ -16,6 +16,8 @@ import com.example.qlda.home.LoginFragment;
 import com.example.qlda.home.WorkSpaceFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail;
@@ -74,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                                     saveUserData("", "", false);
                                 }
                                 // Sign in success
-                                Log.d("Firebase", "Sign-in successful");
+                                Log.d("Firebase Login", "Sign-in successful - id " + Objects.requireNonNull(auth.getCurrentUser()).getUid());
                                 Intent intent = new Intent(this, HomeActivity.class);
                                 startActivity(intent);
                                 finish(); // Optionally close the current activity
