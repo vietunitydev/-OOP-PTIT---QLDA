@@ -2,7 +2,9 @@ package com.example.qlda.home;
 
 import android.os.Debug;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -14,16 +16,28 @@ public class FireStoreHelper {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public void fetchAllData(OnCompleteListener<List<TableData>> listener) {
-        db.collection("tables").get().addOnSuccessListener(queryDocumentSnapshots -> {
-            List<TableData> tables = new ArrayList<>();
-            for (DocumentSnapshot document : queryDocumentSnapshots) {
-                TableData table = document.toObject(TableData.class);
-                fetchWorkListPages(table, fetchedTable -> {
-                    tables.add(fetchedTable);
-                    if (tables.size() == queryDocumentSnapshots.size()) {
-                        MyCustomLog.DebugLog("Fetch ALl Data", AppData.convertToJson(tables));
-                        listener.onComplete(tables);
-                    }
+
+        // fetch nhung project ma nguoi nay quan ly thoi
+        UserData user = AppData.myUserData;
+        List<String> owned = user.getOwnedId();
+
+        MyCustomLog.DebugLog("OwnID", owned.get(0));
+        MyCustomLog.DebugLog("OwnID", "fetched");
+
+        db.collection("tables")
+                .whereIn(FieldPath.documentId(), owned)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<TableData> tables = new ArrayList<>();
+                        for (DocumentSnapshot document : queryDocumentSnapshots) {
+                            TableData table = document.toObject(TableData.class);
+                            fetchWorkListPages(table, fetchedTable -> {
+                                tables.add(fetchedTable);
+                                if (tables.size() == queryDocumentSnapshots.size())
+                                {
+                                    MyCustomLog.DebugLog("Fetch ALl Data", AppData.convertToJson(tables));
+                                    listener.onComplete(tables);
+                                }
                 });
             }
         }).addOnFailureListener(e -> {
@@ -137,6 +151,53 @@ public class FireStoreHelper {
                 .set(elementData)
                 .addOnSuccessListener(aVoid -> logSuccess())
                 .addOnFailureListener(e -> handleError("Error saving element", e));
+    }
+
+    public void saveUserToFirestore(UserData user) {
+        Map<String, Object> userMap = convertUserToMap(user);
+
+        db.collection("users")
+                .document(user.getId())
+                .set(userMap)
+                .addOnSuccessListener(aVoid -> {
+                    //
+                })
+                .addOnFailureListener(e -> {
+                    //
+                });
+    }
+    public void getUserFromFirestore(String userId, OnCompleteListener<UserData> listener) {
+        DocumentReference docRef = db.collection("users").document(userId);
+
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    UserData user = document.toObject(UserData.class);
+                    listener.onComplete(user);
+                }
+                else {
+                    listener.onComplete(null);
+                }
+            }
+            else {
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    private Map<String, Object> convertUserToMap(UserData user) {
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("id", user.getId());
+        userMap.put("email", user.getEmail());
+        userMap.put("displayName", user.getDisplayName());
+        userMap.put("avatar", user.getAvatar());
+        userMap.put("role", user.getRole());
+        userMap.put("createAt", user.getCreateAt());
+        userMap.put("updatedAt", user.getUpdatedAt());
+        userMap.put("ownedId", user.getOwnedId());
+        userMap.put("managedId", user.getManagedId());
+        return userMap;
     }
 
     private Map<String, Object> mapTableToData(TableData table) {

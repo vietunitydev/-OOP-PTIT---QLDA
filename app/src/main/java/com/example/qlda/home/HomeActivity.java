@@ -24,6 +24,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private List<TableData> tables = new ArrayList<>();
 
+    UserData user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +41,16 @@ public class HomeActivity extends AppCompatActivity {
         AppData appData = new AppData();
 //        appData.InitTable();
 
-        // fetch Data for app
-        appData.fetchData(() -> {
-            tables = AppData.Tables;
+        appData.fetchUser(() ->{
+            // fetch Data for app
+            appData.fetchData(() -> {
+                tables = AppData.Tables;
 
-            MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
-            for (TableData data : tables) {
-                createButton(data);
-            }
+                MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
+                for (TableData data : tables) {
+                    createButton(data);
+                }
+            });
         });
 
         Button addBtn = findViewById(R.id.wl_content_btnAdd);

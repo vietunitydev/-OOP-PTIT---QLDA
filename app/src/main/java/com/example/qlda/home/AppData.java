@@ -1,5 +1,7 @@
 package com.example.qlda.home;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,6 +14,8 @@ public class AppData {
     private static final FireStoreHelper firestoreHelper = new FireStoreHelper();
 
     public static List<TableData> Tables = new ArrayList<>();
+
+    public static UserData myUserData;
 
     public void fetchData(OnDataFetchedListener listener) {
         MyCustomLog.DebugLog("FireBase Store", "Fetching Data");
@@ -29,6 +33,25 @@ public class AppData {
                 if (listener != null) {
                     listener.onDataFetched();
                 }
+            }
+        });
+    }
+
+    public void fetchUser(OnDataFetchedListener listener){
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        assert currentUser != null;
+        firestoreHelper.getUserFromFirestore(currentUser.getUid(), fetchedUser -> {
+            if(fetchedUser == null){
+                return;
+            }
+            myUserData = fetchedUser;
+            MyCustomLog.DebugLog("FireBase Store", "Fetched User Successfully" + convertToJson(myUserData));
+
+            if (listener != null) {
+                listener.onDataFetched();
             }
         });
     }
@@ -283,6 +306,26 @@ public class AppData {
         for (TableData table : tables) {
             firestoreHelper.uploadAllData(table);
         }
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        assert currentUser != null;
+        UserData user = new UserData(
+                currentUser.getUid(),
+                currentUser.getEmail(),
+                currentUser.getDisplayName(),
+                "Objects.requireNonNull(currentUser.getPhotoUrl()).toString()",
+                "admin",
+                new Date(),
+                new Date()
+        );
+
+        user.addOwnedProject("table-id-01");
+        user.addOwnedProject("table-id-02");
+        user.addManagedProject("table-id-03");
+
+        firestoreHelper.saveUserToFirestore(user);
     }
 
     public void uploadDataToServer() {
