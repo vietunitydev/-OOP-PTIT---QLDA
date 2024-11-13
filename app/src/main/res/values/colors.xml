@@ -11,4 +11,7 @@
     <color name="pink">#D81B60</color>
     <color name="deep_purple">#5E35B1</color>
     <color name="brow">#7a7a7a</color>
+    <color name="gains_boro">#EEEEEE</color>
+    <color name="orange">#FF7F00</color>
+    <color name="gray3">#696969</color>
 </resources>
