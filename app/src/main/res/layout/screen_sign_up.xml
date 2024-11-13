@@ -17,46 +17,49 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="16dp">
+
+        <!-- Sign In TextView -->
         <ImageView
             android:id="@+id/logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_user"
+            android:layout_gravity="center"
             android:contentDescription="Logo"
-            android:layout_gravity="center" />
+            android:src="@drawable/ic_user" />
 
-        <!-- Sign In TextView -->
+        <!-- Email Address EditText -->
+
+        <!-- Password EditText -->
+
+        <!-- Password EditText -->
         <TextView
             android:id="@+id/tvSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
             android:text="@string/sign_up"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp"
-            android:layout_gravity="center" />
+            android:textStyle="bold" />
 
-        <!-- Email Address EditText -->
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email_address"
-            android:inputType="textEmailAddress"
             android:layout_marginTop="16dp"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:hint="@string/email_address"
+            android:inputType="textEmailAddress" />
 
-        <!-- Password EditText -->
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword"
             android:layout_marginTop="16dp"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:hint="@string/password"
+            android:inputType="textPassword" />
 
-        <!-- Password EditText -->
         <EditText
             android:id="@+id/etRePassword"
             android:layout_width="match_parent"
@@ -67,18 +70,14 @@
             android:autofillHints="" />
 
         <!-- Remember Me Checkbox -->
-        <CheckBox
-            android:id="@+id/cbRememberMe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/remember_me"
-            android:layout_marginTop="16dp" />
 
         <!-- Sign In Button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            >
 
             <Button
                 android:id="@+id/btnSignIn"
@@ -107,10 +106,10 @@
             android:id="@+id/tvNeedHelp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/need_help_signing_in"
-            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_gravity="center" />
+            android:text="@string/need_help_signing_in"
+            android:textColor="@android:color/darker_gray" />
     </LinearLayout>
 
 </RelativeLayout>

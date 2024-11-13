@@ -20,4 +20,24 @@
     <string name="text_const_inList">Trong danh sách:</string>
     <string name="text_const_description">Mô tả : </string>
     <string name="text_hint_comment">Bình luận</string>
+    <string name="text_hint_name">Name</string>
+    <string name="text_hint_numberphone">Number Phone</string>
+    <string name="text_hint_male">Male</string>
+    <string name="text_hint_female">Female</string>
+    <string name="gender">Gender:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="dateOfBirth">Date of birth:</string>
+    <string name="update">Update</string>
+    <string name="issue_search_button_description">Search Button</string>
+    <string name="issue_user">User</string>
+    <string name="issue_search">Search Issue</string>
+    <string name="all_issues">All issues</string>
+    <string name="issues">Issues</string>
+    <string name="to_day">Today</string>
+    <string name="home">Home</string>
+    <string name="project">Project</string>
+    <string name="dash_board">Dashboard</string>
+    <string name="text_notification">Thông báo</string>
+    <string name="number_of_issues">results</string>
 </resources>

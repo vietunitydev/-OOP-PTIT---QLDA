@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.qlda.R;
 import com.example.qlda.home.HomeActivity;
 import com.example.qlda.home.LoginFragment;
+import com.example.qlda.home.SignUp;
 import com.example.qlda.home.WorkSpaceFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -92,12 +94,9 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(v -> {
             Toast.makeText(this, "btnSignUp", Toast.LENGTH_SHORT).show();
 
-            LoginFragment contentFragment = LoginFragment.newInstance();
-
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container_login, contentFragment)
-                    .addToBackStack(null)
-                    .commit();
+            Intent intent = new Intent(this, SignUp.class);
+            startActivity(intent);
+            finish();
         });
 
         // Set click listener for "Need help signing in?" text
