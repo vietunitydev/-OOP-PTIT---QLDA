@@ -12,6 +12,17 @@ public class User {
     private Date createdAt;
     private Date updatedAt;
 
+    public User(String id, String email, String password, String displayName, String avatar, String role, Date createdAt, Date updatedAt){
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.displayName = displayName;
+        this.avatar = avatar;
+        this.role = role;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     // Getters
     public String getId() {
         return id;
