@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">com.d22.qlda</string>
+    <string name="app_name" translatable="false">com.d22.qlda</string>
     <string name="need_help_signing_in">Need help signing in?</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
@@ -40,4 +40,11 @@
     <string name="dash_board">Dashboard</string>
     <string name="text_notification">Thông báo</string>
     <string name="number_of_issues">results</string>
+    <string name="cancel">Hủy</string>
+    <string name="create_issue">Create issue</string>
+    <string name="create">Create</string>
+    <string name="text_QLDA">QLDA</string>
+    <string name="text_task">Task</string>
+    <string name="description">Description</string>
+    <string name="add_description">Add a description</string>
 </resources>
