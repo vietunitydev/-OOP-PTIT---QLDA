@@ -67,25 +67,26 @@
                 android:layout_weight="3"
                 android:background="@drawable/rounded_background">
                 <ImageButton
-                    android:layout_width=""
+                    android:id="@+id/btnQLDA"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:src="@drawable/ic_missile"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"/>
                 <Button
-
+                    android:id="@id/btnQLDA"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:padding="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
-                    android:text="QLDA"
+                    android:text="@string/text_QLDA"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:gravity="start"/>
                 <ImageView
+                    android:id="@id/btnQLDA"
                     android:layout_width="20dp"
                     android:layout_height="17dp"
                     android:layout_marginStart="5dp"
@@ -96,6 +97,7 @@
                     app:tint="@color/black" />
             </LinearLayout>
             <ImageView
+                android:id="@+id/arrowRight"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -105,29 +107,33 @@
                 android:scaleType="centerCrop"
                 />
             <LinearLayout
+                android:id="@+id/Task"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@drawable/rounded_background">
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:id="@+id/btnTask"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginStart="5dp"
                     android:src="@drawable/ic_check"
                     android:background="@color/blue_2"
                     app:tint="@color/white"/>
                 <Button
+                    android:id="@id/btnTask"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:padding="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
-                    android:text="Task"
+                    android:text="@string/text_task"
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:gravity="start"/>
                 <ImageView
+                    android:id="@id/btnTask"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="10dp"
