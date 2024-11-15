@@ -158,19 +158,19 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_table"
+                    android:src="@drawable/ic_folder"
                     android:layout_gravity="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bảng"
+                    android:text="Projects"
                     android:textSize="12sp"
                     android:layout_gravity="bottom|center_horizontal"
                     android:paddingBottom="4dp" />
 
                 <Button
-                    android:id="@+id/btnTable"
+                    android:id="@+id/btn_Projects"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -195,19 +195,19 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_bell"
+                    android:src="@drawable/ic_task"
                     android:layout_gravity="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thông báo"
+                    android:text="Issue"
                     android:textSize="12sp"
                     android:layout_gravity="bottom|center_horizontal"
                     android:paddingBottom="4dp" />
 
                 <Button
-                    android:id="@+id/btnNotification"
+                    android:id="@+id/btn_Issue"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -232,25 +232,25 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_user"
+                    android:src="@drawable/ic_bell"
                     android:layout_gravity="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tài khoản"
+                    android:text="Notifications"
                     android:textSize="12sp"
                     android:layout_gravity="bottom|center_horizontal"
                     android:paddingBottom="4dp" />
 
                 <Button
-                    android:id="@+id/btnAccount"
+                    android:id="@+id/btnNotification"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:text=""
                     android:textColor="@android:color/transparent"
-                    android:contentDescription="Tài khoản" />
+                    android:contentDescription="" />
             </FrameLayout>
         </LinearLayout>
 

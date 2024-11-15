@@ -129,7 +129,35 @@ public class HomeActivity extends AppCompatActivity {
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
             MyCustomLog.Toast(this,"Show user info");
-            showBottomSheetDialog(R.layout.screen_user);
+            View view = showBottomSheetDialog(R.layout.screen_user);
+
+            Button btnSendFeedback = view.findViewById(R.id.btn_send_feedback);
+            Button btnRateUs = view.findViewById(R.id.btn_rate_us);
+            Button btnLogout = view.findViewById(R.id.btn_logout);
+            Button btnDeleteAccount = view.findViewById(R.id.btn_delete_account);
+
+            btnSendFeedback.setOnClickListener(v1 -> {
+
+            });
+
+            btnRateUs.setOnClickListener(v12 -> {
+
+            });
+
+            btnLogout.setOnClickListener(v13 -> {
+                // logout tài khoản hiện tại đang dùng
+                // clear hết pref đã lưu
+                // clear hết data đang dùng
+                // quay về sign in/ sign up
+            });
+
+            btnDeleteAccount.setOnClickListener(v14 -> {
+                // hỏi lại lần nữa là có muốn xoá accoutn không
+                // sau đó nhập mật khẩu để xác nhận
+                // gửi lên server là xoá account này
+                // sau đó quay về màn hình sign in/sign up
+
+            });
         });
     }
 

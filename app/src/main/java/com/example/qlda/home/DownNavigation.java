@@ -24,9 +24,9 @@ public class DownNavigation {
     }
 
     public void initializeButtons() {
-        Button btnTable = layout.findViewById(R.id.btnTable);
+        Button btnTable = layout.findViewById(R.id.btn_Projects);
         Button btnNotification = layout.findViewById(R.id.btnNotification);
-        Button btnAccount = layout.findViewById(R.id.btnAccount);
+        Button btnAccount = layout.findViewById(R.id.btn_Issue);
     }
 
     private void showToast(String message) {
