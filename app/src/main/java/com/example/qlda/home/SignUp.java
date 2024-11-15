@@ -2,10 +2,11 @@ package com.example.qlda.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.widget.*;
 import android.text.*;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.example.qlda.login.LoginActivity;
 import com.google.firebase.firestore.FirebaseFirestore;

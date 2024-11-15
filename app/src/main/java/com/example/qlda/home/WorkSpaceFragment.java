@@ -16,8 +16,10 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.qlda.Data.AppData;
+import com.example.qlda.Data.TableData;
+import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
-import com.google.common.collect.Tables;
 
 import java.util.Date;
 

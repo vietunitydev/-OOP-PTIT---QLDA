@@ -13,7 +13,11 @@ import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.example.qlda.Data.AppData;
+import com.example.qlda.Data.TableData;
+import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -172,6 +176,12 @@ public class HomeActivity extends AppCompatActivity {
         for (TableData data : tables) {
             createButton(data);
         }
+    }
+
+    private void loadFragment(Fragment fragment ) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     public void goBackToPreviousFragment() {

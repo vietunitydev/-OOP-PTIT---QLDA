@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.qlda.Data.AppData;
+import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,6 @@
-package com.example.qlda.home;
+package com.example.qlda.Data;
+
+import com.example.qlda.home.ElementData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
