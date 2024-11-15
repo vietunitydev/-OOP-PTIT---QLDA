@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.qlda.R;
 import com.example.qlda.home.HomeActivity;
+import com.example.qlda.home.IssueDashBoard;
 import com.example.qlda.home.LoginFragment;
 import com.example.qlda.home.SignUp;
 import com.example.qlda.home.WorkSpaceFragment;
@@ -94,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(v -> {
             Toast.makeText(this, "btnSignUp", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, SignUp.class);
+            Intent intent = new Intent(this, IssueDashBoard.class);
             startActivity(intent);
             finish();
         });
