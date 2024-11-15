@@ -47,4 +47,6 @@
     <string name="text_task">Task</string>
     <string name="description">Description</string>
     <string name="add_description">Add a description</string>
+    <string name="enter_name_issue">Enter name issue</string>
+    <string name="status_QLDA">IN PROGRESS</string>
 </resources>
