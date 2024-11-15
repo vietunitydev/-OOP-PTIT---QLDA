@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qlda.R;
@@ -29,6 +31,8 @@ public class HomeActivity extends AppCompatActivity {
     private Button showUserInfo;
     private Button addProject;
     AppData appData = new AppData();
+
+    private BottomSheetDialog curBottomDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,18 +70,37 @@ public class HomeActivity extends AppCompatActivity {
         addProject = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
         addProject.setOnClickListener(v -> {
-            FireStoreHelper fs = new FireStoreHelper();
-            MyCustomLog.Toast(this,"Click Add Table Button");
-            TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),"New Table", "#AAAAAA", new Date());
-            WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
-            newTable.addWorkListPage(newPage);
-            createButton(newTable);
 
-            // add vao APPDATA
-            AppData.addTable(newTable);
-            MyCustomLog.DebugLog("Debug DATA", AppData.convertToJson(AppData.Tables));
+            View view = showBottomSheetDialog(R.layout.create_project);
 
-            updateUI();
+            EditText projectNameInput = view.findViewById(R.id.project_name_input);
+            EditText projectKeyInput = view.findViewById(R.id.project_key_input);
+            Button createButton = view.findViewById(R.id.create_button);
+
+            createButton.setOnClickListener(e -> {
+
+                String projectName = projectNameInput.getText().toString().trim();
+                String projectKey = projectKeyInput.getText().toString().trim();
+
+                if(projectName.equals("") || projectKey.equals("")){
+                    return;
+                }
+
+                FireStoreHelper fs = new FireStoreHelper();
+                MyCustomLog.Toast(this,"Click Add Table Button");
+                TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),projectName, "#AAAAAA", new Date());
+                WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
+                newTable.addWorkListPage(newPage);
+                createButton(newTable);
+
+                // add vao APPDATA
+                AppData.addTable(newTable);
+                MyCustomLog.DebugLog("Debug DATA", AppData.convertToJson(AppData.Tables));
+
+                curBottomDialog.dismiss();
+                updateUI();
+            });
+
         });
     }
 
@@ -106,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
             MyCustomLog.Toast(this,"Show user info");
-            showBottomSheetDialog();
+            showBottomSheetDialog(R.layout.screen_user);
         });
     }
 
@@ -133,12 +156,12 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void showBottomSheetDialog() {
+    private View showBottomSheetDialog(@LayoutRes int resource) {
         // Khởi tạo BottomSheetDialog
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-
+        curBottomDialog = bottomSheetDialog;
         // Nạp layout cho BottomSheetDialog
-        View bottomSheetView = getLayoutInflater().inflate(R.layout.screen_user, null);
+        View bottomSheetView = getLayoutInflater().inflate(resource, null);
         bottomSheetDialog.setContentView(bottomSheetView);
 
 //        // Ánh xạ các view trong bottom sheet nếu cần xử lý sự kiện
@@ -176,6 +199,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Hiển thị Bottom Sheet
         bottomSheetDialog.show();
+        return bottomSheetView;
     }
 }
 
