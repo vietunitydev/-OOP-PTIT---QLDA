@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +29,12 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     private LayoutInflater inflater;
-    private FrameLayout layout;
+    private FrameLayout viewContainer;
+
+    // 3 view will use
+    View projectView;
+    View notificationView;
+    View issueView;
 
     private List<TableData> tables = new ArrayList<>();
 
@@ -41,16 +47,38 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lobby);
         // Initialize LayoutInflater and LinearLayout
         inflater = LayoutInflater.from(this);
-        layout = findViewById(R.id.viewContainer);
+        viewContainer = findViewById(R.id.viewContainer);
 
-        LinearLayout downLayout = findViewById(R.id.bottom_navigation);
-        AppNavigation downNavigation = new AppNavigation(this, downLayout, layout);
-
-//        fetchUserProject();
-//        setupCreateProject();
-//        setupShowUserInfo();
+        initializeButtons();
+        fetchUserProject();
+        setupCreateProject();
+        setupShowUserInfo();
 
     }
+
+    // add function show for 3 button
+    public void initializeButtons() {
+        Button btnProject = findViewById(R.id.btn_Projects);
+        Button btnNotification = findViewById(R.id.btnNotification);
+        Button btnIssue = findViewById(R.id.btn_Issue);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        projectView = inflater.inflate(R.layout.activity_project, null);
+        notificationView = inflater.inflate(R.layout.screen_user, null);
+        issueView = inflater.inflate(R.layout.issue_dashboard, null);
+
+        setActiveView(projectView);
+
+        btnProject.setOnClickListener(v -> setActiveView(projectView));
+        btnNotification.setOnClickListener(v -> setActiveView(notificationView));
+        btnIssue.setOnClickListener(v -> setActiveView(issueView));
+    }
+    private void setActiveView(View view) {
+        viewContainer.removeAllViews();
+        viewContainer.addView(view);
+    }
+
+    //=========================================================================
 
     private void fetchUserProject(){
         //        appData.InitTable();
@@ -69,7 +97,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupCreateProject(){
-        Button addProject = findViewById(R.id.wl_content_btnAdd);
+        Button addProject = projectView.findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
         addProject.setOnClickListener(v -> {
 
@@ -107,7 +135,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createButton(TableData table) {
-        FrameLayout customButton = (FrameLayout) inflater.inflate(R.layout.button_table, layout, false);
+        LinearLayout content = projectView.findViewById(R.id.buttonContainer);
+        FrameLayout customButton = (FrameLayout) inflater.inflate(R.layout.button_table, content, false);
 
         Button btn = customButton.findViewById(R.id.custom_table_btn);
         btn.setOnClickListener(v -> {
@@ -123,11 +152,11 @@ public class HomeActivity extends AppCompatActivity {
 
         TextView name = customButton.findViewById(R.id.custom_table_displayName);
         name.setText(table.getTitle());
-        layout.addView(customButton);
+        content.addView(customButton);
     }
 
     private void setupShowUserInfo(){
-        Button showUserInfo = findViewById(R.id.btn_show_user_info);
+        Button showUserInfo = projectView.findViewById(R.id.btn_show_user_info);
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
             MyCustomLog.Toast(this,"Show user info");
@@ -168,12 +197,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void updateUI(){
-        tables = AppData.Tables;
-        layout.removeAllViews();
-        // ve lai
-        for (TableData data : tables) {
-            createButton(data);
-        }
+//        tables = AppData.Tables;
+//        viewContainer.removeAllViews();
+//        // ve lai
+//        for (TableData data : tables) {
+//            createButton(data);
+//        }
     }
 
     private void loadFragment(Fragment fragment ) {
