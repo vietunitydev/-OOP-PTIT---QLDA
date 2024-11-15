@@ -158,16 +158,17 @@
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/bodyIssue"
                 android:visibility="visible"/>
-            <ListView
-                android:id="@+id/listIssue"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_background"
-                app:layout_constraintTop_toBottomOf="@id/txtDay"
-                app:layout_constraintBottom_toTopOf="@id/navigationBar"
-                android:visibility="visible"
-                />
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/listIssues"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+            </ScrollView>
         </LinearLayout>
 
         <LinearLayout
@@ -486,37 +487,30 @@
         <LinearLayout
             android:id="@+id/abcs"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/rounded_background"
             app:layout_constraintTop_toBottomOf="@id/task">
-            <TextView
-                android:id="@+id/txtDateJob"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="[14/11/2024]"
-                android:textSize="25sp"
-                android:gravity="start"
-                />
-            <TextView
-                android:id="@+id/txtNameJob"
+            <EditText
+                android:id="@+id/edtNameIssue"
                 android:layout_width="0dp"
-                android:layout_marginStart="5dp"
-                android:layout_height="match_parent"
-                android:text="abcs"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:textSize="25sp"
-                android:gravity="start"/>
+                android:background="@drawable/rounded_background"
+                android:hint="@string/enter_name_issue"
+                android:textSize="20sp"/>
 
             <ImageButton
                 android:id="@id/imgBtnUser"
-                android:layout_width="40dp"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_user"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                android:background="@drawable/rounded_background_gainsboro"/>
+                android:background="@drawable/rounded_background"
+                android:contentDescription="User Button" />
 
         </LinearLayout>
         <LinearLayout
