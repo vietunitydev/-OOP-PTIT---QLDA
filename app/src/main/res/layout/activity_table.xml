@@ -25,13 +25,10 @@
                 android:layout_gravity="center" />
 
             <Button
-                android:id="@+id/acc_user"
+                android:id="@+id/btn_show_user_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text=""
-                android:textColor="@android:color/transparent"
-                android:contentDescription="Tài khoản" />
+                android:background="@android:color/transparent" />
         </FrameLayout>
 
         <Button

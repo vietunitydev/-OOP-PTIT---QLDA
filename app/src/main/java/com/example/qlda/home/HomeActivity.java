@@ -3,6 +3,7 @@ package com.example.qlda.home;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qlda.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,13 +26,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private List<TableData> tables = new ArrayList<>();
 
-    UserData user;
-
+    private Button showUserInfo;
+    private Button addProject;
+    AppData appData = new AppData();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
-
         // Initialize LayoutInflater and LinearLayout
         inflater = LayoutInflater.from(this);
         layout = findViewById(R.id.buttonContainer);
@@ -38,8 +40,14 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayout downLayout = findViewById(R.id.bottom_navigation);
         DownNavigation downNavigation = new DownNavigation(this, downLayout);
 
-        AppData appData = new AppData();
-//        appData.InitTable();
+        fetchUserProject();
+        setupCreateProject();
+        setupShowUserInfo();
+
+    }
+
+    private void fetchUserProject(){
+        //        appData.InitTable();
 
         appData.fetchUser(() ->{
             // fetch Data for app
@@ -52,10 +60,12 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         });
+    }
 
-        Button addBtn = findViewById(R.id.wl_content_btnAdd);
+    private void setupCreateProject(){
+        addProject = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
-        addBtn.setOnClickListener(v -> {
+        addProject.setOnClickListener(v -> {
             FireStoreHelper fs = new FireStoreHelper();
             MyCustomLog.Toast(this,"Click Add Table Button");
             TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),"New Table", "#AAAAAA", new Date());
@@ -91,6 +101,19 @@ public class HomeActivity extends AppCompatActivity {
         layout.addView(customButton);
     }
 
+    private void setupShowUserInfo(){
+        showUserInfo = findViewById(R.id.btn_show_user_info);
+        // Add new button on click
+        showUserInfo.setOnClickListener(v -> {
+            MyCustomLog.Toast(this,"Show user info");
+            showBottomSheetDialog();
+        });
+    }
+
+    private void searchProjectByName(String name){
+
+    }
+
     private void updateUI(){
         tables = AppData.Tables;
         layout.removeAllViews();
@@ -108,6 +131,51 @@ public class HomeActivity extends AppCompatActivity {
             // out activity
             finish();
         }
+    }
+
+    private void showBottomSheetDialog() {
+        // Khởi tạo BottomSheetDialog
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+
+        // Nạp layout cho BottomSheetDialog
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.screen_user, null);
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+//        // Ánh xạ các view trong bottom sheet nếu cần xử lý sự kiện
+//        Button btnProfile = bottomSheetView.findViewById(R.id.btnProfile);
+//        Button btnSettings = bottomSheetView.findViewById(R.id.btnSettings);
+//        Button btnLogout = bottomSheetView.findViewById(R.id.btnLogout);
+//
+//        // Xử lý sự kiện khi bấm các nút trong Bottom Sheet
+//        btnProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Thực hiện hành động khi nhấn vào "View Profile"
+//                // Đóng BottomSheetDialog
+//                bottomSheetDialog.dismiss();
+//            }
+//        });
+//
+//        btnSettings.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Thực hiện hành động khi nhấn vào "Settings"
+//                // Đóng BottomSheetDialog
+//                bottomSheetDialog.dismiss();
+//            }
+//        });
+//
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Thực hiện hành động khi nhấn vào "Logout"
+//                // Đóng BottomSheetDialog
+//                bottomSheetDialog.dismiss();
+//            }
+//        });
+
+        // Hiển thị Bottom Sheet
+        bottomSheetDialog.show();
     }
 }
 
