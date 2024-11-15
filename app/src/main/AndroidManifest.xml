@@ -13,7 +13,7 @@
         android:theme="@style/Theme.QLDA"
         tools:targetApi="31">
         <activity
-            android:name="com.example.qlda.login.LoginActivity"
+            android:name="com.example.qlda.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.qlda.MainActivity"/>
+        <activity android:name="com.example.qlda.login.LoginActivity"/>
         <activity android:name="com.example.qlda.home.HomeActivity" />
         <activity android:name="com.example.qlda.home.IssueDashBoard"/>
         <activity android:name="com.example.qlda.home.SignUp"/>

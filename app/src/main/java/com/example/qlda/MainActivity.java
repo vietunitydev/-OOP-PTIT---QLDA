@@ -3,6 +3,8 @@ package com.example.qlda;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.qlda.home.HomeActivity;
 import com.example.qlda.login.LoginActivity;
 import com.google.firebase.FirebaseApp;
 
@@ -13,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
     }
