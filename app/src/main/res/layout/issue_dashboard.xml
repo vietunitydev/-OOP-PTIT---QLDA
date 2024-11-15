@@ -82,17 +82,20 @@
         <LinearLayout
             android:id="@+id/bodyIssue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_marginTop="25dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/rounded_background"
+            android:background="@drawable/rounded_background_gainsboro"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/headerInssue">
             <LinearLayout
                 android:id="@+id/headerIssue"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_background">
                 <ImageView
                     android:id="@+id/imgIssue"
                     android:layout_width="40dp"
@@ -138,37 +141,35 @@
             <ListView
                 android:id="@+id/listClassifyIssues"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/headerIssue"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_background"
+                app:layout_constraintTop_toBottomOf="@id/bodyIssue"
+                app:layout_constraintBottom_toTopOf="@id/navigationBar"
                 android:visibility="gone"
                 />
+            <TextView
+                android:id="@+id/txtDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/to_day"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/bodyIssue"
+                android:visibility="visible"/>
+            <ListView
+                android:id="@+id/listIssue"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_background"
+                app:layout_constraintTop_toBottomOf="@id/txtDay"
+                app:layout_constraintBottom_toTopOf="@id/navigationBar"
+                android:visibility="visible"
+                />
         </LinearLayout>
-        <TextView
-            android:id="@+id/txtDay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="100dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/to_day"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/bodyIssue"/>
-        <ListView
-            android:id="@+id/listIssue"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/rounded_background"
-            app:layout_constraintTop_toBottomOf="@id/txtDay"
-            app:layout_constraintBottom_toTopOf="@id/navigationBar"
-            android:layout_marginBottom="40dp"
-            />
+
         <LinearLayout
             android:id="@+id/navigationBar"
             android:layout_width="match_parent"
@@ -409,16 +410,17 @@
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:gravity="start"/>
-                <ImageView
+                <ImageButton
                     android:id="@id/btnQLDA"
                     android:layout_width="20dp"
-                    android:layout_height="17dp"
+                    android:layout_height="20dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:background="@color/white"
                     android:src="@drawable/ic_keyboard_arrow_down"
-                    app:tint="@color/black" />
+                    app:tint="@color/black"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/arrowRight"
@@ -436,15 +438,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@drawable/rounded_background">
-                <ImageView
+                <ImageButton
                     android:id="@+id/btnTask"
-                    android:layout_width="23dp"
-                    android:layout_height="23dp"
-                    android:layout_marginTop="7dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginStart="5dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_check"
-                    android:background="@color/blue_2"
-                    app:tint="@color/white"/>
+                    app:tint="@color/white"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/rounded_background_blue"
+                    />
                 <Button
                     android:id="@id/btnTask"
                     android:layout_width="0dp"
@@ -456,16 +460,17 @@
                     android:textSize="18sp"
                     android:textColor="@color/black"
                     android:gravity="start"/>
-                <ImageView
+                <ImageButton
                     android:id="@id/btnTask"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_keyboard_arrow_down"
                     android:background="@color/white"
-                    app:tint="@color/black"/>
+                    android:src="@drawable/ic_keyboard_arrow_down"
+                    app:tint="@color/black"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -528,7 +533,7 @@
                     android:text="@string/description"
                     android:textSize="23sp"/>
                 <ImageButton
-                    android:id="@+id/btnShowDescription"
+                    android:id="@+id/ImgBtnShowDescription"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/ic_keyboard_arrow_down"
