@@ -28,29 +28,27 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     private LayoutInflater inflater;
-    private LinearLayout layout;
+    private FrameLayout layout;
 
     private List<TableData> tables = new ArrayList<>();
 
-    private Button showUserInfo;
-    private Button addProject;
     AppData appData = new AppData();
 
     private BottomSheetDialog curBottomDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_table);
+        setContentView(R.layout.activity_lobby);
         // Initialize LayoutInflater and LinearLayout
         inflater = LayoutInflater.from(this);
-        layout = findViewById(R.id.buttonContainer);
+        layout = findViewById(R.id.viewContainer);
 
         LinearLayout downLayout = findViewById(R.id.bottom_navigation);
-        DownNavigation downNavigation = new DownNavigation(this, downLayout);
+        AppNavigation downNavigation = new AppNavigation(this, downLayout, layout);
 
-        fetchUserProject();
-        setupCreateProject();
-        setupShowUserInfo();
+//        fetchUserProject();
+//        setupCreateProject();
+//        setupShowUserInfo();
 
     }
 
@@ -71,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupCreateProject(){
-        addProject = findViewById(R.id.wl_content_btnAdd);
+        Button addProject = findViewById(R.id.wl_content_btnAdd);
         // Add new button on click
         addProject.setOnClickListener(v -> {
 
@@ -129,7 +127,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupShowUserInfo(){
-        showUserInfo = findViewById(R.id.btn_show_user_info);
+        Button showUserInfo = findViewById(R.id.btn_show_user_info);
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
             MyCustomLog.Toast(this,"Show user info");

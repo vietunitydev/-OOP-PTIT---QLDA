@@ -15,15 +15,10 @@ public class IssueActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_table);
+        setContentView(R.layout.issue_dashboard);
         // Initialize LayoutInflater and LinearLayout
         inflater = LayoutInflater.from(this);
-        layout = findViewById(R.id.buttonContainer);
-
-        LinearLayout downLayout = findViewById(R.id.bottom_navigation);
-        DownNavigation downNavigation = new DownNavigation(this, downLayout);
-
-
+//        layout = findViewById(R.id.buttonContainer);
 
     }
 }

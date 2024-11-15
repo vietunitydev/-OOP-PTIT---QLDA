@@ -1,6 +1,5 @@
 package com.example.qlda.Data;
 
-import com.example.qlda.home.ElementData;
 import com.example.qlda.home.FireStoreHelper;
 import com.example.qlda.home.MyCustomLog;
 import com.google.firebase.auth.FirebaseAuth;

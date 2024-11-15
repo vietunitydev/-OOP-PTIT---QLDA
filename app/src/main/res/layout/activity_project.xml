@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:padding="8dp">
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_user"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/btn_show_user_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/wl_content_btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/text_plus_icon"
+            android:textColor="#3366CC"
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="40dp"
+            android:minHeight="40dp"
+            android:elevation="4dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/big_text_project"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/toolbar"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:src="@drawable/ic_magnifying_glass"
+            android:text="Project"
+            android:importantForAccessibility="no" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/big_text_project"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#c7d6f0"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_magnifying_glass"
+            android:importantForAccessibility="no" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="@string/text_hint_find"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:autofillHints="autoHint"
+            android:inputType="textCapCharacters" />
+    </LinearLayout>
+
+    <!-- Workspace List -->
+    <LinearLayout
+        android:id="@+id/llWorkspace"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/search_bar"
+        android:layout_above="@id/bottom_navigation"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvWorkspaceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All projects"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/buttonContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+<!--    &lt;!&ndash; Bottom Navigation &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/bottom_navigation"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="#FFFFFF"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        &lt;!&ndash; Repeated pattern for each item &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <FrameLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_folder"-->
+<!--                    android:layout_gravity="center" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Projects"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:layout_gravity="bottom|center_horizontal"-->
+<!--                    android:paddingBottom="4dp" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_Projects"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:text=""-->
+<!--                    android:textColor="@android:color/transparent"-->
+<!--                    android:contentDescription="Bảng" />-->
+<!--            </FrameLayout>-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <FrameLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_task"-->
+<!--                    android:layout_gravity="center" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Issue"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:layout_gravity="bottom|center_horizontal"-->
+<!--                    android:paddingBottom="4dp" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_Issue"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:text=""-->
+<!--                    android:textColor="@android:color/transparent"-->
+<!--                    android:contentDescription="Thông báo" />-->
+<!--            </FrameLayout>-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <FrameLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:src="@drawable/ic_bell"-->
+<!--                    android:layout_gravity="center" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Notifications"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:layout_gravity="bottom|center_horizontal"-->
+<!--                    android:paddingBottom="4dp" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btnNotification"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:text=""-->
+<!--                    android:textColor="@android:color/transparent"-->
+<!--                    android:contentDescription="" />-->
+<!--            </FrameLayout>-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/main_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.qlda.Data.AppData;
+import com.example.qlda.Data.ElementData;
 import com.example.qlda.Data.TableData;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;

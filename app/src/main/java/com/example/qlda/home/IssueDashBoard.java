@@ -36,11 +36,11 @@ public class IssueDashBoard extends AppCompatActivity {
         imgBtnSearch = (ImageButton) findViewById(R.id.imgBtnSearch);
         imgBtnAddIssues = (ImageButton) findViewById(R.id.imgBtnAddIssues);
         imgBtnShowIssues = (ImageButton) findViewById(R.id.imgBtnShowIssues);
-        imgBtnHome = (ImageButton) findViewById(R.id.imgBtnHome);
-        imgBtnProject = (ImageButton) findViewById(R.id.imgBtnProject);
-        imgBtnIssue = (ImageButton) findViewById(R.id.imgBtnIssue);
-        imgBtnDashBoards = (ImageButton) findViewById(R.id.imgBtnDashBoards);
-        imgBtnBell = (ImageButton) findViewById(R.id.imgBtnBell);
+//        imgBtnHome = (ImageButton) findViewById(R.id.imgBtnHome);
+//        imgBtnProject = (ImageButton) findViewById(R.id.imgBtnProject);
+//        imgBtnIssue = (ImageButton) findViewById(R.id.imgBtnIssue);
+//        imgBtnDashBoards = (ImageButton) findViewById(R.id.imgBtnDashBoards);
+//        imgBtnBell = (ImageButton) findViewById(R.id.imgBtnBell);
         edtSearch = (EditText) findViewById(R.id.edtSearch);
 
         auth = FirebaseFirestore.getInstance();

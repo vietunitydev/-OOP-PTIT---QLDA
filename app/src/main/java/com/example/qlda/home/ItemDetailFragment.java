@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.qlda.Data.AppData;
+import com.example.qlda.Data.ElementData;
 import com.example.qlda.Data.UserData;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;

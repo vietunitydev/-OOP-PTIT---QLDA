@@ -1,7 +1,5 @@
 package com.example.qlda.Data;
 
-import com.example.qlda.home.ElementData;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
