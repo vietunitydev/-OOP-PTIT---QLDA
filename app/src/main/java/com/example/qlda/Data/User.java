@@ -1,92 +1,39 @@
 package com.example.qlda.Data;
 
-import java.util.Date;
-
 public class User {
-    private String id;
+    private int userId;
+    private String fullName;
     private String email;
     private String password;
-    private String displayName;
-    private String avatar;
-    private String role;
-    private Date createdAt;
-    private Date updatedAt;
+    private String role; // Admin, Member, Client
+    private String createdAt;
 
-    public User(String id, String email, String password, String displayName, String avatar, String role, Date createdAt, Date updatedAt){
-        this.id = id;
+    // Constructor
+    public User(int userId, String fullName, String email, String password, String role, String createdAt) {
+        this.userId = userId;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.displayName = displayName;
-        this.avatar = avatar;
         this.role = role;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
-    // Getters
-    public String getId() {
-        return id;
-    }
+    // Getters and Setters
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getDisplayName() {
-        return displayName;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getAvatar() {
-        return avatar;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-    public String getRole() {
-        return role;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    // Setters
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    public String getCreatedAt() { return createdAt; }
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
 }
-

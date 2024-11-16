@@ -6,7 +6,7 @@ import android.widget.*;
 import android.text.*;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.qlda.Data.User;
+import com.example.qlda.Data.UserData;
 import com.example.qlda.R;
 import com.example.qlda.login.LoginActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -91,7 +91,7 @@ public class SignUp extends AppCompatActivity {
             }
 
             // Create User object
-            User user = new User(UUID.randomUUID().toString(), email, password, email.split("@")[0], "", "user", new Date(), new Date());
+            UserData user = new UserData(UUID.randomUUID().toString(), email, password, email.split("@")[0], "", new Date(), new Date());
 
             // Save user data to Firestore
             auth.collection("users").document(user.getId())
