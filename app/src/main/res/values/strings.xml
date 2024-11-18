@@ -48,5 +48,9 @@
     <string name="description">Description</string>
     <string name="add_description">Add a description</string>
     <string name="enter_name_issue">Enter name issue</string>
-    <string name="status_QLDA">IN PROGRESS</string>
+    <string name="status_QLDA">Status</string>
+    <string name="text_todo">To Do</string>
+    <string name="text_actions">Actions</string>
+    <string name="search_comment">Nhập một nhận xét ...</string>
+    <string name="fisrt_comment">Leave the first comment</string>
 </resources>
