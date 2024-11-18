@@ -1,6 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="40dp"
+    android:background="@color/gains_boro">
 
+    <!-- LinearLayout với các ràng buộc đầy đủ -->
+    <LinearLayout
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Nút Quay về -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/gains_boro"
+            app:tint="@color/blue_2"
+            android:src="@drawable/ic_arrow_left"
+            android:scaleType="centerCrop" />
+
+        <!-- Văn bản mô tả -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/description"
+            android:textSize="30sp"
+            android:gravity="center" />
+
+        <!-- Nút OK -->
+        <ImageButton
+            android:id="@+id/btn_ok"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/gains_boro"
+            app:tint="@color/blue_2"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_check" />
+    </LinearLayout>
+
+    <!-- EditText với các ràng buộc đầy đủ -->
+    <EditText
+        android:id="@+id/edt_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="Enter name description"
+        android:textSize="20dp"
+        android:inputType="textMultiLine"
+        android:gravity="top|start"
+        android:maxLines="5"
+        android:scrollHorizontally="false"
+        android:background="@drawable/rounded_background"
+        android:padding="20dp"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:layout_centerInParent="true"
+            android:elevation="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you want to exit this item?"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/gray_2"
+                    android:text="Cancel"
+                    android:textSize="17sp"
+                    android:textColor="@color/blue_2"/>
+
+                <Button
+                    android:id="@+id/btn_confirm_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Agree"
+                    android:textSize="17sp"
+                    android:backgroundTint="@color/gray_2"
+                    android:textColor="@android:color/holo_red_light"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
