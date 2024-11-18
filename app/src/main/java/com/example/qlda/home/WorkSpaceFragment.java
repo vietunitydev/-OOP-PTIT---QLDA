@@ -23,7 +23,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.qlda.Data.AppData;
+import com.example.qlda.Data.Data;
 import com.example.qlda.Data.ElementData;
+import com.example.qlda.Data.Project;
 import com.example.qlda.Data.TableData;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
@@ -62,7 +64,20 @@ public class WorkSpaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
-//        table = AppData.getTableById(table.getId());
+        // need get from passing data
+        int projectID = 1;
+
+
+        Project project = Data.getInstance().getProjectById(projectID);
+        TextView edittext_wspaceName = view.findViewById(R.id.edittext_workspaceName);
+        if (project != null) {
+            edittext_wspaceName.setText(project.getProjectName());
+        }
+
+        Button backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            backToHomeScreen();
+        });
 
         horizontalScrollView = view.findViewById(R.id.horizontalScrollView);
         pagesContainer = view.findViewById(R.id.pagesContainer);
