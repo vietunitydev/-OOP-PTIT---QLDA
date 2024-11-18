@@ -90,22 +90,84 @@
                 android:textColor="@android:color/transparent"/>
         </FrameLayout>
     </LinearLayout>
-
-    <include
-        android:id="@+id/table_setting_popup"
-        layout="@layout/table_setting_popup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/topPanel"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topPanel"
-        android:layout_alignParentBottom="true" />
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:background="@color/gray3">
 
+        <LinearLayout
+            android:id="@+id/pagesContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- Trang đầu tiên -->
+            <FrameLayout
+                android:id="@+id/page1"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp">
+
+<!--                &lt;!&ndash; Nội dung trang &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/draggableElement1"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:background="@android:color/holo_blue_light"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Drag Me"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textStyle="bold" />-->
+
+                <include
+                    layout="@layout/layout_worklist"/>
+            </FrameLayout>
+
+            <!-- Trang thứ hai -->
+            <FrameLayout
+                android:id="@+id/page2"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp">
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dropZone2"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:background="@color/black"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Drop Here"-->
+<!--                    android:textColor="@color/blue"-->
+<!--                    android:textStyle="bold" />-->
+
+                <include
+                    layout="@layout/layout_worklist"/>
+            </FrameLayout>
+
+            <!-- Trang thứ ba -->
+            <FrameLayout
+                android:id="@+id/page3"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp">
+
+<!--                <TextView-->
+<!--                    android:id="@+id/draggableElement2"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:background="@android:color/holo_blue_light"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Drag Me 2"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textStyle="bold" />-->
+
+                <include
+                    layout="@layout/layout_worklist"/>
+            </FrameLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
 </RelativeLayout>

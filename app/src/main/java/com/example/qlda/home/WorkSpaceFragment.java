@@ -82,12 +82,12 @@ public class WorkSpaceFragment extends Fragment {
         horizontalScrollView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
 
 
-        // Tìm các phần tử giao diện
-        TextView draggableElement1 = view.findViewById(R.id.draggableElement1);
-        TextView dropZone2 = view.findViewById(R.id.dropZone2);
-
-        // Setup Drag and Drop cho phần tử
-        setupDragAndDrop(draggableElement1, dropZone2);
+//        // Tìm các phần tử giao diện
+//        TextView draggableElement1 = view.findViewById(R.id.draggableElement1);
+//        TextView dropZone2 = view.findViewById(R.id.dropZone2);
+//
+//        // Setup Drag and Drop cho phần tử
+//        setupDragAndDrop(draggableElement1, dropZone2);
 
         return view;
     }
@@ -122,8 +122,8 @@ public class WorkSpaceFragment extends Fragment {
                     FrameLayout newParent = (FrameLayout) v;
                     newParent.addView(draggedView);
 
-                    draggedView.setX(event.getX() - draggedView.getWidth() / 2);
-                    draggedView.setY(event.getY() - draggedView.getHeight() / 2);
+                    draggedView.setX(event.getX() - draggedView.getWidth() / 3);
+                    draggedView.setY(event.getY() - draggedView.getHeight() / 3);
 
                     return true;
 
@@ -153,7 +153,8 @@ public class WorkSpaceFragment extends Fragment {
     }
 
     private void smoothScrollToPage(int page) {
-        int scrollX = page * horizontalScrollView.getWidth();
+//        int scrollX = page * horizontalScrollView.getWidth();
+        int scrollX = page * 250;
         horizontalScrollView.smoothScrollTo(scrollX, 0);
     }
 
