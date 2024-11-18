@@ -17,13 +17,13 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_margin="15dp"
-            android:background="@drawable/ic_x"
+            android:background="@drawable/ic_left"
             android:elevation="4dp"
             android:padding="0dp"
             android:tint="@color/black" />
 
         <LinearLayout
-            android:layout_width="230dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
@@ -37,7 +37,7 @@
                 android:imeOptions="actionDone"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 tools:ignore="LabelFor" />
 
@@ -45,59 +45,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Workspace"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="13sp" />
         </LinearLayout>
-        <FrameLayout
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:gravity="center"
-            android:layout_margin="15dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_pencil"
-                android:layout_gravity="center"
-                android:importantForAccessibility="no" />
-            <Button
-                android:id="@+id/btn_pencil_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text=""
-                android:textColor="@android:color/transparent"/>
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:gravity="center"
-            android:layout_margin="15dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_plus"
-                android:layout_gravity="center"
-                android:importantForAccessibility="no" />
-            <Button
-                android:id="@+id/btn_plus_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text=""
-                android:textColor="@android:color/transparent"/>
-        </FrameLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/selectPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/topPanel"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btnBoard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Board"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/btnSetting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Setting"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/topPanel"
+        android:layout_below="@+id/selectPage"
         android:fillViewport="true"
         android:scrollbars="none"
-        android:background="@color/gray3">
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/pagesContainer"
@@ -108,7 +97,7 @@
             <!-- Trang đầu tiên -->
             <FrameLayout
                 android:id="@+id/page1"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp">
 
@@ -130,7 +119,7 @@
             <!-- Trang thứ hai -->
             <FrameLayout
                 android:id="@+id/page2"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp">
 
@@ -151,7 +140,7 @@
             <!-- Trang thứ ba -->
             <FrameLayout
                 android:id="@+id/page3"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp">
 

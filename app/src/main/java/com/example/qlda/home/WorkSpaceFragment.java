@@ -70,9 +70,9 @@ public class WorkSpaceFragment extends Fragment {
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (velocityX < -1000) { // Vuốt nhanh sang phải
+                if (velocityX < -1000) {
                     scrollToNextPage();
-                } else if (velocityX > 1000) { // Vuốt nhanh sang trái
+                } else if (velocityX > 1000) {
                     scrollToPreviousPage();
                 }
                 return true;
