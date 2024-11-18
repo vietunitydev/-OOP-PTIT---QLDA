@@ -102,6 +102,13 @@ public class Data {
         return tasks.stream().filter(task -> task.getAssignedTo() == userId).collect(Collectors.toList());
     }
 
+    public Project getProjectById(int projectId) {
+        return projects.stream()
+                .filter(project -> project.getProjectId() == projectId)
+                .findFirst()
+                .orElse(null);
+    }
+
     public void printAllData() {
         System.out.println("Users:");
         users.forEach(System.out::println);
