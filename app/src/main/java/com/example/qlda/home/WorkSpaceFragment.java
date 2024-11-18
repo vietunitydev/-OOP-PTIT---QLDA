@@ -2,14 +2,20 @@ package com.example.qlda.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +35,11 @@ public class WorkSpaceFragment extends Fragment {
     private static final String ARG_TABLE = "arg_table";
     WorkListAdapter adapter;
     TableData table;
+
+    private HorizontalScrollView horizontalScrollView;
+    private LinearLayout pagesContainer;
+    private GestureDetector gestureDetector;
+    private int currentPage = 0;
 
     public static WorkSpaceFragment newInstance(TableData table) {
         WorkSpaceFragment fragment = new WorkSpaceFragment();
@@ -51,83 +62,101 @@ public class WorkSpaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
-        table = AppData.getTableById(table.getId());
+//        table = AppData.getTableById(table.getId());
 
-        EditText edittext_wspaceName = view.findViewById(R.id.edittext_workspaceName);
-        if (table != null) {
-            edittext_wspaceName.setText(table.getTitle());
-            setupViewPager(inflater, view);
-        }
-        edittext_wspaceName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        horizontalScrollView = view.findViewById(R.id.horizontalScrollView);
+        pagesContainer = view.findViewById(R.id.pagesContainer);
+
+        gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    // Ghi log khi nhấn Enter
-                    MyCustomLog.DebugLog("Custom Name", "Completed Edit");
-
-                    // sync với app data để truyền lên server
-                    table.setTitle(String.valueOf(edittext_wspaceName.getText()));
-//                    AppData.UpdateTable(table);
-//                    AppData.uploadDataToServerStatic();
-
-                    // Ẩn bàn phím ảo
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-                    // Làm mất focus khỏi EditText
-                    v.clearFocus();
-
-                    // Trả về true để chỉ ra rằng sự kiện đã được xử lý
-                    return true;
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (velocityX < -1000) { // Vuốt nhanh sang phải
+                    scrollToNextPage();
+                } else if (velocityX > 1000) { // Vuốt nhanh sang trái
+                    scrollToPreviousPage();
                 }
-                // Trả về false nếu sự kiện không được xử lý
-                return false;
+                return true;
             }
         });
 
+        horizontalScrollView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
+
+
+        // Tìm các phần tử giao diện
+        TextView draggableElement1 = view.findViewById(R.id.draggableElement1);
+        TextView dropZone2 = view.findViewById(R.id.dropZone2);
+
+        // Setup Drag and Drop cho phần tử
+        setupDragAndDrop(draggableElement1, dropZone2);
 
         return view;
     }
 
-    private void setupViewPager(LayoutInflater inflater, View view) {
-        ViewPager2 viewPager = view.findViewById(R.id.viewPager);
-        adapter = new WorkListAdapter(inflater, table.getWorkListPages(), this::showItemDetailFragment);
-        viewPager.setAdapter(adapter);
-
-        Button backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> {
-            backToHomeScreen();
+    private void setupDragAndDrop(View draggableElement, View dropZone) {
+        // Xử lý kéo phần tử
+        draggableElement.setOnLongClickListener(v -> {
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+            v.startDragAndDrop(null, shadowBuilder, v, 0);
+            return true;
         });
 
-        // disable by code
-        LinearLayout popup = view.findViewById(R.id.table_setting_popup);
-        WorkListSettingPopup settingPopup = new WorkListSettingPopup(popup,this);
+        // Xử lý thả phần tử
+        dropZone.setOnDragListener((v, event) -> {
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    return true;
 
-        Button edit_pencil = view.findViewById((R.id.btn_pencil_edit));
-        edit_pencil.setOnClickListener(v -> settingPopup.showUI());
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    v.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light));
+                    return true;
 
+                case DragEvent.ACTION_DRAG_EXITED:
+                    v.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                    return true;
 
+                case DragEvent.ACTION_DROP:
+                    View draggedView = (View) event.getLocalState();
+                    ViewGroup oldParent = (ViewGroup) draggedView.getParent();
+                    oldParent.removeView(draggedView);
 
-        Button edit_plus = view.findViewById((R.id.btn_plus_edit));
-        edit_plus.setOnClickListener(v -> {
-            FireStoreHelper fs = new FireStoreHelper();
-            // create new page
-            WorkListPageData wlp = new WorkListPageData("table-id-" + fs.getNewIDTable(),table.getId(),"New Page", new Date());
-            MyCustomLog.DebugLog("LOG PAGE Create : ", AppData.convertToJson(wlp));
-            int index = adapter.addWorkListPage(wlp);
-            viewPager.setCurrentItem(index, true);
+                    FrameLayout newParent = (FrameLayout) v;
+                    newParent.addView(draggedView);
 
+                    draggedView.setX(event.getX() - draggedView.getWidth() / 2);
+                    draggedView.setY(event.getY() - draggedView.getHeight() / 2);
+
+                    return true;
+
+                case DragEvent.ACTION_DRAG_ENDED:
+                    v.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                    return true;
+
+                default:
+                    return false;
+            }
         });
     }
 
-    private void showItemDetailFragment(WorkListPageData parent, ElementData e, WorkListAdapter.ListWorkHolder holder) {
-        ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(parent, e);
-        contentFragment.setWorkListAdapterParent(holder);
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, contentFragment)
-                .addToBackStack(null)
-                .commit();
+    private void scrollToNextPage() {
+        int totalPages = pagesContainer.getChildCount();
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            smoothScrollToPage(currentPage);
+        }
     }
+
+    private void scrollToPreviousPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            smoothScrollToPage(currentPage);
+        }
+    }
+
+    private void smoothScrollToPage(int page) {
+        int scrollX = page * horizontalScrollView.getWidth();
+        horizontalScrollView.smoothScrollTo(scrollX, 0);
+    }
+
 
     public void backToHomeScreen(){
         if (getActivity() != null) {
