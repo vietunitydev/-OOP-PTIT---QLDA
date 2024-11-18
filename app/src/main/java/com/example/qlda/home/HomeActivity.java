@@ -17,7 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.qlda.Data.AppData;
+import com.example.qlda.Data.Data;
 import com.example.qlda.Data.TableData;
+import com.example.qlda.Data.User;
+import com.example.qlda.Data.UserData;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -159,8 +162,18 @@ public class HomeActivity extends AppCompatActivity {
         Button showUserInfo = projectView.findViewById(R.id.btn_show_user_info);
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
-            MyCustomLog.Toast(this,"Show user info");
+//            MyCustomLog.Toast(this,"Show user info");
             View view = showBottomSheetDialog(R.layout.screen_user);
+
+            Integer id_user = 1;
+
+            TextView name = view.findViewById(R.id.username);
+            TextView mail = view.findViewById(R.id.email);
+
+            User userData = Data.getInstance().getUserById(id_user);
+
+            name.setText(userData.getFullName());
+            mail.setText(userData.getEmail());
 
             Button btnSendFeedback = view.findViewById(R.id.btn_send_feedback);
             Button btnRateUs = view.findViewById(R.id.btn_rate_us);
