@@ -15,4 +15,5 @@
     <color name="orange">#FF7F00</color>
     <color name="gray3">#696969</color>
     <color name="gray_2">#CCCCCC</color>
+    <color name="semi_transparent_black">#80000000</color>
 </resources>

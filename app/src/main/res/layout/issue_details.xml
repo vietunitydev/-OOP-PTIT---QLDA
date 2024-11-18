@@ -107,6 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/txtStatusIssue"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -362,7 +363,7 @@
                         app:tint="@color/blue_2"/>
                 </LinearLayout>
             </FrameLayout>
-                
+
         </LinearLayout>
         <LinearLayout
             android:id="@+id/comments"
@@ -408,7 +409,7 @@
             android:paddingBottom="20dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="comment"
+            app:layout_constraintTop_toBottomOf="@id/comments"
             android:orientation="horizontal">
             <EditText
                 android:layout_width="0dp"

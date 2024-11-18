@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000">
+    <LinearLayout
+        android:id="@+id/headerIssue"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageButton
+            android:id="@+id/imgBtnAddIssues"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_left"
+            android:backgroundTint="#80000000"
+            android:scaleType="centerCrop"
+            app:tint="@color/blue_2"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+        <ImageButton
+            android:id="@+id/imgBtnDotIssue"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_dots_horiz"
+            android:backgroundTint="#80000000"
+            android:scaleType="centerCrop"
+            app:tint="@color/blue_2"/>
+    </LinearLayout>
+    <!-- FrameLayout 1: Issue Type (ở trên) -->
+    <FrameLayout
+        android:id="@+id/btnTypeIssue"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_background"
+        android:layout_above="@id/btnAssigneeIssue"
+        android:layout_marginBottom="16dp"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Issue type"
+                android:textSize="30sp"
+                android:gravity="center" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_keyboard_arrow_down"
+                android:scaleType="centerCrop"
+                app:tint="@color/gray3" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- FrameLayout 2: Assignee (ở giữa màn hình) -->
+    <FrameLayout
+        android:id="@+id/btnAssigneeIssue"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_background"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Assignee"
+                android:textSize="30sp"
+                android:gravity="center" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_keyboard_arrow_down"
+                android:scaleType="centerCrop"
+                app:tint="@color/gray3" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- FrameLayout 3: Report (ở dưới) -->
+    <FrameLayout
+        android:id="@+id/btnReportIssue"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_background"
+        android:layout_below="@id/btnAssigneeIssue"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Report by"
+                android:textSize="30sp"
+                android:gravity="center" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_keyboard_arrow_down"
+                android:scaleType="centerCrop"
+                app:tint="@color/gray3" />
+        </LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout>
