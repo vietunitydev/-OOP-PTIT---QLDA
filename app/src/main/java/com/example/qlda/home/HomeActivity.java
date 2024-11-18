@@ -1,5 +1,6 @@
 package com.example.qlda.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import com.example.qlda.Data.User;
 import com.example.qlda.Data.UserData;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
+import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -193,6 +196,9 @@ public class HomeActivity extends AppCompatActivity {
                 // clear hết pref đã lưu
                 // clear hết data đang dùng
                 // quay về sign in/ sign up
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             });
 
             btnDeleteAccount.setOnClickListener(v14 -> {
@@ -200,6 +206,29 @@ public class HomeActivity extends AppCompatActivity {
                 // sau đó nhập mật khẩu để xác nhận
                 // gửi lên server là xoá account này
                 // sau đó quay về màn hình sign in/sign up
+
+                View deleteScreen = showBottomSheetDialog(R.layout.buttomdialog_deleteaccount);
+
+                TextView tvName = deleteScreen.findViewById(R.id.tvName);
+                TextView tvMail = deleteScreen.findViewById(R.id.tvEmail);
+                ImageButton close = deleteScreen.findViewById(R.id.btnClose);
+                Button delete = deleteScreen.findViewById(R.id.btnDelete);
+
+                tvName.setText(userData.getFullName());
+                tvMail.setText(userData.getEmail());
+
+                close.setOnClickListener(v141 -> {
+                    // delete
+                    curBottomDialog.dismiss();
+                });
+
+                delete.setOnClickListener(v142 -> {
+                    // delete
+
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
 
             });
         });

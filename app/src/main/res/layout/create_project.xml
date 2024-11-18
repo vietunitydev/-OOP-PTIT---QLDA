@@ -10,7 +10,7 @@
         android:id="@+id/header_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#6699FF">
+        android:background="@drawable/bg_createissue">
 
         <!--        &lt;!&ndash; Close button &ndash;&gt;-->
         <!--        <ImageView-->
@@ -23,13 +23,13 @@
         <!--            android:contentDescription="Close" />-->
 
         <!-- Illustration image -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="32dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher_background" />
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="160dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/ic_launcher_background" />-->
     </RelativeLayout>
 
     <!-- Title -->
@@ -56,7 +56,7 @@
         android:layout_marginTop="24dp"
         android:text="Project name"
         android:textSize="14sp"
-        android:textColor="#999999" />
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/project_name_input"
@@ -79,7 +79,7 @@
         android:layout_marginTop="16dp"
         android:text="Project key"
         android:textSize="14sp"
-        android:textColor="#999999" />
+        android:textColor="@color/black" />
 
     <EditText
         android:id="@+id/project_key_input"
