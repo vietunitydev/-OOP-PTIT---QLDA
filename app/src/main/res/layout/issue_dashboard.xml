@@ -79,24 +79,25 @@
                 android:layout_weight="1"
                 app:tint="@color/blue_2"/>
         </LinearLayout>
+
         <ScrollView
             android:id="@+id/bodyIssue"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="40dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_background_gainsboro"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/headerInssue">
+
             <LinearLayout
                 android:id="@+id/issueWithinTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
         </ScrollView>
     </LinearLayout>
     <LinearLayout
@@ -107,7 +108,7 @@
         android:background="@drawable/rounded_background_gainsboro"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
         <LinearLayout
             android:id="@+id/headerCreateIssue"
             android:layout_width="match_parent"
