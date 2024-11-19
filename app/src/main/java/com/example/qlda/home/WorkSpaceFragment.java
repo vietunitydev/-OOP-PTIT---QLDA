@@ -2,6 +2,7 @@ package com.example.qlda.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.GestureDetector;
@@ -222,10 +223,45 @@ public class WorkSpaceFragment extends Fragment {
 //        });
 
         root.addView(element);
-        element.setOnLongClickListener(v -> {
-            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-            v.startDragAndDrop(null, shadowBuilder, v, 0);
-            return true;
+        element.setOnTouchListener(new View.OnTouchListener() {
+            long LONG_PRESS_TIME = 500; // 500ms cho thời gian giữ lâu
+            Handler handler = new Handler();
+            Runnable longPressRunnable;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Khi người dùng nhấn xuống, bắt đầu thời gian chờ
+                        longPressRunnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                // Nếu giữ lâu, thực hiện kéo thả
+                                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+                                v.startDragAndDrop(null, shadowBuilder, v, 0);
+                            }
+                        };
+                        handler.postDelayed(longPressRunnable, LONG_PRESS_TIME);
+                        MyCustomLog.DebugLog("(ON TOUCH EVENT)", "action down");
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Nếu người dùng nhả tay ra mà không giữ lâu, kích hoạt sự kiện click
+                        handler.removeCallbacks(longPressRunnable); // Hủy bỏ long press nếu chưa đủ lâu
+                        if (event.getEventTime() - event.getDownTime() < LONG_PRESS_TIME) {
+                            // Nếu nhấn nhanh, kích hoạt sự kiện click
+                            v.performClick();
+                        }
+                        MyCustomLog.DebugLog("(ON TOUCH EVENT)", "action up");
+                        break;
+
+                    case MotionEvent.ACTION_CANCEL:
+                        handler.removeCallbacks(longPressRunnable); // Hủy bỏ nếu có sự kiện hủy
+                        MyCustomLog.DebugLog("(ON TOUCH EVENT)", "action cancel");
+                        break;
+                }
+                return true;
+            }
         });
     }
 
