@@ -101,19 +101,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp">
 
-<!--                &lt;!&ndash; Nội dung trang &ndash;&gt;-->
-<!--                <TextView-->
-<!--                    android:id="@+id/draggableElement1"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:background="@android:color/holo_blue_light"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="Drag Me"-->
-<!--                    android:textColor="@android:color/white"-->
-<!--                    android:textStyle="bold" />-->
-
-                <include
-                    layout="@layout/layout_worklist"/>
             </FrameLayout>
 
             <!-- Trang thứ hai -->
@@ -123,18 +110,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/dropZone2"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:background="@color/black"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="Drop Here"-->
-<!--                    android:textColor="@color/blue"-->
-<!--                    android:textStyle="bold" />-->
-
-                <include
-                    layout="@layout/layout_worklist"/>
             </FrameLayout>
 
             <!-- Trang thứ ba -->
@@ -144,18 +119,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/draggableElement2"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:background="@android:color/holo_blue_light"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="Drag Me 2"-->
-<!--                    android:textColor="@android:color/white"-->
-<!--                    android:textStyle="bold" />-->
-
-                <include
-                    layout="@layout/layout_worklist"/>
             </FrameLayout>
         </LinearLayout>
     </HorizontalScrollView>

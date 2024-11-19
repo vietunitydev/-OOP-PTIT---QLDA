@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -27,16 +28,19 @@ import com.example.qlda.Data.Data;
 import com.example.qlda.Data.ElementData;
 import com.example.qlda.Data.Project;
 import com.example.qlda.Data.TableData;
+import com.example.qlda.Data.Task;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class WorkSpaceFragment extends Fragment {
 
     private static final String ARG_TABLE = "arg_table";
-    WorkListAdapter adapter;
-    TableData table;
+
+    LayoutInflater inflater;
 
     private HorizontalScrollView horizontalScrollView;
     private LinearLayout pagesContainer;
@@ -55,13 +59,14 @@ public class WorkSpaceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            table = (TableData) getArguments().getSerializable(ARG_TABLE);
+//            table = (TableData) getArguments().getSerializable(ARG_TABLE);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.inflater = inflater;
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
         // need get from passing data
@@ -95,6 +100,43 @@ public class WorkSpaceFragment extends Fragment {
         });
 
         horizontalScrollView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
+
+        FrameLayout page1 = view.findViewById(R.id.page1);
+        FrameLayout page2 = view.findViewById(R.id.page2);
+        FrameLayout page3 = view.findViewById(R.id.page3);
+
+        View view1 = inflater.inflate(R.layout.layout_worklist, null, false);
+        TextView textTitle1 = view1.findViewById(R.id.wl_content_worklist_name);
+        textTitle1.setText("TODO");
+        View view2 = inflater.inflate(R.layout.layout_worklist, null, false);
+        TextView textTitle2 = view2.findViewById(R.id.wl_content_worklist_name);
+        textTitle2.setText("IN PROGRESS");
+        View view3 = inflater.inflate(R.layout.layout_worklist, null, false);
+        TextView textTitle3 = view3.findViewById(R.id.wl_content_worklist_name);
+        textTitle3.setText("DONE");
+
+        page1.addView(view1);
+        page2.addView(view2);
+        page3.addView(view3);
+
+        LinearLayout wl_content_scroll1 = view1.findViewById(R.id.wl_content_scroll);
+        LinearLayout wl_content_scroll2 = view2.findViewById(R.id.wl_content_scroll);
+        LinearLayout wl_content_scroll3 = view3.findViewById(R.id.wl_content_scroll);
+
+
+        List<Task> elms = Data.getInstance().getTasksByProjectId(projectID);
+        for (int i = 0; i < elms.size(); i++) {
+            if(Objects.equals(elms.get(i).getStatus(), "ToDo")){
+                CreateElement(wl_content_scroll1, i, elms.get(i).getTaskName());
+            }
+            else if(Objects.equals(elms.get(i).getStatus(), "InProgress")){
+                CreateElement(wl_content_scroll2, i, elms.get(i).getTaskName());
+            }
+            else if(Objects.equals(elms.get(i).getStatus(), "Done")){
+                CreateElement(wl_content_scroll3, i, elms.get(i).getTaskName());
+            }
+        }
+
 
 
 //        // Tìm các phần tử giao diện
@@ -173,6 +215,22 @@ public class WorkSpaceFragment extends Fragment {
         horizontalScrollView.smoothScrollTo(scrollX, 0);
     }
 
+    private void CreateElement(LinearLayout root, int index, String cnt) {
+        FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, null, false);
+//        elements.add(element);
+        TextView text = element.findViewById(R.id.item_drag_text);
+        text.setText(cnt);
+
+//        Button btn = element.findViewById(R.id.item_drag_btn);
+//        btn.setOnClickListener(v -> {
+//            if (onElementClickListener != null) {
+//                onElementClickListener.onElementClick(workListPage, workListPage.getElements().get(index), this);
+//            }
+//        });
+
+
+        root.addView(element);
+    }
 
     public void backToHomeScreen(){
         if (getActivity() != null) {
@@ -180,7 +238,7 @@ public class WorkSpaceFragment extends Fragment {
         }
     }
 
-    public void removeThisTable(){
-        AppData.deleteTable(table.getId());
-    }
+//    public void removeThisTable(){
+//        AppData.deleteTable(table.getId());
+//    }
 }

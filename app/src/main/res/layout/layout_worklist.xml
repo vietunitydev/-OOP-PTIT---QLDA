@@ -27,11 +27,11 @@
                 android:id="@+id/wl_content_worklist_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="13dp"
                 android:paddingStart="15dp"
-                android:textStyle="bold"
                 android:text="TODO"
                 android:textSize="15sp"
-                android:padding="13dp"
+                android:textStyle="bold"
                 tools:ignore="RtlSymmetry" />
 
             <Button
@@ -63,9 +63,9 @@
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 android:padding="0dp">
-                <include layout="@layout/item_worklist" />
-                <include layout="@layout/item_worklist" />
-                <include layout="@layout/item_worklist" />
+<!--                <include layout="@layout/item_worklist" />-->
+<!--                <include layout="@layout/item_worklist" />-->
+<!--                <include layout="@layout/item_worklist" />-->
             </LinearLayout>
         </ScrollView>
 
