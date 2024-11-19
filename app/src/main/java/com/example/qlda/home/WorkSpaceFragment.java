@@ -210,21 +210,14 @@ public class WorkSpaceFragment extends Fragment {
     }
 
     private void CreateElement(LinearLayout root, String cnt) {
-        FrameLayout element = (FrameLayout) inflater.inflate(R.layout.task_item, root, false);
+        View element = inflater.inflate(R.layout.task_item, root, false);
 //        elements.add(element);
         TextView text = element.findViewById(R.id.item_task_text);
         text.setText(cnt);
 
-//        Button btn = element.findViewById(R.id.item_drag_btn);
-//        btn.setOnClickListener(v -> {
-//            if (onElementClickListener != null) {
-//                onElementClickListener.onElementClick(workListPage, workListPage.getElements().get(index), this);
-//            }
-//        });
-
         root.addView(element);
         element.setOnTouchListener(new View.OnTouchListener() {
-            long LONG_PRESS_TIME = 500; // 500ms cho thời gian giữ lâu
+            long LONG_PRESS_TIME = 500;
             Handler handler = new Handler();
             Runnable longPressRunnable;
 
@@ -232,11 +225,10 @@ public class WorkSpaceFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        // Khi người dùng nhấn xuống, bắt đầu thời gian chờ
+                        // case này run khi có 1 click vào
                         longPressRunnable = new Runnable() {
                             @Override
                             public void run() {
-                                // Nếu giữ lâu, thực hiện kéo thả
                                 View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
                                 v.startDragAndDrop(null, shadowBuilder, v, 0);
                             }
@@ -246,17 +238,24 @@ public class WorkSpaceFragment extends Fragment {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        // Nếu người dùng nhả tay ra mà không giữ lâu, kích hoạt sự kiện click
-                        handler.removeCallbacks(longPressRunnable); // Hủy bỏ long press nếu chưa đủ lâu
+                        // case này run khi click không đủ lâu
+                        handler.removeCallbacks(longPressRunnable);
                         if (event.getEventTime() - event.getDownTime() < LONG_PRESS_TIME) {
-                            // Nếu nhấn nhanh, kích hoạt sự kiện click
                             v.performClick();
                         }
+
+                        ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(new WorkListPageData(), new ElementData());
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, contentFragment)
+                                .addToBackStack(null)
+                                .commit();
+
                         MyCustomLog.DebugLog("(ON TOUCH EVENT)", "action up");
                         break;
 
                     case MotionEvent.ACTION_CANCEL:
-                        handler.removeCallbacks(longPressRunnable); // Hủy bỏ nếu có sự kiện hủy
+                        // case này run khi click đã đủ lâu
+                        handler.removeCallbacks(longPressRunnable);
                         MyCustomLog.DebugLog("(ON TOUCH EVENT)", "action cancel");
                         break;
                 }
