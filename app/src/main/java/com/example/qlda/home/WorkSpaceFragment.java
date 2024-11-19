@@ -49,6 +49,11 @@ public class WorkSpaceFragment extends Fragment {
     private GestureDetector gestureDetector;
     private int currentPage = 0;
 
+
+    LinearLayout wl_content_scroll1 ;
+    LinearLayout wl_content_scroll2 ;
+    LinearLayout wl_content_scroll3 ;
+
     public static WorkSpaceFragment newInstance(TableData table) {
         WorkSpaceFragment fragment = new WorkSpaceFragment();
         Bundle args = new Bundle();
@@ -121,9 +126,9 @@ public class WorkSpaceFragment extends Fragment {
         page2.addView(view2);
         page3.addView(view3);
 
-        LinearLayout wl_content_scroll1 = view1.findViewById(R.id.wl_content_scroll);
-        LinearLayout wl_content_scroll2 = view2.findViewById(R.id.wl_content_scroll);
-        LinearLayout wl_content_scroll3 = view3.findViewById(R.id.wl_content_scroll);
+         wl_content_scroll1 = view1.findViewById(R.id.wl_content_scroll);
+         wl_content_scroll2 = view2.findViewById(R.id.wl_content_scroll);
+         wl_content_scroll3 = view3.findViewById(R.id.wl_content_scroll);
 
 
         List<Task> elms = Data.getInstance().getTasksByProjectId(projectID);
@@ -148,20 +153,28 @@ public class WorkSpaceFragment extends Fragment {
     }
 
     private void setupDragAndDrop(LinearLayout container) {
+        // Tạo placeholder
+        View placeholder = new View(getContext());
+        placeholder.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                40
+        ));
+        placeholder.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+        placeholder.setVisibility(View.GONE); // Ẩn ban đầu
+        container.addView(placeholder);
+
         container.setOnDragListener((v, event) -> {
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
                     Log.d("DragAndDrop", "Drag started");
+                    placeholder.setVisibility(View.VISIBLE); // Hiển thị placeholder
                     return true;
 
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    Log.d("DragAndDrop", "Drag entered container: " + container.getId());
-                    container.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-                    return true;
-
-                case DragEvent.ACTION_DRAG_EXITED:
-                    Log.d("DragAndDrop", "Drag exited container: " + container.getId());
-                    container.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    float y = event.getY(); // Lấy vị trí Y của con trỏ trong container
+                    int index = getInsertIndex(container, y);
+                    Log.d("DragAndDrop", "Y: " + y + " index: " + index);
+                    movePlaceholder(container, placeholder, index);
                     return true;
 
                 case DragEvent.ACTION_DROP:
@@ -169,23 +182,52 @@ public class WorkSpaceFragment extends Fragment {
                     View draggedView = (View) event.getLocalState();
                     ViewGroup oldParent = (ViewGroup) draggedView.getParent();
 
-                    // Di chuyển task từ container cũ sang container mới
+                    // Xóa task khỏi container cũ
                     oldParent.removeView(draggedView);
-                    container.addView(draggedView);
 
-                    // Reset màu nền container
-                    container.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    // Thêm task vào vị trí của placeholder
+                    int placeholderIndex = container.indexOfChild(placeholder);
+                    container.removeView(placeholder);
+                    container.addView(draggedView, placeholderIndex);
+
+                    placeholder.setVisibility(View.GONE); // Ẩn placeholder sau khi thả
+                    return true;
+
+                case DragEvent.ACTION_DRAG_EXITED:
+                    Log.d("DragAndDrop", "Drag exited container: " + container.getId());
+                    placeholder.setVisibility(View.GONE); // Ẩn placeholder khi ra ngoài
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENDED:
                     Log.d("DragAndDrop", "Drag ended");
-                    container.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    placeholder.setVisibility(View.GONE); // Ẩn placeholder khi kết thúc
                     return true;
 
                 default:
                     return false;
             }
         });
+    }
+
+    /**
+     * Xác định vị trí chèn dựa trên vị trí Y của con trỏ.
+     */
+    private int getInsertIndex(LinearLayout container, float y) {
+        for (int i = 0; i < container.getChildCount(); i++) {
+            View child = container.getChildAt(i);
+            if (y < child.getY() + child.getHeight() / 2) {
+                return i; // Chèn trước phần tử này
+            }
+        }
+        return container.getChildCount(); // Nếu con trỏ nằm cuối, chèn ở cuối
+    }
+
+    /**
+     * Di chuyển placeholder đến vị trí được chỉ định.
+     */
+    private void movePlaceholder(LinearLayout container, View placeholder, int index) {
+        container.removeView(placeholder);
+        container.addView(placeholder, index-1);
     }
 
     private void scrollToNextPage() {
