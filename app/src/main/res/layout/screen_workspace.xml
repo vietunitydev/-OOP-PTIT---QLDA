@@ -78,6 +78,13 @@
             android:textColor="@color/black"/>
     </LinearLayout>
 
+    <include
+        android:id="@+id/setting_tab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/selectPage"
+        layout="@layout/layout_setting_project"/>
+
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"

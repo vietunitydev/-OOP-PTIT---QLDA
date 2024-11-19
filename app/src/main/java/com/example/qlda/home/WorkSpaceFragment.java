@@ -92,6 +92,34 @@ public class WorkSpaceFragment extends Fragment {
         });
 
         horizontalScrollView = view.findViewById(R.id.horizontalScrollView);
+        View setting = view.findViewById(R.id.setting_tab);
+
+        // default
+        setting.setVisibility(View.GONE);
+
+        Button btnBoard = view.findViewById(R.id.btnBoard);
+        Button btnSetting = view.findViewById(R.id.btnSetting);
+
+        btnBoard.setOnClickListener(v ->{
+            MyCustomLog.DebugLog("---(Project Fragment)", "btnBoard clicked" + horizontalScrollView.getVisibility());
+            if(horizontalScrollView.getVisibility() == View.VISIBLE){
+
+            } else if (horizontalScrollView.getVisibility() == View.GONE) {
+                horizontalScrollView.setVisibility(View.VISIBLE);
+                setting.setVisibility(View.GONE);}
+        });
+
+        btnSetting.setOnClickListener(v ->{
+            MyCustomLog.DebugLog("---(Project Fragment)", "btnSetting clicked" + setting.getVisibility());
+            if(setting.getVisibility() == View.VISIBLE){
+
+            } else if (setting.getVisibility() == View.GONE) {
+                horizontalScrollView.setVisibility(View.GONE);
+                setting.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         pagesContainer = view.findViewById(R.id.pagesContainer);
 
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
@@ -148,6 +176,7 @@ public class WorkSpaceFragment extends Fragment {
         setupDragAndDrop(wl_content_scroll1);
         setupDragAndDrop(wl_content_scroll2);
         setupDragAndDrop(wl_content_scroll3);
+
 
         return view;
     }
