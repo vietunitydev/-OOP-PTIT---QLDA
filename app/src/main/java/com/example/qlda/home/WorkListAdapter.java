@@ -115,19 +115,19 @@ public class WorkListAdapter extends RecyclerView.Adapter<WorkListAdapter.ListWo
         }
 
         private void CreateElement(int index, String cnt) {
-            FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, wl_content, false);
-            elements.add(element);
-            TextView text = element.findViewById(R.id.item_drag_text);
-            text.setText(cnt);
+//            FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, wl_content, false);
+//            elements.add(element);
+//            TextView text = element.findViewById(R.id.item_drag_text);
+//            text.setText(cnt);
 
-            Button btn = element.findViewById(R.id.item_drag_btn);
-            btn.setOnClickListener(v -> {
-                if (onElementClickListener != null) {
-                    onElementClickListener.onElementClick(workListPage, workListPage.getElements().get(index), this);
-                }
-            });
+//            Button btn = element.findViewById(R.id.item_drag_btn);
+//            btn.setOnClickListener(v -> {
+//                if (onElementClickListener != null) {
+//                    onElementClickListener.onElementClick(workListPage, workListPage.getElements().get(index), this);
+//                }
+//            });
 
-            wl_content_scroll.addView(element, index);
+//            wl_content_scroll.addView(element, index);
         }
 
         public WorkListPageData getWorkListPage() {

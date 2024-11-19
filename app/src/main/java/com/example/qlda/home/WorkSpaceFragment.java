@@ -138,43 +138,14 @@ public class WorkSpaceFragment extends Fragment {
             }
         }
 
-
-        // Thêm task mẫu vào TODO container
-        addTask(wl_content_scroll1, "Task 1");
-        addTask(wl_content_scroll1, "Task 2");
-        addTask(wl_content_scroll1, "Task 3");
-
         // Thiết lập Drag and Drop
         setupDragAndDrop(wl_content_scroll1);
         setupDragAndDrop(wl_content_scroll2);
         setupDragAndDrop(wl_content_scroll3);
 
-//        // Tìm các phần tử giao diện
-//        TextView draggableElement1 = view.findViewById(R.id.draggableElement1);
-//        TextView dropZone2 = view.findViewById(R.id.dropZone2);
-//
-//        // Setup Drag and Drop cho phần tử
-//        setupDragAndDrop(draggableElement1, dropZone2);
-
         return view;
     }
 
-    private void addTask(LinearLayout container, String taskName) {
-        ImageView taskImage = new ImageView(getContext());
-        taskImage.setImageResource(R.drawable.ic_folder); // Đặt hình ảnh cho ImageView
-        taskImage.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-
-        // Gán sự kiện kéo cho ImageView
-        taskImage.setOnLongClickListener(v -> {
-            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-            v.startDragAndDrop(null, shadowBuilder, v, 0);
-            return true;
-        });
-
-        container.addView(taskImage);
-    }
     private void setupDragAndDrop(LinearLayout container) {
         container.setOnDragListener((v, event) -> {
             switch (event.getAction()) {
@@ -238,9 +209,9 @@ public class WorkSpaceFragment extends Fragment {
     }
 
     private void CreateElement(LinearLayout root, int index, String cnt) {
-        FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, root, false);
+        FrameLayout element = (FrameLayout) inflater.inflate(R.layout.task_item, root, false);
 //        elements.add(element);
-        TextView text = element.findViewById(R.id.item_drag_text);
+        TextView text = element.findViewById(R.id.item_task_text);
         text.setText(cnt);
 
 //        Button btn = element.findViewById(R.id.item_drag_btn);
@@ -263,8 +234,4 @@ public class WorkSpaceFragment extends Fragment {
             ((HomeActivity) getActivity()).goBackToPreviousFragment();
         }
     }
-
-//    public void removeThisTable(){
-//        AppData.deleteTable(table.getId());
-//    }
 }
