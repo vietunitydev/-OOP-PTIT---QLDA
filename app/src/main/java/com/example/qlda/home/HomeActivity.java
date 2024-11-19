@@ -24,6 +24,7 @@ import com.example.qlda.Data.Project;
 import com.example.qlda.Data.TableData;
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.User;
+import com.example.qlda.Data.TimeGroup;
 import com.example.qlda.Data.UserData;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         setupShowUserInfo();
         setupCreateIssue();
         setupScreenIssue();
+        searchIssue();
     }
 
     // add function show for 3 button
@@ -317,24 +319,6 @@ public class HomeActivity extends AppCompatActivity {
 
     //Giao diện hiện thị các issue theo mốc thời gian
 
-    //Một Class TimeGroup để chứa các Issue trong từng mốc thờigian
-    static class TimeGroup {
-        private final String timeLabel;
-        private final List<Task> task;
-
-        public TimeGroup(String timeLabel, List<Task> task) {
-            this.timeLabel = timeLabel;
-            this.task = task;
-        }
-
-        public String getTimeLabel() {
-            return timeLabel;
-        }
-
-        public List<Task> getProjects() {
-            return task;
-        }
-    }
     // Hàm lấy một số ví dụ các Issue qua từng mốc thời gian
     private List<TimeGroup> getGroupedProjects() {
         List<TimeGroup> timeGroups = new ArrayList<>();
@@ -400,6 +384,14 @@ public class HomeActivity extends AppCompatActivity {
                 TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
                 item_Issue_Status.setText(task.getStatus());
 
+//                Button projectButton = (Button) LayoutInflater.from(this).inflate(R.layout.issue_details, projectList, false);
+//
+//                // Xử lý sự kiện khi nhấn vào dự án
+//                projectButton.setOnClickListener(v -> {
+//                    Intent intent = new Intent(this, DetailIssue.class);
+//                    startActivity(intent);
+//                });
+
                 projectList.addView(itemIssue);
             }
 
@@ -415,6 +407,26 @@ public class HomeActivity extends AppCompatActivity {
 
         imgBtnAddIssue.setOnClickListener(v -> {
             View view = showBottomSheetDialog(R.layout.screen_create_issue);
+        });
+    }
+    private void searchIssue() {
+        ImageButton imgBtnSearch = issueView.findViewById(R.id.imgBtnSearch);
+        EditText edtSearch = issueView.findViewById(R.id.edtSearch);
+
+        imgBtnSearch.setOnClickListener(v -> {
+            if (edtSearch.getVisibility() == View.GONE) {
+                edtSearch.setVisibility(View.VISIBLE);
+            } else {
+                edtSearch.setVisibility(View.GONE);
+            }
+        });
+
+        // Thêm logic để ẩn EditText khi nhấn ra ngoài
+        issueView.setOnTouchListener((v, event) -> {
+            if (edtSearch.getVisibility() == View.VISIBLE) {
+                edtSearch.setVisibility(View.GONE);
+            }
+            return false; // Cho phép các sự kiện khác tiếp tục xử lý
         });
     }
 }
