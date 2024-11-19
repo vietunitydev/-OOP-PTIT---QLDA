@@ -5,6 +5,12 @@
     android:layout_margin="5dp"
     android:background="@drawable/rounded_background">
 
+<!--    <Button-->
+<!--        android:id="@+id/item_drag_btn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:backgroundTint="@android:color/transparent"/>-->
+
     <!-- ImageView cho hình ảnh (ví dụ: biểu tượng task) -->
     <ImageView
         android:id="@+id/item_task_image"
