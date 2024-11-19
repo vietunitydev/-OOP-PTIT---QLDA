@@ -40,15 +40,5 @@ public class IssueDashBoard extends AppCompatActivity {
                 edtSearch.setVisibility(View.GONE);
             }
         });
-        imgBtnAddIssues.setOnClickListener(v ->{
-            LinearLayout addIssue = (LinearLayout) findViewById(R.id.addIssue);
-
-            if(edtSearch.getVisibility() == View.GONE){
-                addIssue.setVisibility(View.VISIBLE);
-            }
-            else{
-                addIssue.setVisibility(View.GONE);
-            }
-        });
     }
 }
