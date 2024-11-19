@@ -20,7 +20,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.qlda.Data.AppData;
 import com.example.qlda.Data.Data;
+import com.example.qlda.Data.Project;
 import com.example.qlda.Data.TableData;
+import com.example.qlda.Data.Task;
 import com.example.qlda.Data.User;
 import com.example.qlda.Data.UserData;
 import com.example.qlda.Data.WorkListPageData;
@@ -59,7 +61,8 @@ public class HomeActivity extends AppCompatActivity {
         fetchUserProject();
         setupCreateProject();
         setupShowUserInfo();
-
+        setupCreateIssue();
+        setupScreenIssue();
     }
 
     // add function show for 3 button
@@ -139,7 +142,6 @@ public class HomeActivity extends AppCompatActivity {
 
         });
     }
-
     private void createButton(TableData table) {
         LinearLayout content = projectView.findViewById(R.id.buttonContainer);
         FrameLayout customButton = (FrameLayout) inflater.inflate(R.layout.button_table, content, false);
@@ -307,6 +309,113 @@ public class HomeActivity extends AppCompatActivity {
         // Hiển thị Bottom Sheet
         bottomSheetDialog.show();
         return bottomSheetView;
+    }
+
+
+
+    // Code của Hải
+
+    //Giao diện hiện thị các issue theo mốc thời gian
+
+    //Một Class TimeGroup để chứa các Issue trong từng mốc thờigian
+    static class TimeGroup {
+        private final String timeLabel;
+        private final List<Task> task;
+
+        public TimeGroup(String timeLabel, List<Task> task) {
+            this.timeLabel = timeLabel;
+            this.task = task;
+        }
+
+        public String getTimeLabel() {
+            return timeLabel;
+        }
+
+        public List<Task> getProjects() {
+            return task;
+        }
+    }
+    // Hàm lấy một số ví dụ các Issue qua từng mốc thời gian
+    private List<TimeGroup> getGroupedProjects() {
+        List<TimeGroup> timeGroups = new ArrayList<>();
+
+        // Dự liệu mẫu của các dự án
+        List<Task> todayTask = new ArrayList<>();
+        todayTask.add(new Task(1, "Project A", "Description A", 1 , 1, "Low", "Todo","2024-11-19"));
+        todayTask.add(new Task(2, "Project B", "Description B", 2 , 2, "High", "Todo","2024-11-19"));
+
+        List<Task> yesterdayTask = new ArrayList<>();
+        yesterdayTask.add(new Task(3, "Project C", "Description C", 3 , 3, "Low", "Todo","2024-11-18"));
+
+        List<Task> olderTask = new ArrayList<>();
+        olderTask.add(new Task(4, "Project D", "Description D", 4 , 4, "Low", "Todo","2024-11-10"));
+
+        // Thêm các nhóm vào danh sách
+        timeGroups.add(new TimeGroup("Hôm nay", todayTask));
+        timeGroups.add(new TimeGroup("Hôm qua", yesterdayTask));
+        timeGroups.add(new TimeGroup("Cũ hơn", olderTask));
+
+        return timeGroups;
+    }
+    private void setupScreenIssue() {
+        // Lấy LinearLayout chứa các dự án
+        LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
+
+        // Lấy các nhóm dự án phân theo thời gian
+        List<TimeGroup> timeGroups = getGroupedProjects();
+
+        // Kiểm tra nếu danh sách nhóm rỗng hoặc null
+        if (timeGroups == null || timeGroups.isEmpty()) {
+            return;
+        }
+
+        // Duyệt qua từng nhóm thời gian và thêm chúng vào giao diện
+        for (TimeGroup timeGroup : timeGroups) {
+            // Nếu không có dự án nào trong nhóm này, bỏ qua nhóm đó
+            if (timeGroup.getProjects() == null || timeGroup.getProjects().isEmpty()) {
+                continue;
+            }
+
+            // Inflate layout cho từng nhóm thời gian
+            View sectionView = LayoutInflater.from(issueView.getContext())
+                    .inflate(R.layout.item_time_section, parentLayout, false);
+
+            // Cập nhật tiêu đề nhóm thời gian
+            TextView timeHeader = sectionView.findViewById(R.id.sectionTimeHeader);
+            timeHeader.setText(timeGroup.getTimeLabel());
+
+            // Thêm các dự án vào nhóm thời gian
+            LinearLayout projectList = sectionView.findViewById(R.id.projectList);
+            for (Task task : timeGroup.getProjects()) {
+                View itemIssue = LayoutInflater.from(issueView.getContext())
+                        .inflate(R.layout.item_issue, projectList, false);
+
+                // Thêm dữ liệu vào item issue
+                TextView item_Issue_txtName = itemIssue.findViewById(R.id.item_Issue_txtName);
+                item_Issue_txtName.setText(String.valueOf(task.getTaskId()));
+
+                TextView item_Issue_itemName = itemIssue.findViewById(R.id.item_Issue_itemName);
+                item_Issue_itemName.setText(task.getTaskName());
+
+                TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
+                item_Issue_Status.setText(task.getStatus());
+
+                projectList.addView(itemIssue);
+            }
+
+            // Thêm nhóm thời gian vào layout cha
+            parentLayout.addView(sectionView);
+        }
+    }
+
+    // Hàm tạo issue
+
+    private void setupCreateIssue(){
+        ImageButton imgBtnAddIssue = issueView.findViewById(R.id.imgBtnAddIssues);
+
+        imgBtnAddIssue.setOnClickListener(v -> {
+            View view = showBottomSheetDialog(R.layout.screen_create_issue);
+        });
     }
 }
 

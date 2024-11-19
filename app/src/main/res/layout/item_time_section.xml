@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
+    android:orientation="vertical">
 
+    <!-- Time Header -->
     <TextView
         android:id="@+id/sectionTimeHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/to_day"
-        android:textSize="20sp"/>
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="5dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:background="@color/gains_boro"
+        />
+
+    <!-- Dynamic list of projects -->
     <LinearLayout
         android:id="@+id/projectList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="8dp" />
+        android:background="@drawable/rounded_background">
+        <!-- Project items will be dynamically added here -->
+    </LinearLayout>
+
 </LinearLayout>
