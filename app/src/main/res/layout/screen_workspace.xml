@@ -94,30 +94,45 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <!-- Trang đầu tiên -->
             <FrameLayout
                 android:id="@+id/page1"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp">
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/todoContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
 
             </FrameLayout>
 
-            <!-- Trang thứ hai -->
             <FrameLayout
                 android:id="@+id/page2"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp">
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/inProgressContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
 
             </FrameLayout>
 
-            <!-- Trang thứ ba -->
             <FrameLayout
                 android:id="@+id/page3"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp">
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/doneContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
 
             </FrameLayout>
         </LinearLayout>

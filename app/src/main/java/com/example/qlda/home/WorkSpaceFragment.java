@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -138,6 +139,15 @@ public class WorkSpaceFragment extends Fragment {
         }
 
 
+        // Thêm task mẫu vào TODO container
+        addTask(wl_content_scroll1, "Task 1");
+        addTask(wl_content_scroll1, "Task 2");
+        addTask(wl_content_scroll1, "Task 3");
+
+        // Thiết lập Drag and Drop
+        setupDragAndDrop(wl_content_scroll1);
+        setupDragAndDrop(wl_content_scroll2);
+        setupDragAndDrop(wl_content_scroll3);
 
 //        // Tìm các phần tử giao diện
 //        TextView draggableElement1 = view.findViewById(R.id.draggableElement1);
@@ -149,43 +159,55 @@ public class WorkSpaceFragment extends Fragment {
         return view;
     }
 
-    private void setupDragAndDrop(View draggableElement, View dropZone) {
-        // Xử lý kéo phần tử
-        draggableElement.setOnLongClickListener(v -> {
+    private void addTask(LinearLayout container, String taskName) {
+        ImageView taskImage = new ImageView(getContext());
+        taskImage.setImageResource(R.drawable.ic_folder); // Đặt hình ảnh cho ImageView
+        taskImage.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        // Gán sự kiện kéo cho ImageView
+        taskImage.setOnLongClickListener(v -> {
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
             v.startDragAndDrop(null, shadowBuilder, v, 0);
             return true;
         });
 
-        // Xử lý thả phần tử
-        dropZone.setOnDragListener((v, event) -> {
+        container.addView(taskImage);
+    }
+    private void setupDragAndDrop(LinearLayout container) {
+        container.setOnDragListener((v, event) -> {
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
+                    Log.d("DragAndDrop", "Drag started");
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    v.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_light));
+                    Log.d("DragAndDrop", "Drag entered container: " + container.getId());
+                    container.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
                     return true;
 
                 case DragEvent.ACTION_DRAG_EXITED:
-                    v.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                    Log.d("DragAndDrop", "Drag exited container: " + container.getId());
+                    container.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     return true;
 
                 case DragEvent.ACTION_DROP:
+                    Log.d("DragAndDrop", "Task dropped into container: " + container.getId());
                     View draggedView = (View) event.getLocalState();
                     ViewGroup oldParent = (ViewGroup) draggedView.getParent();
+
+                    // Di chuyển task từ container cũ sang container mới
                     oldParent.removeView(draggedView);
+                    container.addView(draggedView);
 
-                    FrameLayout newParent = (FrameLayout) v;
-                    newParent.addView(draggedView);
-
-                    draggedView.setX(event.getX() - draggedView.getWidth() / 3);
-                    draggedView.setY(event.getY() - draggedView.getHeight() / 3);
-
+                    // Reset màu nền container
+                    container.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     return true;
 
                 case DragEvent.ACTION_DRAG_ENDED:
-                    v.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                    Log.d("DragAndDrop", "Drag ended");
+                    container.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                     return true;
 
                 default:
@@ -216,7 +238,7 @@ public class WorkSpaceFragment extends Fragment {
     }
 
     private void CreateElement(LinearLayout root, int index, String cnt) {
-        FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, null, false);
+        FrameLayout element = (FrameLayout) inflater.inflate(R.layout.item_worklist, root, false);
 //        elements.add(element);
         TextView text = element.findViewById(R.id.item_drag_text);
         text.setText(cnt);
@@ -228,8 +250,12 @@ public class WorkSpaceFragment extends Fragment {
 //            }
 //        });
 
-
         root.addView(element);
+        element.setOnLongClickListener(v -> {
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+            v.startDragAndDrop(null, shadowBuilder, v, 0);
+            return true;
+        });
     }
 
     public void backToHomeScreen(){
