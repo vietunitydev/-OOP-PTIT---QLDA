@@ -128,13 +128,13 @@ public class WorkSpaceFragment extends Fragment {
         List<Task> elms = Data.getInstance().getTasksByProjectId(projectID);
         for (int i = 0; i < elms.size(); i++) {
             if(Objects.equals(elms.get(i).getStatus(), "ToDo")){
-                CreateElement(wl_content_scroll1, i, elms.get(i).getTaskName());
+                CreateElement(wl_content_scroll1, elms.get(i).getTaskName());
             }
             else if(Objects.equals(elms.get(i).getStatus(), "InProgress")){
-                CreateElement(wl_content_scroll2, i, elms.get(i).getTaskName());
+                CreateElement(wl_content_scroll2, elms.get(i).getTaskName());
             }
             else if(Objects.equals(elms.get(i).getStatus(), "Done")){
-                CreateElement(wl_content_scroll3, i, elms.get(i).getTaskName());
+                CreateElement(wl_content_scroll3, elms.get(i).getTaskName());
             }
         }
 
@@ -208,7 +208,7 @@ public class WorkSpaceFragment extends Fragment {
         horizontalScrollView.smoothScrollTo(scrollX, 0);
     }
 
-    private void CreateElement(LinearLayout root, int index, String cnt) {
+    private void CreateElement(LinearLayout root, String cnt) {
         FrameLayout element = (FrameLayout) inflater.inflate(R.layout.task_item, root, false);
 //        elements.add(element);
         TextView text = element.findViewById(R.id.item_task_text);
