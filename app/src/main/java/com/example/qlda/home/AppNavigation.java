@@ -50,11 +50,9 @@ public class AppNavigation {
         btnNotification.setOnClickListener(v -> setActiveView(notificationView));
         btnIssue.setOnClickListener(v -> setActiveView(issueView));
     }
-
     private void showToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
-
     private void setActiveView(View view) {
         // Xóa tất cả các View cũ
         viewContainer.removeAllViews();
