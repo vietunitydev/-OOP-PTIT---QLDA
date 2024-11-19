@@ -65,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
         setupCreateIssue();
         setupScreenIssue();
         searchIssue();
+        setupShowUserInfoIssue();
     }
 
     // add function show for 3 button
@@ -427,6 +428,77 @@ public class HomeActivity extends AppCompatActivity {
                 edtSearch.setVisibility(View.GONE);
             }
             return false; // Cho phép các sự kiện khác tiếp tục xử lý
+        });
+    }
+    private void setupShowUserInfoIssue(){
+        ImageButton showUserInfo = issueView.findViewById(R.id.btn_show_user_info);
+        // Add new button on click
+        showUserInfo.setOnClickListener(v -> {
+//            MyCustomLog.Toast(this,"Show user info");
+            View view = showBottomSheetDialog(R.layout.screen_user);
+
+            Integer id_user = 1;
+
+            TextView name = view.findViewById(R.id.username);
+            TextView mail = view.findViewById(R.id.email);
+
+            User userData = Data.getInstance().getUserById(id_user);
+
+            name.setText(userData.getFullName());
+            mail.setText(userData.getEmail());
+
+            Button btnSendFeedback = view.findViewById(R.id.btn_send_feedback);
+            Button btnRateUs = view.findViewById(R.id.btn_rate_us);
+            Button btnLogout = view.findViewById(R.id.btn_logout);
+            Button btnDeleteAccount = view.findViewById(R.id.btn_delete_account);
+
+            btnSendFeedback.setOnClickListener(v1 -> {
+
+            });
+
+            btnRateUs.setOnClickListener(v12 -> {
+
+            });
+
+            btnLogout.setOnClickListener(v13 -> {
+                // logout tài khoản hiện tại đang dùng
+                // clear hết pref đã lưu
+                // clear hết data đang dùng
+                // quay về sign in/ sign up
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            });
+
+            btnDeleteAccount.setOnClickListener(v14 -> {
+                // hỏi lại lần nữa là có muốn xoá accoutn không
+                // sau đó nhập mật khẩu để xác nhận
+                // gửi lên server là xoá account này
+                // sau đó quay về màn hình sign in/sign up
+
+                View deleteScreen = showBottomSheetDialog(R.layout.buttomdialog_deleteaccount);
+
+                TextView tvName = deleteScreen.findViewById(R.id.tvName);
+                TextView tvMail = deleteScreen.findViewById(R.id.tvEmail);
+                ImageButton close = deleteScreen.findViewById(R.id.btnClose);
+                Button delete = deleteScreen.findViewById(R.id.btnDelete);
+
+                tvName.setText(userData.getFullName());
+                tvMail.setText(userData.getEmail());
+
+                close.setOnClickListener(v141 -> {
+                    // delete
+                    curBottomDialog.dismiss();
+                });
+
+                delete.setOnClickListener(v142 -> {
+                    // delete
+
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            });
         });
     }
 }
