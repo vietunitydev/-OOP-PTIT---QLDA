@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue_1"/>
+        android:background="#F5F5F5"/>
 
     <RelativeLayout
         android:id="@+id/wl_content"
