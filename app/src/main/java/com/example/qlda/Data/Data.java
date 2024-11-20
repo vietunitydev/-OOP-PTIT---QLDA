@@ -49,10 +49,11 @@ public class Data {
 
         // Tasks
         for (int i = 1; i <= 50; i++) {
+            String date = (i % 28 + 1 >= 10) ? String.valueOf(i % 28 + 1) : "0" + String.valueOf((i % 28 + 1));
             tasks.add(new Task(i, "Task " + i, "Details for Task " + i,
                     (i % 10) + 1, (i % 15) + 1,
                     i % 3 == 0 ? "High" : (i % 3 == 1 ? "Medium" : "Low"),
-                    i % 2 == 0 ? "Done" : "InProgress", "2024-03-" + (i % 28 + 1)));
+                    i % 2 == 0 ? "Done" : "InProgress", "2024-03-" + date));
         }
 
         // Comments
@@ -70,6 +71,10 @@ public class Data {
 
     public List<Task> getTasksByProjectId(int projectId) {
         return tasks.stream().filter(task -> task.getProjectId() == projectId).collect(Collectors.toList());
+    }
+
+    public List<Task> getListTask(){
+        return this.tasks;
     }
 
     public List<Comment> getCommentsByTaskId(int taskId) {

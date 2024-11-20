@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_Issue"
+    android:layout_marginBottom="2dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
     <Button
         android:id="@+id/custom_table_btn"
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_check"
             android:background="@color/blue_2"
             app:tint="@color/white"/>
@@ -42,41 +42,42 @@
             <TextView
                 android:id="@+id/item_Issue_txtName"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_marginTop="3dp"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:gravity="center_vertical"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="25dp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/item_Issue_itemName"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:textSize="15sp"
-                    tools:ignore="RtlSymmetry"/>
+                    tools:ignore="RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="15dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="15dp"
                     android:layout_marginStart="10dp"
-                    android:text="="
-                    android:textSize="20sp"
-                    android:textColor="@color/orange"
-                    android:gravity="center_vertical"
-                    android:importantForAccessibility="no"/>
+                    android:src="@drawable/ic_equal"
+                    app:tint="@color/orange"/>
 
                 <TextView
                     android:id="@+id/item_Issue_Status"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/rounded_background_blue"
+                    android:gravity="center"
                     android:textColor="@color/blue"
                     android:textSize="15sp"
-                    tools:ignore="RtlSymmetry"/>
+                    tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
 

@@ -31,9 +31,13 @@ import com.example.qlda.R;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.time.*;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -63,7 +67,11 @@ public class HomeActivity extends AppCompatActivity {
         setupCreateProject();
         setupShowUserInfo();
         setupCreateIssue();
-        setupScreenIssueDetail();
+        try {
+            setupScreenIssueDetail();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         searchIssue();
         setupShowUserInfoIssue();
     }
@@ -321,28 +329,46 @@ public class HomeActivity extends AppCompatActivity {
     //Giao diện hiện thị các issue theo mốc thời gian
 
     // Hàm lấy một số ví dụ các Issue qua từng mốc thời gian
-    private List<TimeGroup> getGroupedProjects() {
+    private List<TimeGroup> getGroupedProjects() throws ParseException {
         List<TimeGroup> timeGroups = new ArrayList<>();
 
-        // Dự liệu mẫu của các dự án
         List<Task> todayTask = new ArrayList<>();
-        todayTask.add(new Task(1, "Project A", "Description A", 1 , 1, "Low", "Todo","2024-11-19"));
-        todayTask.add(new Task(2, "Project B", "Description B", 2 , 2, "High", "Todo","2024-11-19"));
-
         List<Task> yesterdayTask = new ArrayList<>();
-        yesterdayTask.add(new Task(3, "Project C", "Description C", 3 , 3, "Low", "Todo","2024-11-18"));
-
+        List<Task> aWeekAgoTask = new ArrayList<>();
         List<Task> olderTask = new ArrayList<>();
-        olderTask.add(new Task(4, "Project D", "Description D", 4 , 4, "Low", "Todo","2024-11-10"));
 
+        Data data = Data.getInstance();
+        List<Task> tasks = data.getListTask();
+
+        for(Task task:tasks){
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+
+            Date date = format.parse(task.getDueDate());
+
+            Date currentDate = new Date();
+
+            long diffInMillis = currentDate.getTime() - date.getTime();
+            long diffInDays = diffInMillis / (1000 * 60 * 60 * 24);
+
+            if (diffInDays == 0) {
+                todayTask.add(task);
+            } else if (diffInDays == 1) {
+                yesterdayTask.add(task);
+            } else if (diffInDays < 7) {
+                aWeekAgoTask.add(task);
+            } else {
+                olderTask.add(task);
+            }
+        }
         // Thêm các nhóm vào danh sách
-        timeGroups.add(new TimeGroup("Hôm nay", todayTask));
-        timeGroups.add(new TimeGroup("Hôm qua", yesterdayTask));
-        timeGroups.add(new TimeGroup("Cũ hơn", olderTask));
+        timeGroups.add(new TimeGroup("To day", todayTask));
+        timeGroups.add(new TimeGroup("Yesterday", yesterdayTask));
+        timeGroups.add(new TimeGroup("A week ago", aWeekAgoTask));
+        timeGroups.add(new TimeGroup("Older", olderTask));
 
         return timeGroups;
     }
-    private void setupScreenIssueDetail() {
+    private void setupScreenIssueDetail() throws ParseException {
         // Lấy LinearLayout chứa các dự án
         LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
 
@@ -370,14 +396,16 @@ public class HomeActivity extends AppCompatActivity {
             timeHeader.setText(timeGroup.getTimeLabel());
 
             // Thêm các dự án vào nhóm thời gian
-            LinearLayout projectList = sectionView.findViewById(R.id.projectList);
+            LinearLayout projectList = sectionView.findViewById(R.id.issueList);
             for (Task task : timeGroup.getProjects()) {
                 View itemIssue = LayoutInflater.from(issueView.getContext())
                         .inflate(R.layout.item_issue, projectList, false);
 
                 // Thêm dữ liệu vào item issue
                 TextView item_Issue_txtName = itemIssue.findViewById(R.id.item_Issue_txtName);
-                item_Issue_txtName.setText(String.valueOf(task.getTaskId()));
+                Data data = Data.getInstance();
+                Project project = data.getProjectById(task.getTaskId());
+                item_Issue_txtName.setText(project.getProjectName());
 
                 TextView item_Issue_itemName = itemIssue.findViewById(R.id.item_Issue_itemName);
                 item_Issue_itemName.setText(task.getTaskName());

@@ -16,15 +16,12 @@
         android:textColor="@color/black"
         android:background="@color/gains_boro"
         />
-
-    <!-- Dynamic list of projects -->
     <LinearLayout
-        android:id="@+id/projectList"
+        android:id="@+id/issueList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/rounded_background">
-        <!-- Project items will be dynamically added here -->
+        android:background="@color/gains_boro">
     </LinearLayout>
 
 </LinearLayout>
