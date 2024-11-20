@@ -1,10 +1,16 @@
 package com.example.qlda.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -34,6 +40,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -66,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         setupScreenIssueDetail();
         searchIssue();
         setupShowUserInfoIssue();
+        setupSearchProjectByName();
     }
 
     // add function show for 3 button
@@ -244,19 +252,6 @@ public class HomeActivity extends AppCompatActivity {
 
             });
         });
-    }
-
-    private void searchProjectByName(String query){
-        Data data = Data.getInstance();
-        List<Project> matchedProjects = new ArrayList<>();
-
-        for (Project project : data.getAllProjects()) {
-            if (project.getProjectName().toLowerCase().contains(query.toLowerCase())) {
-                matchedProjects.add(project);
-            }
-        }
-
-        // show matchedProjects
     }
 
     private void updateUI(){
@@ -516,6 +511,59 @@ public class HomeActivity extends AppCompatActivity {
                 });
             });
         });
+    }
+
+    private void setupSearchProjectByName(){
+        EditText searchBtn = projectView.findViewById(R.id.etSearch);
+        if (searchBtn == null) {
+            MyCustomLog.DebugLog("EditText Check", "searchBtn is null");
+        } else {
+            searchBtn.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    MyCustomLog.DebugLog("TextWatcher", "beforeTextChanged: " + s);
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    MyCustomLog.DebugLog("TextWatcher", "onTextChanged: " + s);
+                    String query = searchBtn.getText().toString();
+
+                    if (Objects.equals(query, "")) {
+                        Data data = Data.getInstance();
+                        for (Project project : data.getAllProjects()) {
+                            createButton(project);
+                        }
+                    } else {
+                        List<Project> projectsSearched = searchProjectByName(query);
+
+                        LinearLayout prjContainer = projectView.findViewById(R.id.buttonContainer);
+                        prjContainer.removeAllViews();
+                        for (Project project : projectsSearched) {
+                            createButton(project);
+                        }
+
+                    }
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    MyCustomLog.DebugLog("TextWatcher", "afterTextChanged: " + s.toString());
+                }
+            });
+        }
+    }
+
+    private List<Project> searchProjectByName(String query){
+        Data data = Data.getInstance();
+        List<Project> matchedProjects = new ArrayList<>();
+
+        for (Project project : data.getAllProjects()) {
+            if (project.getProjectName().toLowerCase().contains(query.toLowerCase())) {
+                matchedProjects.add(project);
+            }
+        }
+
+        return matchedProjects;
     }
 }
 
