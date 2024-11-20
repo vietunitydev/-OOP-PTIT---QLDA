@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         setupCreateProject();
         setupShowUserInfo();
         setupCreateIssue();
-        setupScreenIssue();
+        setupScreenIssueDetail();
         searchIssue();
         setupShowUserInfoIssue();
     }
@@ -342,7 +342,7 @@ public class HomeActivity extends AppCompatActivity {
 
         return timeGroups;
     }
-    private void setupScreenIssue() {
+    private void setupScreenIssueDetail() {
         // Lấy LinearLayout chứa các dự án
         LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
 
@@ -385,13 +385,13 @@ public class HomeActivity extends AppCompatActivity {
                 TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
                 item_Issue_Status.setText(task.getStatus());
 
-//                Button projectButton = (Button) LayoutInflater.from(this).inflate(R.layout.issue_details, projectList, false);
-//
-//                // Xử lý sự kiện khi nhấn vào dự án
-//                projectButton.setOnClickListener(v -> {
-//                    Intent intent = new Intent(this, DetailIssue.class);
-//                    startActivity(intent);
-//                });
+                Button custom_table_btn = itemIssue.findViewById(R.id.custom_table_btn);
+
+                // Xử lý sự kiện khi nhấn vào dự án
+                custom_table_btn.setOnClickListener(v -> {
+                    Intent intent = new Intent(HomeActivity.this, DetailIssue.class);
+                    startActivity(intent);
+                });
 
                 projectList.addView(itemIssue);
             }
@@ -427,7 +427,7 @@ public class HomeActivity extends AppCompatActivity {
             if (edtSearch.getVisibility() == View.VISIBLE) {
                 edtSearch.setVisibility(View.GONE);
             }
-            return false; // Cho phép các sự kiện khác tiếp tục xử lý
+            return false;
         });
     }
     private void setupShowUserInfoIssue(){
