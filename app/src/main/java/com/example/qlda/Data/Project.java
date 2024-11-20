@@ -1,6 +1,8 @@
 package com.example.qlda.Data;
 
-public class Project {
+import java.io.Serializable;
+
+public class Project implements Serializable {
     private int projectId;
     private String projectName;
     private String description;

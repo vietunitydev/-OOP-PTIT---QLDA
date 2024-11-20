@@ -95,17 +95,22 @@ public class HomeActivity extends AppCompatActivity {
     private void fetchUserProject(){
         //        appData.InitTable();
 
-        appData.fetchUser(() ->{
-            // fetch Data for app
-            appData.fetchData(() -> {
-                tables = AppData.Tables;
+//        appData.fetchUser(() ->{
+//            // fetch Data for app
+//            appData.fetchData(() -> {
+//                tables = AppData.Tables;
+//
+//                MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
+//                for (TableData data : tables) {
+//                    createButton(data);
+//                }
+//            });
+//        });
+        Data data = Data.getInstance();
+        for (Project project : data.getAllProjects()) {
+            createButton(project);
+        }
 
-                MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
-                for (TableData data : tables) {
-                    createButton(data);
-                }
-            });
-        });
     }
 
     private void setupCreateProject(){
@@ -128,16 +133,18 @@ public class HomeActivity extends AppCompatActivity {
                     return;
                 }
 
-                FireStoreHelper fs = new FireStoreHelper();
+//                FireStoreHelper fs = new FireStoreHelper();
                 MyCustomLog.Toast(this,"Click Add Table Button");
-                TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),projectName, "#AAAAAA", new Date());
-                WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
-                newTable.addWorkListPage(newPage);
-                createButton(newTable);
+//                TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),projectName, "#AAAAAA", new Date());
+//                WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
+//                newTable.addWorkListPage(newPage);
+
+                Project newProject = new Project(20, "Game Development", "Description 4", "2024-05-01", "2024-11-30", "Ongoing", 104);
+                createButton(newProject);
 
                 // add vao APPDATA
-                AppData.addTable(newTable);
-                MyCustomLog.DebugLog("Debug DATA", AppData.convertToJson(AppData.Tables));
+//                AppData.addTable(newTable);
+//                MyCustomLog.DebugLog("Debug DATA", AppData.convertToJson(AppData.Tables));
 
                 curBottomDialog.dismiss();
                 updateUI();
@@ -145,13 +152,13 @@ public class HomeActivity extends AppCompatActivity {
 
         });
     }
-    private void createButton(TableData table) {
+    private void createButton(Project project) {
         LinearLayout content = projectView.findViewById(R.id.buttonContainer);
         FrameLayout customButton = (FrameLayout) inflater.inflate(R.layout.button_table, content, false);
 
         Button btn = customButton.findViewById(R.id.custom_table_btn);
         btn.setOnClickListener(v -> {
-            WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(table);
+            WorkSpaceFragment contentFragment = WorkSpaceFragment.newInstance(project);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, contentFragment)
                     .addToBackStack(null)
@@ -159,10 +166,10 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ImageView img = customButton.findViewById(R.id.custom_table_img);
-        img.setBackgroundColor(Color.parseColor(table.getColor()));
+//        img.setBackgroundColor(Color.parseColor(table.getColor()));
 
         TextView name = customButton.findViewById(R.id.custom_table_displayName);
-        name.setText(table.getTitle());
+        name.setText(project.getProjectName());
         content.addView(customButton);
     }
 
@@ -239,8 +246,17 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void searchProjectByName(String name){
+    private void searchProjectByName(String query){
+        Data data = Data.getInstance();
+        List<Project> matchedProjects = new ArrayList<>();
 
+        for (Project project : data.getAllProjects()) {
+            if (project.getProjectName().toLowerCase().contains(query.toLowerCase())) {
+                matchedProjects.add(project);
+            }
+        }
+
+        // show matchedProjects
     }
 
     private void updateUI(){

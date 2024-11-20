@@ -40,7 +40,7 @@ import java.util.Objects;
 
 public class WorkSpaceFragment extends Fragment {
 
-    private static final String ARG_TABLE = "arg_table";
+    private static final String ARG_Project = "arg_project";
 
     LayoutInflater inflater;
 
@@ -54,10 +54,12 @@ public class WorkSpaceFragment extends Fragment {
     LinearLayout wl_content_scroll2 ;
     LinearLayout wl_content_scroll3 ;
 
-    public static WorkSpaceFragment newInstance(TableData table) {
+    Project project;
+
+    public static WorkSpaceFragment newInstance(Project project) {
         WorkSpaceFragment fragment = new WorkSpaceFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_TABLE, table);
+        args.putSerializable(ARG_Project, project);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,7 +68,7 @@ public class WorkSpaceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            table = (TableData) getArguments().getSerializable(ARG_TABLE);
+            project = (Project) getArguments().getSerializable(ARG_Project);
         }
     }
 
@@ -77,7 +79,7 @@ public class WorkSpaceFragment extends Fragment {
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
 
         // need get from passing data
-        int projectID = 1;
+        int projectID = project.getProjectId();
 
 
         Project project = Data.getInstance().getProjectById(projectID);

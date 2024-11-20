@@ -109,6 +109,10 @@ public class Data {
                 .orElse(null);
     }
 
+    public List<Project> getAllProjects() {
+        return projects;
+    }
+
     public void printAllData() {
         System.out.println("Users:");
         users.forEach(System.out::println);
