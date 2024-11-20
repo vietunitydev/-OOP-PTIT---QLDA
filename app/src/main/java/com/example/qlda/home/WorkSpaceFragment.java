@@ -163,7 +163,7 @@ public class WorkSpaceFragment extends Fragment {
 
         List<Task> elms = Data.getInstance().getTasksByProjectId(projectID);
         for (int i = 0; i < elms.size(); i++) {
-            if(Objects.equals(elms.get(i).getStatus(), "ToDo")){
+            if(Objects.equals(elms.get(i).getStatus(), "Todo")){
                 CreateElement(wl_content_scroll1, elms.get(i).getTaskName());
             }
             else if(Objects.equals(elms.get(i).getStatus(), "InProgress")){

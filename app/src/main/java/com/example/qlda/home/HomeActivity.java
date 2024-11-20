@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.qlda.Data.AppData;
 import com.example.qlda.Data.Data;
+import com.example.qlda.Data.Parser;
 import com.example.qlda.Data.Project;
 import com.example.qlda.Data.TableData;
 import com.example.qlda.Data.Task;
@@ -147,7 +148,7 @@ public class HomeActivity extends AppCompatActivity {
 //                WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
 //                newTable.addWorkListPage(newPage);
 
-                Project newProject = new Project(20, "Game Development", "Description 4", "2024-05-01", "2024-11-30", "Ongoing", 104);
+                Project newProject = new Project(20, "Game Development", "Description 4", "2024-05-01", "2024-11-30", "Ongoing", 1, 4);
                 createButton(newProject);
 
                 // add vao APPDATA
@@ -174,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ImageView img = customButton.findViewById(R.id.custom_table_img);
-//        img.setBackgroundColor(Color.parseColor(table.getColor()));
+        img.setBackgroundResource(Parser.getAvatarResource(project.getAvatarID()));
 
         TextView name = customButton.findViewById(R.id.custom_table_displayName);
         name.setText(project.getProjectName());

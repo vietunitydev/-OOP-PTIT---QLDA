@@ -9,16 +9,19 @@ public class Project implements Serializable {
     private String startDate;
     private String endDate;
     private String status; // Planned, Ongoing, Completed
+    private int avatarID;
+
     private int managerId;
 
     // Constructor
-    public Project(int projectId, String projectName, String description, String startDate, String endDate, String status, int managerId) {
+    public Project(int projectId, String projectName, String description, String startDate, String endDate, String status, int avatarID, int managerId) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        this.avatarID = avatarID;
         this.managerId = managerId;
     }
 
@@ -43,4 +46,12 @@ public class Project implements Serializable {
 
     public int getManagerId() { return managerId; }
     public void setManagerId(int managerId) { this.managerId = managerId; }
+
+    public int getAvatarID() {
+        return avatarID;
+    }
+
+    public void setAvatarID(int avatarID) {
+        this.avatarID = avatarID;
+    }
 }
