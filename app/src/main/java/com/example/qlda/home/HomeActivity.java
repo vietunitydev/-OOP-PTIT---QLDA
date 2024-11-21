@@ -437,14 +437,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Truyền dữ liệu Task sang DetailActivity thông qua Bundle
         Bundle bundle = new Bundle();
-        bundle.putInt("taskId", task.getTaskId());          // Truyền ID của Task
-        bundle.putString("taskName", task.getTaskName());   // Truyền tên Task
-        bundle.putString("description", task.getDescription()); // Truyền mô tả Task
-        bundle.putInt("assignedTo", task.getAssignedTo());  // Truyền người được giao Task
-        bundle.putInt("projectId", task.getProjectId());    // Truyền ID dự án
-        bundle.putString("priority", task.getPriority());   // Truyền mức độ ưu tiên
-        bundle.putString("status", task.getStatus());       // Truyền trạng thái
-        bundle.putString("dueDate", task.getDueDate());     // Truyền ngày hết hạn
+        bundle.putInt("taskId", task.getTaskId());
 
         // Gắn Bundle vào Intent
         intent.putExtras(bundle);

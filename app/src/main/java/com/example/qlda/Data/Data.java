@@ -90,6 +90,10 @@ public class Data {
         return false;
     }
 
+    public void deleteIssueById(int taskId){
+        tasks.removeIf(task -> task.getTaskId() == taskId);
+    }
+
     public boolean deleteProjectById(int projectId) {
         boolean removed = projects.removeIf(project -> project.getProjectId() == projectId);
         if (removed) {
@@ -110,6 +114,13 @@ public class Data {
     public Project getProjectById(int projectId) {
         return projects.stream()
                 .filter(project -> project.getProjectId() == projectId)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Task getIssueById(int taskId) {
+        return tasks.stream()
+                .filter(task -> task.getTaskId() == taskId)
                 .findFirst()
                 .orElse(null);
     }

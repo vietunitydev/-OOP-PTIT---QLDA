@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Định nghĩa style TransparentDialog với nền xám nhạt và xuyên thấu -->
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog">
+        <!-- Nền xám nhạt với độ mờ -->
+        <item name="android:windowBackground">#B0B0B0</item>
+
+        <!-- Điều chỉnh độ mờ cho background -->
+        <item name="android:alpha">1</item>
+
+        <!-- Làm mờ nền xung quanh cửa sổ -->
+        <item name="android:backgroundDimEnabled">true</item>
+
+        <!-- Đảm bảo cửa sổ không bị đẩy ra khỏi màn hình -->
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+
+</resources>
