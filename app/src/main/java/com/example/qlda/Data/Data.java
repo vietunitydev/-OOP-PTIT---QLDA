@@ -8,6 +8,8 @@ public class Data {
     // Static instance (Singleton)
     private static Data instance;
 
+    public static User currentUser;
+
     // Instance fields
     private List<User> users;
     private List<Project> projects;
@@ -143,8 +145,17 @@ public class Data {
                 .orElse(null);
     }
 
+    public List<Project> getProjectsByUserId(int userId) {
+        return projects.stream()
+                .filter(project -> project.getManagerId() == userId)
+                .collect(Collectors.toList());
+    }
+
     public List<Project> getAllProjects() {
         return projects;
+    }
+    public List<User> getAllUsers() {
+        return users;
     }
 
     public void printAllData() {

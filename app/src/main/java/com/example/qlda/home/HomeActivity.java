@@ -55,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private List<TableData> tables = new ArrayList<>();
 
-    AppData appData = new AppData();
+    User user;
 
     private BottomSheetDialog curBottomDialog;
     @Override
@@ -65,6 +65,8 @@ public class HomeActivity extends AppCompatActivity {
         // Initialize LayoutInflater and LinearLayout
         inflater = LayoutInflater.from(this);
         viewContainer = findViewById(R.id.viewContainer);
+
+        user = Data.currentUser;
 
         initializeButtons();
         fetchUserProject();
@@ -116,7 +118,7 @@ public class HomeActivity extends AppCompatActivity {
 //            });
 //        });
         Data data = Data.getInstance();
-        for (Project project : data.getAllProjects()) {
+        for (Project project : data.getProjectsByUserId(user.getUserId())) {
             createButton(project);
         }
 
@@ -449,12 +451,12 @@ public class HomeActivity extends AppCompatActivity {
 //            MyCustomLog.Toast(this,"Show user info");
             View view = showBottomSheetDialog(R.layout.screen_user);
 
-            Integer id_user = 1;
+//            int id_user = user.getUserId();
 
             TextView name = view.findViewById(R.id.username);
             TextView mail = view.findViewById(R.id.email);
 
-            User userData = Data.getInstance().getUserById(id_user);
+            User userData = Data.currentUser;
 
             name.setText(userData.getFullName());
             mail.setText(userData.getEmail());
