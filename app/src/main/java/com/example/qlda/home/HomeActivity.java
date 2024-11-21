@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -417,8 +420,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 // Xử lý sự kiện khi nhấn vào dự án
                 custom_table_btn.setOnClickListener(v -> {
-                    Intent intent = new Intent(HomeActivity.this, DetailIssue.class);
-                    startActivity(intent);
+                    navigateToTaskDetail(v.getContext(), task);
                 });
 
                 projectList.addView(itemIssue);
@@ -429,6 +431,27 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void navigateToTaskDetail(Context context, Task task) {
+        // Tạo Intent để chuyển màn hình từ màn hiện tại sang DetailActivity
+        Intent intent = new Intent(context, DetailIssue.class);
+
+        // Truyền dữ liệu Task sang DetailActivity thông qua Bundle
+        Bundle bundle = new Bundle();
+        bundle.putInt("taskId", task.getTaskId());          // Truyền ID của Task
+        bundle.putString("taskName", task.getTaskName());   // Truyền tên Task
+        bundle.putString("description", task.getDescription()); // Truyền mô tả Task
+        bundle.putInt("assignedTo", task.getAssignedTo());  // Truyền người được giao Task
+        bundle.putInt("projectId", task.getProjectId());    // Truyền ID dự án
+        bundle.putString("priority", task.getPriority());   // Truyền mức độ ưu tiên
+        bundle.putString("status", task.getStatus());       // Truyền trạng thái
+        bundle.putString("dueDate", task.getDueDate());     // Truyền ngày hết hạn
+
+        // Gắn Bundle vào Intent
+        intent.putExtras(bundle);
+
+        // Chuyển sang màn hình DetailActivity
+        context.startActivity(intent);
+    }
     // Hàm tạo issue
 
     private void setupCreateIssue(){

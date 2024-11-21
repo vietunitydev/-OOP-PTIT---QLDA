@@ -48,7 +48,7 @@ public class Data {
         }
 
         // Tasks
-        for (int i = 1; i <= 50; i++) {
+        for (int i = 1; i <= 15; i++) {
             String date = (i % 28 + 1 >= 10) ? String.valueOf(i % 28 + 1) : "0" + String.valueOf((i % 28 + 1));
             tasks.add(new Task(i, "Task " + i, "Details for Task " + i,
                     (i % 10) + 1, (i % 15) + 1,
