@@ -42,7 +42,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Task Name"
                 android:textSize="13sp"
-                android:textColor="@color/gray3"
+                android:textColor="@color/gray_3"
                 android:paddingBottom="5dp"/>
         </LinearLayout>
     </LinearLayout>

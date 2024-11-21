@@ -74,7 +74,7 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_keyboard_arrow_down"
                 android:scaleType="centerCrop"
-                app:tint="@color/gray3" />
+                app:tint="@color/gray_3" />
         </LinearLayout>
     </FrameLayout>
 
@@ -115,7 +115,7 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_keyboard_arrow_down"
                 android:scaleType="centerCrop"
-                app:tint="@color/gray3" />
+                app:tint="@color/gray_3" />
         </LinearLayout>
     </FrameLayout>
 
@@ -157,7 +157,7 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_keyboard_arrow_down"
                 android:scaleType="centerCrop"
-                app:tint="@color/gray3" />
+                app:tint="@color/gray_3" />
         </LinearLayout>
     </FrameLayout>
 

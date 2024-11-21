@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_1">#DDDDDD</color>
-    <color name="blue">#3F51B5</color>
+    <color name="blue">#223BC1</color>
     <color name="blue_1">#66CCFF</color>
     <color name="blue_2">#0099FF</color>
     <color name="steel_blue">#4863A0</color>
@@ -13,7 +13,9 @@
     <color name="brow">#7a7a7a</color>
     <color name="gains_boro">#F7F7F7</color>
     <color name="orange">#FF7F00</color>
-    <color name="gray3">#696969</color>
     <color name="gray_2">#CCCCCC</color>
+    <color name="gray_3">#696969</color>
+    <color name="green_low">#70CC6C</color>
+    <color name="green_high">#238027</color>
     <color name="semi_transparent_black">#80000000</color>
 </resources>

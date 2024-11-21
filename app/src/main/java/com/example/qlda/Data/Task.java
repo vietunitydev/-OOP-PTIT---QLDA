@@ -13,6 +13,9 @@ public class Task implements Serializable  {
     private String status; // Todo, InProgress, Done
     private String dueDate;
 
+    public Task() {
+
+    }
     // Constructor
     public Task(int taskId, String taskName, String description, int assignedTo, int projectId, String taskType, String priority, String status, String dueDate) {
         this.taskId = taskId;

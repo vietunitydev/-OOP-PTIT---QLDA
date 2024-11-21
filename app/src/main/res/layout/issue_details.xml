@@ -8,18 +8,18 @@
     <LinearLayout
         android:id="@+id/headerIssue"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@color/gains_boro"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <ImageButton
-            android:id="@+id/imgBtnAddIssues"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:id="@+id/backButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_arrow_left"
             android:background="@color/gains_boro"
             android:scaleType="centerCrop"
@@ -27,11 +27,11 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/imgBtnDotIssue"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_dots_horiz"
             android:background="@color/gains_boro"
             android:scaleType="centerCrop"
@@ -43,12 +43,11 @@
         android:layout_height="20dp"
         android:layout_margin="20dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/headerIssue"
-        >
+        app:layout_constraintTop_toBottomOf="@id/headerIssue">
         <ImageView
             android:id="@+id/item_Issue_img"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:src="@drawable/ic_check"
             android:background="@color/blue_2"
             app:tint="@color/white"/>
@@ -73,14 +72,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/rounded_background"
-            android:textSize="28sp"
+            android:background="@android:color/transparent"
+            android:textSize="20sp"
             android:textColor="@color/black"
             android:hint="Enter name Issue"/>
         <ImageButton
             android:id="@+id/imgBtnUser"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_user"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
@@ -104,24 +103,29 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/white"/>
             <LinearLayout
+                android:id="@+id/wrapper_btnStatus"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/green_low">
+
                 <TextView
                     android:id="@+id/txtStatusIssue"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/status_QLDA"
+                    android:text="@string/status_QLDA"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/blue"/>
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_keyboard_arrow_down"
-                    android:background="@color/gray_2"
+                    android:background="@android:color/transparent"
                     app:tint="@color/black" />
             </LinearLayout>
 
@@ -130,32 +134,34 @@
     <LinearLayout
         android:id="@+id/issueDescription"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_background"
         app:layout_constraintTop_toBottomOf="@id/statusIssue"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
                 android:id="@+id/btnDesIssue"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:backgroundTint="@color/white"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingTop="5dp"
+                    android:paddingStart="5dp"
                     android:text="@string/description"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:gravity="start"/>
                 <ImageView
                     android:layout_width="25dp"
@@ -168,66 +174,34 @@
                     app:tint="@color/black" />
             </LinearLayout>
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/textContentDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:text="@string/description"
+            android:textSize="13sp"
+            android:gravity="start" />
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/issueParent"
+        android:id="@+id/issueDetail"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_background"
         app:layout_constraintTop_toBottomOf="@id/issueDescription"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/btnParentIssue"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/white"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:paddingTop="5dp"
-                    android:text="Parent Issue"
-                    android:textSize="22sp"
-                    android:gravity="start"/>
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_keyboard_arrow_right"
-                    android:background="@color/white"
-                    app:tint="@color/black" />
-            </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/issueDentail"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_background"
-        app:layout_constraintTop_toBottomOf="@id/issueParent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
                 android:id="@+id/btnDetailIssue"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:backgroundTint="@color/white"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -235,66 +209,17 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:paddingTop="5dp"
-                        android:text="Dentails"
-                        android:textSize="22sp"
-                        android:gravity="start"/>
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_keyboard_arrow_right"
-                        android:background="@color/white"
-                        app:tint="@color/black" />
-            </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:text="Issue Type, Assignee, Labels, Team and Reporter"/>
-            </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/issueField"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_background"
-        app:layout_constraintTop_toBottomOf="@id/issueDentail"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/btnFieldIssue"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/white"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:paddingTop="5dp"
-                        android:text="More fields"
-                        android:textSize="22sp"
+                        android:paddingStart="5dp"
+                        android:text="Details"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
                         android:gravity="start"/>
                     <ImageView
                         android:layout_width="25dp"
@@ -306,12 +231,308 @@
                         android:background="@color/white"
                         app:tint="@color/black" />
                 </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:text="Project, Created, Updated"/>
             </LinearLayout>
         </FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:textSize="13sp"
+            android:text="Issue Type, Assignee, Labels, Team and Reporter"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- TextView cho tên task -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="5dp"
+                    android:text="Issue Type"
+                    android:textSize="13sp"
+                    android:textColor="@color/gray_3"
+                    android:paddingBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/task_type"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="start|center_vertical" />
+
+                    <TextView
+                        android:id="@+id/task_typeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="10dp"
+                        android:text="Task"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:paddingBottom="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- TextView cho tên task -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="5dp"
+                    android:text="Assignee"
+                    android:textSize="13sp"
+                    android:textColor="@color/gray_3"
+                    android:paddingBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/avatar_assingee"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="start|center_vertical" />
+
+                    <TextView
+                        android:id="@+id/name_assingee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="10dp"
+                        android:text="Viet"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:paddingBottom="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- TextView cho tên task -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="5dp"
+                    android:text="Reporter"
+                    android:textSize="13sp"
+                    android:textColor="@color/gray_3"
+                    android:paddingBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/avatar_reporter"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="start|center_vertical" />
+
+                    <TextView
+                        android:id="@+id/name_reporter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="10dp"
+                        android:text="Viet"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:paddingBottom="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/issueFields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintTop_toBottomOf="@id/issueDetail"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:backgroundTint="@color/white"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:paddingTop="5dp"
+                        android:paddingStart="5dp"
+                        android:text="Details"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:gravity="start"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_keyboard_arrow_right"
+                        android:background="@color/white"
+                        app:tint="@color/black" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:textSize="13sp"
+            android:text="Project, Created, Updated"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- TextView cho tên task -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="5dp"
+                    android:text="Issue Type"
+                    android:textSize="13sp"
+                    android:textColor="@color/gray_3"
+                    android:paddingBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/avt_project"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="start|center_vertical" />
+
+                    <TextView
+                        android:id="@+id/projectName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="10dp"
+                        android:text="Task"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:paddingBottom="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- TextView cho tên task -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="5dp"
+                    android:text="Created"
+                    android:textSize="13sp"
+                    android:textColor="@color/gray_3"
+                    android:paddingBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/text_created"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="5dp"
+                        android:text="Viet"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:paddingBottom="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- TextView cho tên task -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="5dp"
+                    android:text="Updated"
+                    android:textSize="13sp"
+                    android:textColor="@color/gray_3"
+                    android:paddingBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/text_updated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="5dp"
+                        android:text="Viet"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:paddingBottom="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/issueComment"

@@ -211,7 +211,7 @@
                 android:layout_height="35dp"
                 android:src="@drawable/ic_keyboard_arrow_down"
                 android:scaleType="centerCrop"
-                app:tint="@color/gray3"
+                app:tint="@color/gray_3"
                 android:background="@drawable/rounded_background"/>
         </LinearLayout>
         <EditText

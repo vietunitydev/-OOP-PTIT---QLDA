@@ -325,7 +325,7 @@ public class WorkSpaceFragment extends Fragment {
                             v.performClick();
                         }
 
-                        ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(new WorkListPageData(), new ElementData());
+                        ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(task);
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, contentFragment)
                                 .addToBackStack(null)
