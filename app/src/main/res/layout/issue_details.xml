@@ -48,38 +48,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/nameQLDA"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/headerIssue">
-                <ImageView
-                    android:id="@+id/item_Issue_img"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/ic_check"
-                    android:background="@color/blue_2"
-                    app:tint="@color/white"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:id="@+id/txtNameQLDA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:textSize="15sp"/>
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/nameQLDA"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/headerIssue">-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/item_Issue_img"-->
+<!--                    android:layout_width="15dp"-->
+<!--                    android:layout_height="15dp"-->
+<!--                    android:src="@drawable/ic_check"-->
+<!--                    android:background="@color/blue_2"-->
+<!--                    app:tint="@color/white"-->
+<!--                    android:layout_gravity="center"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/txtNameQLDA"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:textSize="15sp"/>-->
+<!--            </LinearLayout>-->
             <LinearLayout
                 android:id="@+id/nameIssue"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                app:layout_constraintTop_toBottomOf="@id/nameQLDA"
+                app:layout_constraintTop_toBottomOf="@id/headerIssue"
                 android:orientation="horizontal">
                 <EditText
                     android:id="@+id/edtNameIssue"
@@ -88,6 +88,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:hint="Enter name Issue"/>
                 <ImageButton

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +25,7 @@ import com.example.qlda.Data.Project;
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +36,8 @@ public class ItemDetailFragment extends Fragment {
     private Task task;
     private LayoutInflater inflaterOwner;
     private View view;
+
+    BottomSheetDialog curBottomDialog;
     public static ItemDetailFragment newInstance(Task task) {
         ItemDetailFragment fragment = new ItemDetailFragment();
         Bundle args = new Bundle();
@@ -168,7 +172,7 @@ public class ItemDetailFragment extends Fragment {
         TextView name_assignee = view.findViewById(R.id.name_assignee);
         name_assignee.setText(assign.getFullName());
 
-        User reporter = Data.getInstance().getUserById(task.getAssignedTo());
+        User reporter = Data.getInstance().getUserById(task.getReporter());
         ImageView avatar_reporter = view.findViewById(R.id.avatar_reporter);
         avatar_reporter.setBackgroundResource(Parser.getAvatarResource(reporter.getUserId()));
         TextView name_reporter = view.findViewById(R.id.name_reporter);
@@ -232,6 +236,18 @@ public class ItemDetailFragment extends Fragment {
         }
     }
 
+    private View showBottomSheetDialog(@LayoutRes int resource) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        curBottomDialog = bottomSheetDialog;
+
+        View bottomSheetView = getLayoutInflater().inflate(resource, null);
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+        // Hiển thị Bottom Sheet
+        bottomSheetDialog.show();
+        return bottomSheetView;
+    }
+
     private void deleteMe(){
 //        AppData.deleteElement(element.getTableID(),element.getWorkListPageID(),element.getId());
 //        backToPageListScreen();
@@ -264,11 +280,6 @@ public class ItemDetailFragment extends Fragment {
     }
 
 
-
-    public void setWorkListAdapterParent(WorkListAdapter.ListWorkHolder wp){
-//        this.workSpaceFragment = wp;
-    }
-
     private void showComment(){
 //        List<ElementData.Comment> comments = element.getComments();
 //
@@ -285,4 +296,6 @@ public class ItemDetailFragment extends Fragment {
 //            listComment.addView(commentTemplate,0);
 //        }
     }
+
+
 }

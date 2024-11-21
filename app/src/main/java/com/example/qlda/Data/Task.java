@@ -23,6 +23,7 @@ public class Task implements Serializable  {
         this.taskName = taskName;
         this.description = description;
         this.assignedTo = assignedTo;
+        this.reporter = 3;
         this.projectId = projectId;
         this.taskType = taskType;
         this.priority = priority;
