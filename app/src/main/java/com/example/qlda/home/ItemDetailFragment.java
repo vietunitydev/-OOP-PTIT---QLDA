@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.qlda.Data.Comment;
 import com.example.qlda.Data.Data;
+import com.example.qlda.Data.Parser;
+import com.example.qlda.Data.Project;
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
@@ -153,6 +156,24 @@ public class ItemDetailFragment extends Fragment {
                 contentDetail.setVisibility(View.GONE);
             }
         });
+
+        ImageView imageTask = view.findViewById(R.id.img_task_type);
+        imageTask.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
+        TextView nameTask = view.findViewById(R.id.task_typeName);
+        nameTask.setText(task.getTaskType());
+
+        User assign = Data.getInstance().getUserById(task.getAssignedTo());
+        ImageView avatar_assignee = view.findViewById(R.id.avatar_assignee);
+        avatar_assignee.setBackgroundResource(Parser.getAvatarResource(assign.getUserId()));
+        TextView name_assignee = view.findViewById(R.id.name_assignee);
+        name_assignee.setText(assign.getFullName());
+
+        User reporter = Data.getInstance().getUserById(task.getAssignedTo());
+        ImageView avatar_reporter = view.findViewById(R.id.avatar_reporter);
+        avatar_reporter.setBackgroundResource(Parser.getAvatarResource(reporter.getUserId()));
+        TextView name_reporter = view.findViewById(R.id.name_reporter);
+        name_reporter.setText(reporter.getFullName());
+
     }
     private void setupFields(){
         Button btnField = view.findViewById(R.id.btnFieldIssue);
@@ -171,6 +192,18 @@ public class ItemDetailFragment extends Fragment {
                 contentFields.setVisibility(View.GONE);
             }
         });
+
+        Project project = Data.getInstance().getProjectById(task.getProjectId());
+        ImageView avtProject = view.findViewById(R.id.avt_project);
+        avtProject.setBackgroundResource(Parser.getAvatarResource(project.getAvatarID()));
+        TextView projectName = view.findViewById(R.id.projectName);
+        projectName.setText(project.getProjectName());
+
+        TextView created = view.findViewById(R.id.text_created);
+        created.setText(task.getDueDate());
+
+        TextView updated = view.findViewById(R.id.text_updated);
+        updated.setText(task.getDueDate());
     }
 
     private void setupComment(){

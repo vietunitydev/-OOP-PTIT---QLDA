@@ -7,6 +7,7 @@ public class Task implements Serializable  {
     private String taskName;
     private String description;
     private int assignedTo;
+    private int reporter;
     private int projectId;
     private String taskType; // story, bug, task
     private String priority; // Low, Medium, High
@@ -60,5 +61,13 @@ public class Task implements Serializable  {
 
     public void setTaskType(String taskType) {
         this.taskType = taskType;
+    }
+
+    public int getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(int reporter) {
+        this.reporter = reporter;
     }
 }
