@@ -103,7 +103,7 @@
             <LinearLayout
                 android:id="@+id/statusIssue"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
@@ -114,7 +114,7 @@
                     android:layout_height="match_parent">
                     <Button
                         android:id="@+id/btnStatusIssue"
-                        android:layout_width="150dp"
+                        android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/white"/>
                     <LinearLayout
@@ -137,11 +137,11 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:src="@drawable/ic_keyboard_arrow_down"
                             android:background="@android:color/transparent"
-                            app:tint="@color/black" />
+                            app:tint="@color/black"
+                            android:layout_gravity="center"/>
                     </LinearLayout>
 
                 </FrameLayout>
@@ -262,6 +262,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/btn_tasktype"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

@@ -87,6 +87,11 @@ public class ItemDetailFragment extends Fragment {
         TextView taskName = view.findViewById(R.id.edtNameIssue);
         taskName.setText(task.getTaskName());
 
+        ImageButton imgBtnUser = view.findViewById(R.id.imgBtnUser);
+        imgBtnUser.setOnClickListener(v ->{
+            setupHandleAssignee();
+        });
+
         taskName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -127,6 +132,12 @@ public class ItemDetailFragment extends Fragment {
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.green_high));
             issueStatus.setText("DONE");
         }
+
+        Button btnStatus = view.findViewById(R.id.btnStatusIssue);
+        btnStatus.setOnClickListener(v -> {
+            showBottomSheetDialog(R.layout.bottomdialog_selectstatus);
+        });
+
     }
     private void setupDescription(){
         Button btnIssue = view.findViewById(R.id.btnDesIssue);
@@ -165,6 +176,11 @@ public class ItemDetailFragment extends Fragment {
         imageTask.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
         TextView nameTask = view.findViewById(R.id.task_typeName);
         nameTask.setText(task.getTaskType());
+
+        LinearLayout taskType = view.findViewById(R.id.btn_tasktype);
+        taskType.setOnClickListener(v ->{
+            setupChangeTaskType();
+        });
 
         User assign = Data.getInstance().getUserById(task.getAssignedTo());
         ImageView avatar_assignee = view.findViewById(R.id.avatar_assignee);
@@ -228,6 +244,14 @@ public class ItemDetailFragment extends Fragment {
             listComment.addView(commentTemplate,0);
         }
 
+    }
+
+    private void setupHandleAssignee(){
+        View assign = showBottomSheetDialog(R.layout.bottomdialog_assignee);
+    }
+
+    private void setupChangeTaskType(){
+        View assign = showBottomSheetDialog(R.layout.bottomdialog_changetasktype);
     }
 
     private void backToPageListScreen(){
