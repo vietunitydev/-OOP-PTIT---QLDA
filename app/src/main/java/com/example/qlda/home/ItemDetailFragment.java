@@ -23,13 +23,8 @@ import java.util.Objects;
 
 
 public class ItemDetailFragment extends Fragment {
-
     private static final String ARG_ISSUE = "ARG_ISSUE";
-
     private Task task;
-
-    private WorkListAdapter.ListWorkHolder workSpaceFragment;
-
     private LayoutInflater inflaterOwner;
     private View view;
     public static ItemDetailFragment newInstance(Task task) {
@@ -60,7 +55,24 @@ public class ItemDetailFragment extends Fragment {
 
     private void setupItemDetail(LayoutInflater inflater) {
         // container chứa view của các page mình cần show
+        setupBackButton();
+        setupTaskName();
+        setupIssueStatus();
+        setupDescription();
+        setupDetail();
+        setupFields();
 
+    }
+
+    private void setupBackButton(){
+        // back button implement
+        ImageButton backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            backToPageListScreen();
+        });
+    }
+
+    private void setupTaskName(){
         TextView taskName = view.findViewById(R.id.edtNameIssue);
         taskName.setText(task.getTaskName());
 
@@ -85,13 +97,8 @@ public class ItemDetailFragment extends Fragment {
                 return false;
             }
         });
-
-        // back button implement
-        ImageButton backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> {
-            backToPageListScreen();
-        });
-
+    }
+    private void setupIssueStatus(){
         TextView issueStatus = view.findViewById(R.id.txtStatusIssue);
         LinearLayout wrapper = view.findViewById(R.id.wrapper_btnStatus);
         if(Objects.equals(task.getStatus(),"Todo")){
@@ -109,8 +116,8 @@ public class ItemDetailFragment extends Fragment {
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.green_high));
             issueStatus.setText("DONE");
         }
-
-
+    }
+    private void setupDescription(){
         Button btnIssue = view.findViewById(R.id.btnDesIssue);
         TextView textDescription = view.findViewById(R.id.textContentDescription);
         textDescription.setVisibility(View.GONE);
@@ -124,7 +131,8 @@ public class ItemDetailFragment extends Fragment {
                 textDescription.setText(task.getDescription());
             }
         });
-
+    }
+    private void setupDetail(){
         Button detail = view.findViewById(R.id.btnDetailIssue);
         TextView textHintDetail = view.findViewById(R.id.textContentDetails);
         textHintDetail.setVisibility(View.VISIBLE);
@@ -141,7 +149,8 @@ public class ItemDetailFragment extends Fragment {
                 contentDetail.setVisibility(View.GONE);
             }
         });
-
+    }
+    private void setupFields(){
         Button btnField = view.findViewById(R.id.btnFieldIssue);
         TextView textHintField = view.findViewById(R.id.textContentFields);
         textHintField.setVisibility(View.VISIBLE);
@@ -158,50 +167,12 @@ public class ItemDetailFragment extends Fragment {
                 contentFields.setVisibility(View.GONE);
             }
         });
-//
-//        TextView parentName = view.findViewById(R.id.text_parent_name);
-//        parentName.setText(parent.getTitle());
-//
-//        TextView des = view.findViewById(R.id.text_describe);
-//        des.setText(element.getDescription());
-//
-//        TextView startDay = view.findViewById(R.id.text_start_date);
-//        startDay.setText("" + element.getCreatedAt());
-//
-//        TextView endDay = view.findViewById(R.id.text_end_date);
-//        endDay.setText("" + element.getUpdatedAt());
-//
+    }
 
-
-//        TextView commentText = view.findViewById(R.id.edit_comment);
-//        commentText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-//                    // Ghi log khi nhấn Enter
-//                    // MyCustomLog.DebugLog("Custom Name", "Completed Edit");
-//
-//                    // get information user
-//                    addNewComment(commentText.getText().toString());
-//
-//                    commentText.setText("");
-//
-//                    // Ẩn bàn phím ảo
-//                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//
-//                    // Làm mất focus khỏi EditText
-//                    v.clearFocus();
-//
-//                    // Trả về true để chỉ ra rằng sự kiện đã được xử lý
-//                    return true;
-//                }
-//                // Trả về false nếu sự kiện không được xử lý
-//                return false;
-//            }
-//        });
-//
-//        showComment();
+    private void backToPageListScreen(){
+        if (getActivity() != null) {
+            ((HomeActivity) getActivity()).goBackToPreviousFragment();
+        }
     }
 
     private void deleteMe(){
@@ -235,14 +206,10 @@ public class ItemDetailFragment extends Fragment {
 
     }
 
-    private void backToPageListScreen(){
-        if (getActivity() != null) {
-            ((HomeActivity) getActivity()).goBackToPreviousFragment();
-        }
-    }
+
 
     public void setWorkListAdapterParent(WorkListAdapter.ListWorkHolder wp){
-        this.workSpaceFragment = wp;
+//        this.workSpaceFragment = wp;
     }
 
     private void showComment(){
