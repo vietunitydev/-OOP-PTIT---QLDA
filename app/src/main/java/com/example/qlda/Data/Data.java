@@ -37,16 +37,16 @@ public class Data {
     // Initialize sample data
     private void initializeSampleData() {
         // Users
-        users.add(new User(1, "User 1", "user1@example.com", "password1", "Admin", "2024-01-01"));
-        users.add(new User(2, "User 2", "user2@example.com", "password2", "Admin", "2024-01-01"));
-        users.add(new User(3, "User 3", "user3@example.com", "password3", "Admin", "2024-01-01"));
-        users.add(new User(4, "User 4", "user4@example.com", "password4", "Member", "2024-01-01"));
-        users.add(new User(5, "User 5", "user5@example.com", "password5", "Member", "2024-01-01"));
-        users.add(new User(6, "User 6", "user6@example.com", "password6", "Member", "2024-01-01"));
-        users.add(new User(7, "User 7", "user7@example.com", "password7", "Member", "2024-01-01"));
-        users.add(new User(8, "User 8", "user8@example.com", "password8", "Client", "2024-01-01"));
-        users.add(new User(9, "User 9", "user9@example.com", "password9", "Client", "2024-01-01"));
-        users.add(new User(10, "User 10", "user10@example.com", "password10", "Client", "2024-01-01"));
+        users.add(new User(1, "User 1", "user1@example.com", "password1", "Admin", 1,"2024-01-01"));
+        users.add(new User(2, "User 2", "user2@example.com", "password2", "Admin", 2,"2024-01-01"));
+        users.add(new User(3, "User 3", "user3@example.com", "password3", "Admin", 3,"2024-01-01"));
+        users.add(new User(4, "User 4", "user4@example.com", "password4", "Member", 4,"2024-01-01"));
+        users.add(new User(5, "User 5", "user5@example.com", "password5", "Member", 5,"2024-01-01"));
+        users.add(new User(6, "User 6", "user6@example.com", "password6", "Member", 1,"2024-01-01"));
+        users.add(new User(7, "User 7", "user7@example.com", "password7", "Member", 2,"2024-01-01"));
+        users.add(new User(8, "User 8", "user8@example.com", "password8", "Client", 3,"2024-01-01"));
+        users.add(new User(9, "User 9", "user9@example.com", "password9", "Client", 4,"2024-01-01"));
+        users.add(new User(10, "User 10", "user10@example.com", "password10", "Client", 1,"2024-01-01"));
 
         // Projects
         projects.add(new Project(1, "Project 1", "Description for Project 1", "2024-01-01", "2024-02-01", "Ongoing", 6, 1));

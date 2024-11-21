@@ -8,15 +8,17 @@ public class User implements Serializable  {
     private String email;
     private String password;
     private String role; // Admin, Member, Client
+    private int avatarID;
     private String createdAt;
 
     // Constructor
-    public User(int userId, String fullName, String email, String password, String role, String createdAt) {
+    public User(int userId, String fullName, String email, String password, String role, int avatarID ,String createdAt) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.avatarID = avatarID;
         this.createdAt = createdAt;
     }
 
@@ -38,4 +40,12 @@ public class User implements Serializable  {
 
     public String getCreatedAt() { return createdAt; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+
+    public int getAvatarID() {
+        return avatarID;
+    }
+
+    public void setAvatarID(int avatarID) {
+        this.avatarID = avatarID;
+    }
 }

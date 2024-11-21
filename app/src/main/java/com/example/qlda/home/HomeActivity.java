@@ -186,17 +186,20 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setupShowUserInfo(){
         Button showUserInfo = projectView.findViewById(R.id.btn_show_user_info);
+        ImageView user_img = projectView.findViewById(R.id.img_show_user_info);
+        user_img.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
 //            MyCustomLog.Toast(this,"Show user info");
             View view = showBottomSheetDialog(R.layout.screen_user);
 
-            Integer id_user = 1;
+            ImageView img = view.findViewById(R.id.user_user_img);
+            img.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
 
             TextView name = view.findViewById(R.id.username);
             TextView mail = view.findViewById(R.id.email);
 
-            User userData = Data.getInstance().getUserById(id_user);
+            User userData = Data.currentUser;
 
             name.setText(userData.getFullName());
             mail.setText(userData.getEmail());

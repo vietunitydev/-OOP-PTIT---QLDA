@@ -19,10 +19,11 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/img_show_user_info"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_user"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
 
             <Button
                 android:id="@+id/btn_show_user_info"

@@ -40,11 +40,11 @@
 <!--        </FrameLayout>-->
 
         <ImageView
+            android:id="@+id/user_user_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/profile_image"
-            android:src="@drawable/ic_user" />
+            android:contentDescription="@string/profile_image"/>
 
         <TextView
             android:id="@+id/username"
