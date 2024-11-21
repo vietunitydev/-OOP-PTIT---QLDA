@@ -16,9 +16,13 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.qlda.Data.Comment;
+import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Task;
+import com.example.qlda.Data.User;
 import com.example.qlda.R;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -61,7 +65,7 @@ public class ItemDetailFragment extends Fragment {
         setupDescription();
         setupDetail();
         setupFields();
-
+        setupComment();
     }
 
     private void setupBackButton(){
@@ -167,6 +171,26 @@ public class ItemDetailFragment extends Fragment {
                 contentFields.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void setupComment(){
+        List<Comment> comments = Data.getInstance().getCommentsByTaskId(task.getTaskId());
+
+        for (Comment c : comments){
+            LinearLayout listComment = view.findViewById(R.id.list_comment);
+            View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
+
+            commentTemplate.setPadding(20,0,0,5);
+            TextView nameText = commentTemplate.findViewById(R.id.text_name);
+            User user = Data.getInstance().getUserById(c.getUserId());
+            nameText.setText(user.getFullName());
+
+            TextView contentText = commentTemplate.findViewById(R.id.text_content);
+            contentText.setText(c.getContent());
+
+            listComment.addView(commentTemplate,0);
+        }
+
     }
 
     private void backToPageListScreen(){

@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="5dp">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
+        android:layout_marginTop="10dp"
+        tools:ignore="MissingConstraints">
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_user"
+            android:layout_gravity="center"
+            android:padding="0dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
+            <TextView
+                android:id="@+id/text_name"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/img_avatar"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_user"
-                    android:padding="0dp"/>
-
-                <TextView
-                    android:id="@+id/text_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:text="aaaa"/>
             <TextView
                 android:id="@+id/text_content"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="@color/white"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="10dp"
-                android:textSize="13sp" />
-
+                android:textSize="14sp"
+                android:text="aaaa"/>
         </LinearLayout>
+    </LinearLayout>
 
-    </FrameLayout>
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginTop="10dp">-->
+<!--    </FrameLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
