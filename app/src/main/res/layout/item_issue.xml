@@ -22,15 +22,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="UseCompoundDrawables"
         >
+
         <ImageView
             android:id="@+id/item_Issue_img"
             android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_height="16dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_check"
             android:background="@color/blue_2"
-            app:tint="@color/white"/>
+            android:src="@drawable/ic_check"
+            app:tint="@color/white" />
 
         <LinearLayout
             android:layout_width="0dp"

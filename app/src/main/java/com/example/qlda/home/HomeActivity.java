@@ -343,14 +343,14 @@ public class HomeActivity extends AppCompatActivity {
 
         // Dự liệu mẫu của các dự án
         List<Task> todayTask = new ArrayList<>();
-        todayTask.add(new Task(1, "Project A", "Description A", 1 , 1, "Low", "Todo","2024-11-19"));
-        todayTask.add(new Task(2, "Project B", "Description B", 2 , 2, "High", "Todo","2024-11-19"));
+        todayTask.add(new Task(1, "Project A", "Description A", 1 , 1, "Task","Low", "Todo","2024-11-19"));
+        todayTask.add(new Task(2, "Project B", "Description B", 2 , 2, "Task","High", "Todo","2024-11-19"));
 
         List<Task> yesterdayTask = new ArrayList<>();
-        yesterdayTask.add(new Task(3, "Project C", "Description C", 3 , 3, "Low", "Todo","2024-11-18"));
+        yesterdayTask.add(new Task(3, "Project C", "Description C", 3 , 3, "Task","Low", "Todo","2024-11-18"));
 
         List<Task> olderTask = new ArrayList<>();
-        olderTask.add(new Task(4, "Project D", "Description D", 4 , 4, "Low", "Todo","2024-11-10"));
+        olderTask.add(new Task(4, "Project D", "Description D", 4 , 4, "Task","Low", "Todo","2024-11-10"));
 
         // Thêm các nhóm vào danh sách
         timeGroups.add(new TimeGroup("Hôm nay", todayTask));
@@ -537,7 +537,9 @@ public class HomeActivity extends AppCompatActivity {
 
                     if (Objects.equals(query, "")) {
                         Data data = Data.getInstance();
-                        for (Project project : data.getAllProjects()) {
+                        for (Project project : data.getProjectsByUserId(user.getUserId())) {
+                            LinearLayout prjContainer = projectView.findViewById(R.id.buttonContainer);
+                            prjContainer.removeAllViews();
                             createButton(project);
                         }
                     } else {
@@ -563,7 +565,7 @@ public class HomeActivity extends AppCompatActivity {
         Data data = Data.getInstance();
         List<Project> matchedProjects = new ArrayList<>();
 
-        for (Project project : data.getAllProjects()) {
+        for (Project project : data.getProjectsByUserId(user.getUserId())) {
             if (project.getProjectName().toLowerCase().contains(query.toLowerCase())) {
                 matchedProjects.add(project);
             }

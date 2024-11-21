@@ -8,17 +8,19 @@ public class Task implements Serializable  {
     private String description;
     private int assignedTo;
     private int projectId;
+    private String taskType; // story, bug, task
     private String priority; // Low, Medium, High
     private String status; // Todo, InProgress, Done
     private String dueDate;
 
     // Constructor
-    public Task(int taskId, String taskName, String description, int assignedTo, int projectId, String priority, String status, String dueDate) {
+    public Task(int taskId, String taskName, String description, int assignedTo, int projectId, String taskType, String priority, String status, String dueDate) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.description = description;
         this.assignedTo = assignedTo;
         this.projectId = projectId;
+        this.taskType = taskType;
         this.priority = priority;
         this.status = status;
         this.dueDate = dueDate;
@@ -48,4 +50,12 @@ public class Task implements Serializable  {
 
     public String getDueDate() { return dueDate; }
     public void setDueDate(String dueDate) { this.dueDate = dueDate; }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
 }

@@ -28,9 +28,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.qlda.Data.AppData;
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.ElementData;
+import com.example.qlda.Data.Parser;
 import com.example.qlda.Data.Project;
 import com.example.qlda.Data.TableData;
 import com.example.qlda.Data.Task;
+import com.example.qlda.Data.TaskType;
 import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
 
@@ -161,16 +163,16 @@ public class WorkSpaceFragment extends Fragment {
          wl_content_scroll3 = view3.findViewById(R.id.wl_content_scroll);
 
 
-        List<Task> elms = Data.getInstance().getTasksByProjectId(projectID);
-        for (int i = 0; i < elms.size(); i++) {
-            if(Objects.equals(elms.get(i).getStatus(), "Todo")){
-                CreateElement(wl_content_scroll1, elms.get(i).getTaskName());
+        List<Task> tasks = Data.getInstance().getTasksByProjectId(projectID);
+        for (int i = 0; i < tasks.size(); i++) {
+            if(Objects.equals(tasks.get(i).getStatus(), "Todo")){
+                CreateElement(wl_content_scroll1, tasks.get(i));
             }
-            else if(Objects.equals(elms.get(i).getStatus(), "InProgress")){
-                CreateElement(wl_content_scroll2, elms.get(i).getTaskName());
+            else if(Objects.equals(tasks.get(i).getStatus(), "InProgress")){
+                CreateElement(wl_content_scroll2, tasks.get(i));
             }
-            else if(Objects.equals(elms.get(i).getStatus(), "Done")){
-                CreateElement(wl_content_scroll3, elms.get(i).getTaskName());
+            else if(Objects.equals(tasks.get(i).getStatus(), "Done")){
+                CreateElement(wl_content_scroll3, tasks.get(i));
             }
         }
 
@@ -282,11 +284,17 @@ public class WorkSpaceFragment extends Fragment {
         horizontalScrollView.smoothScrollTo(scrollX, 0);
     }
 
-    private void CreateElement(LinearLayout root, String cnt) {
+    private void CreateElement(LinearLayout root, Task task) {
         View element = inflater.inflate(R.layout.task_item, root, false);
 //        elements.add(element);
         TextView text = element.findViewById(R.id.item_task_text);
-        text.setText(cnt);
+        text.setText(task.getTaskName());
+
+        TextView text2 = element.findViewById(R.id.task_project_name);
+        text2.setText(project.getProjectName());
+
+        ImageView img_task = element.findViewById(R.id.task_type);
+        img_task.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
 
         root.addView(element);
         element.setOnTouchListener(new View.OnTouchListener() {
