@@ -234,12 +234,14 @@
             </LinearLayout>
         </FrameLayout>
         <TextView
+            android:id="@+id/textContentDetails"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginStart="5dp"
             android:textSize="13sp"
             android:text="Issue Type, Assignee, Labels, Team and Reporter"/>
         <LinearLayout
+            android:id="@+id/contentDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -381,6 +383,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <Button
+                android:id="@+id/btnFieldIssue"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:backgroundTint="@color/white"/>
@@ -398,7 +401,7 @@
                         android:layout_weight="1"
                         android:paddingTop="5dp"
                         android:paddingStart="5dp"
-                        android:text="Details"
+                        android:text="More fields"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:gravity="start"/>
@@ -415,12 +418,14 @@
             </LinearLayout>
         </FrameLayout>
         <TextView
+            android:id="@+id/textContentFields"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginStart="5dp"
             android:textSize="13sp"
             android:text="Project, Created, Updated"/>
         <LinearLayout
+            android:id="@+id/contentFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

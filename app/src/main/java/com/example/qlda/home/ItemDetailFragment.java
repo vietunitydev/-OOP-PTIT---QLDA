@@ -124,6 +124,40 @@ public class ItemDetailFragment extends Fragment {
                 textDescription.setText(task.getDescription());
             }
         });
+
+        Button detail = view.findViewById(R.id.btnDetailIssue);
+        TextView textHintDetail = view.findViewById(R.id.textContentDetails);
+        textHintDetail.setVisibility(View.VISIBLE);
+        LinearLayout contentDetail = view.findViewById(R.id.contentDetails);
+        contentDetail.setVisibility(View.GONE);
+
+        detail.setOnClickListener(v -> {
+            if(textHintDetail.getVisibility() == View.VISIBLE){
+                textHintDetail.setVisibility(View.GONE);
+                contentDetail.setVisibility(View.VISIBLE);
+            }
+            else if(textHintDetail.getVisibility() == View.GONE){
+                textHintDetail.setVisibility(View.VISIBLE);
+                contentDetail.setVisibility(View.GONE);
+            }
+        });
+
+        Button btnField = view.findViewById(R.id.btnFieldIssue);
+        TextView textHintField = view.findViewById(R.id.textContentFields);
+        textHintField.setVisibility(View.VISIBLE);
+        LinearLayout contentFields = view.findViewById(R.id.contentFields);
+        contentFields.setVisibility(View.GONE);
+
+        btnField.setOnClickListener(v -> {
+            if(textHintField.getVisibility() == View.VISIBLE){
+                textHintField.setVisibility(View.GONE);
+                contentFields.setVisibility(View.VISIBLE);
+            }
+            else if(textHintField.getVisibility() == View.GONE){
+                textHintField.setVisibility(View.VISIBLE);
+                contentFields.setVisibility(View.GONE);
+            }
+        });
 //
 //        TextView parentName = view.findViewById(R.id.text_parent_name);
 //        parentName.setText(parent.getTitle());
