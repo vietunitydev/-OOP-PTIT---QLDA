@@ -16,4 +16,6 @@
     <color name="gray3">#696969</color>
     <color name="gray_2">#CCCCCC</color>
     <color name="semi_transparent_black">#80000000</color>
+    <color name="yellow">#FDD835 </color>
+    <color name="green">#33CC66</color>
 </resources>

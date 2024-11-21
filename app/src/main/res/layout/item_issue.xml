@@ -72,6 +72,8 @@
                     android:id="@+id/item_Issue_Status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/rounded_background_blue"
                     android:gravity="center"

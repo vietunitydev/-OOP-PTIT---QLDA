@@ -32,6 +32,7 @@ public class DetailIssue extends AppCompatActivity {
         rollBackIssue();
         assignDataIssue();
         deleteIssue();
+        updateStatusIssue();
     }
     private void rollBackIssue(){
         ImageButton imgBtnBackIssues;
@@ -54,8 +55,55 @@ public class DetailIssue extends AppCompatActivity {
 
             TextView txtStatusIssue = (TextView) findViewById(R.id.txtStatusIssue);
             txtStatusIssue.setText(task.getStatus());
+
+            LinearLayout status = (LinearLayout) findViewById(R.id.status);
+            if(task.getStatus() == "Done"){
+                status.setBackgroundResource(R.drawable.rounded_background_green);
+            }
+            else{
+                status.setBackgroundResource(R.drawable.rounded_background_blue);
+            }
         }
     }
+
+    private void updateStatusIssue(){
+        ImageButton imgBtnListStatus = (ImageButton) findViewById(R.id.imgBtnListStatus);
+        LinearLayout status = (LinearLayout) findViewById(R.id.status);
+        imgBtnListStatus.setOnClickListener(v ->{
+            View menuView = LayoutInflater.from(this).inflate(R.layout.item_status_issue_menu, null);
+
+            PopupWindow popupWindow = new PopupWindow(
+                    menuView,
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    true
+            );
+            popupWindow.showAsDropDown(status);
+
+            menuView.findViewById(R.id.btnStatusDone).setOnClickListener(t ->{
+                TextView txtStatusIssue = (TextView) findViewById(R.id.txtStatusIssue);
+                txtStatusIssue.setText("Done");
+
+                status.setBackgroundResource(R.drawable.rounded_background_green);
+
+                task.setStatus("Done");
+
+                popupWindow.dismiss();
+            });
+
+            menuView.findViewById(R.id.btnStatusInprogress).setOnClickListener(t ->{
+                TextView txtStatusIssue = (TextView) findViewById(R.id.txtStatusIssue);
+                txtStatusIssue.setText("In Progress");
+
+                status.setBackgroundResource(R.drawable.rounded_background_blue);
+
+                task.setStatus("In Progress");
+
+                popupWindow.dismiss();
+            });
+        });
+    }
+
     private void deleteIssue(){
         ImageButton imgBtnDotIssue = (ImageButton) findViewById(R.id.imgBtnDotIssue);
 
@@ -77,6 +125,7 @@ public class DetailIssue extends AppCompatActivity {
             });
         });
     }
+
     private void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.TransparentDialog);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.item_dialog_cf_delete, null);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="-2dp"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnStatusDone"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="Done"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/green"
+        android:textSize="18dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="-5dp"/>
+    <Button
+        android:id="@+id/btnStatusInprogress"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="In Progress"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/blue_1"
+        android:textSize="18dp"
+        android:layout_gravity="start"/>
+
+</LinearLayout>
