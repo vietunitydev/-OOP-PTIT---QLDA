@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity {
 //                WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
 //                newTable.addWorkListPage(newPage);
 
-                Project newProject = new Project(20, "Game Development", "Description 4", "2024-05-01", "2024-11-30", "Ongoing", 1, 4);
+                Project newProject = new Project(20, "Game Development", "Description 4", "2024-05-01", "2024-11-30", "Ongoing", 1);
                 createButton(newProject);
 
                 // add vao APPDATA

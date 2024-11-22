@@ -7,17 +7,15 @@ public class User implements Serializable  {
         private String fullName;
         private String email;
         private String password;
-        private String role; // Admin, Member, Client
         private int avatarID;
         private String createdAt;
 
     // Constructor
-    public User(int userId, String fullName, String email, String password, String role, int avatarID ,String createdAt) {
+    public User(int userId, String fullName, String email, String password, int avatarID ,String createdAt) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.avatarID = avatarID;
         this.createdAt = createdAt;
     }
@@ -34,9 +32,6 @@ public class User implements Serializable  {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
 
     public String getCreatedAt() { return createdAt; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }

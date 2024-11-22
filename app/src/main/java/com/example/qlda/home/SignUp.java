@@ -91,7 +91,7 @@ public class SignUp extends AppCompatActivity {
             }
 
             // Create User object
-            User user = new User(1, email, password, email.split("@")[0], "", 1, (new Date()).toString());
+            User user = new User(1, email, password, email.split("@")[0],  1, (new Date()).toString());
 
             // Save user data to Firestore
 //            auth.collection("users").document(user.getUserId())

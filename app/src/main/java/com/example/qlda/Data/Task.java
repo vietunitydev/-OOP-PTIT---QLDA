@@ -19,7 +19,7 @@ public class Task implements Serializable  {
 
     }
     // Constructor
-    public Task(int taskId, String taskName, String description, int reporter,int assignedTo, int projectId, TaskType taskType, Priority priority, StatusType status, String dueDate) {
+    public Task(int taskId, String taskName, String description, int reporter, int assignedTo, int projectId, TaskType taskType, Priority priority, StatusType status, String createDate, String dueDate) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.description = description;
@@ -29,6 +29,7 @@ public class Task implements Serializable  {
         this.taskType = taskType;
         this.priority = priority;
         this.status = status;
+        this.createDate = createDate;
         this.updatedDate = dueDate;
     }
 
@@ -88,5 +89,13 @@ public class Task implements Serializable  {
 
     public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 }
