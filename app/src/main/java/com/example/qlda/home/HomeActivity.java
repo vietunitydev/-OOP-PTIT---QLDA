@@ -1,16 +1,11 @@
 package com.example.qlda.home;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -18,28 +13,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.qlda.Data.AppData;
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
 import com.example.qlda.Data.Project;
-import com.example.qlda.Data.TableData;
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.User;
 import com.example.qlda.Data.TimeGroup;
-import com.example.qlda.Data.UserData;
-import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,8 +41,6 @@ public class HomeActivity extends AppCompatActivity {
     View projectView;
     View notificationView;
     View issueView;
-
-    private List<TableData> tables = new ArrayList<>();
 
     User user;
 

@@ -6,7 +6,7 @@ import android.widget.*;
 import android.text.*;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.qlda.Data.UserData;
+import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.example.qlda.login.LoginActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -91,21 +91,21 @@ public class SignUp extends AppCompatActivity {
             }
 
             // Create User object
-            UserData user = new UserData(UUID.randomUUID().toString(), email, password, email.split("@")[0], "", new Date(), new Date());
+            User user = new User(1, email, password, email.split("@")[0], "", 1, (new Date()).toString());
 
             // Save user data to Firestore
-            auth.collection("users").document(user.getId())
-                    .set(user)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(SignUp.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUp.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(SignUp.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        return;
-                    });
+//            auth.collection("users").document(user.getUserId())
+//                    .set(user)
+//                    .addOnSuccessListener(aVoid -> {
+//                        Toast.makeText(SignUp.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(SignUp.this, LoginActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    })
+//                    .addOnFailureListener(e -> {
+//                        Toast.makeText(SignUp.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        return;
+//                    });
         });
     }
 }

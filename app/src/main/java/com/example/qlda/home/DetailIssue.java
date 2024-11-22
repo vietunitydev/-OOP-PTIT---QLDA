@@ -21,7 +21,7 @@ public class DetailIssue extends AppCompatActivity {
 
         setContentView(R.layout.issue_details);
 
-        imgBtnAddIssues = (ImageButton) findViewById(R.id.imgBtnAddIssues);
+//        imgBtnAddIssues = (ImageButton) findViewById(R.id.imgBtnAddIssues);
 
         imgBtnAddIssues.setOnClickListener(v ->{
             finish();

@@ -1,42 +1,29 @@
 package com.example.qlda.home;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.GestureDetector;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.qlda.Data.AppData;
 import com.example.qlda.Data.Data;
-import com.example.qlda.Data.ElementData;
 import com.example.qlda.Data.Parser;
 import com.example.qlda.Data.Project;
-import com.example.qlda.Data.TableData;
 import com.example.qlda.Data.Task;
-import com.example.qlda.Data.TaskType;
-import com.example.qlda.Data.WorkListPageData;
 import com.example.qlda.R;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
