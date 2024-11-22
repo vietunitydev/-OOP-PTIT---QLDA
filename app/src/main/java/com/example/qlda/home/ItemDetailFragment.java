@@ -28,6 +28,7 @@ import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -71,7 +72,7 @@ public class ItemDetailFragment extends Fragment {
         setupTaskName();
         setupIssueStatus();
         setupDescription();
-        setupDetail();
+        setupDetail(true);
         setupFields();
         setupComment();
     }
@@ -92,7 +93,7 @@ public class ItemDetailFragment extends Fragment {
         User assign = Data.getInstance().getUserById(task.getAssignedTo());
         imgBtnUser.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
         imgBtnUser.setOnClickListener(v ->{
-            setupHandleAssignee(true);
+            setupChangeUserAssignee(true);
         });
 
         taskName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -179,23 +180,25 @@ public class ItemDetailFragment extends Fragment {
             }
         });
     }
-    private void setupDetail(){
-        Button detail = view.findViewById(R.id.btnDetailIssue);
-        TextView textHintDetail = view.findViewById(R.id.textContentDetails);
-        textHintDetail.setVisibility(View.VISIBLE);
-        LinearLayout contentDetail = view.findViewById(R.id.contentDetails);
-        contentDetail.setVisibility(View.GONE);
+    private void setupDetail(boolean isReset){
+        if(isReset){
+            Button detail = view.findViewById(R.id.btnDetailIssue);
+            TextView textHintDetail = view.findViewById(R.id.textContentDetails);
+            textHintDetail.setVisibility(View.VISIBLE);
+            LinearLayout contentDetail = view.findViewById(R.id.contentDetails);
+            contentDetail.setVisibility(View.GONE);
 
-        detail.setOnClickListener(v -> {
-            if(textHintDetail.getVisibility() == View.VISIBLE){
-                textHintDetail.setVisibility(View.GONE);
-                contentDetail.setVisibility(View.VISIBLE);
-            }
-            else if(textHintDetail.getVisibility() == View.GONE){
-                textHintDetail.setVisibility(View.VISIBLE);
-                contentDetail.setVisibility(View.GONE);
-            }
-        });
+            detail.setOnClickListener(v -> {
+                if(textHintDetail.getVisibility() == View.VISIBLE){
+                    textHintDetail.setVisibility(View.GONE);
+                    contentDetail.setVisibility(View.VISIBLE);
+                }
+                else if(textHintDetail.getVisibility() == View.GONE){
+                    textHintDetail.setVisibility(View.VISIBLE);
+                    contentDetail.setVisibility(View.GONE);
+                }
+            });
+        }
 
         ImageView imageTask = view.findViewById(R.id.img_task_type);
         imageTask.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
@@ -216,7 +219,7 @@ public class ItemDetailFragment extends Fragment {
 
         LinearLayout assignee = view.findViewById(R.id.btn_assignee);
         assignee.setOnClickListener(v ->{
-            setupHandleAssignee(true);
+            setupChangeUserAssignee(true);
         });
 
         User reporter = Data.getInstance().getUserById(task.getReporter());
@@ -227,7 +230,7 @@ public class ItemDetailFragment extends Fragment {
 
         LinearLayout reporterBtn = view.findViewById(R.id.btn_reporter);
         reporterBtn.setOnClickListener(v ->{
-            setupHandleAssignee(false);
+            setupChangeUserAssignee(false);
         });
 
     }
@@ -285,7 +288,7 @@ public class ItemDetailFragment extends Fragment {
 
     }
 
-    private void setupHandleAssignee(boolean isAssign){
+    private void setupChangeUserAssignee(boolean isAssign){
         View assign = showBottomSheetDialog(R.layout.bottomdialog_assignee);
         // search people
 
@@ -295,17 +298,71 @@ public class ItemDetailFragment extends Fragment {
         TextView username_selected = selected.findViewById(R.id.username_selected);
 
         // find a list user in this project
-//        List<User> users = Data.getInstance().
+        List<User> users = Data.getInstance().getUsersByProjectId(task.getProjectId());
+        User cur = Data.currentUser;
+        User selectedUser;
 
         if(isAssign){
-            User user = Data.getInstance().getUserById(task.getAssignedTo());
-            avt_selected.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
-            username_selected.setText(user.getFullName());
+            selectedUser = Data.getInstance().getUserById(task.getAssignedTo());
         }
         else{
-            User user = Data.getInstance().getUserById(task.getReporter());
-            avt_selected.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
-            username_selected.setText(user.getFullName());
+            selectedUser = Data.getInstance().getUserById(task.getReporter());
+        }
+
+        users.removeIf(user -> user.getUserId() == selectedUser.getUserId());
+        // add them unAssignee
+        users.add(0,new User(0,"Un Assign","unassign@gmail.com","",7,(new Date()).toString()));
+
+        avt_selected.setBackgroundResource(Parser.getAvatarResource(selectedUser.getAvatarID()));
+        if(selectedUser.getUserId() == 0){
+            username_selected.setText("Un Assign");
+        }
+        else if(cur.getUserId() == selectedUser.getUserId()){
+            username_selected.setText("Me");
+        }
+        else{
+            username_selected.setText(selectedUser.getFullName());
+        }
+
+        LinearLayout suggestion_container = assign.findViewById(R.id.suggestion_container);
+        suggestion_container.removeAllViews();
+
+        for (int i = 0; i < users.size(); i++) {
+
+            User user = users.get(i);
+            View userBtn = getLayoutInflater().inflate(R.layout.button_assignee, null);
+
+            ImageView btn_assignee_avt = userBtn.findViewById(R.id.btn_assignee_avt);
+            TextView btn_assignee_username = userBtn.findViewById(R.id.btn_assignee_username);
+            btn_assignee_avt.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
+            if(cur.getUserId() == user.getUserId()){
+                btn_assignee_username.setText("Me");
+            }
+            else{
+                btn_assignee_username.setText(user.getFullName());
+            }
+
+            suggestion_container.addView(userBtn,i);
+
+            userBtn.setOnClickListener(v -> {
+                if(isAssign){
+                    task.setAssignedTo(user.getUserId());
+                }
+                else{
+                    task.setReporter(user.getUserId());
+                }
+
+                curBottomDialog.dismiss();
+                //update UI. tạm thời
+                setupTaskName();
+                setupDetail(false);
+            });
+
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) userBtn.getLayoutParams();
+            if (params != null) {
+                params.setMargins(0, 8, 0, 8);
+                userBtn.setLayoutParams(params);
+            }
         }
     }
 

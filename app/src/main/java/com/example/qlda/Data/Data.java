@@ -111,6 +111,8 @@ public class Data {
 
     // CRUD Methods
 
+    static User unAssign = new User(0, "Un Assign", "unassign@example.com", "", 1,"2024-01-01");
+
     public User getUserById(int userId) {
         return users.stream().filter(user -> user.getUserId() == userId).findFirst().orElse(null);
     }
@@ -157,7 +159,6 @@ public class Data {
     }
 
     public List<Project> getProjectsByUserId(int userId) {
-        // Lấy danh sách projectId mà user tham gia
         List<Integer> projectIds = projectUsers.stream()
                 .filter(projectUser -> projectUser.getUserID() == userId)
                 .map(ProjectUser::getProjectID)
@@ -168,6 +169,16 @@ public class Data {
                 .collect(Collectors.toList());
     }
 
+    public List<User> getUsersByProjectId(int projectID) {
+        List<Integer> userIDs = projectUsers.stream()
+                .filter(projectUser -> projectUser.getProjectID() == projectID)
+                .map(ProjectUser::getUserID)
+                .collect(Collectors.toList());
+
+        return users.stream()
+                .filter(user -> userIDs.contains(user.getUserId()))
+                .collect(Collectors.toList());
+    }
     public List<Project> getAllProjects() {
         return projects;
     }

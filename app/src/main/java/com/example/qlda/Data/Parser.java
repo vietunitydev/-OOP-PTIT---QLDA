@@ -10,11 +10,11 @@ import java.util.Objects;
 public class Parser {
 
     private static final int[] AVATAR_RESOURCES = {
+            R.drawable.avt_5,
             R.drawable.avt_1,
             R.drawable.avt_2,
             R.drawable.avt_3,
             R.drawable.avt_4,
-            R.drawable.avt_5,
             R.drawable.avt_6,
             R.drawable.avt_7,
             R.drawable.avt_8,
