@@ -95,7 +95,6 @@
                     android:id="@+id/imgBtnUser"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_user"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     android:background="@drawable/rounded_background"/>
@@ -303,6 +302,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btn_assignee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -343,6 +343,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btn_reporter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

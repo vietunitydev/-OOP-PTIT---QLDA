@@ -22,6 +22,7 @@ import com.example.qlda.Data.Comment;
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
 import com.example.qlda.Data.Project;
+import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
@@ -88,6 +89,8 @@ public class ItemDetailFragment extends Fragment {
         taskName.setText(task.getTaskName());
 
         ImageButton imgBtnUser = view.findViewById(R.id.imgBtnUser);
+        User assign = Data.getInstance().getUserById(task.getAssignedTo());
+        imgBtnUser.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
         imgBtnUser.setOnClickListener(v ->{
             setupHandleAssignee();
         });
@@ -188,11 +191,21 @@ public class ItemDetailFragment extends Fragment {
         TextView name_assignee = view.findViewById(R.id.name_assignee);
         name_assignee.setText(assign.getFullName());
 
+        LinearLayout assignee = view.findViewById(R.id.btn_assignee);
+        assignee.setOnClickListener(v ->{
+            setupHandleAssignee();
+        });
+
         User reporter = Data.getInstance().getUserById(task.getReporter());
         ImageView avatar_reporter = view.findViewById(R.id.avatar_reporter);
         avatar_reporter.setBackgroundResource(Parser.getAvatarResource(reporter.getUserId()));
         TextView name_reporter = view.findViewById(R.id.name_reporter);
         name_reporter.setText(reporter.getFullName());
+
+        LinearLayout reporterBtn = view.findViewById(R.id.btn_reporter);
+        reporterBtn.setOnClickListener(v ->{
+            setupHandleAssignee();
+        });
 
     }
     private void setupFields(){
@@ -238,6 +251,9 @@ public class ItemDetailFragment extends Fragment {
             User user = Data.getInstance().getUserById(c.getUserId());
             nameText.setText(user.getFullName());
 
+            ImageView img_avatar = commentTemplate.findViewById(R.id.img_avatar);
+            img_avatar.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
+
             TextView contentText = commentTemplate.findViewById(R.id.text_content);
             contentText.setText(c.getContent());
 
@@ -270,6 +286,14 @@ public class ItemDetailFragment extends Fragment {
         // Hiển thị Bottom Sheet
         bottomSheetDialog.show();
         return bottomSheetView;
+    }
+
+    // function
+
+    private void changeStatus(StatusType type){
+        // change in database
+//        task.setStatus(type);
+        // update ui
     }
 
     private void deleteMe(){

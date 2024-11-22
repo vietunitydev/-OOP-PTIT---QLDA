@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"
-        android:layout_marginVertical="8dp"
+        android:layout_marginVertical="2dp"
         android:background="@drawable/rounded_background">
 
         <LinearLayout
@@ -29,7 +29,7 @@
             android:layout_marginVertical="10sp"
             android:layout_marginStart="17dp"
             android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/gray_3">
+            android:backgroundTint="@color/gray_2">
 
             <TextView
                 android:layout_width="0dp"
@@ -56,7 +56,7 @@
         android:background="@drawable/rounded_background">
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="30dp"
             android:gravity="center"
             android:layout_marginVertical="10sp"
@@ -68,7 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="In Progress"
+                android:text="IN PROGRESS"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:textColor="@color/blue" />
