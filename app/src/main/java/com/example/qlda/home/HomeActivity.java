@@ -20,8 +20,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
+import com.example.qlda.Data.Priority;
 import com.example.qlda.Data.Project;
+import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
+import com.example.qlda.Data.TaskType;
 import com.example.qlda.Data.User;
 import com.example.qlda.Data.TimeGroup;
 import com.example.qlda.R;
@@ -329,20 +332,20 @@ public class HomeActivity extends AppCompatActivity {
         List<TimeGroup> timeGroups = new ArrayList<>();
 
         // Dự liệu mẫu của các dự án
-        List<Task> todayTask = new ArrayList<>();
-        todayTask.add(new Task(1, "Project A", "Description A", 1 , 1, "Task","Low", "Todo","2024-11-19"));
-        todayTask.add(new Task(2, "Project B", "Description B", 2 , 2, "Task","High", "Todo","2024-11-19"));
-
-        List<Task> yesterdayTask = new ArrayList<>();
-        yesterdayTask.add(new Task(3, "Project C", "Description C", 3 , 3, "Task","Low", "Todo","2024-11-18"));
-
-        List<Task> olderTask = new ArrayList<>();
-        olderTask.add(new Task(4, "Project D", "Description D", 4 , 4, "Task","Low", "Todo","2024-11-10"));
-
-        // Thêm các nhóm vào danh sách
-        timeGroups.add(new TimeGroup("Hôm nay", todayTask));
-        timeGroups.add(new TimeGroup("Hôm qua", yesterdayTask));
-        timeGroups.add(new TimeGroup("Cũ hơn", olderTask));
+//        List<Task> todayTask = new ArrayList<>();
+//        todayTask.add(new Task(1, "Project A", "Description A", 1 , 1, TaskType.Task, Priority.Low, StatusType.Todo,"2024-11-19"));
+//        todayTask.add(new Task(2, "Project B", "Description B", 2 , 2, TaskType.Task,Priority.Low, StatusType.Todo,"2024-11-19"));
+//
+//        List<Task> yesterdayTask = new ArrayList<>();
+//        yesterdayTask.add(new Task(3, "Project C", "Description C", 3 , 3, TaskType.Task,Priority.Low, StatusType.Todo,"2024-11-18"));
+//
+//        List<Task> olderTask = new ArrayList<>();
+//        olderTask.add(new Task(4, "Project D", "Description D", 4 , 4, TaskType.Task,Priority.Low, StatusType.Todo,"2024-11-10"));
+//
+//        // Thêm các nhóm vào danh sách
+//        timeGroups.add(new TimeGroup("Hôm nay", todayTask));
+//        timeGroups.add(new TimeGroup("Hôm qua", yesterdayTask));
+//        timeGroups.add(new TimeGroup("Cũ hơn", olderTask));
 
         return timeGroups;
     }
@@ -387,7 +390,7 @@ public class HomeActivity extends AppCompatActivity {
                 item_Issue_itemName.setText(task.getTaskName());
 
                 TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
-                item_Issue_Status.setText(task.getStatus());
+                item_Issue_Status.setText(task.getStatus().toString());
 
                 Button custom_table_btn = itemIssue.findViewById(R.id.custom_table_btn);
 

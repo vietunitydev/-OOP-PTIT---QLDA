@@ -30,6 +30,7 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/selected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -40,13 +41,14 @@
         android:backgroundTint="@color/white">
 
         <ImageView
+            android:id="@+id/avt_selected"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/ic_user"
             android:layout_marginEnd="8dp"
             android:layout_gravity="center"/>
 
         <TextView
+            android:id="@+id/username_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Me"
@@ -60,56 +62,20 @@
         android:text="Suggestions"
         android:textStyle="bold" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp">
-
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:paddingVertical="5dp"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/white">
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+<!--            <include layout="@layout/button_assignee"/>-->
+<!--            <include layout="@layout/button_assignee"/>-->
+<!--            <include layout="@layout/button_assignee"/>-->
+<!--            <include layout="@layout/button_assignee"/>-->
+<!--            <include layout="@layout/button_assignee"/>-->
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/avt_4"
-                android:paddingStart="10dp"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Unassigned"
-                android:layout_gravity="center"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:paddingVertical="5dp"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/white">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/avt_4"
-                android:paddingStart="10dp"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Automatic"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

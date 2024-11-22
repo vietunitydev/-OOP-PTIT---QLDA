@@ -16,6 +16,7 @@
         android:paddingBottom="2dp" />
 
     <LinearLayout
+        android:id="@+id/btn_todo"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"
@@ -49,6 +50,7 @@
 
 
     <LinearLayout
+        android:id="@+id/btn_inprogress"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"
@@ -81,6 +83,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btn_done"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"

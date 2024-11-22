@@ -92,7 +92,7 @@ public class ItemDetailFragment extends Fragment {
         User assign = Data.getInstance().getUserById(task.getAssignedTo());
         imgBtnUser.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
         imgBtnUser.setOnClickListener(v ->{
-            setupHandleAssignee();
+            setupHandleAssignee(true);
         });
 
         taskName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -120,17 +120,17 @@ public class ItemDetailFragment extends Fragment {
     private void setupIssueStatus(){
         TextView issueStatus = view.findViewById(R.id.txtStatusIssue);
         LinearLayout wrapper = view.findViewById(R.id.wrapper_btnStatus);
-        if(Objects.equals(task.getStatus(),"Todo")){
+        if(Objects.equals(task.getStatus(), StatusType.Todo)){
             wrapper.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray_2));
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.black));
             issueStatus.setText("TO DO");
         }
-        if(Objects.equals(task.getStatus(),"InProgress")){
+        if(Objects.equals(task.getStatus(),StatusType.InProgress)){
             wrapper.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.blue_1));
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.blue));
-            issueStatus.setText("In Progress");
+            issueStatus.setText("IN PROGRESS");
         }
-        if(Objects.equals(task.getStatus(),"Done")){
+        if(Objects.equals(task.getStatus(),StatusType.Done)){
             wrapper.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.green_low));
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.green_high));
             issueStatus.setText("DONE");
@@ -138,7 +138,29 @@ public class ItemDetailFragment extends Fragment {
 
         Button btnStatus = view.findViewById(R.id.btnStatusIssue);
         btnStatus.setOnClickListener(v -> {
-            showBottomSheetDialog(R.layout.bottomdialog_selectstatus);
+            View selectStatusDialog = showBottomSheetDialog(R.layout.bottomdialog_selectstatus);
+            // btn1
+            LinearLayout todo = selectStatusDialog.findViewById(R.id.btn_todo);
+            todo.setOnClickListener(v1-> {
+                task.setStatus(StatusType.Todo);
+                curBottomDialog.dismiss();
+                setupIssueStatus();
+            });
+            // btn2
+            LinearLayout inProgress = selectStatusDialog.findViewById(R.id.btn_inprogress);
+            inProgress.setOnClickListener(v1-> {
+                task.setStatus(StatusType.InProgress);
+                curBottomDialog.dismiss();
+                setupIssueStatus();
+
+
+            });// btn3
+            LinearLayout done = selectStatusDialog.findViewById(R.id.btn_done);
+            done.setOnClickListener(v1-> {
+                task.setStatus(StatusType.Done);
+                curBottomDialog.dismiss();
+                setupIssueStatus();
+            });
         });
 
     }
@@ -178,22 +200,23 @@ public class ItemDetailFragment extends Fragment {
         ImageView imageTask = view.findViewById(R.id.img_task_type);
         imageTask.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
         TextView nameTask = view.findViewById(R.id.task_typeName);
-        nameTask.setText(task.getTaskType());
+        nameTask.setText(task.getTaskType().toString());
 
         LinearLayout taskType = view.findViewById(R.id.btn_tasktype);
         taskType.setOnClickListener(v ->{
             setupChangeTaskType();
         });
 
+
         User assign = Data.getInstance().getUserById(task.getAssignedTo());
         ImageView avatar_assignee = view.findViewById(R.id.avatar_assignee);
-        avatar_assignee.setBackgroundResource(Parser.getAvatarResource(assign.getUserId()));
+        avatar_assignee.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
         TextView name_assignee = view.findViewById(R.id.name_assignee);
         name_assignee.setText(assign.getFullName());
 
         LinearLayout assignee = view.findViewById(R.id.btn_assignee);
         assignee.setOnClickListener(v ->{
-            setupHandleAssignee();
+            setupHandleAssignee(true);
         });
 
         User reporter = Data.getInstance().getUserById(task.getReporter());
@@ -204,7 +227,7 @@ public class ItemDetailFragment extends Fragment {
 
         LinearLayout reporterBtn = view.findViewById(R.id.btn_reporter);
         reporterBtn.setOnClickListener(v ->{
-            setupHandleAssignee();
+            setupHandleAssignee(false);
         });
 
     }
@@ -233,10 +256,10 @@ public class ItemDetailFragment extends Fragment {
         projectName.setText(project.getProjectName());
 
         TextView created = view.findViewById(R.id.text_created);
-        created.setText(task.getDueDate());
+        created.setText(task.getUpdatedDate());
 
         TextView updated = view.findViewById(R.id.text_updated);
-        updated.setText(task.getDueDate());
+        updated.setText(task.getUpdatedDate());
     }
 
     private void setupComment(){
@@ -262,8 +285,28 @@ public class ItemDetailFragment extends Fragment {
 
     }
 
-    private void setupHandleAssignee(){
+    private void setupHandleAssignee(boolean isAssign){
         View assign = showBottomSheetDialog(R.layout.bottomdialog_assignee);
+        // search people
+
+        // show selected
+        LinearLayout selected = assign.findViewById(R.id.selected);
+        ImageView avt_selected = selected.findViewById(R.id.avt_selected);
+        TextView username_selected = selected.findViewById(R.id.username_selected);
+
+        // find a list user in this project
+//        List<User> users = Data.getInstance().
+
+        if(isAssign){
+            User user = Data.getInstance().getUserById(task.getAssignedTo());
+            avt_selected.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
+            username_selected.setText(user.getFullName());
+        }
+        else{
+            User user = Data.getInstance().getUserById(task.getReporter());
+            avt_selected.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
+            username_selected.setText(user.getFullName());
+        }
     }
 
     private void setupChangeTaskType(){
@@ -272,7 +315,10 @@ public class ItemDetailFragment extends Fragment {
 
     private void backToPageListScreen(){
         if (getActivity() != null) {
-            ((HomeActivity) getActivity()).goBackToPreviousFragment();
+//            Bundle args = new Bundle();
+//            args.putSerializable(ARG_ISSUE, task);
+//            getParentFragmentManager().setFragmentResult("ISSUE", args);
+            getParentFragmentManager().popBackStack();
         }
     }
 
@@ -286,14 +332,6 @@ public class ItemDetailFragment extends Fragment {
         // Hiển thị Bottom Sheet
         bottomSheetDialog.show();
         return bottomSheetView;
-    }
-
-    // function
-
-    private void changeStatus(StatusType type){
-        // change in database
-//        task.setStatus(type);
-        // update ui
     }
 
     private void deleteMe(){

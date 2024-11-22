@@ -15,6 +15,7 @@ public class Data {
     private List<Project> projects;
     private List<Task> tasks;
     private List<Comment> comments;
+    private List<ProjectUser> projectUsers;
 
     // Private constructor
     private Data() {
@@ -22,6 +23,7 @@ public class Data {
         projects = new ArrayList<>();
         tasks = new ArrayList<>();
         comments = new ArrayList<>();
+        projectUsers = new ArrayList<>();
 
         initializeSampleData();
     }
@@ -66,21 +68,21 @@ public class Data {
         projects.add(new Project(15, "Project 15", "Description for Project 15", "2024-01-15", "2024-02-15", "Ongoing", 7, 15));
 
         // Tasks
-        tasks.add(new Task(1, "Task 1", "Details for Task 1", 1, 1, "Task","High", "Todo", "2024-03-01"));
-        tasks.add(new Task(2, "Task 2", "Details for Task 2", 2, 1, "Story","Medium", "InProgress", "2024-03-02"));
-        tasks.add(new Task(3, "Task 3", "Details for Task 3", 3, 1, "Bug","Low", "Done", "2024-03-03"));
-        tasks.add(new Task(4, "Task 4", "Details for Task 4", 4, 1, "Task","High", "Todo", "2024-03-04"));
-        tasks.add(new Task(5, "Task 5", "Details for Task 5", 5, 1, "Bug","Medium", "Done", "2024-03-05"));
-        tasks.add(new Task(6, "Task 6", "Details for Task 6", 6, 1, "Bug","Low", "InProgress", "2024-03-06"));
-        tasks.add(new Task(7, "Task 7", "Details for Task 7", 7, 1, "Story","High", "Done", "2024-03-07"));
-        tasks.add(new Task(8, "Task 8", "Details for Task 8", 8, 1, "Story","Medium", "InProgress", "2024-03-08"));
-        tasks.add(new Task(9, "Task 9", "Details for Task 9", 9, 1, "Task","Low", "Todo", "2024-03-09"));
-        tasks.add(new Task(10, "Task 10", "Details for Task 10", 10, 10, "Task","High", "InProgress", "2024-03-10"));
-        tasks.add(new Task(11, "Task 11", "Details for Task 11", 1, 11, "Task","Medium", "Done", "2024-03-11"));
-        tasks.add(new Task(12, "Task 12", "Details for Task 12", 2, 12, "Task","Low", "InProgress", "2024-03-12"));
-        tasks.add(new Task(13, "Task 13", "Details for Task 13", 3, 13, "Task","High", "Done", "2024-03-13"));
-        tasks.add(new Task(14, "Task 14", "Details for Task 14", 4, 14, "Task","Medium", "InProgress", "2024-03-14"));
-        tasks.add(new Task(15, "Task 15", "Details for Task 15", 5, 15, "Task","Low", "Done", "2024-03-15"));
+        tasks.add(new Task(1, "Task 1", "Details for Task 1", 1,1, 1, TaskType.Task,Priority.Low, StatusType.Todo, "2024-03-01"));
+        tasks.add(new Task(2, "Task 2", "Details for Task 2", 1,2, 1, TaskType.Story,Priority.Low, StatusType.InProgress, "2024-03-02"));
+        tasks.add(new Task(3, "Task 3", "Details for Task 3", 1,3, 1, TaskType.Bug,Priority.Low, StatusType.InProgress, "2024-03-03"));
+        tasks.add(new Task(4, "Task 4", "Details for Task 4", 1,4, 1, TaskType.Task,Priority.Low, StatusType.Done, "2024-03-04"));
+        tasks.add(new Task(5, "Task 5", "Details for Task 5", 1,5, 1, TaskType.Bug,Priority.Low, StatusType.InProgress, "2024-03-05"));
+        tasks.add(new Task(6, "Task 6", "Details for Task 6", 1,6, 1, TaskType.Bug,Priority.Low, StatusType.Todo, "2024-03-06"));
+        tasks.add(new Task(7, "Task 7", "Details for Task 7", 1,7, 1, TaskType.Story,Priority.Low, StatusType.Done, "2024-03-07"));
+        tasks.add(new Task(8, "Task 8", "Details for Task 8", 1,8, 1, TaskType.Story,Priority.Low, StatusType.InProgress, "2024-03-08"));
+        tasks.add(new Task(9, "Task 9", "Details for Task 9", 1,9, 1, TaskType.Task,Priority.Low, StatusType.Todo, "2024-03-09"));
+        tasks.add(new Task(10, "Task 10", "Details for Task 10", 1,10, 10, TaskType.Task,Priority.Low, StatusType.InProgress, "2024-03-10"));
+        tasks.add(new Task(11, "Task 11", "Details for Task 11", 1,1, 11, TaskType.Task,Priority.Low, StatusType.Done, "2024-03-11"));
+        tasks.add(new Task(12, "Task 12", "Details for Task 12", 1,2, 12, TaskType.Task,Priority.Low, StatusType.InProgress, "2024-03-12"));
+        tasks.add(new Task(13, "Task 13", "Details for Task 13", 1,3, 13, TaskType.Task,Priority.Low, StatusType.InProgress, "2024-03-13"));
+        tasks.add(new Task(14, "Task 14", "Details for Task 14", 1,4, 14, TaskType.Task,Priority.Low, StatusType.InProgress, "2024-03-14"));
+        tasks.add(new Task(15, "Task 15", "Details for Task 15", 1,5, 15, TaskType.Task,Priority.Low, StatusType.InProgress, "2024-03-15"));
         // Thêm các task còn lại theo cách tương tự...
 
         // Comments
@@ -95,6 +97,15 @@ public class Data {
         comments.add(new Comment(9, 9, 9, "Comment 9 on Task 9", "2024-04-09"));
         comments.add(new Comment(10, 10, 10, "Comment 10 on Task 10", "2024-04-10"));
         // Thêm các comment còn lại theo cách tương tự...
+
+
+        projectUsers.add(new ProjectUser(1,1,"Admin"));
+        projectUsers.add(new ProjectUser(1,2,"Member"));
+        projectUsers.add(new ProjectUser(1,3,"Member"));
+        projectUsers.add(new ProjectUser(1,4,"Member"));
+        projectUsers.add(new ProjectUser(2,1,"Admin"));
+        projectUsers.add(new ProjectUser(3,1,"Member"));
+        projectUsers.add(new ProjectUser(3,2,"Member"));
     }
 
 
@@ -112,7 +123,7 @@ public class Data {
         return comments.stream().filter(comment -> comment.getTaskId() == taskId).collect(Collectors.toList());
     }
 
-    public boolean updateTaskStatus(int taskId, String newStatus) {
+    public boolean updateTaskStatus(int taskId, StatusType newStatus) {
         Task task = tasks.stream().filter(t -> t.getTaskId() == taskId).findFirst().orElse(null);
         if (task != null) {
             task.setStatus(newStatus);

@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
 import com.example.qlda.Data.Project;
+import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
 import com.example.qlda.R;
 
@@ -59,6 +60,18 @@ public class WorkSpaceFragment extends Fragment {
         if (getArguments() != null) {
             project = (Project) getArguments().getSerializable(ARG_Project);
         }
+
+//        getParentFragmentManager().setFragmentResultListener("ISSUE", this, (requestKey, result) -> {
+//            if ("ISSUE".equals(requestKey)) {
+//                Task task = (Task) result.getSerializable("ARG_ISSUE");
+//                if (task != null) {
+//                    // Gọi hàm để cập nhật UI hoặc xử lý logic
+////                    updateUI(task);
+//                    MyCustomLog.DebugLog("WORKSPACE FRAGMENT", "FRAGMENT on create 2");
+//                }
+//            }
+//        });
+
     }
 
     @Override
@@ -66,6 +79,8 @@ public class WorkSpaceFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.inflater = inflater;
         View view = inflater.inflate(R.layout.screen_workspace, container, false);
+
+        MyCustomLog.DebugLog("WORKSPACE FRAGMENT", "FRAGMENT onCreateView");
 
         // need get from passing data
         int projectID = project.getProjectId();
@@ -152,13 +167,13 @@ public class WorkSpaceFragment extends Fragment {
 
         List<Task> tasks = Data.getInstance().getTasksByProjectId(projectID);
         for (int i = 0; i < tasks.size(); i++) {
-            if(Objects.equals(tasks.get(i).getStatus(), "Todo")){
+            if(Objects.equals(tasks.get(i).getStatus(), StatusType.Todo)){
                 CreateElement(wl_content_scroll1, tasks.get(i));
             }
-            else if(Objects.equals(tasks.get(i).getStatus(), "InProgress")){
+            else if(Objects.equals(tasks.get(i).getStatus(), StatusType.InProgress)){
                 CreateElement(wl_content_scroll2, tasks.get(i));
             }
-            else if(Objects.equals(tasks.get(i).getStatus(), "Done")){
+            else if(Objects.equals(tasks.get(i).getStatus(), StatusType.Done)){
                 CreateElement(wl_content_scroll3, tasks.get(i));
             }
         }

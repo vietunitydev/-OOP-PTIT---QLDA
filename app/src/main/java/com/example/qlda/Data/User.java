@@ -3,13 +3,13 @@ package com.example.qlda.Data;
 import java.io.Serializable;
 
 public class User implements Serializable  {
-    private int userId;
-    private String fullName;
-    private String email;
-    private String password;
-    private String role; // Admin, Member, Client
-    private int avatarID;
-    private String createdAt;
+        private int userId;
+        private String fullName;
+        private String email;
+        private String password;
+        private String role; // Admin, Member, Client
+        private int avatarID;
+        private String createdAt;
 
     // Constructor
     public User(int userId, String fullName, String email, String password, String role, int avatarID ,String createdAt) {

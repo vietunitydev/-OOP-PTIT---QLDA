@@ -9,26 +9,27 @@ public class Task implements Serializable  {
     private int assignedTo;
     private int reporter;
     private int projectId;
-    private String taskType; // story, bug, task
-    private String priority; // Low, Medium, High
-    private String status; // Todo, InProgress, Done
-    private String dueDate;
+    private TaskType taskType; // story, bug, task
+    private Priority priority; // Low, Medium, High
+    private StatusType status; // Todo, InProgress, Done
+    private String createDate;
+    private String updatedDate;
 
     public Task() {
 
     }
     // Constructor
-    public Task(int taskId, String taskName, String description, int assignedTo, int projectId, String taskType, String priority, String status, String dueDate) {
+    public Task(int taskId, String taskName, String description, int reporter,int assignedTo, int projectId, TaskType taskType, Priority priority, StatusType status, String dueDate) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.description = description;
         this.assignedTo = assignedTo;
-        this.reporter = 3;
+        this.reporter = reporter;
         this.projectId = projectId;
         this.taskType = taskType;
         this.priority = priority;
         this.status = status;
-        this.dueDate = dueDate;
+        this.updatedDate = dueDate;
     }
 
     // Getters and Setters
@@ -47,22 +48,7 @@ public class Task implements Serializable  {
     public int getProjectId() { return projectId; }
     public void setProjectId(int projectId) { this.projectId = projectId; }
 
-    public String getPriority() { return priority; }
-    public void setPriority(String priority) { this.priority = priority; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-
-    public String getDueDate() { return dueDate; }
-    public void setDueDate(String dueDate) { this.dueDate = dueDate; }
-
-    public String getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(String taskType) {
-        this.taskType = taskType;
-    }
 
     public int getReporter() {
         return reporter;
@@ -70,5 +56,37 @@ public class Task implements Serializable  {
 
     public void setReporter(int reporter) {
         this.reporter = reporter;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public StatusType getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusType status) {
+        this.status = status;
+    }
+
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }

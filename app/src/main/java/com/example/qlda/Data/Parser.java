@@ -65,18 +65,8 @@ public class Parser {
      * @param taskType kiểu nhiệm vụ
      * @return resource ID hoặc -1 nếu không tìm thấy
      */
-    public static int getTaskTypeResource(String taskType) {
-        TaskType type = TaskType.None;
-        if(Objects.equals(taskType,"Task")){
-            type = TaskType.Task;
-        }
-        if(Objects.equals(taskType,"Story")){
-            type = TaskType.Story;
-        }
-        if(Objects.equals(taskType,"Bug")){
-            type = TaskType.Bug;
-        }
-        return TASK_TYPE_MAP.getOrDefault(type, -1);
+    public static int getTaskTypeResource(TaskType taskType) {
+        return TASK_TYPE_MAP.getOrDefault(taskType, -1);
     }
 
     /**
