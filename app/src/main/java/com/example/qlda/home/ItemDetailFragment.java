@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.core.content.ContextCompat;
@@ -72,7 +74,8 @@ public class ItemDetailFragment extends Fragment {
     private void setupItemDetail(LayoutInflater inflater) {
         // container chứa view của các page mình cần show
         setupBackButton();
-        setupDeleteTask();
+        setupSettingButton();
+//        showPopupMenu(view);
         setupTaskName();
         setupIssueStatus();
         setupDescription(true);
@@ -88,15 +91,32 @@ public class ItemDetailFragment extends Fragment {
             backToPageListScreen();
         });
     }
-    private void setupDeleteTask(){
-        ImageView deleteTaskButton = view.findViewById(R.id.imgBtnDotIssue);
-        deleteTaskButton.setOnClickListener(view -> {
-            showDeleteTaskDialog(getContext(), task.getTaskName(), () -> {
-//                deleteTask(taskId);
-                MyCustomLog.Toast(getContext(), "Task đã được xóa");
+    private void setupSettingButton(){
+        ImageView imgBtnDotIssue = view.findViewById(R.id.imgBtnDotIssue);
+        imgBtnDotIssue.setOnClickListener(v -> {
+            View popupView = LayoutInflater.from(getContext()).inflate(R.layout.menu_task_options, null);
+
+            PopupWindow popupWindow = new PopupWindow(popupView,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true);
+
+            popupView.findViewById(R.id.deleteTask).setOnClickListener(v1 -> {
+                popupWindow.dismiss();
+                showDeleteTaskDialog(getContext(), task.getTaskName(), () -> {
+                    Toast.makeText(getContext(), "Task đã bị xóa", Toast.LENGTH_SHORT).show();
+                    // delete on database
+                    // backToPageListScreen();
+                });
             });
+
+            popupView.findViewById(R.id.viewDetails).setOnClickListener(v1 -> {
+                popupWindow.dismiss();
+                Toast.makeText(getContext(), "Xem chi tiết Task", Toast.LENGTH_SHORT).show();
+            });
+
+            popupWindow.showAsDropDown(imgBtnDotIssue, -imgBtnDotIssue.getWidth(), 0);
         });
-//        backToPageListScreen();
     }
 
     private void setupTaskName(){
