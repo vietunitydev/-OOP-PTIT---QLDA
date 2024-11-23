@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="20dp">
 
     <!-- Time Header -->
     <TextView
         android:id="@+id/sectionTimeHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:paddingHorizontal="20dp"
         android:paddingBottom="5dp"
-        android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textColor="@color/gray_3"
         android:background="@color/gains_boro"
         />
 
@@ -23,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/rounded_background">
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/white">
         <!-- Project items will be dynamically added here -->
     </LinearLayout>
 

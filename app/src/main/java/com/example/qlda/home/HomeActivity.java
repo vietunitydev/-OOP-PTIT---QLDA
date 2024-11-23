@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         fetchUserProject();
         setupCreateProject();
         setupShowUserInfo();
+        setupSearchProjectByName();
 
         setupScreenIssueDetail();
     }
@@ -139,19 +140,11 @@ public class HomeActivity extends AppCompatActivity {
 
 //                FireStoreHelper fs = new FireStoreHelper();
                 MyCustomLog.Toast(this,"Click Add Table Button");
-//                TableData newTable = new TableData("table-id-" + fs.getNewIDTable(),projectName, "#AAAAAA", new Date());
-//                WorkListPageData newPage = new WorkListPageData("page-id-" + fs.getNewIDTable(),newTable.getId(),"New Page List",new Date());
-//                newTable.addWorkListPage(newPage);
 
-                Project newProject = new Project(20, "Game Development", "Description 4", "2024-05-01", "2024-11-30", "Ongoing", 1);
+                Project newProject = Data.getInstance().createProject(projectName,"","","","",2);
                 createButton(newProject);
 
-                // add vao APPDATA
-//                AppData.addTable(newTable);
-//                MyCustomLog.DebugLog("Debug DATA", AppData.convertToJson(AppData.Tables));
-
                 curBottomDialog.dismiss();
-                updateUI();
             });
 
         });
@@ -257,15 +250,6 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUI(){
-//        tables = AppData.Tables;
-//        viewContainer.removeAllViews();
-//        // ve lai
-//        for (TableData data : tables) {
-//            createButton(data);
-//        }
-    }
-
     private void loadFragment(Fragment fragment ) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
@@ -274,7 +258,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void goBackToPreviousFragment() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            updateUI();
             getSupportFragmentManager().popBackStack();
         } else {
             // out activity
@@ -295,13 +278,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupScreenIssueDetail() {
-
         setupShowUserInfoIssue();
         searchIssue();
-        setupSearchProjectByName();
+        setupShowListTask();
+
+    }
+
+    // Hàm tạo issue
 
 
-        // Lấy LinearLayout chứa các dự án
+    private void setupShowListTask(){
         LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
 
         for (TimeGroup timeGroup : getGroupedProjects()) {
@@ -319,6 +305,15 @@ public class HomeActivity extends AppCompatActivity {
             for (Task task : timeGroup.getProjects()) {
                 View itemIssue = LayoutInflater.from(issueView.getContext())
                         .inflate(R.layout.item_issue, projectList, false);
+
+                itemIssue.setOnClickListener(v->{
+                    ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(task);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, contentFragment)
+                            .addToBackStack(null)
+                            .commit();
+//                    loadFragment(contentFragment);
+                });
 
                 TextView item_Issue_txtName = itemIssue.findViewById(R.id.item_Issue_txtName);
                 item_Issue_txtName.setText(task.getTaskName());
@@ -341,9 +336,10 @@ public class HomeActivity extends AppCompatActivity {
             parentLayout.addView(sectionView);
         }
     }
-
-    // Hàm tạo issue
     private void searchIssue() {
+
+    }
+    private void searchCreateTask() {
 
     }
 
