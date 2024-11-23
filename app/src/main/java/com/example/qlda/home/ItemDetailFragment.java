@@ -104,9 +104,12 @@ public class ItemDetailFragment extends Fragment {
             popupView.findViewById(R.id.deleteTask).setOnClickListener(v1 -> {
                 popupWindow.dismiss();
                 showDeleteTaskDialog(getContext(), task.getTaskName(), () -> {
-                    Toast.makeText(getContext(), "Task đã bị xóa", Toast.LENGTH_SHORT).show();
                     // delete on database
-                    // backToPageListScreen();
+                    boolean removed = Data.getInstance().deleteTaskById(task.getTaskId());
+                    if(removed){
+                        Toast.makeText(getContext(), "Task đã bị xóa", Toast.LENGTH_SHORT).show();
+                        backToPageListScreen();
+                    }
                 });
             });
 

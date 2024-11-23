@@ -147,7 +147,17 @@ public class Data {
     public boolean deleteProjectById(int projectId) {
         boolean removed = projects.removeIf(project -> project.getProjectId() == projectId);
         if (removed) {
+            projectIdCounter--;
             tasks.removeIf(task -> task.getProjectId() == projectId);
+        }
+        return removed;
+    }
+
+    public boolean deleteTaskById(int taskId) {
+        boolean removed = tasks.removeIf(task -> task.getTaskId() == taskId);
+        if (removed) {
+            taskIdCounter--;
+            comments.removeIf(cmt -> cmt.getTaskId() == taskId);
         }
         return removed;
     }
