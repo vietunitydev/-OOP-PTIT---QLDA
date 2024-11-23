@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,10 +19,14 @@ import com.example.qlda.R;
 
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.Data;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class DetailIssue extends AppCompatActivity {
     private static Data data = Data.getInstance();
     private static Task task;
+
+    private BottomSheetDialog curBottomDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,44 +71,78 @@ public class DetailIssue extends AppCompatActivity {
         }
     }
 
-    private void updateStatusIssue(){
+//    private void updateStatusIssue(){
+//        ImageButton imgBtnListStatus = (ImageButton) findViewById(R.id.imgBtnListStatus);
+//        LinearLayout status = (LinearLayout) findViewById(R.id.status);
+//        imgBtnListStatus.setOnClickListener(v ->{
+//            View menuView = LayoutInflater.from(this).inflate(R.layout.item_status_issue_menu, null);
+//
+//            PopupWindow popupWindow = new PopupWindow(
+//                    menuView,
+//                    FrameLayout.LayoutParams.WRAP_CONTENT,
+//                    FrameLayout.LayoutParams.WRAP_CONTENT,
+//                    true
+//            );
+//            popupWindow.showAsDropDown(status);
+//
+//            menuView.findViewById(R.id.btnStatusDone).setOnClickListener(t ->{
+//                TextView txtStatusIssue = (TextView) findViewById(R.id.txtStatusIssue);
+//                txtStatusIssue.setText("Done");
+//
+//                status.setBackgroundResource(R.drawable.rounded_background_green);
+//
+//                task.setStatus("Done");
+//
+//                popupWindow.dismiss();
+//            });
+//
+//            menuView.findViewById(R.id.btnStatusInprogess).setOnClickListener(t ->{
+//                TextView txtStatusIssue = (TextView) findViewById(R.id.txtStatusIssue);
+//                txtStatusIssue.setText("In Progress");
+//
+//                status.setBackgroundResource(R.drawable.rounded_background_blue);
+//
+//                task.setStatus("In Progress");
+//
+//                popupWindow.dismiss();
+//            });
+//        });
+//    }
+    private void updateStatusIssue() {
         ImageButton imgBtnListStatus = (ImageButton) findViewById(R.id.imgBtnListStatus);
         LinearLayout status = (LinearLayout) findViewById(R.id.status);
-        imgBtnListStatus.setOnClickListener(v ->{
-            View menuView = LayoutInflater.from(this).inflate(R.layout.item_status_issue_menu, null);
 
-            PopupWindow popupWindow = new PopupWindow(
-                    menuView,
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    true
-            );
-            popupWindow.showAsDropDown(status);
+        imgBtnListStatus.setOnClickListener(v -> {
+            View view = showBottomSheetDialog(R.layout.item_status_issue_menu);
 
-            menuView.findViewById(R.id.btnStatusDone).setOnClickListener(t ->{
+            // Update status and background color within click listeners
+            view.findViewById(R.id.btnStatusDone).setOnClickListener(t -> {
                 TextView txtStatusIssue = (TextView) findViewById(R.id.txtStatusIssue);
                 txtStatusIssue.setText("Done");
-
                 status.setBackgroundResource(R.drawable.rounded_background_green);
-
                 task.setStatus("Done");
 
-                popupWindow.dismiss();
             });
 
-            menuView.findViewById(R.id.btnStatusInprogress).setOnClickListener(t ->{
+            view.findViewById(R.id.btnStatusInprogess).setOnClickListener(t -> {
                 TextView txtStatusIssue = (TextView) findViewById(R.id.txtStatusIssue);
                 txtStatusIssue.setText("In Progress");
-
                 status.setBackgroundResource(R.drawable.rounded_background_blue);
-
                 task.setStatus("In Progress");
 
-                popupWindow.dismiss();
             });
         });
     }
-
+    private View showBottomSheetDialog(@LayoutRes int resource) {
+        // Khởi tạo BottomSheetDialog
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        curBottomDialog = bottomSheetDialog;
+        // Nạp layout cho BottomSheetDialog
+        View bottomSheetView = getLayoutInflater().inflate(resource, null);
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+        return bottomSheetView;
+    }
     private void deleteIssue(){
         ImageButton imgBtnDotIssue = (ImageButton) findViewById(R.id.imgBtnDotIssue);
 

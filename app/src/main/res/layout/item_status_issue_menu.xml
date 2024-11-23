@@ -1,32 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="150dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="-2dp"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_2">
 
+    <!-- Header with close button -->
+
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_image"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Create Issue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        tools:ignore="NotSibling" />
     <Button
         android:id="@+id/btnStatusDone"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:text="Done"
-        android:gravity="center"
-        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text"
+        android:padding="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/green"
-        android:textSize="18dp"
-        android:layout_gravity="start"
-        android:layout_marginBottom="-5dp"/>
+        android:text="Done"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF" />
     <Button
-        android:id="@+id/btnStatusInprogress"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:text="In Progress"
-        android:gravity="center"
-        android:textColor="@android:color/white"
+        android:id="@+id/btnStatusInprogess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnStatusDone"
+        android:padding="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/blue_1"
-        android:textSize="18dp"
-        android:layout_gravity="start"/>
-
-</LinearLayout>
+        android:text="In Progess"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF" />
+</RelativeLayout>
