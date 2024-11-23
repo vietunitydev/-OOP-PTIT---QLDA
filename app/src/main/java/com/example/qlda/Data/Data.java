@@ -355,6 +355,9 @@ public class Data {
     public List<User> getAllUsers() {
         return users;
     }
+    public List<Task> getAllTasks() {
+        return tasks;
+    }
 
     public void printAllData() {
         System.out.println("Users:");

@@ -31,8 +31,14 @@ import com.example.qlda.R;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
@@ -62,11 +68,8 @@ public class HomeActivity extends AppCompatActivity {
         fetchUserProject();
         setupCreateProject();
         setupShowUserInfo();
-        setupCreateIssue();
+
         setupScreenIssueDetail();
-        searchIssue();
-        setupShowUserInfoIssue();
-        setupSearchProjectByName();
     }
 
     // add function show for 3 button
@@ -181,72 +184,76 @@ public class HomeActivity extends AppCompatActivity {
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
 //            MyCustomLog.Toast(this,"Show user info");
-            View view = showBottomSheetDialog(R.layout.screen_user);
+            showUserInfo();
+        });
+    }
 
-            ImageView img = view.findViewById(R.id.user_user_img);
-            img.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
+    private void showUserInfo(){
+        View view = showBottomSheetDialog(R.layout.screen_user);
 
-            TextView name = view.findViewById(R.id.username);
-            TextView mail = view.findViewById(R.id.email);
+        ImageView img = view.findViewById(R.id.user_user_img);
+        img.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
 
-            User userData = Data.currentUser;
+        TextView name = view.findViewById(R.id.username);
+        TextView mail = view.findViewById(R.id.email);
 
-            name.setText(userData.getFullName());
-            mail.setText(userData.getEmail());
+        User userData = Data.currentUser;
 
-            Button btnSendFeedback = view.findViewById(R.id.btn_send_feedback);
-            Button btnRateUs = view.findViewById(R.id.btn_rate_us);
-            Button btnLogout = view.findViewById(R.id.btn_logout);
-            Button btnDeleteAccount = view.findViewById(R.id.btn_delete_account);
+        name.setText(userData.getFullName());
+        mail.setText(userData.getEmail());
 
-            btnSendFeedback.setOnClickListener(v1 -> {
+        Button btnSendFeedback = view.findViewById(R.id.btn_send_feedback);
+        Button btnRateUs = view.findViewById(R.id.btn_rate_us);
+        Button btnLogout = view.findViewById(R.id.btn_logout);
+        Button btnDeleteAccount = view.findViewById(R.id.btn_delete_account);
 
+        btnSendFeedback.setOnClickListener(v1 -> {
+
+        });
+
+        btnRateUs.setOnClickListener(v12 -> {
+
+        });
+
+        btnLogout.setOnClickListener(v13 -> {
+            // logout tài khoản hiện tại đang dùng
+            // clear hết pref đã lưu
+            // clear hết data đang dùng
+            // quay về sign in/ sign up
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        btnDeleteAccount.setOnClickListener(v14 -> {
+            // hỏi lại lần nữa là có muốn xoá accoutn không
+            // sau đó nhập mật khẩu để xác nhận
+            // gửi lên server là xoá account này
+            // sau đó quay về màn hình sign in/sign up
+
+            View deleteScreen = showBottomSheetDialog(R.layout.buttomdialog_deleteaccount);
+
+            TextView tvName = deleteScreen.findViewById(R.id.tvName);
+            TextView tvMail = deleteScreen.findViewById(R.id.tvEmail);
+            ImageButton close = deleteScreen.findViewById(R.id.btnClose);
+            Button delete = deleteScreen.findViewById(R.id.btnDelete);
+
+            tvName.setText(userData.getFullName());
+            tvMail.setText(userData.getEmail());
+
+            close.setOnClickListener(v141 -> {
+                // delete
+                curBottomDialog.dismiss();
             });
 
-            btnRateUs.setOnClickListener(v12 -> {
+            delete.setOnClickListener(v142 -> {
+                // delete
 
-            });
-
-            btnLogout.setOnClickListener(v13 -> {
-                // logout tài khoản hiện tại đang dùng
-                // clear hết pref đã lưu
-                // clear hết data đang dùng
-                // quay về sign in/ sign up
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             });
 
-            btnDeleteAccount.setOnClickListener(v14 -> {
-                // hỏi lại lần nữa là có muốn xoá accoutn không
-                // sau đó nhập mật khẩu để xác nhận
-                // gửi lên server là xoá account này
-                // sau đó quay về màn hình sign in/sign up
-
-                View deleteScreen = showBottomSheetDialog(R.layout.buttomdialog_deleteaccount);
-
-                TextView tvName = deleteScreen.findViewById(R.id.tvName);
-                TextView tvMail = deleteScreen.findViewById(R.id.tvEmail);
-                ImageButton close = deleteScreen.findViewById(R.id.btnClose);
-                Button delete = deleteScreen.findViewById(R.id.btnDelete);
-
-                tvName.setText(userData.getFullName());
-                tvMail.setText(userData.getEmail());
-
-                close.setOnClickListener(v141 -> {
-                    // delete
-                    curBottomDialog.dismiss();
-                });
-
-                delete.setOnClickListener(v142 -> {
-                    // delete
-
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                });
-
-            });
         });
     }
 
@@ -282,230 +289,139 @@ public class HomeActivity extends AppCompatActivity {
         // Nạp layout cho BottomSheetDialog
         View bottomSheetView = getLayoutInflater().inflate(resource, null);
         bottomSheetDialog.setContentView(bottomSheetView);
-
-//        // Ánh xạ các view trong bottom sheet nếu cần xử lý sự kiện
-//        Button btnProfile = bottomSheetView.findViewById(R.id.btnProfile);
-//        Button btnSettings = bottomSheetView.findViewById(R.id.btnSettings);
-//        Button btnLogout = bottomSheetView.findViewById(R.id.btnLogout);
-//
-//        // Xử lý sự kiện khi bấm các nút trong Bottom Sheet
-//        btnProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Thực hiện hành động khi nhấn vào "View Profile"
-//                // Đóng BottomSheetDialog
-//                bottomSheetDialog.dismiss();
-//            }
-//        });
-//
-//        btnSettings.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Thực hiện hành động khi nhấn vào "Settings"
-//                // Đóng BottomSheetDialog
-//                bottomSheetDialog.dismiss();
-//            }
-//        });
-//
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Thực hiện hành động khi nhấn vào "Logout"
-//                // Đóng BottomSheetDialog
-//                bottomSheetDialog.dismiss();
-//            }
-//        });
-
         // Hiển thị Bottom Sheet
         bottomSheetDialog.show();
         return bottomSheetView;
     }
 
-
-
-    // Code của Hải
-
-    //Giao diện hiện thị các issue theo mốc thời gian
-
-    // Hàm lấy một số ví dụ các Issue qua từng mốc thời gian
-    private List<TimeGroup> getGroupedProjects() {
-        List<TimeGroup> timeGroups = new ArrayList<>();
-
-        // Dự liệu mẫu của các dự án
-//        List<Task> todayTask = new ArrayList<>();
-//        todayTask.add(new Task(1, "Project A", "Description A", 1 , 1, TaskType.Task, Priority.Low, StatusType.Todo,"2024-11-19"));
-//        todayTask.add(new Task(2, "Project B", "Description B", 2 , 2, TaskType.Task,Priority.Low, StatusType.Todo,"2024-11-19"));
-//
-//        List<Task> yesterdayTask = new ArrayList<>();
-//        yesterdayTask.add(new Task(3, "Project C", "Description C", 3 , 3, TaskType.Task,Priority.Low, StatusType.Todo,"2024-11-18"));
-//
-//        List<Task> olderTask = new ArrayList<>();
-//        olderTask.add(new Task(4, "Project D", "Description D", 4 , 4, TaskType.Task,Priority.Low, StatusType.Todo,"2024-11-10"));
-//
-//        // Thêm các nhóm vào danh sách
-//        timeGroups.add(new TimeGroup("Hôm nay", todayTask));
-//        timeGroups.add(new TimeGroup("Hôm qua", yesterdayTask));
-//        timeGroups.add(new TimeGroup("Cũ hơn", olderTask));
-
-        return timeGroups;
-    }
     private void setupScreenIssueDetail() {
+
+        setupShowUserInfoIssue();
+        searchIssue();
+        setupSearchProjectByName();
+
+
         // Lấy LinearLayout chứa các dự án
         LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
 
-        // Lấy các nhóm dự án phân theo thời gian
-        List<TimeGroup> timeGroups = getGroupedProjects();
-
-        // Kiểm tra nếu danh sách nhóm rỗng hoặc null
-        if (timeGroups == null || timeGroups.isEmpty()) {
-            return;
-        }
-
-        // Duyệt qua từng nhóm thời gian và thêm chúng vào giao diện
-        for (TimeGroup timeGroup : timeGroups) {
-            // Nếu không có dự án nào trong nhóm này, bỏ qua nhóm đó
+        for (TimeGroup timeGroup : getGroupedProjects()) {
             if (timeGroup.getProjects() == null || timeGroup.getProjects().isEmpty()) {
                 continue;
             }
 
-            // Inflate layout cho từng nhóm thời gian
             View sectionView = LayoutInflater.from(issueView.getContext())
                     .inflate(R.layout.item_time_section, parentLayout, false);
 
-            // Cập nhật tiêu đề nhóm thời gian
             TextView timeHeader = sectionView.findViewById(R.id.sectionTimeHeader);
             timeHeader.setText(timeGroup.getTimeLabel());
 
-            // Thêm các dự án vào nhóm thời gian
             LinearLayout projectList = sectionView.findViewById(R.id.projectList);
             for (Task task : timeGroup.getProjects()) {
                 View itemIssue = LayoutInflater.from(issueView.getContext())
                         .inflate(R.layout.item_issue, projectList, false);
 
-                // Thêm dữ liệu vào item issue
                 TextView item_Issue_txtName = itemIssue.findViewById(R.id.item_Issue_txtName);
-                item_Issue_txtName.setText(String.valueOf(task.getTaskId()));
+                item_Issue_txtName.setText(task.getTaskName());
 
-                TextView item_Issue_itemName = itemIssue.findViewById(R.id.item_Issue_itemName);
-                item_Issue_itemName.setText(task.getTaskName());
+                ImageView item_Issue_img = itemIssue.findViewById(R.id.item_Issue_img);
+                item_Issue_img.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
+
+                ImageView avt_priority = itemIssue.findViewById(R.id.avt_priority);
+                avt_priority.setBackgroundResource(Parser.getPriorityTypeResource(task.getPriority()));
+
+                ImageView avt_assignee = itemIssue.findViewById(R.id.avt_assignee);
+                avt_assignee.setBackgroundResource(Parser.getAvatarResource(task.getAssignedTo()));
 
                 TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
                 item_Issue_Status.setText(task.getStatus().toString());
 
-                Button custom_table_btn = itemIssue.findViewById(R.id.custom_table_btn);
-
-                // Xử lý sự kiện khi nhấn vào dự án
-                custom_table_btn.setOnClickListener(v -> {
-                    Intent intent = new Intent(HomeActivity.this, DetailIssue.class);
-                    startActivity(intent);
-                });
-
                 projectList.addView(itemIssue);
             }
 
-            // Thêm nhóm thời gian vào layout cha
             parentLayout.addView(sectionView);
         }
     }
 
     // Hàm tạo issue
-
-    private void setupCreateIssue(){
-        ImageButton imgBtnAddIssue = issueView.findViewById(R.id.imgBtnAddIssues);
-
-        imgBtnAddIssue.setOnClickListener(v -> {
-            View view = showBottomSheetDialog(R.layout.screen_create_issue);
-        });
-    }
     private void searchIssue() {
-        ImageButton imgBtnSearch = issueView.findViewById(R.id.imgBtnSearch);
-        EditText edtSearch = issueView.findViewById(R.id.edtSearch);
 
-        imgBtnSearch.setOnClickListener(v -> {
-            if (edtSearch.getVisibility() == View.GONE) {
-                edtSearch.setVisibility(View.VISIBLE);
+    }
+
+    private List<TimeGroup> getGroupedProjects() {
+        List<TimeGroup> timeGroups = new ArrayList<>();
+
+        List<Task> projectTask = Data.getInstance().getAllTasks();
+
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+        LocalDate startOfThisWeek = today.with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 1);
+        LocalDate endOfThisWeek = today.with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 7);
+        LocalDate startOfLastWeek = startOfThisWeek.minusWeeks(1);
+        LocalDate endOfLastWeek = endOfThisWeek.minusWeeks(1);
+        LocalDate startOfThisMonth = today.withDayOfMonth(1);
+
+        List<Task> todayTasks = new ArrayList<>();
+        List<Task> yesterdayTasks = new ArrayList<>();
+        List<Task> thisWeekTasks = new ArrayList<>();
+        List<Task> lastWeekTasks = new ArrayList<>();
+        List<Task> thisMonthTasks = new ArrayList<>();
+        Map<String, List<Task>> otherMonthTasks = new HashMap<>();
+
+        // Phân loại task theo thời gian
+        for (Task task : projectTask) {
+            LocalDate taskDate = task.getCreateDateAsLocalDate();
+
+            if (taskDate.equals(today)) {
+                todayTasks.add(task);
+            } else if (taskDate.equals(yesterday)) {
+                yesterdayTasks.add(task);
+            } else if (!taskDate.isBefore(startOfThisWeek) && !taskDate.isAfter(endOfThisWeek)) {
+                thisWeekTasks.add(task);
+            } else if (!taskDate.isBefore(startOfLastWeek) && !taskDate.isAfter(endOfLastWeek)) {
+                lastWeekTasks.add(task);
+            } else if (!taskDate.isBefore(startOfThisMonth)) {
+                thisMonthTasks.add(task);
             } else {
-                edtSearch.setVisibility(View.GONE);
+                Month taskMonth = taskDate.getMonth();
+                int taskYear = taskDate.getYear();
+                String monthLabel = taskMonth + " " + taskYear;
+                otherMonthTasks.putIfAbsent(monthLabel, new ArrayList<>());
+                otherMonthTasks.get(monthLabel).add(task);
             }
-        });
+        }
 
-        // Thêm logic để ẩn EditText khi nhấn ra ngoài
-        issueView.setOnTouchListener((v, event) -> {
-            if (edtSearch.getVisibility() == View.VISIBLE) {
-                edtSearch.setVisibility(View.GONE);
+        // Thêm các nhóm thời gian vào danh sách kết quả nếu có task
+        if (!todayTasks.isEmpty()) {
+            timeGroups.add(new TimeGroup("Today", todayTasks));
+        }
+        if (!yesterdayTasks.isEmpty()) {
+            timeGroups.add(new TimeGroup("Yesterday", yesterdayTasks));
+        }
+        if (!thisWeekTasks.isEmpty()) {
+            timeGroups.add(new TimeGroup("This Week", thisWeekTasks));
+        }
+        if (!lastWeekTasks.isEmpty()) {
+            timeGroups.add(new TimeGroup("Last Week", lastWeekTasks));
+        }
+        if (!thisMonthTasks.isEmpty()) {
+            timeGroups.add(new TimeGroup("This Month", thisMonthTasks));
+        }
+
+        for (Map.Entry<String, List<Task>> entry : otherMonthTasks.entrySet()) {
+            if (!entry.getValue().isEmpty()) {
+                timeGroups.add(new TimeGroup(entry.getKey(), entry.getValue()));
             }
-            return false;
-        });
+        }
+
+        return timeGroups;
     }
     private void setupShowUserInfoIssue(){
-        ImageButton showUserInfo = issueView.findViewById(R.id.btn_show_user_info);
+        FrameLayout showUserInfo = issueView.findViewById(R.id.btn_info);
+        ImageView imageView = issueView.findViewById(R.id.img_show_user_info);
+        imageView.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
         // Add new button on click
         showUserInfo.setOnClickListener(v -> {
-//            MyCustomLog.Toast(this,"Show user info");
-            View view = showBottomSheetDialog(R.layout.screen_user);
-
-//            int id_user = user.getUserId();
-
-            TextView name = view.findViewById(R.id.username);
-            TextView mail = view.findViewById(R.id.email);
-
-            User userData = Data.currentUser;
-
-            name.setText(userData.getFullName());
-            mail.setText(userData.getEmail());
-
-            Button btnSendFeedback = view.findViewById(R.id.btn_send_feedback);
-            Button btnRateUs = view.findViewById(R.id.btn_rate_us);
-            Button btnLogout = view.findViewById(R.id.btn_logout);
-            Button btnDeleteAccount = view.findViewById(R.id.btn_delete_account);
-
-            btnSendFeedback.setOnClickListener(v1 -> {
-
-            });
-
-            btnRateUs.setOnClickListener(v12 -> {
-
-            });
-
-            btnLogout.setOnClickListener(v13 -> {
-                // logout tài khoản hiện tại đang dùng
-                // clear hết pref đã lưu
-                // clear hết data đang dùng
-                // quay về sign in/ sign up
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            });
-
-            btnDeleteAccount.setOnClickListener(v14 -> {
-                // hỏi lại lần nữa là có muốn xoá accoutn không
-                // sau đó nhập mật khẩu để xác nhận
-                // gửi lên server là xoá account này
-                // sau đó quay về màn hình sign in/sign up
-
-                View deleteScreen = showBottomSheetDialog(R.layout.buttomdialog_deleteaccount);
-
-                TextView tvName = deleteScreen.findViewById(R.id.tvName);
-                TextView tvMail = deleteScreen.findViewById(R.id.tvEmail);
-                ImageButton close = deleteScreen.findViewById(R.id.btnClose);
-                Button delete = deleteScreen.findViewById(R.id.btnDelete);
-
-                tvName.setText(userData.getFullName());
-                tvMail.setText(userData.getEmail());
-
-                close.setOnClickListener(v141 -> {
-                    // delete
-                    curBottomDialog.dismiss();
-                });
-
-                delete.setOnClickListener(v142 -> {
-                    // delete
-
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                });
-            });
+            showUserInfo();
         });
     }
 

@@ -1,6 +1,8 @@
 package com.example.qlda.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Task implements Serializable  {
@@ -113,6 +115,11 @@ public class Task implements Serializable  {
 
     public String getCreateDate() {
         return createDate;
+    }
+
+    public LocalDate getCreateDateAsLocalDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(createDate, formatter);
     }
 
     public void setCreateDate(String createDate) {

@@ -55,7 +55,7 @@ public class Parser {
         if (id >= 0 && id < AVATAR_RESOURCES.length) {
             return AVATAR_RESOURCES[id];
         } else {
-            return -1;
+            return  AVATAR_RESOURCES[clamp(1,AVATAR_RESOURCES.length-1, id)];
         }
     }
 
@@ -87,6 +87,16 @@ public class Parser {
      */
     public static int getStatusTypeResource(StatusType statusType) {
         return STATUS_TYPE_MAP.getOrDefault(statusType, -1);
+    }
+
+    public static int clamp(int a, int max, int b) {
+        if (b < a) {
+            return a;
+        }
+        if (b > max) {
+            return max;
+        }
+        return b;
     }
 }
 
