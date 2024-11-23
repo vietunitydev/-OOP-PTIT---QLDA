@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +28,8 @@ import com.example.qlda.Data.Task;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import org.w3c.dom.Text;
 
 import java.util.Date;
 import java.util.List;
@@ -71,7 +74,7 @@ public class ItemDetailFragment extends Fragment {
         setupBackButton();
         setupTaskName();
         setupIssueStatus();
-        setupDescription();
+        setupDescription(true);
         setupDetail(true);
         setupFields();
         setupComment();
@@ -165,20 +168,45 @@ public class ItemDetailFragment extends Fragment {
         });
 
     }
-    private void setupDescription(){
+    private void setupDescription(boolean isReset){
         Button btnIssue = view.findViewById(R.id.btnDesIssue);
         TextView textDescription = view.findViewById(R.id.textContentDescription);
-        textDescription.setVisibility(View.GONE);
-        btnIssue.setOnClickListener(v -> {
-            if(textDescription.getVisibility() == View.VISIBLE){
-                textDescription.setVisibility(View.GONE);
-            }
-            else if(textDescription.getVisibility() == View.GONE){
+        textDescription.setText(task.getDescription());
 
-                textDescription.setVisibility(View.VISIBLE);
-                textDescription.setText(task.getDescription());
-            }
-        });
+        if(isReset){
+            textDescription.setVisibility(View.GONE);
+
+            btnIssue.setOnClickListener(v -> {
+                if(textDescription.getVisibility() == View.VISIBLE){
+                    textDescription.setVisibility(View.GONE);
+                }
+                else if(textDescription.getVisibility() == View.GONE){
+
+                    textDescription.setVisibility(View.VISIBLE);
+                }
+            });
+
+
+            textDescription.setOnClickListener(v->{
+                View editView = showBottomSheetDialog(R.layout.bottomdialog_edittext);
+
+                EditText editText = editView.findViewById(R.id.text_editText);
+                editText.setText(task.getDescription());
+                editText.requestFocus();
+
+                ImageButton backButtonEditText = editView.findViewById(R.id.backButtonEditText);
+                backButtonEditText.setOnClickListener(v11->{
+                    curBottomDialog.dismiss();
+                });
+
+                TextView imgBtnDoneEditText = editView.findViewById(R.id.imgBtnDoneEditText);
+                imgBtnDoneEditText.setOnClickListener(v12->{
+                    task.setDescription(editText.getText().toString());
+                    setupDescription(false);
+                    curBottomDialog.dismiss();
+                });
+            });
+        }
     }
     private void setupDetail(boolean isReset){
         if(isReset){
