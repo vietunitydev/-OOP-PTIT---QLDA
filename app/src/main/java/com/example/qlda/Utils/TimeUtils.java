@@ -1,5 +1,7 @@
 package com.example.qlda.Utils;
 
+import com.example.qlda.home.MyCustomLog;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -71,5 +73,31 @@ public class TimeUtils {
 
         long years = days / 365;
         return (years == 1) ? "1 năm trước" : years + " năm trước";
+    }
+
+    public static LocalDateTime stringToLocalDateTime(String dateTimeString, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return LocalDateTime.parse(dateTimeString, formatter);
+    }
+
+    public static String localDateTimeToString(LocalDateTime dateTime, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return dateTime.format(formatter);
+
+//        String dateTimeString = "2024-11-23 14:30:00";
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, formatter);
+//
+//        System.out.println("LocalDateTime: " + localDateTime);
+//
+//        MyCustomLog.DebugLog("LocalDateTime"," " + localDateTime);
+//
+////        LocalDateTime now = LocalDateTime.now();
+//        String formattedDate = localDateTime.format(formatter);
+//
+//        System.out.println("Formatted DateTime: " + formattedDate);
+//
+//        MyCustomLog.DebugLog("LocalDateTime"," " + formattedDate);
     }
 }
