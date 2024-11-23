@@ -392,6 +392,9 @@ public class ItemDetailFragment extends Fragment {
 
             edit_comment.setText("");
             edit_comment.clearFocus();
+
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         });
 
         // show time comment
