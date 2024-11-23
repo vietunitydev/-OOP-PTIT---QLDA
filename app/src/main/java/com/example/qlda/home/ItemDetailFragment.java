@@ -25,6 +25,7 @@ import com.example.qlda.Data.Parser;
 import com.example.qlda.Data.Project;
 import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
+import com.example.qlda.Data.TaskType;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -235,14 +236,34 @@ public class ItemDetailFragment extends Fragment {
 
         LinearLayout taskType = view.findViewById(R.id.btn_tasktype);
         taskType.setOnClickListener(v ->{
-            setupChangeTaskType();
+//            setupChangeTaskType();
+            View changeTaskView = showBottomSheetDialog(R.layout.bottomdialog_changetasktype);
+
+            LinearLayout taskView = changeTaskView.findViewById(R.id.task);
+            taskView.setOnClickListener(v11->{
+                task.setTaskType(TaskType.Task);
+                curBottomDialog.dismiss();
+                setupDetail(false);
+            });
+            LinearLayout bugView = changeTaskView.findViewById(R.id.bug);
+            bugView.setOnClickListener(v11->{
+                task.setTaskType(TaskType.Bug);
+                curBottomDialog.dismiss();
+                setupDetail(false);
+            });
+            LinearLayout storyView = changeTaskView.findViewById(R.id.story);
+            storyView.setOnClickListener(v11->{
+                task.setTaskType(TaskType.Story);
+                curBottomDialog.dismiss();
+                setupDetail(false);
+            });
         });
 
 
         User assign = Data.getInstance().getUserById(task.getAssignedTo());
         ImageView avatar_assignee = view.findViewById(R.id.avatar_assignee);
-        avatar_assignee.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
         TextView name_assignee = view.findViewById(R.id.name_assignee);
+        avatar_assignee.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
         name_assignee.setText(assign.getFullName());
 
         LinearLayout assignee = view.findViewById(R.id.btn_assignee);
@@ -395,7 +416,6 @@ public class ItemDetailFragment extends Fragment {
     }
 
     private void setupChangeTaskType(){
-        View assign = showBottomSheetDialog(R.layout.bottomdialog_changetasktype);
     }
 
     private void backToPageListScreen(){

@@ -28,6 +28,7 @@
             android:layout_gravity="center"/>
 
         <LinearLayout
+            android:id="@+id/task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -66,12 +67,12 @@
             android:layout_gravity="center"/>
 
         <LinearLayout
+            android:id="@+id/bug"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
@@ -105,6 +106,7 @@
             android:layout_gravity="center"/>
 
         <LinearLayout
+            android:id="@+id/story"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">

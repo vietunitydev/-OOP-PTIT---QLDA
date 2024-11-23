@@ -1,6 +1,7 @@
 package com.example.qlda.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Task implements Serializable  {
     private int taskId;
@@ -35,19 +36,34 @@ public class Task implements Serializable  {
 
     // Getters and Setters
     public int getTaskId() { return taskId; }
-    public void setTaskId(int taskId) { this.taskId = taskId; }
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+        setUpdatedDate((new Date()).toString());
+    }
 
     public String getTaskName() { return taskName; }
-    public void setTaskName(String taskName) { this.taskName = taskName; }
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+        setUpdatedDate((new Date()).toString());
+    }
 
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setDescription(String description) {
+        this.description = description;
+        setUpdatedDate((new Date()).toString());
+    }
 
     public int getAssignedTo() { return assignedTo; }
-    public void setAssignedTo(int assignedTo) { this.assignedTo = assignedTo; }
+    public void setAssignedTo(int assignedTo) {
+        this.assignedTo = assignedTo;
+        setUpdatedDate((new Date()).toString());
+    }
 
     public int getProjectId() { return projectId; }
-    public void setProjectId(int projectId) { this.projectId = projectId; }
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+        setUpdatedDate((new Date()).toString());
+    }
 
 
 
@@ -57,6 +73,7 @@ public class Task implements Serializable  {
 
     public void setReporter(int reporter) {
         this.reporter = reporter;
+        setUpdatedDate((new Date()).toString());
     }
 
     public TaskType getTaskType() {
@@ -65,6 +82,7 @@ public class Task implements Serializable  {
 
     public void setTaskType(TaskType taskType) {
         this.taskType = taskType;
+        setUpdatedDate((new Date()).toString());
     }
 
     public Priority getPriority() {
@@ -73,6 +91,7 @@ public class Task implements Serializable  {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+        setUpdatedDate((new Date()).toString());
     }
 
     public StatusType getStatus() {
@@ -81,13 +100,14 @@ public class Task implements Serializable  {
 
     public void setStatus(StatusType status) {
         this.status = status;
+        setUpdatedDate((new Date()).toString());
     }
 
     public String getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(String updatedDate) {
+    private void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
     }
 
@@ -97,5 +117,6 @@ public class Task implements Serializable  {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+        setUpdatedDate((new Date()).toString());
     }
 }
