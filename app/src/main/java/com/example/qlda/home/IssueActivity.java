@@ -44,14 +44,32 @@ public class IssueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
-        viewContainer = findViewById(R.id.viewContainer);
         user = Data.currentUser;
+
+        initializeButtons();
+        setupScreenIssueDetail();
+    }
+
+    public void initializeButtons() {
+        viewContainer = findViewById(R.id.viewContainer);
+
+        Button btnProject = findViewById(R.id.btn_Projects);
+        Button btnNotification = findViewById(R.id.btnNotification);
+
         issueView = getLayoutInflater().inflate(R.layout.issue_dashboard, null);
         viewContainer.removeAllViews();
         viewContainer.addView(issueView);
 
-        setupScreenIssueDetail();
+        btnNotification.setOnClickListener(v -> {
+
+        });
+        btnProject.setOnClickListener(v ->{
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
+
     private void setupScreenIssueDetail() {
         setupShowUserInfoIssue();
         searchIssue();

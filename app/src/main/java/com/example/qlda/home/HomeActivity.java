@@ -54,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
-        viewContainer = findViewById(R.id.viewContainer);
 
         user = Data.currentUser;
 
@@ -68,6 +67,8 @@ public class HomeActivity extends AppCompatActivity {
 
     // add function show for 3 button
     public void initializeButtons() {
+        viewContainer = findViewById(R.id.viewContainer);
+
         Button btnIssue = findViewById(R.id.btn_Issue);
         Button btnNotification = findViewById(R.id.btnNotification);
 
