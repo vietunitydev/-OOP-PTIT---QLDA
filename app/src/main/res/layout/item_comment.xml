@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingVertical="5dp">
 
     <LinearLayout
@@ -11,25 +12,51 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         tools:ignore="MissingConstraints">
+
+        <!-- Avatar Image -->
         <ImageView
             android:id="@+id/img_avatar"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:padding="0dp"/>
+
+        <!-- User Info and Content -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <!-- User Name with Time -->
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/black"
-                android:text="aaaa"/>
+                android:orientation="horizontal"
+                android:gravity="start">
+                <TextView
+                    android:id="@+id/text_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="aaaa"
+                    android:layout_marginStart="10dp"/>
+
+                <!-- Time next to name -->
+                <TextView
+                    android:id="@+id/text_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_3"
+                    android:text="5 minutes ago"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+
+            <!-- Content Text -->
             <TextView
                 android:id="@+id/text_content"
                 android:layout_width="wrap_content"
@@ -40,13 +67,15 @@
                 android:textSize="14sp"
                 android:text="aaaa"/>
         </LinearLayout>
-    </LinearLayout>
 
-<!--    <FrameLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_marginTop="10dp">-->
-<!--    </FrameLayout>-->
+        <ImageView
+            android:id="@+id/img_three_dots"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_dots_horiz"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            app:tint="@color/black"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.qlda.Data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,11 +76,11 @@ public class Data {
         createTask("Task 5", "Details for Task 5", 1, 5, 1, TaskType.Bug, Priority.Low, StatusType.InProgress, "2024-03-01", "2024-03-05");
 
         // Comments
-        createComment(1, 1, "Comment 1 on Task 1", "2024-04-01");
-        createComment(2, 2, "Comment 2 on Task 2", "2024-04-02");
-        createComment(3, 3, "Comment 3 on Task 3", "2024-04-03");
-        createComment(4, 4, "Comment 4 on Task 4", "2024-04-04");
-        createComment(5, 5, "Comment 5 on Task 5", "2024-04-05");
+        createComment(1, 1, "Comment 1 on Task 1", (new Date()).toString());
+        createComment(2, 2, "Comment 2 on Task 2", (new Date()).toString());
+        createComment(3, 3, "Comment 3 on Task 3", (new Date()).toString());
+        createComment(4, 4, "Comment 4 on Task 4", (new Date()).toString());
+        createComment(5, 5, "Comment 5 on Task 5", (new Date()).toString());
 
 
         projectUsers.add(new ProjectUser(1,1,"Admin"));

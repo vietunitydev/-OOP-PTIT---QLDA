@@ -31,6 +31,7 @@ import com.example.qlda.Data.Task;
 import com.example.qlda.Data.TaskType;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
+import com.example.qlda.Utils.TimeUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Date;
@@ -354,7 +355,7 @@ public class ItemDetailFragment extends Fragment {
         for (Comment c : comments){
             View commentTemplate = getLayoutInflater().inflate(R.layout.item_comment, (ViewGroup) view, false);
 
-            commentTemplate.setPadding(20,0,0,5);
+            commentTemplate.setPadding(20,0,0,20);
             TextView nameText = commentTemplate.findViewById(R.id.text_name);
             User user = Data.getInstance().getUserById(c.getUserId());
             nameText.setText(user.getFullName());
@@ -364,6 +365,15 @@ public class ItemDetailFragment extends Fragment {
 
             TextView contentText = commentTemplate.findViewById(R.id.text_content);
             contentText.setText(c.getContent());
+
+            // show time comment
+            TextView text_time = commentTemplate.findViewById(R.id.text_time);
+            text_time.setText(TimeUtils.timeAgoDateTime(c.getCreatedAt()));
+            // xoa cmt
+
+            // edit
+
+            // copy
 
             listComment.addView(commentTemplate,0);
         }
@@ -388,6 +398,10 @@ public class ItemDetailFragment extends Fragment {
             TextView contentText = commentTemplate.findViewById(R.id.text_content);
             contentText.setText(new_cmt.getContent());
 
+            // show time comment
+            TextView text_time = commentTemplate.findViewById(R.id.text_time);
+            text_time.setText(TimeUtils.timeAgoDateTime(new_cmt.getCreatedAt()));
+
             listComment.addView(commentTemplate);
 
             edit_comment.setText("");
@@ -397,13 +411,7 @@ public class ItemDetailFragment extends Fragment {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         });
 
-        // show time comment
 
-        // xoa cmt
-
-        // edit
-
-        // copy
     }
 
     private void setupChangeUserAssignee(boolean isAssign){
