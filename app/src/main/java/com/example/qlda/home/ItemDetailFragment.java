@@ -30,8 +30,6 @@ import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import org.w3c.dom.Text;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -341,7 +339,7 @@ public class ItemDetailFragment extends Fragment {
 
         btn_send.setOnClickListener(v->{
             // add new comment vao database
-            Comment new_cmt= Data.getInstance().CreateNewComment(task.getTaskId(), Data.currentUser.getUserId(), edit_comment.getText().toString(), (new Date()).toString());
+            Comment new_cmt= Data.getInstance().createComment(task.getTaskId(), Data.currentUser.getUserId(), edit_comment.getText().toString(), (new Date()).toString());
 
             View commentTemplate = getLayoutInflater().inflate(R.layout.item_comment, (ViewGroup) view, false);
 
@@ -477,49 +475,4 @@ public class ItemDetailFragment extends Fragment {
 //        backToPageListScreen();
 //        workSpaceFragment.showUI();
     }
-
-    private void addNewComment(String content){
-//        LinearLayout listComment = view.findViewById(R.id.list_comment);
-//        View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
-//
-//        UserData user = AppData.myUserData;
-//
-//        TextView nameText = commentTemplate.findViewById(R.id.text_name);
-//        nameText.setText(user.getDisplayName());
-//
-//        TextView contentText = commentTemplate.findViewById(R.id.text_content);
-//        contentText.setText(content);
-//
-//        listComment.addView(commentTemplate,0);
-//
-//        ElementData.Comment newComment = new ElementData.Comment(user.getId(), user.getEmail(), user.getAvatar(), user.getDisplayName(), content, new Date());
-//        element.addComments(newComment);
-
-//        MyCustomLog.DebugLog("ADD new comment", AppData.convertToJson(newComment));
-//        MyCustomLog.DebugLog("ADD new comment", "element " + AppData.convertToJson(element));
-
-//        AppData.updateElement(element.getTableID(),element.getWorkListPageID(),element);
-//        AppData.uploadDataToServerStatic();
-
-    }
-
-
-    private void showComment(){
-//        List<ElementData.Comment> comments = element.getComments();
-//
-//        for (ElementData.Comment c : comments){
-//            LinearLayout listComment = view.findViewById(R.id.list_comment);
-//            View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
-//
-//            TextView nameText = commentTemplate.findViewById(R.id.text_name);
-//            nameText.setText(c.getUserDisplayName());
-//
-//            TextView contentText = commentTemplate.findViewById(R.id.text_content);
-//            contentText.setText(c.getContent());
-//
-//            listComment.addView(commentTemplate,0);
-//        }
-    }
-
-
 }
