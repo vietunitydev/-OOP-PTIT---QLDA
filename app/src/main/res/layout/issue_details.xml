@@ -76,7 +76,7 @@
             <LinearLayout
                 android:id="@+id/nameIssue"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:layout_constraintTop_toBottomOf="@id/headerIssue"
@@ -84,7 +84,7 @@
                 <EditText
                     android:id="@+id/edtNameIssue"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:textSize="20sp"
@@ -95,7 +95,7 @@
                     android:id="@+id/imgBtnUser"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
                     android:scaleType="centerCrop"
                     android:background="@drawable/rounded_background"/>
             </LinearLayout>
@@ -458,7 +458,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical|start"
                             android:layout_marginStart="5dp"
-                            android:text="Issue Type"
+                            android:text="Project"
                             android:textSize="13sp"
                             android:textColor="@color/gray_3"
                             android:paddingBottom="5dp"/>

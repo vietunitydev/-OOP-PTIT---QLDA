@@ -42,7 +42,6 @@ import java.util.Objects;
 public class ItemDetailFragment extends Fragment {
     private static final String ARG_ISSUE = "ARG_ISSUE";
     private Task task;
-    private LayoutInflater inflaterOwner;
     private View view;
 
     BottomSheetDialog curBottomDialog;
@@ -65,7 +64,6 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.inflaterOwner = inflater;
         this.view = inflater.inflate(R.layout.issue_details, container, false);
 
         setupItemDetail(inflater);
