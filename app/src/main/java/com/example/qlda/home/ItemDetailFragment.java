@@ -316,10 +316,10 @@ public class ItemDetailFragment extends Fragment {
 
     private void setupComment(){
         List<Comment> comments = Data.getInstance().getCommentsByTaskId(task.getTaskId());
+        LinearLayout listComment = view.findViewById(R.id.list_comment);
 
         for (Comment c : comments){
-            LinearLayout listComment = view.findViewById(R.id.list_comment);
-            View commentTemplate = inflaterOwner.inflate(R.layout.item_comment, (ViewGroup) view, false);
+            View commentTemplate = getLayoutInflater().inflate(R.layout.item_comment, (ViewGroup) view, false);
 
             commentTemplate.setPadding(20,0,0,5);
             TextView nameText = commentTemplate.findViewById(R.id.text_name);
@@ -335,6 +335,39 @@ public class ItemDetailFragment extends Fragment {
             listComment.addView(commentTemplate,0);
         }
 
+        LinearLayout bottom_edit_comment = view.findViewById(R.id.bottom_edit_comment);
+        EditText edit_comment = bottom_edit_comment.findViewById(R.id.edit_comment);
+        ImageView btn_send = bottom_edit_comment.findViewById(R.id.btn_send);
+
+        btn_send.setOnClickListener(v->{
+            // add new comment vao database
+            Comment new_cmt= Data.getInstance().CreateNewComment(task.getTaskId(), Data.currentUser.getUserId(), edit_comment.getText().toString(), (new Date()).toString());
+
+            View commentTemplate = getLayoutInflater().inflate(R.layout.item_comment, (ViewGroup) view, false);
+
+            commentTemplate.setPadding(20,0,0,5);
+            TextView nameText = commentTemplate.findViewById(R.id.text_name);
+            nameText.setText(Data.currentUser.getFullName());
+
+            ImageView img_avatar = commentTemplate.findViewById(R.id.img_avatar);
+            img_avatar.setBackgroundResource(Parser.getAvatarResource(Data.currentUser.getAvatarID()));
+
+            TextView contentText = commentTemplate.findViewById(R.id.text_content);
+            contentText.setText(new_cmt.getContent());
+
+            listComment.addView(commentTemplate);
+
+            edit_comment.setText("");
+            edit_comment.clearFocus();
+        });
+
+        // show time comment
+
+        // xoa cmt
+
+        // edit
+
+        // copy
     }
 
     private void setupChangeUserAssignee(boolean isAssign){

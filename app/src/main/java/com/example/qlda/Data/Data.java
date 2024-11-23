@@ -179,6 +179,12 @@ public class Data {
                 .filter(user -> userIDs.contains(user.getUserId()))
                 .collect(Collectors.toList());
     }
+
+    public Comment CreateNewComment(int taskId, int userId, String content, String createdAt){
+        Comment new_cmt = new Comment(comments.size(), taskId, userId, content, createdAt);
+        comments.add(new_cmt);
+        return new_cmt;
+    }
     public List<Project> getAllProjects() {
         return projects;
     }
