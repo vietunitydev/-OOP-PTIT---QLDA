@@ -25,8 +25,7 @@
         <activity android:name="com.example.qlda.login.LoginActivity"/>
         <activity android:name="com.example.qlda.home.HomeActivity" />
         <activity android:name="com.example.qlda.home.SignUp"/>
-        <activity android:name="com.example.qlda.home.IssueDashBoard"/>
-        <activity android:name="com.example.qlda.home.DetailIssue"/>
+        <activity android:name="com.example.qlda.home.IssueActivity"/>
     </application>
 
 </manifest>

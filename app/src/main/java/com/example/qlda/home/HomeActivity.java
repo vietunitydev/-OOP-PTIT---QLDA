@@ -43,14 +43,10 @@ import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private LayoutInflater inflater;
     private FrameLayout viewContainer;
 
     // 3 view will use
     View projectView;
-    View notificationView;
-    View issueView;
-
     User user;
 
     private BottomSheetDialog curBottomDialog;
@@ -58,8 +54,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
-        // Initialize LayoutInflater and LinearLayout
-        inflater = LayoutInflater.from(this);
         viewContainer = findViewById(R.id.viewContainer);
 
         user = Data.currentUser;
@@ -70,47 +64,30 @@ public class HomeActivity extends AppCompatActivity {
         setupShowUserInfo();
         setupSearchProjectByName();
 
-        setupScreenIssueDetail();
     }
 
     // add function show for 3 button
     public void initializeButtons() {
-        Button btnProject = findViewById(R.id.btn_Projects);
-        Button btnNotification = findViewById(R.id.btnNotification);
         Button btnIssue = findViewById(R.id.btn_Issue);
+        Button btnNotification = findViewById(R.id.btnNotification);
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        projectView = inflater.inflate(R.layout.activity_project, null);
-        notificationView = inflater.inflate(R.layout.screen_user, null);
-        issueView = inflater.inflate(R.layout.issue_dashboard, null);
-
-        setActiveView(projectView);
-
-        btnProject.setOnClickListener(v -> setActiveView(projectView));
-        btnNotification.setOnClickListener(v -> setActiveView(notificationView));
-        btnIssue.setOnClickListener(v -> setActiveView(issueView));
-    }
-    private void setActiveView(View view) {
+        projectView = getLayoutInflater().inflate(R.layout.activity_project, null);
         viewContainer.removeAllViews();
-        viewContainer.addView(view);
+        viewContainer.addView(projectView);
+
+        btnNotification.setOnClickListener(v -> {
+
+        });
+        btnIssue.setOnClickListener(v ->{
+            Intent intent = new Intent(this, IssueActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     //=========================================================================
 
     private void fetchUserProject(){
-        //        appData.InitTable();
-
-//        appData.fetchUser(() ->{
-//            // fetch Data for app
-//            appData.fetchData(() -> {
-//                tables = AppData.Tables;
-//
-//                MyCustomLog.DebugLog("FireBase Store", String.format("Fetched Data Successfully %d", tables.size()));
-//                for (TableData data : tables) {
-//                    createButton(data);
-//                }
-//            });
-//        });
         Data data = Data.getInstance();
         for (Project project : data.getProjectsByUserId(user.getUserId())) {
             createButton(project);
@@ -151,7 +128,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     private void createButton(Project project) {
         LinearLayout content = projectView.findViewById(R.id.buttonContainer);
-        FrameLayout customButton = (FrameLayout) inflater.inflate(R.layout.button_table, content, false);
+        FrameLayout customButton = (FrameLayout) getLayoutInflater().inflate(R.layout.button_table, content, false);
 
         Button btn = customButton.findViewById(R.id.custom_table_btn);
         btn.setOnClickListener(v -> {
@@ -275,150 +252,6 @@ public class HomeActivity extends AppCompatActivity {
         // Hiển thị Bottom Sheet
         bottomSheetDialog.show();
         return bottomSheetView;
-    }
-
-    private void setupScreenIssueDetail() {
-        setupShowUserInfoIssue();
-        searchIssue();
-        setupShowListTask();
-
-    }
-
-    // Hàm tạo issue
-
-
-    private void setupShowListTask(){
-        LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
-
-        for (TimeGroup timeGroup : getGroupedProjects()) {
-            if (timeGroup.getProjects() == null || timeGroup.getProjects().isEmpty()) {
-                continue;
-            }
-
-            View sectionView = LayoutInflater.from(issueView.getContext())
-                    .inflate(R.layout.item_time_section, parentLayout, false);
-
-            TextView timeHeader = sectionView.findViewById(R.id.sectionTimeHeader);
-            timeHeader.setText(timeGroup.getTimeLabel());
-
-            LinearLayout projectList = sectionView.findViewById(R.id.projectList);
-            for (Task task : timeGroup.getProjects()) {
-                View itemIssue = LayoutInflater.from(issueView.getContext())
-                        .inflate(R.layout.item_issue, projectList, false);
-
-                itemIssue.setOnClickListener(v->{
-                    ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(task);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, contentFragment)
-                            .addToBackStack(null)
-                            .commit();
-//                    loadFragment(contentFragment);
-                });
-
-                TextView item_Issue_txtName = itemIssue.findViewById(R.id.item_Issue_txtName);
-                item_Issue_txtName.setText(task.getTaskName());
-
-                ImageView item_Issue_img = itemIssue.findViewById(R.id.item_Issue_img);
-                item_Issue_img.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
-
-                ImageView avt_priority = itemIssue.findViewById(R.id.avt_priority);
-                avt_priority.setBackgroundResource(Parser.getPriorityTypeResource(task.getPriority()));
-
-                ImageView avt_assignee = itemIssue.findViewById(R.id.avt_assignee);
-                avt_assignee.setBackgroundResource(Parser.getAvatarResource(task.getAssignedTo()));
-
-                TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
-                item_Issue_Status.setText(task.getStatus().toString());
-
-                projectList.addView(itemIssue);
-            }
-
-            parentLayout.addView(sectionView);
-        }
-    }
-    private void searchIssue() {
-
-    }
-    private void searchCreateTask() {
-
-    }
-
-    private List<TimeGroup> getGroupedProjects() {
-        List<TimeGroup> timeGroups = new ArrayList<>();
-
-        List<Task> projectTask = Data.getInstance().getAllTasks();
-
-        LocalDate today = LocalDate.now();
-        LocalDate yesterday = today.minusDays(1);
-        LocalDate startOfThisWeek = today.with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 1);
-        LocalDate endOfThisWeek = today.with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 7);
-        LocalDate startOfLastWeek = startOfThisWeek.minusWeeks(1);
-        LocalDate endOfLastWeek = endOfThisWeek.minusWeeks(1);
-        LocalDate startOfThisMonth = today.withDayOfMonth(1);
-
-        List<Task> todayTasks = new ArrayList<>();
-        List<Task> yesterdayTasks = new ArrayList<>();
-        List<Task> thisWeekTasks = new ArrayList<>();
-        List<Task> lastWeekTasks = new ArrayList<>();
-        List<Task> thisMonthTasks = new ArrayList<>();
-        Map<String, List<Task>> otherMonthTasks = new HashMap<>();
-
-        // Phân loại task theo thời gian
-        for (Task task : projectTask) {
-            LocalDate taskDate = task.getCreateDateAsLocalDate();
-
-            if (taskDate.equals(today)) {
-                todayTasks.add(task);
-            } else if (taskDate.equals(yesterday)) {
-                yesterdayTasks.add(task);
-            } else if (!taskDate.isBefore(startOfThisWeek) && !taskDate.isAfter(endOfThisWeek)) {
-                thisWeekTasks.add(task);
-            } else if (!taskDate.isBefore(startOfLastWeek) && !taskDate.isAfter(endOfLastWeek)) {
-                lastWeekTasks.add(task);
-            } else if (!taskDate.isBefore(startOfThisMonth)) {
-                thisMonthTasks.add(task);
-            } else {
-                Month taskMonth = taskDate.getMonth();
-                int taskYear = taskDate.getYear();
-                String monthLabel = taskMonth + " " + taskYear;
-                otherMonthTasks.putIfAbsent(monthLabel, new ArrayList<>());
-                otherMonthTasks.get(monthLabel).add(task);
-            }
-        }
-
-        // Thêm các nhóm thời gian vào danh sách kết quả nếu có task
-        if (!todayTasks.isEmpty()) {
-            timeGroups.add(new TimeGroup("Today", todayTasks));
-        }
-        if (!yesterdayTasks.isEmpty()) {
-            timeGroups.add(new TimeGroup("Yesterday", yesterdayTasks));
-        }
-        if (!thisWeekTasks.isEmpty()) {
-            timeGroups.add(new TimeGroup("This Week", thisWeekTasks));
-        }
-        if (!lastWeekTasks.isEmpty()) {
-            timeGroups.add(new TimeGroup("Last Week", lastWeekTasks));
-        }
-        if (!thisMonthTasks.isEmpty()) {
-            timeGroups.add(new TimeGroup("This Month", thisMonthTasks));
-        }
-
-        for (Map.Entry<String, List<Task>> entry : otherMonthTasks.entrySet()) {
-            if (!entry.getValue().isEmpty()) {
-                timeGroups.add(new TimeGroup(entry.getKey(), entry.getValue()));
-            }
-        }
-
-        return timeGroups;
-    }
-    private void setupShowUserInfoIssue(){
-        FrameLayout showUserInfo = issueView.findViewById(R.id.btn_info);
-        ImageView imageView = issueView.findViewById(R.id.img_show_user_info);
-        imageView.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
-        // Add new button on click
-        showUserInfo.setOnClickListener(v -> {
-            showUserInfo();
-        });
     }
 
     private void setupSearchProjectByName(){
