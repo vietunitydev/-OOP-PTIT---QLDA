@@ -1,5 +1,6 @@
 package com.example.qlda.home;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -71,6 +72,7 @@ public class ItemDetailFragment extends Fragment {
     private void setupItemDetail(LayoutInflater inflater) {
         // container chứa view của các page mình cần show
         setupBackButton();
+        setupDeleteTask();
         setupTaskName();
         setupIssueStatus();
         setupDescription(true);
@@ -85,6 +87,16 @@ public class ItemDetailFragment extends Fragment {
         backButton.setOnClickListener(v -> {
             backToPageListScreen();
         });
+    }
+    private void setupDeleteTask(){
+        ImageView deleteTaskButton = view.findViewById(R.id.imgBtnDotIssue);
+        deleteTaskButton.setOnClickListener(view -> {
+            showDeleteTaskDialog(getContext(), task.getTaskName(), () -> {
+//                deleteTask(taskId);
+                MyCustomLog.Toast(getContext(), "Task đã được xóa");
+            });
+        });
+//        backToPageListScreen();
     }
 
     private void setupTaskName(){
@@ -470,9 +482,26 @@ public class ItemDetailFragment extends Fragment {
         return bottomSheetView;
     }
 
-    private void deleteMe(){
-//        AppData.deleteElement(element.getTableID(),element.getWorkListPageID(),element.getId());
-//        backToPageListScreen();
-//        workSpaceFragment.showUI();
+    private void showDeleteTaskDialog(Context context, String taskName, Runnable onDeleteConfirmed) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Xóa Task");
+        builder.setMessage("Bạn có chắc chắn muốn xóa task \"" + taskName + "\" không?");
+
+        // Nút Xác nhận
+        builder.setPositiveButton("Xóa", (dialog, which) -> {
+            if (onDeleteConfirmed != null) {
+                onDeleteConfirmed.run();
+            }
+            dialog.dismiss();
+        });
+
+        // Nút Hủy
+        builder.setNegativeButton("Hủy", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
+
 }
