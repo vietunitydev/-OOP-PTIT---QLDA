@@ -50,38 +50,38 @@ public class Data {
         createUser("Lê Quang Thắng", "thang.lq@gmail.com", "password", 3, "2024-11-09");
         createUser("Hồ Ngọc Linh", "linh.hn@gmail.com", "password", 4, "2024-11-11");
         createUser("Phan Tuấn Anh", "anh.qt@gmail.com", "password", 5, "2024-11-12");
-        createUser("Nguyễn Huy Hoàng", "hoang.nh@gmail.com", "password", 6, "2024-11-13");
+        createUser("Nguyễn Huy Hoàng", "hoang.nh@gmail.com", "password", 3, "2024-11-13");
         createUser("Vũ Minh Thảo", "thao.vm@gmail.com", "password", 7, "2024-11-14");
-        createUser("Đặng Thị Linh", "linh.dt@gmail.com", "password", 8, "2024-11-15");
-        createUser("Võ Văn Tùng", "tung.vt@gmail.com", "password", 9, "2024-11-16");
-        createUser("Nguyễn Quang Lâm", "lam.nq@gmail.com", "password", 10, "2024-11-17");
-        createUser("Trần Tuấn Bảo", "bao.tt@gmail.com", "password", 11, "2024-11-18");
-        createUser("Lê Thị Trang", "trang.lt@gmail.com", "password", 12, "2024-11-19");
-        createUser("Phạm Bích Lan", "lan.pb@gmail.com", "password", 13, "2024-11-20");
-        createUser("Nguyễn Văn Nam", "nam.nv@gmail.com", "password", 14, "2024-11-21");
-        createUser("Nguyễn Tường Vy", "vy.nt@gmail.com", "password", 15, "2024-11-22");
+        createUser("Đặng Thị Linh", "linh.dt@gmail.com", "password", 3, "2024-11-15");
+        createUser("Võ Văn Tùng", "tung.vt@gmail.com", "password", 3, "2024-11-16");
+        createUser("Nguyễn Quang Lâm", "lam.nq@gmail.com", "password", 3, "2024-11-17");
+        createUser("Trần Tuấn Bảo", "bao.tt@gmail.com", "password", 3, "2024-11-18");
+        createUser("Lê Thị Trang", "trang.lt@gmail.com", "password", 3, "2024-11-19");
+        createUser("Phạm Bích Lan", "lan.pb@gmail.com", "password", 3, "2024-11-20");
+        createUser("Nguyễn Văn Nam", "nam.nv@gmail.com", "password", 3, "2024-11-21");
+        createUser("Nguyễn Tường Vy", "vy.nt@gmail.com", "password", 3, "2024-11-22");
 
         // 20 project
-        createProject("Quản lý hệ thống nhân sự", "Xây dựng hệ thống quản lý nhân sự cho công ty", "2024-11-01", "2024-12-01", "In Progress", 1);
-        createProject("Ứng dụng thanh toán điện tử", "Phát triển ứng dụng thanh toán điện tử an toàn và tiện lợi", "2024-11-02", "2024-12-05", "In Progress", 2);
-        createProject("Phát triển hệ thống báo cáo", "Xây dựng hệ thống báo cáo tài chính cho doanh nghiệp", "2024-11-03", "2024-12-10", "In Progress", 3);
-        createProject("Tối ưu hóa hiệu suất hệ thống", "Tối ưu hóa hiệu suất và bảo mật hệ thống website", "2024-11-04", "2024-11-30", "In Progress", 4);
+        createProject("Quản lý hệ thống nhân sự", "Xây dựng hệ thống quản lý nhân sự cho công ty", "2024-11-01", "2024-12-01", "In Progress", 5);
+        createProject("Ứng dụng thanh toán điện tử", "Phát triển ứng dụng thanh toán điện tử an toàn và tiện lợi", "2024-11-02", "2024-12-05", "In Progress", 5);
+        createProject("Phát triển hệ thống báo cáo", "Xây dựng hệ thống báo cáo tài chính cho doanh nghiệp", "2024-11-03", "2024-12-10", "In Progress", 5);
+        createProject("Tối ưu hóa hiệu suất hệ thống", "Tối ưu hóa hiệu suất và bảo mật hệ thống website", "2024-11-04", "2024-11-30", "In Progress", 5);
         createProject("Xây dựng hệ thống chatbot", "Tạo chatbot AI hỗ trợ khách hàng tự động 24/7", "2024-11-05", "2024-12-15", "In Progress", 5);
         createProject("Quản lý kho hàng", "Phát triển hệ thống quản lý kho hàng và logistics", "2024-11-06", "2024-12-20", "In Progress", 6);
         createProject("Hệ thống đặt vé máy bay", "Phát triển hệ thống đặt vé máy bay trực tuyến", "2024-11-07", "2024-12-10", "In Progress", 7);
-        createProject("Ứng dụng bán hàng online", "Xây dựng ứng dụng bán hàng trực tuyến với tính năng thanh toán an toàn", "2024-11-08", "2024-12-05", "In Progress", 8);
-        createProject("Phát triển hệ thống CRM", "Xây dựng hệ thống CRM để quản lý mối quan hệ khách hàng", "2024-11-09", "2024-12-12", "In Progress", 9);
-        createProject("Quản lý dự án phần mềm", "Phát triển phần mềm quản lý dự án cho các công ty", "2024-11-10", "2024-12-01", "In Progress", 10);
-        createProject("Ứng dụng giáo dục trực tuyến", "Phát triển nền tảng học trực tuyến cho học sinh và sinh viên", "2024-11-11", "2024-12-10", "In Progress", 11);
-        createProject("Quản lý tài chính cá nhân", "Xây dựng ứng dụng quản lý tài chính cá nhân", "2024-11-12", "2024-12-15", "In Progress", 12);
-        createProject("Hệ thống chăm sóc sức khỏe", "Phát triển ứng dụng chăm sóc sức khỏe cho người dùng", "2024-11-13", "2024-12-15", "In Progress", 13);
-        createProject("Quản lý bán vé sự kiện", "Phát triển hệ thống bán vé sự kiện trực tuyến", "2024-11-14", "2024-12-20", "In Progress", 14);
-        createProject("Hệ thống quản lý trường học", "Xây dựng hệ thống quản lý học sinh, điểm số và lịch học", "2024-11-15", "2024-12-18", "In Progress", 15);
-        createProject("Phát triển game di động", "Phát triển một trò chơi di động giải trí cho người dùng", "2024-11-16", "2024-12-20", "In Progress", 16);
-        createProject("Quản lý dịch vụ thuê xe", "Xây dựng hệ thống quản lý thuê xe cho khách hàng", "2024-11-17", "2024-12-15", "In Progress", 17);
-        createProject("Ứng dụng tìm kiếm việc làm", "Phát triển ứng dụng tìm kiếm việc làm cho sinh viên", "2024-11-18", "2024-12-10", "In Progress", 18);
-        createProject("Quản lý bán hàng cho doanh nghiệp", "Phát triển hệ thống quản lý bán hàng cho các doanh nghiệp nhỏ", "2024-11-19", "2024-12-05", "In Progress", 19);
-        createProject("Ứng dụng hỗ trợ mua sắm", "Phát triển ứng dụng hỗ trợ mua sắm cho người tiêu dùng", "2024-11-20", "2024-12-12", "In Progress", 20);
+        createProject("Ứng dụng bán hàng online", "Xây dựng ứng dụng bán hàng trực tuyến với tính năng thanh toán an toàn", "2024-11-08", "2024-12-05", "In Progress", 5);
+        createProject("Phát triển hệ thống CRM", "Xây dựng hệ thống CRM để quản lý mối quan hệ khách hàng", "2024-11-09", "2024-12-12", "In Progress", 5);
+        createProject("Quản lý dự án phần mềm", "Phát triển phần mềm quản lý dự án cho các công ty", "2024-11-10", "2024-12-01", "In Progress", 5);
+        createProject("Ứng dụng giáo dục trực tuyến", "Phát triển nền tảng học trực tuyến cho học sinh và sinh viên", "2024-11-11", "2024-12-10", "In Progress", 5);
+        createProject("Quản lý tài chính cá nhân", "Xây dựng ứng dụng quản lý tài chính cá nhân", "2024-11-12", "2024-12-15", "In Progress", 5);
+        createProject("Hệ thống chăm sóc sức khỏe", "Phát triển ứng dụng chăm sóc sức khỏe cho người dùng", "2024-11-13", "2024-12-15", "In Progress", 5);
+        createProject("Quản lý bán vé sự kiện", "Phát triển hệ thống bán vé sự kiện trực tuyến", "2024-11-14", "2024-12-20", "In Progress", 5);
+        createProject("Hệ thống quản lý trường học", "Xây dựng hệ thống quản lý học sinh, điểm số và lịch học", "2024-11-15", "2024-12-18", "In Progress", 5);
+        createProject("Phát triển game di động", "Phát triển một trò chơi di động giải trí cho người dùng", "2024-11-16", "2024-12-20", "In Progress", 5);
+        createProject("Quản lý dịch vụ thuê xe", "Xây dựng hệ thống quản lý thuê xe cho khách hàng", "2024-11-17", "2024-12-15", "In Progress", 5);
+        createProject("Ứng dụng tìm kiếm việc làm", "Phát triển ứng dụng tìm kiếm việc làm cho sinh viên", "2024-11-18", "2024-12-10", "In Progress", 5);
+        createProject("Quản lý bán hàng cho doanh nghiệp", "Phát triển hệ thống quản lý bán hàng cho các doanh nghiệp nhỏ", "2024-11-19", "2024-12-05", "In Progress", 5);
+        createProject("Ứng dụng hỗ trợ mua sắm", "Phát triển ứng dụng hỗ trợ mua sắm cho người tiêu dùng", "2024-11-20", "2024-12-12", "In Progress", 5);
 
         //30 task
         createTask("Thiết kế cơ sở dữ liệu cho hệ thống nhân sự", "Tạo mô hình dữ liệu cho hệ thống nhân sự", 1, 2, 1, TaskType.Story, Priority.High, StatusType.InProgress, "2024-11-01", "2024-11-10");
@@ -117,56 +117,56 @@ public class Data {
         createTask("Thực hiện kiểm thử hệ thống thanh toán", "Chạy thử nghiệm và kiểm tra hệ thống thanh toán", 2, 6, 6, TaskType.Bug, Priority.High, StatusType.Todo, "2024-11-30", "2024-12-10");
 
         // 50 comment
-        createComment(1, 1, "Cơ sở dữ liệu đã được thiết kế, cần xem xét và phê duyệt.", "2024-11-02");
-        createComment(2, 2, "API thanh toán đã được tích hợp, cần thực hiện kiểm thử kỹ càng.", "2024-11-03");
-        createComment(3, 3, "Lỗi tốc độ đã được khắc phục, kiểm tra và xác nhận lại giúp tôi.", "2024-11-04");
-        createComment(4, 4, "Chức năng chatbot đã hoàn thiện, đang được kiểm thử trước khi triển khai.", "2024-11-05");
-        createComment(5, 5, "Phần mềm quản lý kho đã được triển khai, hiện tại hệ thống đang chạy ổn định.", "2024-11-06");
-        createComment(6, 6, "Tính năng thanh toán đã được cài đặt xong, chờ kiểm thử thêm.", "2024-11-07");
-        createComment(7, 7, "API tìm kiếm vé máy bay đã hoàn thành, cần kiểm tra hiệu suất.", "2024-11-08");
-        createComment(8, 8, "Đã tích hợp hệ thống email marketing thành công, kiểm thử thử nghiệm.", "2024-11-09");
-        createComment(9, 9, "Báo cáo tài chính tháng này đã được tạo, chờ kiểm tra trước khi phát hành.", "2024-11-10");
-        createComment(10, 10, "Giao diện cho ứng dụng giáo dục trực tuyến đã hoàn thành, cần phản hồi từ nhóm.", "2024-11-11");
-        createComment(11, 11, "Tính năng tìm kiếm trong ứng dụng đã được tối ưu, đang trong giai đoạn kiểm thử.", "2024-11-12");
-        createComment(12, 12, "Cập nhật hệ thống thanh toán đã xong, cần triển khai kiểm thử với dữ liệu thực.", "2024-11-13");
-        createComment(13, 13, "Hệ thống báo cáo tài chính cần thêm một số điều chỉnh nhỏ.", "2024-11-14");
-        createComment(14, 14, "Kiểm tra hệ thống thanh toán đã hoàn tất, hiệu suất cải thiện rõ rệt.", "2024-11-15");
-        createComment(15, 15, "Tối ưu hóa tốc độ tải trang đã thành công.","2024-11-15");
-        createComment(16, 16, "Đã hoàn thành kiểm thử chức năng đăng nhập và bảo mật, yêu cầu phê duyệt.", "2024-11-16");
-        createComment(17, 17, "Tính năng quản lý đơn hàng đang được kiểm thử, dự kiến sẽ hoàn thành trong tuần tới.", "2024-11-17");
-        createComment(18, 18, "Chức năng phân tích báo cáo tài chính đã hoàn thiện, cần kiểm thử với các dữ liệu thực tế.", "2024-11-18");
-        createComment(19, 19, "Giao diện người dùng của ứng dụng bán vé máy bay đã được cải thiện, cần phản hồi.", "2024-11-19");
-        createComment(20, 20, "Tính năng tìm kiếm vé máy bay đang được thử nghiệm, hiệu suất khá ổn.", "2024-11-20");
-        createComment(21, 21, "Tạo báo cáo tài chính cho tháng 11 đã hoàn thành, cần kiểm tra một số chỉ tiêu mới.", "2024-11-21");
-        createComment(22, 22, "Đã cập nhật các tính năng mới cho CRM, cần thử nghiệm với các dữ liệu đầu vào khác nhau.", "2024-11-22");
-        createComment(23, 23, "Công cụ tự động hóa marketing đã sẵn sàng, đang tiến hành kiểm thử với các chiến dịch mẫu.", "2024-11-23");
-        createComment(24, 24, "Tính năng quản lý người dùng trong ứng dụng bán hàng đã hoàn thiện, đang trong giai đoạn kiểm thử.", "2024-11-24");
-        createComment(25, 25, "Lỗi bảo mật trong hệ thống thanh toán đã được khắc phục, cần thử nghiệm với dữ liệu thực tế.", "2024-11-25");
-        createComment(26, 26, "Cập nhật API cho ứng dụng bán vé đã hoàn thành, cần thử nghiệm với dữ liệu người dùng thực.", "2024-11-26");
-        createComment(27, 27, "Chức năng thanh toán trực tuyến đã được cải tiến, tiến hành kiểm thử trong các kịch bản sử dụng khác nhau.", "2024-11-27");
-        createComment(28, 28, "Giao diện người dùng của hệ thống quản lý kho đã được cập nhật, yêu cầu phản hồi từ nhóm kiểm thử.", "2024-11-28");
-        createComment(29, 29, "Chức năng báo cáo tài chính đã được hoàn thiện, đang trong giai đoạn thử nghiệm cuối cùng.", "2024-11-29");
-        createComment(30, 30, "Đã triển khai và kiểm thử thành công tính năng tìm kiếm trong hệ thống bán vé, hiệu suất đã được cải thiện.", "2024-11-30");
-        createComment(31, 31, "Báo cáo tài chính tháng 11 đã hoàn thành, đang gửi cho nhóm quản lý để xem xét.", "2024-12-01");
-        createComment(32, 32, "Đã hoàn thành việc kiểm thử hệ thống thanh toán, có thể triển khai lên môi trường sản xuất.", "2024-12-02");
-        createComment(33, 33, "Chức năng tìm kiếm vé máy bay đã được hoàn thiện, chờ triển khai vào ngày mai.", "2024-12-03");
-        createComment(34, 34, "Các báo cáo tài chính đã được cập nhật đầy đủ, sẽ đưa vào hệ thống kiểm thử vào tuần tới.", "2024-12-04");
-        createComment(35, 35, "Các tính năng bảo mật trong hệ thống thanh toán đã được nâng cấp, cần triển khai kiểm thử trong môi trường thực tế.", "2024-12-05");
-        createComment(36, 36, "Chức năng báo cáo tài chính đã được hoàn thành, đang chờ phê duyệt từ nhóm kiểm thử.", "2024-12-06");
-        createComment(37, 37, "Cập nhật API cho hệ thống bán vé đã xong, đang kiểm tra các tính năng đã được triển khai.", "2024-12-07");
-        createComment(38, 38, "Chức năng tự động hóa marketing đã được hoàn thiện, đang kiểm thử trong các chiến dịch nhỏ.", "2024-12-08");
-        createComment(39, 39, "Đã hoàn thành việc cải tiến tốc độ tải trang, tiến hành thử nghiệm và đánh giá hiệu suất.", "2024-12-09");
-        createComment(40, 40, "Chức năng quản lý kho hàng đã được cài đặt và thử nghiệm thành công, đang triển khai lên môi trường thực.", "2024-12-10");
-        createComment(41, 41, "Hệ thống tìm kiếm trong ứng dụng bán vé đã được hoàn thiện, đang trong giai đoạn kiểm thử cuối cùng.", "2024-12-11");
-        createComment(42, 42, "Tính năng báo cáo tài chính cho doanh nghiệp đã được cải tiến, cần triển khai vào tháng tới.", "2024-12-12");
-        createComment(43, 43, "Hệ thống thanh toán đã được kiểm tra và cập nhật, dự kiến triển khai vào tuần tới.", "2024-12-13");
-        createComment(44, 44, "Cải tiến hệ thống đăng nhập và bảo mật đã được hoàn thành, cần thử nghiệm trong các điều kiện môi trường thực tế.", "2024-12-14");
-        createComment(45, 45, "Tính năng quản lý đánh giá khách hàng đã được triển khai, cần kiểm thử với một số chiến dịch mẫu.", "2024-12-15");
-        createComment(46, 46, "Ứng dụng bán vé máy bay đã cập nhật hệ thống thanh toán, cần triển khai kiểm thử toàn diện.", "2024-12-16");
-        createComment(47, 47, "Hệ thống báo cáo tài chính đã hoàn tất và đang trong giai đoạn triển khai.", "2024-12-17");
-        createComment(48, 48, "Chức năng tự động hóa marketing đã được tích hợp thành công, dự kiến triển khai trong tuần tới.", "2024-12-18");
-        createComment(49, 49, "Đã hoàn thành kiểm thử bảo mật cho hệ thống thanh toán, hiệu suất hoạt động ổn định.", "2024-12-19");
-        createComment(50, 50, "Ứng dụng bán vé máy bay đã được kiểm thử xong, tiến hành triển khai lên môi trường sản xuất.", "2024-12-20");
+        createComment(1, 1, "Cơ sở dữ liệu đã được thiết kế, cần xem xét và phê duyệt.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(2, 1, "API thanh toán đã được tích hợp, cần thực hiện kiểm thử kỹ càng.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(3, 1, "Lỗi tốc độ đã được khắc phục, kiểm tra và xác nhận lại giúp tôi.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(4, 1, "Chức năng chatbot đã hoàn thiện, đang được kiểm thử trước khi triển khai.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(5, 1, "Phần mềm quản lý kho đã được triển khai, hiện tại hệ thống đang chạy ổn định.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(6, 2, "Tính năng thanh toán đã được cài đặt xong, chờ kiểm thử thêm.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(7, 2, "API tìm kiếm vé máy bay đã hoàn thành, cần kiểm tra hiệu suất.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(8, 2, "Đã tích hợp hệ thống email marketing thành công, kiểm thử thử nghiệm.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(9, 3, "Báo cáo tài chính tháng này đã được tạo, chờ kiểm tra trước khi phát hành.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(10, 3, "Giao diện cho ứng dụng giáo dục trực tuyến đã hoàn thành, cần phản hồi từ nhóm.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(11, 3, "Tính năng tìm kiếm trong ứng dụng đã được tối ưu, đang trong giai đoạn kiểm thử.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(12, 4, "Cập nhật hệ thống thanh toán đã xong, cần triển khai kiểm thử với dữ liệu thực.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(13, 4, "Hệ thống báo cáo tài chính cần thêm một số điều chỉnh nhỏ.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(14, 4, "Kiểm tra hệ thống thanh toán đã hoàn tất, hiệu suất cải thiện rõ rệt.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(15, 5, "Tối ưu hóa tốc độ tải trang đã thành công.","2024-11-15");
+        createComment(16, 6, "Đã hoàn thành kiểm thử chức năng đăng nhập và bảo mật, yêu cầu phê duyệt.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(17, 7, "Tính năng quản lý đơn hàng đang được kiểm thử, dự kiến sẽ hoàn thành trong tuần tới.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(18, 8, "Chức năng phân tích báo cáo tài chính đã hoàn thiện, cần kiểm thử với các dữ liệu thực tế.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(19, 4, "Giao diện người dùng của ứng dụng bán vé máy bay đã được cải thiện, cần phản hồi.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(20, 5, "Tính năng tìm kiếm vé máy bay đang được thử nghiệm, hiệu suất khá ổn.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(21, 4, "Tạo báo cáo tài chính cho tháng 11 đã hoàn thành, cần kiểm tra một số chỉ tiêu mới.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(22, 5, "Đã cập nhật các tính năng mới cho CRM, cần thử nghiệm với các dữ liệu đầu vào khác nhau.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(23, 6, "Công cụ tự động hóa marketing đã sẵn sàng, đang tiến hành kiểm thử với các chiến dịch mẫu.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(24, 3, "Tính năng quản lý người dùng trong ứng dụng bán hàng đã hoàn thiện, đang trong giai đoạn kiểm thử.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(25, 2, "Lỗi bảo mật trong hệ thống thanh toán đã được khắc phục, cần thử nghiệm với dữ liệu thực tế.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(26, 7, "Cập nhật API cho ứng dụng bán vé đã hoàn thành, cần thử nghiệm với dữ liệu người dùng thực.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(27, 10, "Chức năng thanh toán trực tuyến đã được cải tiến, tiến hành kiểm thử trong các kịch bản sử dụng khác nhau.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(28, 8, "Giao diện người dùng của hệ thống quản lý kho đã được cập nhật, yêu cầu phản hồi từ nhóm kiểm thử.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(29, 9, "Chức năng báo cáo tài chính đã được hoàn thiện, đang trong giai đoạn thử nghiệm cuối cùng.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(30, 10, "Đã triển khai và kiểm thử thành công tính năng tìm kiếm trong hệ thống bán vé, hiệu suất đã được cải thiện.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(31, 11, "Báo cáo tài chính tháng 11 đã hoàn thành, đang gửi cho nhóm quản lý để xem xét.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(32, 12, "Đã hoàn thành việc kiểm thử hệ thống thanh toán, có thể triển khai lên môi trường sản xuất.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(33, 13, "Chức năng tìm kiếm vé máy bay đã được hoàn thiện, chờ triển khai vào ngày mai.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(34, 14, "Các báo cáo tài chính đã được cập nhật đầy đủ, sẽ đưa vào hệ thống kiểm thử vào tuần tới.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(35, 5, "Các tính năng bảo mật trong hệ thống thanh toán đã được nâng cấp, cần triển khai kiểm thử trong môi trường thực tế.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(36, 6, "Chức năng báo cáo tài chính đã được hoàn thành, đang chờ phê duyệt từ nhóm kiểm thử.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(37, 7, "Cập nhật API cho hệ thống bán vé đã xong, đang kiểm tra các tính năng đã được triển khai.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(38, 8, "Chức năng tự động hóa marketing đã được hoàn thiện, đang kiểm thử trong các chiến dịch nhỏ.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(39, 9, "Đã hoàn thành việc cải tiến tốc độ tải trang, tiến hành thử nghiệm và đánh giá hiệu suất.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(40, 10, "Chức năng quản lý kho hàng đã được cài đặt và thử nghiệm thành công, đang triển khai lên môi trường thực.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(41, 11, "Hệ thống tìm kiếm trong ứng dụng bán vé đã được hoàn thiện, đang trong giai đoạn kiểm thử cuối cùng.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(42, 12, "Tính năng báo cáo tài chính cho doanh nghiệp đã được cải tiến, cần triển khai vào tháng tới.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(43, 3, "Hệ thống thanh toán đã được kiểm tra và cập nhật, dự kiến triển khai vào tuần tới.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(44, 4, "Cải tiến hệ thống đăng nhập và bảo mật đã được hoàn thành, cần thử nghiệm trong các điều kiện môi trường thực tế.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(45, 5, "Tính năng quản lý đánh giá khách hàng đã được triển khai, cần kiểm thử với một số chiến dịch mẫu.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(46, 6, "Ứng dụng bán vé máy bay đã cập nhật hệ thống thanh toán, cần triển khai kiểm thử toàn diện.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(47, 7, "Hệ thống báo cáo tài chính đã hoàn tất và đang trong giai đoạn triển khai.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(48, 4, "Chức năng tự động hóa marketing đã được tích hợp thành công, dự kiến triển khai trong tuần tới.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(49, 4, "Đã hoàn thành kiểm thử bảo mật cho hệ thống thanh toán, hiệu suất hoạt động ổn định.", (new Date(2024,10,10,10,10,10)).toString());
+        createComment(50, 5, "Ứng dụng bán vé máy bay đã được kiểm thử xong, tiến hành triển khai lên môi trường sản xuất.", (new Date(2024,10,10,10,10,10)).toString());
 
         // Phạm Xuân Hải làm Admin các dự án
         projectUsers.add(new ProjectUser(1, 1, "Admin"));
@@ -241,14 +241,14 @@ public class Data {
         projectUsers.add(new ProjectUser(18, 10, "Member"));
     }
 
-    public User createUser(String name, String email, String password, int roleId, String createdAt) {
-        User newUser = new User(userIdCounter++, name, email, password, roleId, createdAt);
+    public User createUser(String name, String email, String password, int avtID, String createdAt) {
+        User newUser = new User(userIdCounter++, name, email, password, avtID, createdAt);
         users.add(newUser);
         return newUser;
     }
 
-    public Project createProject(String name, String description, String startDate, String endDate, String status, int managerId) {
-        Project newProject = new Project(projectIdCounter++, name, description, startDate, endDate, status, managerId);
+    public Project createProject(String name, String description, String startDate, String endDate, String status, int avtID) {
+        Project newProject = new Project(projectIdCounter++, name, description, startDate, endDate, status, avtID);
         projects.add(newProject);
         return newProject;
     }
