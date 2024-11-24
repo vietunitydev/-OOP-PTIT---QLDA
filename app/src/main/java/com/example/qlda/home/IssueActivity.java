@@ -1,10 +1,14 @@
 package com.example.qlda.home;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -266,27 +270,63 @@ public class IssueActivity extends AppCompatActivity {
             });
             ////////////////////////////////////
 
+            ///// Edit name create issue
             EditText edtNameIssue = createIssueView.findViewById(R.id.edtNameIssue);
-            ImageButton imgBtnUser = createIssueView.findViewById(R.id.imgBtnUser);
+            edtNameIssue.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        // MyCustomLog.Toast(getBaseContext(), "Edit enter");
 
+                        tempTask.setTaskName(edtNameIssue.toString());
+                        v.clearFocus();
+
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            ////////////////////////////////////
+
+            ///////  DESCRIPTION
             FrameLayout btnDesIssue = createIssueView.findViewById(R.id.btnDesIssue);
             EditText textContentDescription = createIssueView.findViewById(R.id.textContentDescription);
+            textContentDescription.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        tempTask.setDescription(textContentDescription.toString());
+                        v.clearFocus();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            ////////////////////////////////////
+
+            ///////  ATTACHMENT
             LinearLayout attachment = createIssueView.findViewById(R.id.attachment);
             TextView add_attachment = createIssueView.findViewById(R.id.add_attachment);
+            ////////////////////////////////////
 
             LinearLayout btnFieldIssue = createIssueView.findViewById(R.id.btnFieldIssue);
 //            TextView textContentFields = createIssueView.findViewById(R.id.textContentFields);
             LinearLayout contentFields = createIssueView.findViewById(R.id.contentFields);
 
-            LinearLayout btn_Assignee = createIssueView.findViewById(R.id.btn_Assignee);
             ImageView avt_Assignee = createIssueView.findViewById(R.id.avt_Assignee);
             TextView name_Assignee = createIssueView.findViewById(R.id.name_Assignee);
+            LinearLayout btn_Assignee = createIssueView.findViewById(R.id.btn_Assignee);
 
-            LinearLayout btn_Reporter = createIssueView.findViewById(R.id.btn_Reporter);
             ImageView avt_Reporter = createIssueView.findViewById(R.id.avt_Reporter);
             TextView name_Reporter = createIssueView.findViewById(R.id.name_Reporter);
+            LinearLayout btn_Reporter = createIssueView.findViewById(R.id.btn_Reporter);
 
             TextView btn_Create = createIssueView.findViewById(R.id.btn_Create);
             btn_Create.setOnClickListener(v11 -> {
@@ -438,6 +478,7 @@ public class IssueActivity extends AppCompatActivity {
 
         });
     }
+
 
     private View showBottomSheetDialog(@LayoutRes int resource) {
         // Khởi tạo BottomSheetDialog

@@ -149,14 +149,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
+                    android:inputType="textAutoComplete"
                     android:hint="Enter name Issue"/>
-                <ImageButton
-                    android:id="@+id/imgBtnUser"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="5dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/rounded_background"/>
+<!--                <ImageButton-->
+<!--                    android:id="@+id/imgBtnUser"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:background="@drawable/rounded_background"/>-->
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/issueDescription"
@@ -202,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="5dp"
                     android:hint="Add a description..."
-                    android:inputType="textMultiLine"
+                    android:inputType="textAutoComplete"
                     android:text=""
                     android:textSize="13sp"
                     android:gravity="start" />
