@@ -1,10 +1,12 @@
 package com.example.qlda.home;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +19,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
+import com.example.qlda.Data.Project;
 import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.TimeGroup;
@@ -24,6 +27,8 @@ import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -88,7 +93,7 @@ public class IssueActivity extends AppCompatActivity {
         setupShowUserInfoIssue();
         setupSearchIssue();
         setupShowListTask();
-
+        setupCreateNewIssue();
     }
 
     // Hàm tạo issue
@@ -145,14 +150,62 @@ public class IssueActivity extends AppCompatActivity {
         }
     }
     private void setupSearchIssue() {
-        ImageView btnAdd = issueView.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(v->{
-            View createIssueView = showBottomSheetDialog(R.layout.screen_create_issue);
 
-        });
     }
     private void setupCreateNewIssue() {
+        ImageView btnAdd = issueView.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(v->{
 
+            List<Project> projects = Data.getInstance().getProjectsByUserId(user.getUserId());
+            if(projects.size() == 0){
+                showPopup("Không có project nào", () ->{
+                    // make any thing ....
+                });
+                return;
+            }
+
+            View createIssueView = showBottomSheetDialog(R.layout.screen_create_issue);
+
+            TextView btn_Create = createIssueView.findViewById(R.id.btn_Create);
+            btn_Create.setOnClickListener(v11 -> {
+
+            });
+
+            LinearLayout btn_chooseProject = createIssueView.findViewById(R.id.btn_chooseProject);
+            btn_chooseProject.setOnClickListener(v11->{
+
+            });
+
+            ImageView img_chooseProject = createIssueView.findViewById(R.id.img_chooseProject);
+            TextView name_chooseProject = createIssueView.findViewById(R.id.name_chooseProject);
+
+            LinearLayout btn_chooseTask = createIssueView.findViewById(R.id.btn_chooseTask);
+            btn_chooseTask.setOnClickListener(v11->{
+
+            });
+
+            EditText edtNameIssue = createIssueView.findViewById(R.id.edtNameIssue);
+            ImageButton imgBtnUser = createIssueView.findViewById(R.id.imgBtnUser);
+
+
+            FrameLayout btnDesIssue = createIssueView.findViewById(R.id.btnDesIssue);
+            EditText textContentDescription = createIssueView.findViewById(R.id.textContentDescription);
+
+            LinearLayout attachment = createIssueView.findViewById(R.id.attachment);
+            TextView add_attachment = createIssueView.findViewById(R.id.add_attachment);
+
+            LinearLayout btnFieldIssue = createIssueView.findViewById(R.id.btnFieldIssue);
+            TextView textContentFields = createIssueView.findViewById(R.id.textContentFields);
+            LinearLayout contentFields = createIssueView.findViewById(R.id.contentFields);
+
+            LinearLayout btn_Assignee = createIssueView.findViewById(R.id.btn_Assignee);
+            ImageView avt_Assignee = createIssueView.findViewById(R.id.avt_Assignee);
+            TextView name_Assignee = createIssueView.findViewById(R.id.name_Assignee);
+
+            LinearLayout btn_Reporter = createIssueView.findViewById(R.id.btn_Reporter);
+            ImageView avt_Reporter = createIssueView.findViewById(R.id.avt_Reporter);
+            TextView name_Reporter = createIssueView.findViewById(R.id.name_Reporter);
+        });
     }
 
     private List<TimeGroup> getGroupedProjects() {
@@ -328,5 +381,18 @@ public class IssueActivity extends AppCompatActivity {
             view.setText("DONE");
         }
 
+    }
+
+    private void showPopup(String message,  Runnable action) {
+        new AlertDialog.Builder(this)
+                .setTitle("Thông báo")
+                .setMessage(message)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    if (action != null) {
+                        action.run();
+                    }
+                    dialog.dismiss();
+                })
+                .show();
     }
 }
