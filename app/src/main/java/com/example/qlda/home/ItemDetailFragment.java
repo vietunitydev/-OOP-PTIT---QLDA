@@ -160,21 +160,20 @@ public class ItemDetailFragment extends Fragment {
         if(Objects.equals(task.getStatus(), StatusType.Todo)){
             wrapper.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.gray_2));
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.black));
-            issueStatus.setText("TO DO");
+            issueStatus.setText("To Do");
         }
         if(Objects.equals(task.getStatus(),StatusType.InProgress)){
             wrapper.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.blue_1));
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.blue));
-            issueStatus.setText("IN PROGRESS");
+            issueStatus.setText("In Progress");
         }
         if(Objects.equals(task.getStatus(),StatusType.Done)){
             wrapper.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.green_low));
             issueStatus.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.green_high));
-            issueStatus.setText("DONE");
+            issueStatus.setText("Done");
         }
 
-        Button btnStatus = view.findViewById(R.id.btnStatusIssue);
-        btnStatus.setOnClickListener(v -> {
+        wrapper.setOnClickListener(v -> {
             View selectStatusDialog = showBottomSheetDialog(R.layout.bottomdialog_selectstatus);
             // btn1
             LinearLayout todo = selectStatusDialog.findViewById(R.id.btn_todo);

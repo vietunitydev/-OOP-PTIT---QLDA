@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/item_Issue_img"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/blue_2" />
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textColor="@color/black"
             android:gravity="center_vertical"/>
 
@@ -37,16 +37,16 @@
 
             <ImageView
                 android:id="@+id/avt_priority"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/avt_medium"
                 tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/avt_assignee"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/avt_medium"
                 tools:ignore="ContentDescription" />
@@ -55,10 +55,14 @@
                 android:id="@+id/item_Issue_Status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="1dp"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/rounded_background_blue"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/blue_1"
                 android:textColor="@color/blue"
-                android:textSize="15sp"
+                android:text="TO DO"
+                android:textSize="13sp"
                 tools:ignore="RtlSymmetry"/>
 
         </LinearLayout>

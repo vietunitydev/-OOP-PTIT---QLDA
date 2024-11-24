@@ -13,9 +13,11 @@ import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
+import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
 import com.example.qlda.Data.TimeGroup;
 import com.example.qlda.Data.User;
@@ -134,7 +136,7 @@ public class IssueActivity extends AppCompatActivity {
                 avt_assignee.setBackgroundResource(Parser.getAvatarResource(task.getAssignedTo()));
 
                 TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
-                item_Issue_Status.setText(task.getStatus().toString());
+                getCorrectStatusView(item_Issue_Status,task);
 
                 projectList.addView(itemIssue);
             }
@@ -303,5 +305,24 @@ public class IssueActivity extends AppCompatActivity {
         // Hiển thị Bottom Sheet
         bottomSheetDialog.show();
         return bottomSheetView;
+    }
+
+    private void getCorrectStatusView(TextView view, Task task){
+        if(task.getStatus() == StatusType.Todo){
+            view.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.gray_2));
+            view.setTextColor(ContextCompat.getColorStateList(this, R.color.black));
+            view.setText("TO DO");
+        }
+        if(task.getStatus() == StatusType.InProgress){
+            view.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.blue_1));
+            view.setTextColor(ContextCompat.getColorStateList(this, R.color.blue));
+            view.setText("IN PROGRESS");
+        }
+        if(task.getStatus() == StatusType.Done){
+            view.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.green_low));
+            view.setTextColor(ContextCompat.getColorStateList(this, R.color.green_high));
+            view.setText("DONE");
+        }
+
     }
 }
