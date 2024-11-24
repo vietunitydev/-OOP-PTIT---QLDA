@@ -19,9 +19,11 @@ import androidx.core.content.ContextCompat;
 
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
+import com.example.qlda.Data.Priority;
 import com.example.qlda.Data.Project;
 import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
+import com.example.qlda.Data.TaskType;
 import com.example.qlda.Data.TimeGroup;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
@@ -34,6 +36,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -164,25 +167,104 @@ public class IssueActivity extends AppCompatActivity {
                 return;
             }
 
+            Project tempProject = projects.get(0).Clone();
+
+            Task tempTask = new Task();
+
             View createIssueView = showBottomSheetDialog(R.layout.screen_create_issue);
 
-            TextView btn_Create = createIssueView.findViewById(R.id.btn_Create);
-            btn_Create.setOnClickListener(v11 -> {
-
-            });
+            //////// choose project
+            ImageView img_chooseProject = createIssueView.findViewById(R.id.img_chooseProject);
+            TextView name_chooseProject = createIssueView.findViewById(R.id.name_chooseProject);
+            img_chooseProject.setBackgroundResource(Parser.getAvatarResource(tempProject.getAvatarID()));
+            name_chooseProject.setText(tempProject.getProjectName());
 
             LinearLayout btn_chooseProject = createIssueView.findViewById(R.id.btn_chooseProject);
             btn_chooseProject.setOnClickListener(v11->{
+                View changeTaskView = showBottomSheetDialog(R.layout.bottomdialog_chooseproject);
 
+                // show selected
+                LinearLayout selected = changeTaskView.findViewById(R.id.selected);
+                ImageView avt_selected = selected.findViewById(R.id.avt_selected);
+                TextView username_selected = selected.findViewById(R.id.name_selected);
+
+                avt_selected.setBackgroundResource(Parser.getAvatarResource(tempProject.getAvatarID()));
+                username_selected.setText(tempProject.getProjectName());
+
+                LinearLayout suggestion_container = changeTaskView.findViewById(R.id.suggestion_container);
+                suggestion_container.removeAllViews();
+
+                List<Project> newProjects = Data.getInstance().getProjectsByUserId(user.getUserId());
+                newProjects.removeIf(prj -> prj.getProjectId() == tempProject.getProjectId());
+
+                for (int i = 0; i < newProjects.size(); i++) {
+
+                    Project project = newProjects.get(i);
+
+                    View prjBtn = getLayoutInflater().inflate(R.layout.button_chooseproject, null);
+                    ImageView btn_project_avt = prjBtn.findViewById(R.id.btn_project_avt);
+                    TextView btn_project_username = prjBtn.findViewById(R.id.btn_project_username);
+
+                    btn_project_avt.setBackgroundResource(Parser.getAvatarResource(project.getAvatarID()));
+                    btn_project_username.setText(project.getProjectName());
+
+                    suggestion_container.addView(prjBtn,i);
+
+                    prjBtn.setOnClickListener(v111 -> {
+                        tempTask.setProjectId(project.getProjectId());
+                        curBottomDialog.dismiss();
+                        tempProject.SetClone(project);
+                        //update UI. tạm thời
+                        img_chooseProject.setBackgroundResource(Parser.getAvatarResource(tempProject.getAvatarID()));
+                        name_chooseProject.setText(tempProject.getProjectName());
+                    });
+
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) prjBtn.getLayoutParams();
+                    if (params != null) {
+                        params.setMargins(0, 8, 0, 8);
+                        prjBtn.setLayoutParams(params);
+                    }
+                }
             });
+            ////////////////////////////////////
 
-            ImageView img_chooseProject = createIssueView.findViewById(R.id.img_chooseProject);
-            TextView name_chooseProject = createIssueView.findViewById(R.id.name_chooseProject);
+            //////// choose task
+            ImageView img_chooseTask = createIssueView.findViewById(R.id.img_chooseTask);
+            TextView name_chooseTask = createIssueView.findViewById(R.id.name_chooseTask);
+            img_chooseTask.setBackgroundResource(Parser.getTaskTypeResource(TaskType.Task));
+            name_chooseTask.setText(TaskType.Task.toString());
+            tempTask.setTaskType(TaskType.Task);
 
             LinearLayout btn_chooseTask = createIssueView.findViewById(R.id.btn_chooseTask);
             btn_chooseTask.setOnClickListener(v11->{
+                View changeTaskView = showBottomSheetDialog(R.layout.bottomdialog_changetasktype);
 
+                LinearLayout taskView = changeTaskView.findViewById(R.id.task);
+                taskView.setOnClickListener(v12->{
+                    tempTask.setTaskType(TaskType.Task);
+                    img_chooseTask.setBackgroundResource(Parser.getTaskTypeResource(TaskType.Task));
+                    name_chooseTask.setText(TaskType.Task.toString());
+                    curBottomDialog.dismiss();
+
+                });
+                LinearLayout bugView = changeTaskView.findViewById(R.id.bug);
+                bugView.setOnClickListener(v12->{
+                    tempTask.setTaskType(TaskType.Bug);
+                    img_chooseTask.setBackgroundResource(Parser.getTaskTypeResource(TaskType.Bug));
+                    name_chooseTask.setText(TaskType.Bug.toString());
+                    curBottomDialog.dismiss();
+
+                });
+                LinearLayout storyView = changeTaskView.findViewById(R.id.story);
+                storyView.setOnClickListener(v12->{
+                    tempTask.setTaskType(TaskType.Story);
+                    img_chooseTask.setBackgroundResource(Parser.getTaskTypeResource(TaskType.Story));
+                    name_chooseTask.setText(TaskType.Story.toString());
+                    curBottomDialog.dismiss();
+
+                });
             });
+            ////////////////////////////////////
 
             EditText edtNameIssue = createIssueView.findViewById(R.id.edtNameIssue);
             ImageButton imgBtnUser = createIssueView.findViewById(R.id.imgBtnUser);
@@ -195,7 +277,7 @@ public class IssueActivity extends AppCompatActivity {
             TextView add_attachment = createIssueView.findViewById(R.id.add_attachment);
 
             LinearLayout btnFieldIssue = createIssueView.findViewById(R.id.btnFieldIssue);
-            TextView textContentFields = createIssueView.findViewById(R.id.textContentFields);
+//            TextView textContentFields = createIssueView.findViewById(R.id.textContentFields);
             LinearLayout contentFields = createIssueView.findViewById(R.id.contentFields);
 
             LinearLayout btn_Assignee = createIssueView.findViewById(R.id.btn_Assignee);
@@ -205,6 +287,11 @@ public class IssueActivity extends AppCompatActivity {
             LinearLayout btn_Reporter = createIssueView.findViewById(R.id.btn_Reporter);
             ImageView avt_Reporter = createIssueView.findViewById(R.id.avt_Reporter);
             TextView name_Reporter = createIssueView.findViewById(R.id.name_Reporter);
+
+            TextView btn_Create = createIssueView.findViewById(R.id.btn_Create);
+            btn_Create.setOnClickListener(v11 -> {
+                Data.getInstance().createTask(edtNameIssue.getText().toString(),textContentDescription.getText().toString(),tempProject.getProjectId(),1,user.getUserId(),TaskType.Task, Priority.Low,StatusType.Todo,(new Date()).toString(),(new Date()).toString());
+            });
         });
     }
 

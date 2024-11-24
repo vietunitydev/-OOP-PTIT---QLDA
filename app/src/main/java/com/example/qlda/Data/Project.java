@@ -12,6 +12,9 @@ public class Project implements Serializable {
     private int avatarID;
 
     // Constructor
+    public Project(){
+
+    }
     public Project(int projectId, String projectName, String description, String startDate, String endDate, String status, int avatarID) {
         this.projectId = projectId;
         this.projectName = projectName;
@@ -47,5 +50,18 @@ public class Project implements Serializable {
 
     public void setAvatarID(int avatarID) {
         this.avatarID = avatarID;
+    }
+
+    public Project Clone(){
+        return new Project(projectId, projectName, description, startDate, endDate, status, avatarID);
+    }
+    public void SetClone(Project other){
+        this.projectId = other.projectId;
+        this.projectName = other.projectName;
+        this.description = other.description;
+        this.startDate = other.startDate;
+        this.endDate = other.endDate;
+        this.status = other.status;
+        this.avatarID = other.avatarID;
     }
 }

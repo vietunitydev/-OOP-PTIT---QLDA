@@ -51,42 +51,43 @@
             <LinearLayout
                 android:id="@+id/task"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:id="@+id/btn_chooseProject"
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_background"
-                    android:layout_weight="3">
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/img_chooseProject"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_marginStart="5dp"
-                        android:src="@drawable/ic_missile"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center" />
+
                     <TextView
                         android:id="@+id/name_chooseProject"
-                        android:layout_width="0dp"
+                        android:layout_width="110dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:padding="5dp"
-                        android:layout_weight="1"
-                        android:text="@string/text_QLDA"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"/>
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_keyboard_arrow_down"
                         android:background="@color/white"
+                        android:layout_gravity="center"
                         app:tint="@color/black" />
                 </LinearLayout>
+
                 <ImageView
                     android:id="@+id/arrowRight"
                     android:layout_width="35dp"
@@ -96,43 +97,42 @@
                     android:src="@drawable/ic_arrow_right"
                     app:tint="@color/black"
                     android:scaleType="centerCrop" />
+
                 <LinearLayout
                     android:id="@+id/btn_chooseTask"
-                    android:layout_width="wrap_content"
+                    android:layout_width="170dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_background"
-                    android:layout_weight="6">
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/img_chooseTask"
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_marginStart="5dp"
-                        android:src="@drawable/ic_check"
-                        android:background="@color/blue_2"
-                        app:tint="@color/white"/>
+                        android:layout_gravity="center" />
+
                     <TextView
                         android:id="@+id/name_chooseTask"
-                        android:layout_width="0dp"
+                        android:layout_width="110dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginTop="2dp"
-                        android:padding="5dp"
+                        android:gravity="center_vertical"
                         android:text="@string/text_task"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"/>
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
                     <ImageView
-                        android:id="@+id/Task_img"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_keyboard_arrow_down"
                         android:background="@color/white"
-                        app:tint="@color/black"/>
+                        app:tint="@color/black" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/nameIssue"
                 android:layout_width="match_parent"
@@ -290,13 +290,13 @@
                         android:background="@color/white"
                         app:tint="@color/black" />
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/textContentFields"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="5dp"
-                    android:textSize="13sp"
-                    android:text="Assignee, Reporter"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/textContentFields"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:layout_marginStart="5dp"-->
+<!--                    android:textSize="13sp"-->
+<!--                    android:text="Assignee, Reporter"/>-->
                 <LinearLayout
                     android:id="@+id/contentFields"
                     android:layout_width="match_parent"

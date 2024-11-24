@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Assignee"
+        android:text="Project"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingBottom="8dp" />
@@ -19,7 +19,7 @@
         android:id="@+id/search_people"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search people"
+        android:hint="Search"
         android:inputType="text" />
 
     <TextView
@@ -48,11 +48,18 @@
             android:layout_gravity="center"/>
 
         <TextView
-            android:id="@+id/username_selected"
-            android:layout_width="wrap_content"
+            android:id="@+id/name_selected"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:text="Me"
+            android:text="name"
             android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_check"
+            android:backgroundTint="@color/blue"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <TextView
@@ -71,11 +78,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="8dp">
-<!--            <include layout="@layout/button_assignee"/>-->
-<!--            <include layout="@layout/button_assignee"/>-->
-<!--            <include layout="@layout/button_assignee"/>-->
-<!--            <include layout="@layout/button_assignee"/>-->
-<!--            <include layout="@layout/button_assignee"/>-->
+            <!--            <include layout="@layout/button_assignee"/>-->
+            <!--            <include layout="@layout/button_assignee"/>-->
+            <!--            <include layout="@layout/button_assignee"/>-->
+            <!--            <include layout="@layout/button_assignee"/>-->
+            <!--            <include layout="@layout/button_assignee"/>-->
 
         </LinearLayout>
     </ScrollView>
