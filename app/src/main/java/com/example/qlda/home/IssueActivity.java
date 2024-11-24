@@ -48,7 +48,19 @@ public class IssueActivity extends AppCompatActivity {
 
         initializeButtons();
         setupScreenIssueDetail();
+
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                setupShowListTask();
+            }
+        });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
 
     public void initializeButtons() {
         viewContainer = findViewById(R.id.viewContainer);
@@ -82,6 +94,7 @@ public class IssueActivity extends AppCompatActivity {
 
     private void setupShowListTask(){
         LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
+        parentLayout.removeAllViews();
 
         for (TimeGroup timeGroup : getGroupedProjects()) {
             if (timeGroup.getProjects() == null || timeGroup.getProjects().isEmpty()) {
@@ -139,8 +152,6 @@ public class IssueActivity extends AppCompatActivity {
     private List<TimeGroup> getGroupedProjects() {
         List<TimeGroup> timeGroups = new ArrayList<>();
 
-        List<Task> projectTask = Data.getInstance().getAllTasks();
-
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
         LocalDate startOfThisWeek = today.with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 1);
@@ -157,7 +168,7 @@ public class IssueActivity extends AppCompatActivity {
         Map<String, List<Task>> otherMonthTasks = new HashMap<>();
 
         // Phân loại task theo thời gian
-        for (Task task : projectTask) {
+        for (Task task : Data.getInstance().getAllTasks()) {
             LocalDate taskDate = task.getCreateDateAsLocalDate();
 
             if (taskDate.equals(today)) {
