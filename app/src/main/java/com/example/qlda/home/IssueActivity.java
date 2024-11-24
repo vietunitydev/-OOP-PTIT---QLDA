@@ -86,7 +86,7 @@ public class IssueActivity extends AppCompatActivity {
 
     private void setupScreenIssueDetail() {
         setupShowUserInfoIssue();
-        searchIssue();
+        setupSearchIssue();
         setupShowListTask();
 
     }
@@ -144,10 +144,14 @@ public class IssueActivity extends AppCompatActivity {
             parentLayout.addView(sectionView);
         }
     }
-    private void searchIssue() {
+    private void setupSearchIssue() {
+        ImageView btnAdd = issueView.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(v->{
+            View createIssueView = showBottomSheetDialog(R.layout.screen_create_issue);
 
+        });
     }
-    private void searchCreateTask() {
+    private void setupCreateNewIssue() {
 
     }
 
