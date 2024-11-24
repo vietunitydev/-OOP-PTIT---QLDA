@@ -11,6 +11,9 @@ public class User implements Serializable  {
         private String createdAt;
 
     // Constructor
+    public User(){
+
+    }
     public User(int userId, String fullName, String email, String password, int avatarID ,String createdAt) {
         this.userId = userId;
         this.fullName = fullName;

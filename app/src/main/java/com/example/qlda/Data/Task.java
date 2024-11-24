@@ -19,7 +19,17 @@ public class Task implements Serializable  {
     private String updatedDate;
 
     public Task() {
-
+        this.taskId = 0;
+        this.taskName = "";
+        this.description = "";
+        this.assignedTo = 0;
+        this.reporter = 0;
+        this.projectId = 0;
+        this.taskType = TaskType.Task;
+        this.priority = Priority.Medium;
+        this.status = StatusType.Todo;
+        this.createDate = "";
+        this.updatedDate = "";
     }
     // Constructor
     public Task(int taskId, String taskName, String description, int reporter, int assignedTo, int projectId, TaskType taskType, Priority priority, StatusType status, String createDate, String dueDate) {

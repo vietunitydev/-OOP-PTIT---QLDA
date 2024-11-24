@@ -45,6 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class IssueActivity extends AppCompatActivity {
@@ -323,14 +324,38 @@ public class IssueActivity extends AppCompatActivity {
             ImageView avt_Assignee = createIssueView.findViewById(R.id.avt_Assignee);
             TextView name_Assignee = createIssueView.findViewById(R.id.name_Assignee);
             LinearLayout btn_Assignee = createIssueView.findViewById(R.id.btn_Assignee);
+            btn_Assignee.setOnClickListener(v12 ->{
+                setupChangeUserAssignee(true,tempProject,tempTask,() ->{
+                    avt_Assignee.setBackgroundResource(Parser.getAvatarResource(tempTask.getAssignedTo()));
+                    name_Assignee.setText(Data.getInstance().getUserById(tempTask.getAssignedTo()).getFullName());
+                });
+            });
 
             ImageView avt_Reporter = createIssueView.findViewById(R.id.avt_Reporter);
             TextView name_Reporter = createIssueView.findViewById(R.id.name_Reporter);
             LinearLayout btn_Reporter = createIssueView.findViewById(R.id.btn_Reporter);
+            btn_Reporter.setOnClickListener(v12 ->{
+                setupChangeUserAssignee(false,tempProject,tempTask, () ->{
+                    avt_Reporter.setBackgroundResource(Parser.getAvatarResource(tempTask.getReporter()));
+                    name_Reporter.setText(Data.getInstance().getUserById(tempTask.getReporter()).getFullName());
+                });
+            });
 
             TextView btn_Create = createIssueView.findViewById(R.id.btn_Create);
             btn_Create.setOnClickListener(v11 -> {
-                Data.getInstance().createTask(edtNameIssue.getText().toString(),textContentDescription.getText().toString(),tempProject.getProjectId(),1,user.getUserId(),TaskType.Task, Priority.Low,StatusType.Todo,(new Date()).toString(),(new Date()).toString());
+                if(Objects.equals(edtNameIssue.getText().toString(),"")){
+                    showPopup("Vui lòng điền thêm thông tin",()->{});
+                    return;
+                }
+                if(tempTask.getAssignedTo() == 0 || tempTask.getReporter() == 0){
+//                    showPopup("Chưa add reporter và assign. Tự động gán cho bạn",()->{});
+                    tempTask.setReporter(Data.currentUser.getUserId());
+                    tempTask.setAssignedTo(Data.currentUser.getUserId());
+                }
+
+                MyCustomLog.Toast(this,"CREATE NEW TASK");
+                Data.getInstance().createTask(edtNameIssue.getText().toString(),textContentDescription.getText().toString(),tempProject.getProjectId(),tempTask.getAssignedTo(),tempTask.getReporter(),tempTask.getTaskType(), tempTask.getPriority(),tempTask.getStatus(),"2024-11-24","2024-11-24");
+                setupShowListTask();
             });
         });
     }
@@ -478,7 +503,93 @@ public class IssueActivity extends AppCompatActivity {
 
         });
     }
+    private void setupChangeUserAssignee(boolean isAssign, Project project, Task task,  Runnable callback){
+        View assign = showBottomSheetDialog(R.layout.bottomdialog_assignee);
+        // search people
 
+        // show selected
+        LinearLayout selected = assign.findViewById(R.id.selected);
+        ImageView avt_selected = selected.findViewById(R.id.avt_selected);
+        TextView username_selected = selected.findViewById(R.id.username_selected);
+
+        // find a list user in this project
+        List<User> users = Data.getInstance().getUsersByProjectId(project.getProjectId());
+        User cur = Data.currentUser;
+        User selectedUser;
+
+        if(isAssign) {
+            if(task.getAssignedTo() == 0){
+                // un assignee
+                selectedUser = new User(0,"Un Assign","unassign@gmail.com","",7,(new Date()).toString());
+                users.add(0,selectedUser);
+            }else {
+                selectedUser = Data.getInstance().getUserById(task.getAssignedTo());
+                users.removeIf(user -> user.getUserId() == selectedUser.getUserId());
+            }
+
+        }
+        else{
+            if(task.getAssignedTo() == 0){
+                // un assignee
+                selectedUser = new User(0,"Un Assign","unassign@gmail.com","",7,(new Date()).toString());
+                users.add(0,selectedUser);
+            }else {
+                selectedUser = Data.getInstance().getUserById(task.getReporter());
+                users.removeIf(user -> user.getUserId() == selectedUser.getUserId());
+            }
+        }
+
+        avt_selected.setBackgroundResource(Parser.getAvatarResource(selectedUser.getAvatarID()));
+        if(selectedUser.getUserId() == 0){
+            username_selected.setText("Un Assign");
+        }
+        else if(cur.getUserId() == selectedUser.getUserId()){
+            username_selected.setText("Me");
+        }
+        else{
+            username_selected.setText(selectedUser.getFullName());
+        }
+
+        LinearLayout suggestion_container = assign.findViewById(R.id.suggestion_container);
+        suggestion_container.removeAllViews();
+
+        for (int i = 0; i < users.size(); i++) {
+
+            User user = users.get(i);
+            View userBtn = getLayoutInflater().inflate(R.layout.button_assignee, null);
+
+            ImageView btn_assignee_avt = userBtn.findViewById(R.id.btn_assignee_avt);
+            TextView btn_assignee_username = userBtn.findViewById(R.id.btn_assignee_username);
+            btn_assignee_avt.setBackgroundResource(Parser.getAvatarResource(user.getAvatarID()));
+            if(cur.getUserId() == user.getUserId()){
+                btn_assignee_username.setText("Me");
+            }
+            else{
+                btn_assignee_username.setText(user.getFullName());
+            }
+
+            suggestion_container.addView(userBtn,i);
+
+            userBtn.setOnClickListener(v -> {
+                if(isAssign){
+                    task.setAssignedTo(user.getUserId());
+                }
+                else{
+                    task.setReporter(user.getUserId());
+                }
+
+                curBottomDialog.dismiss();
+                //update UI. tạm thời
+                callback.run();
+            });
+
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) userBtn.getLayoutParams();
+            if (params != null) {
+                params.setMargins(0, 8, 0, 8);
+                userBtn.setLayoutParams(params);
+            }
+        }
+    }
 
     private View showBottomSheetDialog(@LayoutRes int resource) {
         // Khởi tạo BottomSheetDialog
