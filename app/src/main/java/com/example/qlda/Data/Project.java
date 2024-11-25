@@ -25,6 +25,9 @@ public class Project implements Serializable {
         this.avatarID = avatarID;
     }
 
+    public Project(int userId, String fullName, String email, String password, String createdAt, int avatarID) {
+    }
+
     // Getters and Setters
     public int getProjectId() { return projectId; }
     public void setProjectId(int projectId) { this.projectId = projectId; }
