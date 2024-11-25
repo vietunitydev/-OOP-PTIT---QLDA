@@ -15,7 +15,6 @@ public class Task implements Serializable  {
     private StatusType status; // Todo, InProgress, Done
     private String createDate;
     private String updatedDate;
-
     public Task() {
 
     }

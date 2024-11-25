@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.qlda.home.HomeActivity;
 import com.example.qlda.login.LoginActivity;
 import com.google.firebase.FirebaseApp;
 

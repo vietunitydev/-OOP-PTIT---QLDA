@@ -60,6 +60,8 @@ dependencies {
 
     implementation("com.google.firebase:firebase-firestore-ktx:25.1.0")
     implementation("com.google.code.gson:gson:2.10.1")
+
+    implementation("net.sourceforge.jtds:jtds:1.3.1")
 }
 
 
