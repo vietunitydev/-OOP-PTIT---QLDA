@@ -24,11 +24,11 @@ import com.example.qlda.Data.User;
 public class ConnectSqlServer {
     // Thông tin kết nối
     private static final String DRIVER_CLASS = "net.sourceforge.jtds.jdbc.Driver";
-    private static final String IP = "192.168.100.129";
+    private static final String IP = "192.168.1.115";
     private static final String PORT = "1433";
     private static final String DATABASE = "BTL_OOP";
     private static final String USERNAME = "sa";
-    private static final String PASSWORD = "sql@123456";
+    private static final String PASSWORD = "Password.1";
 
     /**
      * Hàm kết nối với SQL Server.
@@ -43,11 +43,12 @@ public class ConnectSqlServer {
             Class.forName(DRIVER_CLASS); // Nạp driver JDBC
             String connectionUrl = "jdbc:jtds:sqlserver://" + IP + ":" + PORT + "/" + DATABASE;
             connection = DriverManager.getConnection(connectionUrl, USERNAME, PASSWORD);
+            System.err.println("ConnectDB: Connect thành công.");
         } catch (ClassNotFoundException e) {
-            System.err.println("Lỗi: Không tìm thấy driver JDBC.");
+            System.err.println("ConnectDB: Không tìm thấy driver JDBC.");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.err.println("Lỗi: Kết nối tới cơ sở dữ liệu không thành công.");
+            System.err.println("ConnectDB: Kết nối tới cơ sở dữ liệu không thành công.");
             e.printStackTrace();
         }
         return connection;
