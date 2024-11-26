@@ -55,6 +55,26 @@ public class Data {
         projectUsers = db.getProjectUserList();
     }
 
+    public User createUser(String name, String email, String password, int avtID, String createdAt) {
+        User newUser = new User(userIdCounter++, name, email, password, avtID, createdAt);
+        users.add(newUser);
+        return newUser;
+    }
+
+    public Project createProject(String name, String description, String startDate, String endDate, String status, int avtID) {
+        Project newProject = new Project(projectIdCounter++, name, description, startDate, endDate, status, avtID);
+        projects.add(newProject);
+        return newProject;
+    }
+
+    public Task createTask(String title, String details, int projectId, int assignedTo, int createdBy,
+                           TaskType taskType, Priority priority, StatusType status, String startDate, String dueDate) {
+        Task newTask = new Task(taskIdCounter++, title, details, projectId, assignedTo, createdBy,
+                taskType, priority, status, startDate, dueDate);
+        tasks.add(newTask);
+        return newTask;
+    }
+
     public Comment createComment(int taskId, int userId, String content, String createdAt){
         Comment newComment = new Comment(commentIdCounter++, taskId, userId, content, createdAt);
         comments.add(newComment);
