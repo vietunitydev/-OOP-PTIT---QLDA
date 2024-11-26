@@ -24,7 +24,7 @@ import com.example.qlda.Data.User;
 public class ConnectSqlServer {
     // Thông tin kết nối
     private static final String DRIVER_CLASS = "net.sourceforge.jtds.jdbc.Driver";
-    private static final String IP = "192.168.1.115";
+    private static final String IP = "192.168.1.195";
     private static final String PORT = "1433";
     private static final String DATABASE = "BTL_OOP";
     private static final String USERNAME = "sa";
@@ -98,7 +98,6 @@ public class ConnectSqlServer {
     public List<Project> getProjectList() {
         List<Project> projects = new ArrayList<>();
         String query = "SELECT * FROM Project";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try (Connection connection = CONN();
              Statement statement = connection != null ? connection.createStatement() : null;
@@ -106,15 +105,15 @@ public class ConnectSqlServer {
 
             while (resultSet != null && resultSet.next()) {
                 String createdStartString = null;
-                Timestamp createdDateTimestamp = resultSet.getTimestamp("startDate"); // Lấy dữ liệu dạng Timestamp
+                Timestamp createdDateTimestamp = resultSet.getTimestamp("startDate");
                 if (createdDateTimestamp != null) {
-                    createdStartString = dateFormat.format(createdDateTimestamp); // Chuyển sang String
+                    createdStartString = getStringFromTimeStamp(createdDateTimestamp);
                 }
 
                 String createdEndString = null;
-                Timestamp createdAtTimestamp = resultSet.getTimestamp("endDate"); // Lấy dữ liệu dạng Timestamp
+                Timestamp createdAtTimestamp = resultSet.getTimestamp("endDate");
                 if (createdAtTimestamp != null) {
-                    createdEndString = dateFormat.format(createdAtTimestamp); // Chuyển sang String
+                    createdEndString =getStringFromTimeStamp(createdAtTimestamp);
                 }
 
                 Project project = new Project(
@@ -144,7 +143,6 @@ public class ConnectSqlServer {
     public List<Task> getTasksList() {
         String query = "SELECT * FROM Task"; // Đảm bảo đúng bảng Task
         List<Task> tasks = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try (Connection connection = CONN();
              Statement statement = connection != null ? connection.createStatement() : null;
@@ -152,7 +150,6 @@ public class ConnectSqlServer {
 
             if (resultSet != null) {
                 while (resultSet.next()) {
-                    // Lấy dữ liệu từ các cột
                     int taskId = resultSet.getInt("TaskId");
                     String taskName = resultSet.getString("TaskName");
                     String description = resultSet.getString("Description");
@@ -160,25 +157,22 @@ public class ConnectSqlServer {
                     int reporter = resultSet.getInt("Reporter");
                     int projectId = resultSet.getInt("ProjectId");
 
-                    // Chuyển đổi String sang Enum
                     TaskType taskType = TaskType.valueOf(fixName(resultSet.getString("TaskType")));
                     Priority priority = Priority.valueOf(fixName(resultSet.getString("priority")));
                     StatusType status = StatusType.valueOf(fixName(resultSet.getString("status")));
 
-                    // Chuyển đổi Timestamp sang String
                     String createdDateString = null;
                     Timestamp createdDateTimestamp = resultSet.getTimestamp("CreateDate");
                     if (createdDateTimestamp != null) {
-                        createdDateString = dateFormat.format(createdDateTimestamp);
+                        createdDateString = getStringFromTimeStamp(createdDateTimestamp);
                     }
 
                     String updatedDateString = null;
                     Timestamp updatedDateTimestamp = resultSet.getTimestamp("UpdatedDate");
                     if (updatedDateTimestamp != null) {
-                        updatedDateString = dateFormat.format(updatedDateTimestamp);
+                        updatedDateString = getStringFromTimeStamp(updatedDateTimestamp);
                     }
 
-                    // Tạo đối tượng Task và thêm vào danh sách
                     Task task = new Task(taskId, taskName, description, assignedTo, reporter, projectId,
                             taskType, priority, status, createdDateString, updatedDateString);
                     tasks.add(task);
@@ -192,17 +186,15 @@ public class ConnectSqlServer {
     public List<User> getUserList() {
         String query = "SELECT * FROM [User]";
         List<User> users = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
         try (Connection connection = CONN();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 
             while (resultSet != null && resultSet.next()) {
                 String createdAtString = null;
-                Timestamp createdAtTimestamp = resultSet.getTimestamp("createdAt"); // Lấy dữ liệu dạng Timestamp
+                Timestamp createdAtTimestamp = resultSet.getTimestamp("createdAt");
                 if (createdAtTimestamp != null) {
-                    createdAtString = dateFormat.format(createdAtTimestamp); // Chuyển sang String
+                    createdAtString = getStringFromTimeStamp(createdAtTimestamp);
                 }
 
                 User user = new User(
@@ -272,5 +264,10 @@ public class ConnectSqlServer {
             e.printStackTrace();
         }
         return projectUsers;
+    }
+
+    private String getStringFromTimeStamp(Timestamp time){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Định dạng ngày giờ
+        return dateFormat.format(time);
     }
 }
