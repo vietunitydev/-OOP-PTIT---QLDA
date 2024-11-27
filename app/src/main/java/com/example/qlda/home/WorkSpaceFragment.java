@@ -199,7 +199,13 @@ public class WorkSpaceFragment extends Fragment {
         avtarUserSetting = avt;
         avt.setBackgroundResource(Parser.getAvatarResource(Data.currentUser.getAvatarID()));
 
-        Button changeAvt = setting.findViewById(R.id.tv_change_avatar);
+        TextView projectName = setting.findViewById(R.id.tv_project_name);
+        projectName.setText(project.getProjectName());
+
+        TextView created = setting.findViewById(R.id.tv_project_created);
+        created.setText(project.getStartDate());
+
+        TextView changeAvt = setting.findViewById(R.id.tv_change_avatar);
         changeAvt.setOnClickListener(v->{
             openImagePicker();
         });
