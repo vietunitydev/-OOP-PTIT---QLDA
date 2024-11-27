@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import com.example.qlda.Data.Comment;
 import com.example.qlda.Data.Data;
 import com.example.qlda.Data.Parser;
+import com.example.qlda.Data.Priority;
 import com.example.qlda.Data.Project;
 import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
@@ -285,6 +286,36 @@ public class ItemDetailFragment extends Fragment {
             LinearLayout storyView = changeTaskView.findViewById(R.id.story);
             storyView.setOnClickListener(v11->{
                 task.setTaskType(TaskType.Story);
+                curBottomDialog.dismiss();
+                setupDetail(false);
+            });
+        });
+
+        ImageView imagePriority = view.findViewById(R.id.img_priority);
+        imagePriority.setBackgroundResource(Parser.getPriorityTypeResource(task.getPriority()));
+        TextView namePriority = view.findViewById(R.id.task_priorityName);
+        namePriority.setText(task.getPriority().toString());
+
+        LinearLayout priority = view.findViewById(R.id.btn_priority);
+        priority.setOnClickListener(v ->{
+//            setupChangeTaskType();
+            View changeTaskView = showBottomSheetDialog(R.layout.bottomdialog_selectpriority);
+
+            LinearLayout low = changeTaskView.findViewById(R.id.btn_low);
+            low.setOnClickListener(v11->{
+                task.setPriority(Priority.Low);
+                curBottomDialog.dismiss();
+                setupDetail(false);
+            });
+            LinearLayout medium = changeTaskView.findViewById(R.id.btn_medium);
+            medium.setOnClickListener(v11->{
+                task.setPriority(Priority.Medium);
+                curBottomDialog.dismiss();
+                setupDetail(false);
+            });
+            LinearLayout high = changeTaskView.findViewById(R.id.btn_high);
+            high.setOnClickListener(v11->{
+                task.setPriority(Priority.High);
                 curBottomDialog.dismiss();
                 setupDetail(false);
             });
