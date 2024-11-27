@@ -2,6 +2,8 @@ package com.example.qlda.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -209,6 +211,14 @@ public class WorkSpaceFragment extends Fragment {
         changeAvt.setOnClickListener(v->{
             openImagePicker();
         });
+
+        Button moveToTrash = setting.findViewById(R.id.btn_move_to_trash);
+        moveToTrash.setOnClickListener(v->{
+            moveToTrash(getContext(), ()->{
+               // xoa project nay
+               backToHomeScreen();
+            });
+        });
     }
 
     private void setupDragAndDrop(LinearLayout container) {
@@ -393,5 +403,25 @@ public class WorkSpaceFragment extends Fragment {
                 avtarUserSetting.setImageURI(currentUri);
             }
         }
+    }
+
+    private void moveToTrash(Context context, Runnable actions) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Bạn có chắc muốn xoá project này không ?");
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            if (actions != null) {
+                actions.run();
+            }
+            dialog.dismiss();
+        });
+
+        builder.setNegativeButton("Hủy", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
