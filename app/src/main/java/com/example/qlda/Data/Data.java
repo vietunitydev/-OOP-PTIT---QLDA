@@ -53,6 +53,11 @@ public class Data {
         tasks = db.getTasksList();
         comments = db.getCommentList();
         projectUsers = db.getProjectUserList();
+
+        userIdCounter = users.size();
+        projectIdCounter = projects.size();
+        taskIdCounter = tasks.size();
+        commentIdCounter = comments.size();
     }
 
     public User createUser(String name, String email, String password, int avtID, String createdAt) {

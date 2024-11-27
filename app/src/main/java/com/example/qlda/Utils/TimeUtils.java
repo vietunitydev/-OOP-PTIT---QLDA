@@ -50,5 +50,8 @@ public class TimeUtils {
     public static LocalDate stringToLocalDate(String time) {
         return LocalDate.parse(time.split(" ")[0]);
     }
-
+    public static String getCurrentTimeFormatted() {
+        Date now = new Date();
+        return sdf.format(now);
+    }
 }

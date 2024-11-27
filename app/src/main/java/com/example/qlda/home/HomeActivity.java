@@ -28,6 +28,7 @@ import com.example.qlda.Data.TaskType;
 import com.example.qlda.Data.User;
 import com.example.qlda.Data.TimeGroup;
 import com.example.qlda.R;
+import com.example.qlda.Utils.TimeUtils;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -116,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 MyCustomLog.Toast(this,"Click Add Table Button");
 
-                Project newProject = Data.getInstance().createProject(projectName,"","","","",2);
+                Project newProject = Data.getInstance().createProject(projectName,"", TimeUtils.getCurrentTimeFormatted(),TimeUtils.getCurrentTimeFormatted(),"",2);
                 createButton(newProject);
 
                 curBottomDialog.dismiss();
