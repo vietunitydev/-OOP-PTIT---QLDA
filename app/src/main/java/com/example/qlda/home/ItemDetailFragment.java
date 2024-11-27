@@ -383,7 +383,7 @@ public class ItemDetailFragment extends Fragment {
 
         btn_send.setOnClickListener(v->{
             // add new comment vao database
-            Comment new_cmt= Data.getInstance().createComment(task.getTaskId(), Data.currentUser.getUserId(), edit_comment.getText().toString(), (new Date()).toString());
+            Comment new_cmt= Data.getInstance().createComment(task.getTaskId(), Data.currentUser.getUserId(), edit_comment.getText().toString(), TimeUtils.getCurrentTimeFormatted());
 
             View commentTemplate = getLayoutInflater().inflate(R.layout.item_comment, (ViewGroup) view, false);
 

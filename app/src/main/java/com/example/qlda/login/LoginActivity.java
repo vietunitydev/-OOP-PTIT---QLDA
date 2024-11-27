@@ -16,6 +16,7 @@ import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.example.qlda.home.HomeActivity;
 import com.example.qlda.home.MyCustomLog;
+import com.example.qlda.home.SignUp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
@@ -69,27 +70,6 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Log.d("Firebase", "Attempting to sign in with email: " + email);
 
-//                auth.signInWithEmailAndPassword(email, password)
-//                        .addOnCompleteListener(this, task -> {
-//                            if (task.isSuccessful()) {
-//                                // Save user data if rememberMe is checked
-//                                if (rememberMe) {
-//                                    saveUserData(email, password, true);
-//                                } else {
-//                                    saveUserData("", "", false);
-//                                }
-//                                // Sign in success
-//                                Log.d("Firebase Login", "Sign-in successful - id " + Objects.requireNonNull(auth.getCurrentUser()).getUid());
-//                                Intent intent = new Intent(this, HomeActivity.class);
-//                                startActivity(intent);
-//                                finish(); // Optionally close the current activity
-//                            } else {
-//                                // If sign in fails, display a message to the user.
-//                                Log.w("Firebase", "Sign-in failed", task.getException());
-//                                Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-
                 User loginUser = AuthLogin(email,password);
                 if(loginUser != null) {
                     if (rememberMe) {
@@ -111,15 +91,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        btnSignUp.setOnClickListener(v -> {
-//            Toast.makeText(this, "btnSignUp", Toast.LENGTH_SHORT).show();
-//
-//            Intent intent = new Intent(this, IssueDashBoard.class);
-//            startActivity(intent);
-//            finish();
-//        });
+        btnSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SignUp.class);
+            startActivity(intent);
+            finish();
+        });
 
-        // Set click listener for "Need help signing in?" text
         tvNeedHelp.setOnClickListener(v -> {
             // Example: Show a Toast message or navigate to a help screen
             Toast.makeText(this, "Help is on the way!", Toast.LENGTH_SHORT).show();

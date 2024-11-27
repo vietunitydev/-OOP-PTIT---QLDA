@@ -1,18 +1,21 @@
 package com.example.qlda.home;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
 import android.text.*;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.qlda.Data.Data;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
+import com.example.qlda.Utils.TimeUtils;
 import com.example.qlda.login.LoginActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import android.util.*;
 
-import java.util.*;
 public class SignUp extends AppCompatActivity {
 
     private EditText etEmail;
@@ -40,7 +43,6 @@ public class SignUp extends AppCompatActivity {
         etRePassword = (EditText) findViewById(R.id.etRePassword);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
-        tvNeedHelp = (TextView) findViewById(R.id.tvNeedHelp );
 
         auth = FirebaseFirestore.getInstance();
 
@@ -50,10 +52,6 @@ public class SignUp extends AppCompatActivity {
             finish();
         });
 
-        tvNeedHelp.setOnClickListener(v -> {
-            // Example: Show a Toast message or navigate to a help screen
-            Toast.makeText(this, "Help is on the way!", Toast.LENGTH_SHORT).show();
-        });
 
         btnSignUp.setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
@@ -91,8 +89,12 @@ public class SignUp extends AppCompatActivity {
             }
 
             // Create User object
-            User user = new User(1, email, password, email.split("@")[0],  1, (new Date()).toString());
-
+            User user = Data.getInstance().createUser(email, password, email.split("@")[0], 1, TimeUtils.getCurrentTimeFormatted());
+            informSignUpSuccess(this, () ->{
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            });
             // Save user data to Firestore
 //            auth.collection("users").document(user.getUserId())
 //                    .set(user)
@@ -107,5 +109,24 @@ public class SignUp extends AppCompatActivity {
 //                        return;
 //                    });
         });
+    }
+    private void informSignUpSuccess(Context context, Runnable actions) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Bạn đã đăng kí tài khoản thành công, hãy ấn OK để quay về đăng nhập");
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            if (actions != null) {
+                actions.run();
+            }
+            dialog.dismiss();
+        });
+
+//        builder.setNegativeButton("Hủy", (dialog, which) -> {
+//            dialog.dismiss();
+//        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
