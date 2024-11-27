@@ -16,7 +16,6 @@ import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.example.qlda.home.HomeActivity;
 import com.example.qlda.home.MyCustomLog;
-import com.example.qlda.home.SignUp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;

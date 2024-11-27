@@ -1,9 +1,6 @@
 package com.example.qlda.Data;
 
-import com.example.qlda.home.ConnectSqlServer;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -168,6 +165,7 @@ public class Data {
                 .filter(user -> userIDs.contains(user.getUserId()))
                 .collect(Collectors.toList());
     }
+
     public List<Project> getAllProjects() {
         return projects;
     }

@@ -1,4 +1,4 @@
-package com.example.qlda.home;
+package com.example.qlda.login;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,7 +12,6 @@ import com.example.qlda.Data.Data;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
 import com.example.qlda.Utils.TimeUtils;
-import com.example.qlda.login.LoginActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import android.util.*;
 
