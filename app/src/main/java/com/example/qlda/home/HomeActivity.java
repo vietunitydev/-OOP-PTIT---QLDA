@@ -273,9 +273,9 @@ public class HomeActivity extends AppCompatActivity {
 
                     if (Objects.equals(query, "")) {
                         Data data = Data.getInstance();
+                        LinearLayout prjContainer = projectView.findViewById(R.id.buttonContainer);
+                        prjContainer.removeAllViews();
                         for (Project project : data.getProjectsByUserId(user.getUserId())) {
-                            LinearLayout prjContainer = projectView.findViewById(R.id.buttonContainer);
-                            prjContainer.removeAllViews();
                             createButton(project);
                         }
                     } else {

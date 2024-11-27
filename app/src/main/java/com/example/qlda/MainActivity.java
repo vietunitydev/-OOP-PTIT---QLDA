@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
 
-        ConnectSqlServer connectSqlServer = new ConnectSqlServer();
-        Connection connection = connectSqlServer.CONN();
+//        ConnectSqlServer connectSqlServer = new ConnectSqlServer();
+//        Connection connection = connectSqlServer.CONN();
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
