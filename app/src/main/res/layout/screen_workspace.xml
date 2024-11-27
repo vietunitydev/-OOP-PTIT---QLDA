@@ -93,7 +93,8 @@
         android:layout_below="@+id/selectPage"
         android:fillViewport="true"
         android:scrollbars="none"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/pagesContainer"

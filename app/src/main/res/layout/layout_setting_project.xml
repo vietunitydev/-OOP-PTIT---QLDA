@@ -68,30 +68,30 @@
         android:layout_marginTop="4dp" />
 
     <!-- Project Key -->
-    <TextView
-        android:id="@+id/tv_project_key_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Project key"
-        android:textSize="14sp"
-        android:textColor="@color/gray_3"
-        app:layout_constraintTop_toBottomOf="@id/tv_project_name"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_project_key_label"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Project key"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textColor="@color/gray_3"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_project_name"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:layout_marginStart="16dp" />-->
 
-    <TextView
-        android:id="@+id/tv_project_key"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="VIET"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_project_key_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_project_key_label"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="4dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_project_key"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="VIET"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="@id/tv_project_name"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_project_name"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginTop="4dp" />-->
 
 
     <!-- Move to Trash -->
@@ -103,7 +103,7 @@
         android:backgroundTint="@android:color/holo_red_light"
         android:text="Move project to trash"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/tv_project_key"
+        app:layout_constraintTop_toBottomOf="@id/tv_project_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"

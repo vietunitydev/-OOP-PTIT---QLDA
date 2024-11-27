@@ -1,7 +1,12 @@
 package com.example.qlda.home;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.GestureDetector;
@@ -351,5 +356,29 @@ public class WorkSpaceFragment extends Fragment {
         if (getActivity() != null) {
             ((HomeActivity) getActivity()).goBackToPreviousFragment();
         }
+    }
+
+    // choose image and save to database
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE_REQUEST && data != null && data.getData() != null) {
+                Uri imageUri = data.getData();
+                setUserAvatar(imageUri);
+            }
+        }
+    }
+
+    private void setUserAvatar(Uri imageUri) {
+        // Thay đổi avatar trên giao diện người dùng
+//        ImageView avatarImageView = view.findViewById(R.id.image_uri);
+//        avatarImageView.setImageURI(imageUri);
     }
 }
