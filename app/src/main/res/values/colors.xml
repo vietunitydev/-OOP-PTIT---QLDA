@@ -18,5 +18,8 @@
     <color name="gray_3">#696969</color>
     <color name="green_low">#70CC6C</color>
     <color name="green_high">#238027</color>
+    <color name="red_1">#D55656</color>
+    <color name="red_2">#E33131</color>
+    <color name="red_3">#FF0000</color>
     <color name="semi_transparent_black">#80000000</color>
 </resources>

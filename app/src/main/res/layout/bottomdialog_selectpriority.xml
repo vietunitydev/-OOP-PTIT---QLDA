@@ -1,0 +1,118 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/gray_2">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a priority"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="2dp" />
+
+    <LinearLayout
+        android:id="@+id/btn_low"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/rounded_background">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_marginVertical="10sp"
+            android:layout_marginStart="17dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/blue_1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Low"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/ic_horizontal_line"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/btn_medium"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/rounded_background">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_marginVertical="10sp"
+            android:layout_marginStart="17dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/orange">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Medium"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/ic_horizontal_line"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_high"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/rounded_background">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_marginVertical="10sp"
+            android:layout_marginStart="17dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/red_3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="High"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/ic_horizontal_line"/>
+    </LinearLayout>
+
+</LinearLayout>

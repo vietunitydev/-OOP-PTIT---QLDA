@@ -159,8 +159,246 @@ public class IssueActivity extends AppCompatActivity {
         }
     }
     private void setupSearchIssue() {
+        FrameLayout btn_Search = issueView.findViewById(R.id.btn_Search);
+        btn_Search.setOnClickListener(v-> {
 
+        });
+
+        TextView searchProject = issueView.findViewById(R.id.project);
+        searchProject.setOnClickListener(v->{
+            View searchProjectView = showBottomSheetDialog(R.layout.bottomdialog_chooseproject);
+
+
+            EditText searchText = searchProjectView.findViewById(R.id.search_people);
+            searchText.setVisibility(View.GONE);
+            // show selected
+            TextView selectedText = searchProjectView.findViewById(R.id.selected_text);
+            LinearLayout selected = searchProjectView.findViewById(R.id.selected);
+            selectedText.setVisibility(View.GONE);
+            selected.setVisibility(View.GONE);
+
+
+            LinearLayout suggestion_container = searchProjectView.findViewById(R.id.suggestion_container);
+            suggestion_container.removeAllViews();
+
+            List<Project> newProjects = Data.getInstance().getProjectsByUserId(user.getUserId());
+
+            for (int i = 0; i < newProjects.size(); i++) {
+
+                Project project = newProjects.get(i);
+
+                View prjBtn = getLayoutInflater().inflate(R.layout.button_chooseproject, null);
+                ImageView btn_project_avt = prjBtn.findViewById(R.id.btn_project_avt);
+                TextView btn_project_username = prjBtn.findViewById(R.id.btn_project_username);
+
+                btn_project_avt.setBackgroundResource(Parser.getAvatarResource(project.getAvatarID()));
+                btn_project_username.setText(project.getProjectName());
+
+                suggestion_container.addView(prjBtn,i);
+
+                prjBtn.setOnClickListener(v1 -> {
+                    searchIssue(SearchType.project, String.valueOf(project.getProjectId()));
+                    curBottomDialog.dismiss();
+                });
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) prjBtn.getLayoutParams();
+                if (params != null) {
+                    params.setMargins(0, 8, 0, 8);
+                    prjBtn.setLayoutParams(params);
+                }
+            }
+        });
+
+        TextView type = issueView.findViewById(R.id.type);
+        type.setOnClickListener(v->{
+            View typeTaskView = showBottomSheetDialog(R.layout.bottomdialog_changetasktype);
+            LinearLayout taskView = typeTaskView.findViewById(R.id.task);
+            taskView.setOnClickListener(v12->{
+                // search type
+                searchIssue(SearchType.type, TaskType.Task.toString());
+                curBottomDialog.dismiss();
+
+            });
+            LinearLayout bugView = typeTaskView.findViewById(R.id.bug);
+            bugView.setOnClickListener(v12->{
+                // search type
+                searchIssue(SearchType.type, TaskType.Bug.toString());
+                curBottomDialog.dismiss();
+
+            });
+            LinearLayout storyView = typeTaskView.findViewById(R.id.story);
+            storyView.setOnClickListener(v12->{
+                // search type
+                searchIssue(SearchType.type, TaskType.Story.toString());
+                curBottomDialog.dismiss();
+            });
+        });
+
+        TextView status = issueView.findViewById(R.id.status);
+        status.setOnClickListener(v->{
+            View statusView = showBottomSheetDialog(R.layout.bottomdialog_selectstatus);
+            LinearLayout todo = statusView.findViewById(R.id.btn_todo);
+            todo.setOnClickListener(v1-> {
+                searchIssue(SearchType.status, StatusType.Todo.toString());
+                curBottomDialog.dismiss();
+            });
+            // btn2
+            LinearLayout inProgress = statusView.findViewById(R.id.btn_inprogress);
+            inProgress.setOnClickListener(v1-> {
+                searchIssue(SearchType.status, StatusType.InProgress.toString());
+                curBottomDialog.dismiss();
+            });// btn3
+            LinearLayout done = statusView.findViewById(R.id.btn_done);
+            done.setOnClickListener(v1-> {
+                searchIssue(SearchType.status, StatusType.Done.toString());
+                curBottomDialog.dismiss();
+            });
+        });
+
+        TextView priority = issueView.findViewById(R.id.priority);
+        priority.setOnClickListener(v->{
+            View priorityView = showBottomSheetDialog(R.layout.bottomdialog_selectpriority);
+
+            LinearLayout todo = priorityView.findViewById(R.id.btn_low);
+            todo.setOnClickListener(v1-> {
+                searchIssue(SearchType.priority, Priority.Low.toString());
+                curBottomDialog.dismiss();
+            });
+            // btn2
+            LinearLayout inProgress = priorityView.findViewById(R.id.btn_medium);
+            inProgress.setOnClickListener(v1-> {
+                searchIssue(SearchType.priority, Priority.Medium.toString());
+                curBottomDialog.dismiss();
+            });// btn3
+            LinearLayout done = priorityView.findViewById(R.id.btn_high);
+            done.setOnClickListener(v1-> {
+                searchIssue(SearchType.priority, Priority.High.toString());
+                curBottomDialog.dismiss();
+            });
+        });
+
+//        TextView assignee = issueView.findViewById(R.id.assignee);
+//        assignee.setOnClickListener(v->{
+//            View assigneeView = showBottomSheetDialog(R.layout.bottomdialog_assignee);
+//
+//            EditText searchText = assigneeView.findViewById(R.id.search_people);
+//            searchText.setVisibility(View.GONE);
+//            // show selected
+//            TextView selectedText = assigneeView.findViewById(R.id.selected_text);
+//            LinearLayout selected = assigneeView.findViewById(R.id.selected);
+//            selectedText.setVisibility(View.GONE);
+//            selected.setVisibility(View.GONE);
+//
+//            List<User> users = Data.getInstance().Get(project.getProjectId());
+//        });
+//
+//        TextView reporter = issueView.findViewById(R.id.reporter);
+//        reporter.setOnClickListener(v->{
+//            View reporterView = showBottomSheetDialog(R.layout.bottomdialog_assignee);
+//
+//            EditText searchText = reporterView.findViewById(R.id.search_people);
+//            searchText.setVisibility(View.GONE);
+//            // show selected
+//            TextView selectedText = reporterView.findViewById(R.id.selected_text);
+//            LinearLayout selected = reporterView.findViewById(R.id.selected);
+//            selectedText.setVisibility(View.GONE);
+//            selected.setVisibility(View.GONE);
+//        });
+
+        TextView remove = issueView.findViewById(R.id.remove);
+
+        remove.setOnClickListener(v->{
+            setupShowListTask();
+        });
     }
+
+    private void searchIssue(SearchType type, String value) {
+        List<Task> filteredTasks = new ArrayList<>();
+        List<Task> tasks = Data.getInstance().getAllTasks();
+
+        for (Task task : tasks) {
+            boolean matches = true;
+            switch (type) {
+                case none:
+                    break;
+
+                case project:
+                    if (!(task.getProjectId() == Integer.parseInt(value))) {
+                        matches = false;
+                    }
+                    break;
+
+                case type:
+                    if (!task.getTaskType().toString().equalsIgnoreCase(value)) {
+                        matches = false;
+                    }
+                    break;
+
+                case status:
+                    if (!task.getStatus().toString().equalsIgnoreCase(value)) {
+                        matches = false;
+                    }
+                    break;
+
+                case priority:
+                    if (!task.getPriority().toString().equalsIgnoreCase(value)) {
+                        matches = false;
+                    }
+                    break;
+
+                case assignee:
+                    if (!String.valueOf(task.getAssignedTo()).equals(value)) {
+                        matches = false;
+                    }
+                    break;
+
+                case reporter:
+                    if (!String.valueOf(task.getReporter()).equals(value)) {
+                        matches = false;
+                    }
+                    break;
+            }
+
+            if (matches) {
+                filteredTasks.add(task);
+            }
+        }
+
+        LinearLayout parentLayout = issueView.findViewById(R.id.issueWithinTime);
+        parentLayout.removeAllViews();
+
+        for (Task task : filteredTasks) {
+            View itemIssue = LayoutInflater.from(issueView.getContext())
+                    .inflate(R.layout.item_issue, parentLayout, false);
+
+            itemIssue.setOnClickListener(v->{
+                ItemDetailFragment contentFragment = ItemDetailFragment.newInstance(task);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, contentFragment)
+                        .addToBackStack(null)
+                        .commit();
+            });
+
+            TextView item_Issue_txtName = itemIssue.findViewById(R.id.item_Issue_txtName);
+            item_Issue_txtName.setText(task.getTaskName());
+
+            ImageView item_Issue_img = itemIssue.findViewById(R.id.item_Issue_img);
+            item_Issue_img.setBackgroundResource(Parser.getTaskTypeResource(task.getTaskType()));
+
+            ImageView avt_priority = itemIssue.findViewById(R.id.avt_priority);
+            avt_priority.setBackgroundResource(Parser.getPriorityTypeResource(task.getPriority()));
+
+            ImageView avt_assignee = itemIssue.findViewById(R.id.avt_assignee);
+            avt_assignee.setBackgroundResource(Parser.getAvatarResource(task.getAssignedTo()));
+
+            TextView item_Issue_Status = itemIssue.findViewById(R.id.item_Issue_Status);
+            getCorrectStatusView(item_Issue_Status,task);
+
+            parentLayout.addView(itemIssue);
+        }
+    }
+
+
     private void setupCreateNewIssue() {
         ImageView btnAdd = issueView.findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(v->{
@@ -634,5 +872,64 @@ public class IssueActivity extends AppCompatActivity {
                     dialog.dismiss();
                 })
                 .show();
+    }
+
+    public List<Task> searchTasks(List<Task> tasks, String taskName, Integer assignedTo, Integer reporter, TaskType taskType, Priority priority, StatusType status) {
+        List<Task> filteredTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            boolean matches = true;
+
+            if (taskName != null && !taskName.isEmpty()) {
+                if (!task.getTaskName().toLowerCase().contains(taskName.toLowerCase())) {
+                    matches = false;
+                }
+            }
+
+            if (assignedTo != null) {
+                if (task.getAssignedTo() != assignedTo) {
+                    matches = false;
+                }
+            }
+
+            if (reporter != null) {
+                if (task.getReporter() != reporter) {
+                    matches = false;
+                }
+            }
+
+            if (taskType != null) {
+                if (task.getTaskType() != taskType) {
+                    matches = false;
+                }
+            }
+
+            if (priority != null) {
+                if (task.getPriority() != priority) {
+                    matches = false;
+                }
+            }
+
+            if (status != null) {
+                if (task.getStatus() != status) {
+                    matches = false;
+                }
+            }
+
+            if (matches) {
+                filteredTasks.add(task);
+            }
+        }
+
+        return filteredTasks;
+    }
+    enum SearchType{
+        none,
+        project,
+        type,
+        status,
+        priority,
+        assignee,
+        reporter
     }
 }
