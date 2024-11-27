@@ -31,6 +31,7 @@ import com.example.qlda.Data.TaskType;
 import com.example.qlda.Data.TimeGroup;
 import com.example.qlda.Data.User;
 import com.example.qlda.R;
+import com.example.qlda.Utils.TimeUtils;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -380,7 +381,7 @@ public class IssueActivity extends AppCompatActivity {
 
         // Phân loại task theo thời gian
         for (Task task : Data.getInstance().getAllTasks()) {
-            LocalDate taskDate = task.getCreateDateAsLocalDate();
+            LocalDate taskDate = TimeUtils.stringToLocalDate(task.getCreateDate());
 
             if (taskDate.equals(today)) {
                 todayTasks.add(task);

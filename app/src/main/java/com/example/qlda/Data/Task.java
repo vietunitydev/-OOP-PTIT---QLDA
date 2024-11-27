@@ -127,8 +127,9 @@ public class Task implements Serializable  {
     }
 
     public LocalDate getCreateDateAsLocalDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(createDate, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+        return LocalDate.parse(createDate.split(" ")[0]);
     }
 
     public void setCreateDate(String createDate) {

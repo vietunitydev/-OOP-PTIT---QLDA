@@ -365,7 +365,9 @@ public class ItemDetailFragment extends Fragment {
 
             // show time comment
             TextView text_time = commentTemplate.findViewById(R.id.text_time);
-            text_time.setText(TimeUtils.timeAgoDateTime(c.getCreatedAt()));
+            MyCustomLog.DebugLog("ABCDHJK",c.getCreatedAt());
+
+            text_time.setText(TimeUtils.timeAgoLocalDate(c.getCreatedAt()));
             // xoa cmt
 
             // edit
@@ -397,7 +399,7 @@ public class ItemDetailFragment extends Fragment {
 
             // show time comment
             TextView text_time = commentTemplate.findViewById(R.id.text_time);
-            text_time.setText(TimeUtils.timeAgoDateTime(new_cmt.getCreatedAt()));
+            text_time.setText(TimeUtils.timeAgoLocalDate(new_cmt.getCreatedAt()));
 
             listComment.addView(commentTemplate);
 
