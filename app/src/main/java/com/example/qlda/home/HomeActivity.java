@@ -104,19 +104,16 @@ public class HomeActivity extends AppCompatActivity {
             View view = showBottomSheetDialog(R.layout.create_project);
 
             EditText projectNameInput = view.findViewById(R.id.project_name_input);
-            EditText projectKeyInput = view.findViewById(R.id.project_key_input);
             Button createButton = view.findViewById(R.id.create_button);
 
             createButton.setOnClickListener(e -> {
 
                 String projectName = projectNameInput.getText().toString().trim();
-                String projectKey = projectKeyInput.getText().toString().trim();
 
-                if(projectName.equals("") || projectKey.equals("")){
+                if(projectName.equals("")){
                     return;
                 }
 
-//                FireStoreHelper fs = new FireStoreHelper();
                 MyCustomLog.Toast(this,"Click Add Table Button");
 
                 Project newProject = Data.getInstance().createProject(projectName,"","","","",2);

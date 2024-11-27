@@ -70,34 +70,34 @@
         android:hint="Enter project name" />
 
     <!-- Project key field -->
-    <TextView
-        android:id="@+id/project_key_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/project_name_input"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Project key"
-        android:textSize="14sp"
-        android:textColor="@color/black" />
+<!--    <TextView-->
+<!--        android:id="@+id/project_key_label"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/project_name_input"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Project key"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textColor="@color/black" />-->
 
-    <EditText
-        android:id="@+id/project_key_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/project_key_label"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/border_edit_text"
-        android:padding="12dp"
-        android:hint="Enter project key" />
+<!--    <EditText-->
+<!--        android:id="@+id/project_key_input"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/project_key_label"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:background="@drawable/border_edit_text"-->
+<!--        android:padding="12dp"-->
+<!--        android:hint="Enter project key" />-->
 
     <!-- Create button -->
     <Button
         android:id="@+id/create_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/project_key_input"
+        android:layout_below="@id/project_name_input"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginTop="24dp"
