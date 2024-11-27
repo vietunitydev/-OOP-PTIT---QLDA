@@ -43,13 +43,14 @@ public class WorkSpaceFragment extends Fragment {
     private LinearLayout pagesContainer;
     private GestureDetector gestureDetector;
     private int currentPage = 0;
-
-
     LinearLayout wl_content_scroll1 ;
     LinearLayout wl_content_scroll2 ;
     LinearLayout wl_content_scroll3 ;
 
     Project project;
+
+    ImageView avtarUserSetting;
+    Uri currentUri;
 
     public static WorkSpaceFragment newInstance(Project project) {
         WorkSpaceFragment fragment = new WorkSpaceFragment();
@@ -127,6 +128,7 @@ public class WorkSpaceFragment extends Fragment {
             } else if (setting.getVisibility() == View.GONE) {
                 horizontalScrollView.setVisibility(View.GONE);
                 setting.setVisibility(View.VISIBLE);
+                setupOpenSetting(setting);
             }
         });
 
@@ -190,6 +192,17 @@ public class WorkSpaceFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void setupOpenSetting(View setting) {
+        ImageView avt = setting.findViewById(R.id.iv_avatar);
+        avtarUserSetting = avt;
+        avt.setBackgroundResource(Parser.getAvatarResource(Data.currentUser.getAvatarID()));
+
+        Button changeAvt = setting.findViewById(R.id.tv_change_avatar);
+        changeAvt.setOnClickListener(v->{
+            openImagePicker();
+        });
     }
 
     private void setupDragAndDrop(LinearLayout container) {
@@ -370,15 +383,9 @@ public class WorkSpaceFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == PICK_IMAGE_REQUEST && data != null && data.getData() != null) {
-                Uri imageUri = data.getData();
-                setUserAvatar(imageUri);
+                currentUri = data.getData();
+                avtarUserSetting.setImageURI(currentUri);
             }
         }
-    }
-
-    private void setUserAvatar(Uri imageUri) {
-        // Thay đổi avatar trên giao diện người dùng
-//        ImageView avatarImageView = view.findViewById(R.id.image_uri);
-//        avatarImageView.setImageURI(imageUri);
     }
 }
