@@ -1,8 +1,13 @@
 package com.example.qlda.home;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +72,7 @@ public class ItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.issue_details, container, false);
 
+        openImagePicker();
         setupItemDetail(inflater);
         return view;
     }
@@ -566,6 +572,30 @@ public class ItemDetailFragment extends Fragment {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    // choose image and save to database
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE_REQUEST && data != null && data.getData() != null) {
+                Uri imageUri = data.getData();
+                setUserAvatar(imageUri);
+            }
+        }
+    }
+
+    private void setUserAvatar(Uri imageUri) {
+        // Thay đổi avatar trên giao diện người dùng
+//        ImageView avatarImageView = view.findViewById(R.id.image_uri);
+//        avatarImageView.setImageURI(imageUri);
     }
 
 }
