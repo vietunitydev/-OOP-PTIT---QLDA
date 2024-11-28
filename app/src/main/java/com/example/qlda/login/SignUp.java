@@ -88,25 +88,12 @@ public class SignUp extends AppCompatActivity {
             }
 
             // Create User object
-            User user = Data.getInstance().createUser(email, password, email.split("@")[0], 1, TimeUtils.getCurrentTimeFormatted());
+            User user = Data.getInstance().createAndFetchUser(email, password, email.split("@")[0], 1, TimeUtils.getCurrentTimeFormatted());
             informSignUpSuccess(this, () ->{
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             });
-            // Save user data to Firestore
-//            auth.collection("users").document(user.getUserId())
-//                    .set(user)
-//                    .addOnSuccessListener(aVoid -> {
-//                        Toast.makeText(SignUp.this, "User registered successfully!", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(SignUp.this, LoginActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    })
-//                    .addOnFailureListener(e -> {
-//                        Toast.makeText(SignUp.this, "Registration failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        return;
-//                    });
         });
     }
     private void informSignUpSuccess(Context context, Runnable actions) {

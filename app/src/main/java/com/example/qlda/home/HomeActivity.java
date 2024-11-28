@@ -122,8 +122,10 @@ public class HomeActivity extends AppCompatActivity {
 
                 MyCustomLog.Toast(this,"Click Add Table Button");
 
-                Project newProject = Data.getInstance().createProject(projectName,"", TimeUtils.getCurrentTimeFormatted(),TimeUtils.getCurrentTimeFormatted(),"",2);
-                createButton(newProject);
+                Project project = Data.getInstance().createAndFetchProject(projectName,"", TimeUtils.getCurrentTimeFormatted(),TimeUtils.getCurrentTimeFormatted(),"",2);
+                if(project!=null){
+                    createButton(project);
+                }
 
                 curBottomDialog.dismiss();
             });

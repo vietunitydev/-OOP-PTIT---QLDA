@@ -30,6 +30,158 @@ public class Data {
         return instance;
     }
 
+
+    //////////////////// CREATE
+    public boolean createProject(String projectName, String description, String startDate, String endDate, String status, int avatarID) {
+        String query = "INSERT INTO Project (projectName, description, startDate, endDate, status, avataID) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, projectName);
+            stmt.setString(2, description);
+            stmt.setString(3, startDate);
+            stmt.setString(4, endDate);
+            stmt.setString(5, status);
+            stmt.setInt(6, avatarID);
+
+            int rowsInserted = stmt.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Project createAndFetchProject(String projectName, String description, String startDate, String endDate, String status, int avatarID) {
+        String query = "INSERT INTO Project (projectName, description, startDate, endDate, status, avataID) " +
+                "OUTPUT INSERTED.projectID, INSERTED.projectName, INSERTED.description, INSERTED.startDate, INSERTED.endDate, INSERTED.status, INSERTED.avataID " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, projectName);
+            stmt.setString(2, description);
+            stmt.setString(3, startDate);
+            stmt.setString(4, endDate);
+            stmt.setString(5, status);
+            stmt.setInt(6, avatarID);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Project(
+                        rs.getInt("projectID"),
+                        rs.getString("projectName"),
+                        rs.getString("description"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate"),
+                        rs.getString("status"),
+                        rs.getInt("avataID")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Task createAndFetchTask(String taskName, String description, int assignedTo, int reporter, int projectId, String taskType, String priority, String status, String createDate, String updatedDate) {
+        String query = "INSERT INTO Task (taskName, description, assignedTo, reporter, projectID, taskType, priority, status, createDate, updatedDate) " +
+                "OUTPUT INSERTED.taskId, INSERTED.taskName, INSERTED.description, INSERTED.assignedTo, INSERTED.reporter, INSERTED.projectID, INSERTED.taskType, INSERTED.priority, INSERTED.status, INSERTED.createDate, INSERTED.updatedDate " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, taskName);
+            stmt.setString(2, description);
+            stmt.setInt(3, assignedTo);
+            stmt.setInt(4, reporter);
+            stmt.setInt(5, projectId);
+            stmt.setString(6, taskType);
+            stmt.setString(7, priority);
+            stmt.setString(8, status);
+            stmt.setString(9, createDate);
+            stmt.setString(10, updatedDate);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Task(
+                        rs.getInt("taskId"),
+                        rs.getString("taskName"),
+                        rs.getString("description"),
+                        rs.getInt("reporter"),
+                        rs.getInt("assignedTo"),
+                        rs.getInt("projectID"),
+                        TaskType.valueOf(rs.getString("taskType")),
+                        Priority.valueOf(rs.getString("priority")),
+                        StatusType.valueOf(rs.getString("status")),
+                        rs.getString("createDate"),
+                        rs.getString("updatedDate")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Comment createAndFetchComment(int taskId, int userId, String content, String createdAt) {
+        String query = "INSERT INTO Comment (taskID, userID, content, createdAt) " +
+                "OUTPUT INSERTED.commentId, INSERTED.taskID, INSERTED.userID, INSERTED.content, INSERTED.createdAt " +
+                "VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, taskId);
+            stmt.setInt(2, userId);
+            stmt.setString(3, content);
+            stmt.setString(4, createdAt);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Comment(
+                        rs.getInt("commentId"),
+                        rs.getInt("taskID"),
+                        rs.getInt("userID"),
+                        rs.getString("content"),
+                        rs.getString("createdAt")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User createAndFetchUser(String fullName, String email, String password, int avatarID, String createdAt) {
+        String query = "INSERT INTO [User] (fullName, email, password, avatarID, createdAt) " +
+                "OUTPUT INSERTED.userID, INSERTED.fullName, INSERTED.email, INSERTED.password, INSERTED.avatarID, INSERTED.createdAt " +
+                "VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, fullName);
+            stmt.setString(2, email);
+            stmt.setString(3, password);
+            stmt.setInt(4, avatarID);
+            stmt.setString(5, createdAt);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("userID"),
+                        rs.getString("fullName"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getInt("avatarID"),
+                        rs.getString("createdAt")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
+    ////////////////////
+
     public User getUserByEmail(String email) throws SQLException {
         String query = "SELECT * FROM [User] WHERE email = ?";
         try (Connection conn = db.TryConnectDB();
@@ -216,7 +368,7 @@ public class Data {
                             rs.getInt("taskID"),
                             rs.getInt("userID"),
                             rs.getString("content"),
-                            rs.getString("created")
+                            rs.getString("createdAt")
                     );
                     cmts.add(cmt);
                 }

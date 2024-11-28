@@ -628,7 +628,7 @@ public class IssueActivity extends AppCompatActivity {
                 }
 
                 MyCustomLog.Toast(this,"CREATE NEW TASK");
-                Data.getInstance().createTask(edtNameIssue.getText().toString(),textContentDescription.getText().toString(),tempProject.getProjectId(),tempTask.getAssignedTo(),tempTask.getReporter(),tempTask.getTaskType(), tempTask.getPriority(),tempTask.getStatus(),"2024-11-24","2024-11-24");
+                Data.getInstance().createAndFetchTask(edtNameIssue.getText().toString(),textContentDescription.getText().toString(),tempProject.getProjectId(),tempTask.getAssignedTo(),tempTask.getReporter(),tempTask.getTaskType().toString(), tempTask.getPriority().toString(),tempTask.getStatus().toString(),"2024-11-24","2024-11-24");
                 setupShowListTask();
             });
         });
