@@ -1,5 +1,9 @@
 package com.example.qlda.Data;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,9 +97,9 @@ public class Data {
         return users.stream().filter(user -> user.getUserId() == userId).findFirst().orElse(null);
     }
 
-    public List<Task> getTasksByProjectId(int projectId) {
-        return tasks.stream().filter(task -> task.getProjectId() == projectId).collect(Collectors.toList());
-    }
+//    public List<Task> getTasksByProjectId(int projectId) {
+//        return tasks.stream().filter(task -> task.getProjectId() == projectId).collect(Collectors.toList());
+//    }
 
     public List<Comment> getCommentsByTaskId(int taskId) {
         return comments.stream().filter(comment -> comment.getTaskId() == taskId).collect(Collectors.toList());
@@ -144,16 +148,16 @@ public class Data {
                 .orElse(null);
     }
 
-    public List<Project> getProjectsByUserId(int userId) {
-        List<Integer> projectIds = projectUsers.stream()
-                .filter(projectUser -> projectUser.getUserID() == userId)
-                .map(ProjectUser::getProjectID)
-                .collect(Collectors.toList());
-
-        return projects.stream()
-                .filter(project -> projectIds.contains(project.getProjectId()))
-                .collect(Collectors.toList());
-    }
+//    public List<Project> getProjectsByUserId(int userId) {
+//        List<Integer> projectIds = projectUsers.stream()
+//                .filter(projectUser -> projectUser.getUserID() == userId)
+//                .map(ProjectUser::getProjectID)
+//                .collect(Collectors.toList());
+//
+//        return projects.stream()
+//                .filter(project -> projectIds.contains(project.getProjectId()))
+//                .collect(Collectors.toList());
+//    }
 
     public List<User> getUsersByProjectId(int projectID) {
         List<Integer> userIDs = projectUsers.stream()
@@ -189,6 +193,95 @@ public class Data {
         System.out.println("\nComments:");
         comments.forEach(System.out::println);
     }
+
+    public User getUserByEmail(String email) throws SQLException {
+        String query = "SELECT * FROM [User] WHERE email = ?";
+        try (Connection conn = db.TryConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("userID"),
+                        rs.getString("fullName"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getInt("avatarID"),
+                        rs.getString("createdAt")
+                );
+            }
+        }
+        return null;
+    }
+    public User login(String email, String password) throws SQLException {
+        String query = "SELECT * FROM [User] WHERE email = ? AND password = ?";
+        try (Connection conn = db.TryConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("userID"),
+                        rs.getString("fullName"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getInt("avatarID"),
+                        rs.getString("createdAt")
+                );
+            }
+        }
+        return null;
+    }
+
+    public List<Project> getProjectsByUserId(int userId) throws SQLException {
+        String query = "SELECT P.* FROM ProjectUser PU JOIN Project P ON PU.projectID = P.projectID WHERE PU.userID = ?";
+        List<Project> projects = new ArrayList<>();
+        try (Connection conn = db.TryConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                projects.add(new Project(
+                        rs.getInt("projectID"),
+                        rs.getString("projectName"),
+                        rs.getString("description"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate"),
+                        rs.getString("status"),
+                        rs.getInt("avataID")
+                ));
+            }
+        }
+        return projects;
+    }
+
+    public List<Task> getTasksByProjectId(int projectId) throws SQLException {
+        String query = "SELECT * FROM Task WHERE projectID = ?";
+        List<Task> tasks = new ArrayList<>();
+        try (Connection conn = db.TryConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, projectId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                tasks.add(new Task(
+                        rs.getInt("taskId"),
+                        rs.getString("taskName"),
+                        rs.getString("description"),
+                        rs.getInt("assignedTo"),
+                        rs.getInt("reporter"),
+                        rs.getInt("projectID"),
+                        TaskType.valueOf(rs.getString("taskType")),
+                        Priority.valueOf(rs.getString("priority")),
+                        StatusType.valueOf(rs.getString("status")),
+                        rs.getString("createDate"),
+                        rs.getString("updatedDate")
+                ));
+            }
+        }
+        return tasks;
+    }
+
 }
 
 

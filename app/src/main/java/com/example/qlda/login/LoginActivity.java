@@ -18,6 +18,7 @@ import com.example.qlda.home.HomeActivity;
 import com.example.qlda.home.MyCustomLog;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -118,15 +119,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private User AuthLogin(String email, String pass){
-        Data data = Data.getInstance();
-        List<User> users = data.getAllUsers();
-        for(User user : users){
-            if(Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), pass)){
-                return user;
-            }
+        try {
+            return Data.getInstance().login(email,pass);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     private void saveUserData(String username, String password, boolean rememberMe) {

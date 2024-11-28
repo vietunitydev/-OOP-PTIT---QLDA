@@ -37,6 +37,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.w3c.dom.Text;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.WeekFields;
@@ -181,7 +182,12 @@ public class IssueActivity extends AppCompatActivity {
             LinearLayout suggestion_container = searchProjectView.findViewById(R.id.suggestion_container);
             suggestion_container.removeAllViews();
 
-            List<Project> newProjects = Data.getInstance().getProjectsByUserId(user.getUserId());
+            List<Project> newProjects = null;
+            try {
+                newProjects = Data.getInstance().getProjectsByUserId(user.getUserId());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
             for (int i = 0; i < newProjects.size(); i++) {
 
@@ -403,7 +409,12 @@ public class IssueActivity extends AppCompatActivity {
         ImageView btnAdd = issueView.findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(v->{
 
-            List<Project> projects = Data.getInstance().getProjectsByUserId(user.getUserId());
+            List<Project> projects = null;
+            try {
+                projects = Data.getInstance().getProjectsByUserId(user.getUserId());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             if(projects.size() == 0){
                 showPopup("Không có project nào", () ->{
                     // make any thing ....
@@ -438,7 +449,12 @@ public class IssueActivity extends AppCompatActivity {
                 LinearLayout suggestion_container = changeTaskView.findViewById(R.id.suggestion_container);
                 suggestion_container.removeAllViews();
 
-                List<Project> newProjects = Data.getInstance().getProjectsByUserId(user.getUserId());
+                List<Project> newProjects = null;
+                try {
+                    newProjects = Data.getInstance().getProjectsByUserId(user.getUserId());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 newProjects.removeIf(prj -> prj.getProjectId() == tempProject.getProjectId());
 
                 for (int i = 0; i < newProjects.size(); i++) {

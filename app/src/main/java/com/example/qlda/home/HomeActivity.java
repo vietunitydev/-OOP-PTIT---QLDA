@@ -32,6 +32,7 @@ import com.example.qlda.Utils.TimeUtils;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.WeekFields;
@@ -91,8 +92,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private void fetchUserProject(){
         Data data = Data.getInstance();
-        for (Project project : data.getProjectsByUserId(user.getUserId())) {
-            createButton(project);
+        try {
+            for (Project project : data.getProjectsByUserId(user.getUserId())) {
+                createButton(project);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -273,8 +278,12 @@ public class HomeActivity extends AppCompatActivity {
                         Data data = Data.getInstance();
                         LinearLayout prjContainer = projectView.findViewById(R.id.buttonContainer);
                         prjContainer.removeAllViews();
-                        for (Project project : data.getProjectsByUserId(user.getUserId())) {
-                            createButton(project);
+                        try {
+                            for (Project project : data.getProjectsByUserId(user.getUserId())) {
+                                createButton(project);
+                            }
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
                         }
                     } else {
                         List<Project> projectsSearched = searchProjectByName(query);
@@ -299,10 +308,14 @@ public class HomeActivity extends AppCompatActivity {
         Data data = Data.getInstance();
         List<Project> matchedProjects = new ArrayList<>();
 
-        for (Project project : data.getProjectsByUserId(user.getUserId())) {
-            if (project.getProjectName().toLowerCase().contains(query.toLowerCase())) {
-                matchedProjects.add(project);
+        try {
+            for (Project project : data.getProjectsByUserId(user.getUserId())) {
+                if (project.getProjectName().toLowerCase().contains(query.toLowerCase())) {
+                    matchedProjects.add(project);
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return matchedProjects;

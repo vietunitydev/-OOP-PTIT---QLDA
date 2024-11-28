@@ -12,15 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.qlda.Data.Comment;
-import com.example.qlda.Data.Priority;
-import com.example.qlda.Data.Project;
-import com.example.qlda.Data.ProjectUser;
-import com.example.qlda.Data.StatusType;
-import com.example.qlda.Data.Task;
-import com.example.qlda.Data.TaskType;
-import com.example.qlda.Data.User;
-
 public class ConnectSqlServer {
     // Thông tin kết nối
     private static final String DRIVER_CLASS = "net.sourceforge.jtds.jdbc.Driver";
@@ -34,7 +25,7 @@ public class ConnectSqlServer {
      * Hàm kết nối với SQL Server.
      * @return Connection đối tượng kết nối với cơ sở dữ liệu, hoặc null nếu có lỗi.
      */
-    public Connection CONN() {
+    public Connection TryConnectDB() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -61,7 +52,7 @@ public class ConnectSqlServer {
      */
     public int getIntData(String query) {
         int result = 0;
-        try (Connection connection = CONN();
+        try (Connection connection = TryConnectDB();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 
@@ -77,7 +68,7 @@ public class ConnectSqlServer {
 
     public String getStringData(String query) {
         String result = "";
-        try (Connection connection = CONN();
+        try (Connection connection = TryConnectDB();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 
@@ -99,7 +90,7 @@ public class ConnectSqlServer {
         List<Project> projects = new ArrayList<>();
         String query = "SELECT * FROM Project";
 
-        try (Connection connection = CONN();
+        try (Connection connection = TryConnectDB();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 
@@ -144,7 +135,7 @@ public class ConnectSqlServer {
         String query = "SELECT * FROM Task"; // Đảm bảo đúng bảng Task
         List<Task> tasks = new ArrayList<>();
 
-        try (Connection connection = CONN();
+        try (Connection connection = TryConnectDB();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 
@@ -186,7 +177,7 @@ public class ConnectSqlServer {
     public List<User> getUserList() {
         String query = "SELECT * FROM [User]";
         List<User> users = new ArrayList<>();
-        try (Connection connection = CONN();
+        try (Connection connection = TryConnectDB();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 
@@ -218,7 +209,7 @@ public class ConnectSqlServer {
         List<Comment> comments = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // Định dạng ngày giờ
 
-        try (Connection connection = CONN();
+        try (Connection connection = TryConnectDB();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 
@@ -247,7 +238,7 @@ public class ConnectSqlServer {
         String query = "SELECT * FROM ProjectUser";
         List<ProjectUser> projectUsers = new ArrayList<>();
 
-        try (Connection connection = CONN();
+        try (Connection connection = TryConnectDB();
              Statement statement = connection != null ? connection.createStatement() : null;
              ResultSet resultSet = statement != null ? statement.executeQuery(query) : null) {
 

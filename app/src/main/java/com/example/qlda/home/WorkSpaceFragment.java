@@ -32,6 +32,7 @@ import com.example.qlda.Data.StatusType;
 import com.example.qlda.Data.Task;
 import com.example.qlda.R;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -174,7 +175,12 @@ public class WorkSpaceFragment extends Fragment {
          wl_content_scroll3 = view3.findViewById(R.id.wl_content_scroll);
 
 
-        List<Task> tasks = Data.getInstance().getTasksByProjectId(projectID);
+        List<Task> tasks = null;
+        try {
+            tasks = Data.getInstance().getTasksByProjectId(projectID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         for (int i = 0; i < tasks.size(); i++) {
             if(Objects.equals(tasks.get(i).getStatus(), StatusType.Todo)){
                 CreateElement(wl_content_scroll1, tasks.get(i));
