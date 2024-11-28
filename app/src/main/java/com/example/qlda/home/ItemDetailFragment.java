@@ -111,7 +111,12 @@ public class ItemDetailFragment extends Fragment {
                 popupWindow.dismiss();
                 showDeleteTaskDialog(getContext(), task.getTaskName(), () -> {
                     // delete on database
-                    boolean removed = Data.getInstance().deleteTaskById(task.getTaskId());
+                    boolean removed = false;
+                    try {
+                        removed = Data.getInstance().deleteTaskById(task.getTaskId());
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                     if(removed){
                         Toast.makeText(getContext(), "Task đã bị xóa", Toast.LENGTH_SHORT).show();
                         backToPageListScreen();
@@ -133,7 +138,12 @@ public class ItemDetailFragment extends Fragment {
         taskName.setText(task.getTaskName());
 
         ImageButton imgBtnUser = view.findViewById(R.id.imgBtnUser);
-        User assign = Data.getInstance().getUserById(task.getAssignedTo());
+        User assign = null;
+        try {
+            assign = Data.getInstance().getUserById(task.getAssignedTo());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         imgBtnUser.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
         imgBtnUser.setOnClickListener(v ->{
             setupChangeUserAssignee(true);
@@ -328,7 +338,7 @@ public class ItemDetailFragment extends Fragment {
         });
 
 
-        User assign = Data.getInstance().getUserById(task.getAssignedTo());
+        User assign = getUserById(task.getAssignedTo());
         ImageView avatar_assignee = view.findViewById(R.id.avatar_assignee);
         TextView name_assignee = view.findViewById(R.id.name_assignee);
         avatar_assignee.setBackgroundResource(Parser.getAvatarResource(assign.getAvatarID()));
@@ -339,7 +349,7 @@ public class ItemDetailFragment extends Fragment {
             setupChangeUserAssignee(true);
         });
 
-        User reporter = Data.getInstance().getUserById(task.getReporter());
+        User reporter = getUserById(task.getReporter());
         ImageView avatar_reporter = view.findViewById(R.id.avatar_reporter);
         avatar_reporter.setBackgroundResource(Parser.getAvatarResource(reporter.getUserId()));
         TextView name_reporter = view.findViewById(R.id.name_reporter);
@@ -388,7 +398,12 @@ public class ItemDetailFragment extends Fragment {
     }
 
     private void setupComment(){
-        List<Comment> comments = Data.getInstance().getCommentsByTaskId(task.getTaskId());
+        List<Comment> comments = null;
+        try {
+            comments = Data.getInstance().getCommentByTaskID(task.getTaskId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         LinearLayout listComment = view.findViewById(R.id.list_comment);
 
         for (Comment c : comments){
@@ -396,7 +411,7 @@ public class ItemDetailFragment extends Fragment {
 
             commentTemplate.setPadding(20,0,0,20);
             TextView nameText = commentTemplate.findViewById(R.id.text_name);
-            User user = Data.getInstance().getUserById(c.getUserId());
+            User user = getUserById(c.getUserId());
             nameText.setText(user.getFullName());
 
             ImageView img_avatar = commentTemplate.findViewById(R.id.img_avatar);
@@ -475,10 +490,10 @@ public class ItemDetailFragment extends Fragment {
         User selectedUser;
 
         if(isAssign){
-            selectedUser = Data.getInstance().getUserById(task.getAssignedTo());
+            selectedUser = getUserById(task.getAssignedTo());
         }
         else{
-            selectedUser = Data.getInstance().getUserById(task.getReporter());
+            selectedUser = getUserById(task.getReporter());
         }
 
         users.removeIf(user -> user.getUserId() == selectedUser.getUserId());
@@ -606,6 +621,13 @@ public class ItemDetailFragment extends Fragment {
         // Thay đổi avatar trên giao diện người dùng
 //        ImageView avatarImageView = view.findViewById(R.id.image_uri);
 //        avatarImageView.setImageURI(imageUri);
+    }
+    private User getUserById(int id){
+        try {
+            return Data.getInstance().getUserById(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -583,20 +583,36 @@ public class IssueActivity extends AppCompatActivity {
             TextView name_Assignee = createIssueView.findViewById(R.id.name_Assignee);
             LinearLayout btn_Assignee = createIssueView.findViewById(R.id.btn_Assignee);
             btn_Assignee.setOnClickListener(v12 ->{
-                setupChangeUserAssignee(true,tempProject,tempTask,() ->{
-                    avt_Assignee.setBackgroundResource(Parser.getAvatarResource(tempTask.getAssignedTo()));
-                    name_Assignee.setText(Data.getInstance().getUserById(tempTask.getAssignedTo()).getFullName());
-                });
+                try {
+                    setupChangeUserAssignee(true,tempProject,tempTask,() ->{
+                        avt_Assignee.setBackgroundResource(Parser.getAvatarResource(tempTask.getAssignedTo()));
+                        try {
+                            name_Assignee.setText(Data.getInstance().getUserById(tempTask.getAssignedTo()).getFullName());
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             });
 
             ImageView avt_Reporter = createIssueView.findViewById(R.id.avt_Reporter);
             TextView name_Reporter = createIssueView.findViewById(R.id.name_Reporter);
             LinearLayout btn_Reporter = createIssueView.findViewById(R.id.btn_Reporter);
             btn_Reporter.setOnClickListener(v12 ->{
-                setupChangeUserAssignee(false,tempProject,tempTask, () ->{
-                    avt_Reporter.setBackgroundResource(Parser.getAvatarResource(tempTask.getReporter()));
-                    name_Reporter.setText(Data.getInstance().getUserById(tempTask.getReporter()).getFullName());
-                });
+                try {
+                    setupChangeUserAssignee(false,tempProject,tempTask, () ->{
+                        avt_Reporter.setBackgroundResource(Parser.getAvatarResource(tempTask.getReporter()));
+                        try {
+                            name_Reporter.setText(Data.getInstance().getUserById(tempTask.getReporter()).getFullName());
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             });
 
             TextView btn_Create = createIssueView.findViewById(R.id.btn_Create);
@@ -765,7 +781,7 @@ public class IssueActivity extends AppCompatActivity {
 
         });
     }
-    private void setupChangeUserAssignee(boolean isAssign, Project project, Task task,  Runnable callback){
+    private void setupChangeUserAssignee(boolean isAssign, Project project, Task task,  Runnable callback) throws SQLException {
         View assign = showBottomSheetDialog(R.layout.bottomdialog_assignee);
         // search people
 
