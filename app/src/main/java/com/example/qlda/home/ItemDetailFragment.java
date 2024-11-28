@@ -72,7 +72,6 @@ public class ItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.issue_details, container, false);
 
-        openImagePicker();
         setupItemDetail(inflater);
         return view;
     }
