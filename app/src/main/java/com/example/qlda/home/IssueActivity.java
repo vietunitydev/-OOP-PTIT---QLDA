@@ -320,7 +320,12 @@ public class IssueActivity extends AppCompatActivity {
 
     private void searchIssue(SearchType type, String value) {
         List<Task> filteredTasks = new ArrayList<>();
-        List<Task> tasks = Data.getInstance().getAllTasks();
+        List<Task> tasks = null;
+        try {
+            tasks = Data.getInstance().getTasksByUserOwner(Data.currentUser.getUserId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         for (Task task : tasks) {
             boolean matches = true;
@@ -634,26 +639,30 @@ public class IssueActivity extends AppCompatActivity {
         Map<String, List<Task>> otherMonthTasks = new HashMap<>();
 
         // Phân loại task theo thời gian
-        for (Task task : Data.getInstance().getAllTasks()) {
-            LocalDate taskDate = TimeUtils.stringToLocalDate(task.getCreateDate());
+        try {
+            for (Task task : Data.getInstance().getTasksByUserOwner(Data.currentUser.getUserId())) {
+                LocalDate taskDate = TimeUtils.stringToLocalDate(task.getCreateDate());
 
-            if (taskDate.equals(today)) {
-                todayTasks.add(task);
-            } else if (taskDate.equals(yesterday)) {
-                yesterdayTasks.add(task);
-            } else if (!taskDate.isBefore(startOfThisWeek) && !taskDate.isAfter(endOfThisWeek)) {
-                thisWeekTasks.add(task);
-            } else if (!taskDate.isBefore(startOfLastWeek) && !taskDate.isAfter(endOfLastWeek)) {
-                lastWeekTasks.add(task);
-            } else if (!taskDate.isBefore(startOfThisMonth)) {
-                thisMonthTasks.add(task);
-            } else {
-                Month taskMonth = taskDate.getMonth();
-                int taskYear = taskDate.getYear();
-                String monthLabel = taskMonth + " " + taskYear;
-                otherMonthTasks.putIfAbsent(monthLabel, new ArrayList<>());
-                otherMonthTasks.get(monthLabel).add(task);
+                if (taskDate.equals(today)) {
+                    todayTasks.add(task);
+                } else if (taskDate.equals(yesterday)) {
+                    yesterdayTasks.add(task);
+                } else if (!taskDate.isBefore(startOfThisWeek) && !taskDate.isAfter(endOfThisWeek)) {
+                    thisWeekTasks.add(task);
+                } else if (!taskDate.isBefore(startOfLastWeek) && !taskDate.isAfter(endOfLastWeek)) {
+                    lastWeekTasks.add(task);
+                } else if (!taskDate.isBefore(startOfThisMonth)) {
+                    thisMonthTasks.add(task);
+                } else {
+                    Month taskMonth = taskDate.getMonth();
+                    int taskYear = taskDate.getYear();
+                    String monthLabel = taskMonth + " " + taskYear;
+                    otherMonthTasks.putIfAbsent(monthLabel, new ArrayList<>());
+                    otherMonthTasks.get(monthLabel).add(task);
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         // Thêm các nhóm thời gian vào danh sách kết quả nếu có task

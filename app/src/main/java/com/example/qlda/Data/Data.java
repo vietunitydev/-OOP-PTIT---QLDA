@@ -268,8 +268,8 @@ public class Data {
                         rs.getInt("taskId"),
                         rs.getString("taskName"),
                         rs.getString("description"),
-                        rs.getInt("assignedTo"),
                         rs.getInt("reporter"),
+                        rs.getInt("assignedTo"),
                         rs.getInt("projectID"),
                         TaskType.valueOf(rs.getString("taskType")),
                         Priority.valueOf(rs.getString("priority")),
@@ -282,6 +282,37 @@ public class Data {
         return tasks;
     }
 
+    public List<Task> getTasksByUserOwner(int userID) throws SQLException {
+        String query = "SELECT * FROM Task t JOIN ProjectUser pu ON t.projectID = pu.projectID WHERE pu.userID = ?;";
+
+        List<Task> tasks = new ArrayList<>();
+
+        try (Connection conn = db.TryConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Task task = new Task(
+                            rs.getInt("taskId"),
+                            rs.getString("taskName"),
+                            rs.getString("description"),
+                            rs.getInt("reporter"),
+                            rs.getInt("assignedTo"),
+                            rs.getInt("projectID"),
+                            TaskType.valueOf(rs.getString("taskType")),
+                            Priority.valueOf(rs.getString("priority")),
+                            StatusType.valueOf(rs.getString("status")),
+                            rs.getString("createDate"),
+                            rs.getString("updatedDate")
+                    );
+                    tasks.add(task);
+                }
+            }
+        }
+
+        return tasks;
+    }
 }
 
 
