@@ -209,7 +209,6 @@
                     android:gravity="start" />
             </LinearLayout>
 
-            attac
             <LinearLayout
                 android:id="@+id/issueFields"
                 android:layout_width="match_parent"

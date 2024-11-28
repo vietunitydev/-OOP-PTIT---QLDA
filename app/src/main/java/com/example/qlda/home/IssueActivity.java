@@ -628,7 +628,7 @@ public class IssueActivity extends AppCompatActivity {
                 }
 
                 MyCustomLog.Toast(this,"CREATE NEW TASK");
-                Data.getInstance().createAndFetchTask(edtNameIssue.getText().toString(),textContentDescription.getText().toString(),tempProject.getProjectId(),tempTask.getAssignedTo(),tempTask.getReporter(),tempTask.getTaskType().toString(), tempTask.getPriority().toString(),tempTask.getStatus().toString(),"2024-11-24","2024-11-24");
+                Data.getInstance().createAndFetchTask(edtNameIssue.getText().toString(),textContentDescription.getText().toString(),tempTask.getAssignedTo(),tempTask.getReporter(),tempTask.getProjectId(),tempTask.getTaskType().toString(), tempTask.getPriority().toString(),tempTask.getStatus().toString(),"2024-11-24","2024-11-24");
                 curBottomDialog.dismiss();
                 setupShowListTask();
             });
@@ -785,11 +785,14 @@ public class IssueActivity extends AppCompatActivity {
     private void setupChangeUserAssignee(boolean isAssign, Project project, Task task,  Runnable callback) throws SQLException {
         View assign = showBottomSheetDialog(R.layout.bottomdialog_assignee);
         // search people
+        EditText search_people = assign.findViewById(R.id.search_people);
+        search_people.setVisibility(View.GONE);
 
         // show selected
         LinearLayout selected = assign.findViewById(R.id.selected);
         ImageView avt_selected = selected.findViewById(R.id.avt_selected);
         TextView username_selected = selected.findViewById(R.id.username_selected);
+        selected.setVisibility(View.GONE);
 
         // find a list user in this project
         List<User> users = null;
@@ -799,40 +802,6 @@ public class IssueActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         User cur = Data.currentUser;
-        User selectedUser;
-
-        if(isAssign) {
-            if(task.getAssignedTo() == 0){
-                // un assignee
-                selectedUser = new User(0,"Un Assign","unassign@gmail.com","",7,(new Date()).toString());
-                users.add(0,selectedUser);
-            }else {
-                selectedUser = Data.getInstance().getUserById(task.getAssignedTo());
-                users.removeIf(user -> user.getUserId() == selectedUser.getUserId());
-            }
-
-        }
-        else{
-            if(task.getAssignedTo() == 0){
-                // un assignee
-                selectedUser = new User(0,"Un Assign","unassign@gmail.com","",7,(new Date()).toString());
-                users.add(0,selectedUser);
-            }else {
-                selectedUser = Data.getInstance().getUserById(task.getReporter());
-                users.removeIf(user -> user.getUserId() == selectedUser.getUserId());
-            }
-        }
-
-        avt_selected.setBackgroundResource(Parser.getAvatarResource(selectedUser.getAvatarID()));
-        if(selectedUser.getUserId() == 0){
-            username_selected.setText("Un Assign");
-        }
-        else if(cur.getUserId() == selectedUser.getUserId()){
-            username_selected.setText("Me");
-        }
-        else{
-            username_selected.setText(selectedUser.getFullName());
-        }
 
         LinearLayout suggestion_container = assign.findViewById(R.id.suggestion_container);
         suggestion_container.removeAllViews();

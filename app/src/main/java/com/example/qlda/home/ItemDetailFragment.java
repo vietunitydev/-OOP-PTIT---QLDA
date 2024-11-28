@@ -473,6 +473,8 @@ public class ItemDetailFragment extends Fragment {
     private void setupChangeUserAssignee(boolean isAssign){
         View assign = showBottomSheetDialog(R.layout.bottomdialog_assignee);
         // search people
+        EditText search_people = assign.findViewById(R.id.search_people);
+        search_people.setVisibility(View.GONE);
 
         // show selected
         LinearLayout selected = assign.findViewById(R.id.selected);
@@ -497,14 +499,10 @@ public class ItemDetailFragment extends Fragment {
         }
 
         users.removeIf(user -> user.getUserId() == selectedUser.getUserId());
-        // add them unAssignee
-        users.add(0,new User(0,"Un Assign","unassign@gmail.com","",7,(new Date()).toString()));
 
         avt_selected.setBackgroundResource(Parser.getAvatarResource(selectedUser.getAvatarID()));
-        if(selectedUser.getUserId() == 0){
-            username_selected.setText("Un Assign");
-        }
-        else if(cur.getUserId() == selectedUser.getUserId()){
+
+        if(cur.getUserId() == selectedUser.getUserId()){
             username_selected.setText("Me");
         }
         else{
