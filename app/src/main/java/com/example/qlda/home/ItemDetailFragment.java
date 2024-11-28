@@ -40,6 +40,7 @@ import com.example.qlda.R;
 import com.example.qlda.Utils.TimeUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -368,7 +369,12 @@ public class ItemDetailFragment extends Fragment {
             }
         });
 
-        Project project = Data.getInstance().getProjectById(task.getProjectId());
+        Project project = null;
+        try {
+            project = Data.getInstance().getProjectById(task.getProjectId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         ImageView avtProject = view.findViewById(R.id.avt_project);
         avtProject.setBackgroundResource(Parser.getAvatarResource(project.getAvatarID()));
         TextView projectName = view.findViewById(R.id.projectName);
@@ -459,7 +465,12 @@ public class ItemDetailFragment extends Fragment {
         TextView username_selected = selected.findViewById(R.id.username_selected);
 
         // find a list user in this project
-        List<User> users = Data.getInstance().getUsersByProjectId(task.getProjectId());
+        List<User> users = null;
+        try {
+            users = Data.getInstance().getUsersInProjectWithID(task.getProjectId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         User cur = Data.currentUser;
         User selectedUser;
 

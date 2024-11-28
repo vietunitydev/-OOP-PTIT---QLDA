@@ -35,8 +35,6 @@ import com.example.qlda.Utils.TimeUtils;
 import com.example.qlda.login.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import org.w3c.dom.Text;
-
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -573,8 +571,8 @@ public class IssueActivity extends AppCompatActivity {
             ////////////////////////////////////
 
             ///////  ATTACHMENT
-            LinearLayout attachment = createIssueView.findViewById(R.id.attachment);
-            TextView add_attachment = createIssueView.findViewById(R.id.add_attachment);
+//            LinearLayout attachment = createIssueView.findViewById(R.id.attachment);
+//            TextView add_attachment = createIssueView.findViewById(R.id.add_attachment);
             ////////////////////////////////////
 
             LinearLayout btnFieldIssue = createIssueView.findViewById(R.id.btnFieldIssue);
@@ -777,7 +775,12 @@ public class IssueActivity extends AppCompatActivity {
         TextView username_selected = selected.findViewById(R.id.username_selected);
 
         // find a list user in this project
-        List<User> users = Data.getInstance().getUsersByProjectId(project.getProjectId());
+        List<User> users = null;
+        try {
+            users = Data.getInstance().getUsersInProjectWithID(project.getProjectId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         User cur = Data.currentUser;
         User selectedUser;
 

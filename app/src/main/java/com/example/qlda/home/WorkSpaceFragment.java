@@ -95,7 +95,12 @@ public class WorkSpaceFragment extends Fragment {
         int projectID = project.getProjectId();
 
 
-        Project project = Data.getInstance().getProjectById(projectID);
+        Project project = null;
+        try {
+            project = Data.getInstance().getProjectById(projectID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         TextView edittext_wspaceName = view.findViewById(R.id.edittext_workspaceName);
         if (project != null) {
             edittext_wspaceName.setText(project.getProjectName());

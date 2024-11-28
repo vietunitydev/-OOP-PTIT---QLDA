@@ -141,59 +141,6 @@ public class Data {
         return tasks.stream().filter(task -> task.getAssignedTo() == userId).collect(Collectors.toList());
     }
 
-    public Project getProjectById(int projectId) {
-        return projects.stream()
-                .filter(project -> project.getProjectId() == projectId)
-                .findFirst()
-                .orElse(null);
-    }
-
-//    public List<Project> getProjectsByUserId(int userId) {
-//        List<Integer> projectIds = projectUsers.stream()
-//                .filter(projectUser -> projectUser.getUserID() == userId)
-//                .map(ProjectUser::getProjectID)
-//                .collect(Collectors.toList());
-//
-//        return projects.stream()
-//                .filter(project -> projectIds.contains(project.getProjectId()))
-//                .collect(Collectors.toList());
-//    }
-
-    public List<User> getUsersByProjectId(int projectID) {
-        List<Integer> userIDs = projectUsers.stream()
-                .filter(projectUser -> projectUser.getProjectID() == projectID)
-                .map(ProjectUser::getUserID)
-                .collect(Collectors.toList());
-
-        return users.stream()
-                .filter(user -> userIDs.contains(user.getUserId()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Project> getAllProjects() {
-        return projects;
-    }
-    public List<User> getAllUsers() {
-        return users;
-    }
-    public List<Task> getAllTasks() {
-        return tasks;
-    }
-
-    public void printAllData() {
-        System.out.println("Users:");
-        users.forEach(System.out::println);
-
-        System.out.println("\nProjects:");
-        projects.forEach(System.out::println);
-
-        System.out.println("\nTasks:");
-        tasks.forEach(System.out::println);
-
-        System.out.println("\nComments:");
-        comments.forEach(System.out::println);
-    }
-
     public User getUserByEmail(String email) throws SQLException {
         String query = "SELECT * FROM [User] WHERE email = ?";
         try (Connection conn = db.TryConnectDB();
@@ -312,6 +259,56 @@ public class Data {
         }
 
         return tasks;
+    }
+
+    public List<User> getUsersInProjectWithID(int projectID) throws SQLException {
+        String query = "SELECT * FROM [User] u JOIN ProjectUser pu ON u.userID = pu.userID WHERE pu.projectID = ?;";
+
+        List<User> users = new ArrayList<>();
+
+        try (Connection conn = db.TryConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, projectID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User(
+                            rs.getInt("userID"),
+                            rs.getString("fullName"),
+                            rs.getString("email"),
+                            "",
+                            rs.getInt("avatarID"),
+                            rs.getString("createdAt")
+                    );
+                    users.add(user);
+                }
+            }
+        }
+
+        return users;
+    }
+
+    public Project getProjectById(int projectId) throws SQLException {
+        String query = "SELECT * FROM Project p WHERE p.projectID = ?;";
+
+        try (Connection conn = db.TryConnectDB();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, projectId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    return new Project(
+                            rs.getInt("projectID"),
+                            rs.getString("projectName"),
+                            rs.getString("description"),
+                            rs.getString("startDate"),
+                            rs.getString("endDate"),
+                            rs.getString("status"),
+                            rs.getInt("avataID"));
+                }
+            }
+        }
+        return null;
     }
 }
 
