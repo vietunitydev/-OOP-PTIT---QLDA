@@ -18,14 +18,13 @@
         tools:ignore="MissingConstraints"
         android:paddingBottom="10dp">
 
-        <!-- Close Button -->
-        <ImageButton
-            android:id="@+id/btnClose"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_x"
-            android:contentDescription="@string/close"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        &lt;!&ndash; Close Button &ndash;&gt;-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/btnClose"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:src="@drawable/ic_left"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <!-- Title -->
         <TextView
@@ -111,7 +110,7 @@
         android:id="@+id/tvDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="• This account has invoices associated with it.\n• Tài khoản này là thành viên duy nhất của một hoặc nhiều bảng...\n• Tài khoản này là thành viên duy nhất của một hoặc nhiều Không gian làm việc..."
+        android:text="• This account has invoices associated with it.\n• This account is the sole member of one or more boards...\n• This account is the sole member of one or more Workspaces..."
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/tvWarning"
         app:layout_constraintStart_toStartOf="parent"

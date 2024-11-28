@@ -211,23 +211,18 @@ public class HomeActivity extends AppCompatActivity {
 
             TextView tvName = deleteScreen.findViewById(R.id.tvName);
             TextView tvMail = deleteScreen.findViewById(R.id.tvEmail);
-            ImageButton close = deleteScreen.findViewById(R.id.btnClose);
             Button delete = deleteScreen.findViewById(R.id.btnDelete);
 
             tvName.setText(userData.getFullName());
             tvMail.setText(userData.getEmail());
 
-            close.setOnClickListener(v141 -> {
-                // delete
-                curBottomDialog.dismiss();
-            });
-
             delete.setOnClickListener(v142 -> {
                 // delete
-
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                if(Data.getInstance().deleteUserById(Data.currentUser.getUserId())){
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             });
 
         });

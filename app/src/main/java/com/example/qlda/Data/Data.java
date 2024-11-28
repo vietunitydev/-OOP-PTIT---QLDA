@@ -218,7 +218,66 @@ public class Data {
     }
 
 
+    ///////////////////
+    public boolean deleteUserById(int userId) {
+        String deleteCommentsQuery = "DELETE FROM Comment WHERE userID = ?";
+        String deleteTasksQuery = "DELETE FROM Task WHERE assignedTo = ? OR reporter = ?";
+        String deleteProjectUsersQuery = "DELETE FROM ProjectUser WHERE userID = ?";
+        String deleteUserQuery = "DELETE FROM [User] WHERE userID = ?";
 
+        try {
+            // Bắt đầu transaction
+            connection.setAutoCommit(false);
+
+            // Xóa Comment
+            try (PreparedStatement stmt = connection.prepareStatement(deleteCommentsQuery)) {
+                stmt.setInt(1, userId);
+                stmt.executeUpdate();
+            }
+
+            // Xóa Task
+            try (PreparedStatement stmt = connection.prepareStatement(deleteTasksQuery)) {
+                stmt.setInt(1, userId);
+                stmt.setInt(2, userId);
+                stmt.executeUpdate();
+            }
+
+            // Xóa ProjectUser
+            try (PreparedStatement stmt = connection.prepareStatement(deleteProjectUsersQuery)) {
+                stmt.setInt(1, userId);
+                stmt.executeUpdate();
+            }
+
+            // Xóa User
+            try (PreparedStatement stmt = connection.prepareStatement(deleteUserQuery)) {
+                stmt.setInt(1, userId);
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    connection.commit();
+                    return true;
+                } else {
+                    connection.rollback();
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
 
     ////////////////////
 
