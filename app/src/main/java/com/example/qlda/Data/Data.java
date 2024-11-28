@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,32 +53,71 @@ public class Data {
     }
 
     public Project createAndFetchProject(String projectName, String description, String startDate, String endDate, String status, int avatarID) {
-        String query = "INSERT INTO Project (projectName, description, startDate, endDate, status, avataID) " +
-                "OUTPUT INSERTED.projectID, INSERTED.projectName, INSERTED.description, INSERTED.startDate, INSERTED.endDate, INSERTED.status, INSERTED.avataID " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        String insertProjectQuery =
+                "INSERT INTO Project (projectName, description, startDate, endDate, status, avataID) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
 
-            stmt.setString(1, projectName);
-            stmt.setString(2, description);
-            stmt.setString(3, startDate);
-            stmt.setString(4, endDate);
-            stmt.setString(5, status);
-            stmt.setInt(6, avatarID);
+        String insertProjectUserQuery =
+                "INSERT INTO ProjectUser (projectID, userID, role) VALUES (?, ?, ?)";
 
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new Project(
-                        rs.getInt("projectID"),
-                        rs.getString("projectName"),
-                        rs.getString("description"),
-                        rs.getString("startDate"),
-                        rs.getString("endDate"),
-                        rs.getString("status"),
-                        rs.getInt("avataID")
-                );
+        try (Connection conn = db.TryConnectDB()) {
+            conn.setAutoCommit(false);
+
+            int projectId;
+            try (PreparedStatement projectStmt = conn.prepareStatement(insertProjectQuery, Statement.RETURN_GENERATED_KEYS)) {
+                projectStmt.setString(1, projectName);
+                projectStmt.setString(2, description);
+                projectStmt.setString(3, startDate);
+                projectStmt.setString(4, endDate);
+                projectStmt.setString(5, status);
+                projectStmt.setInt(6, avatarID);
+
+                int rowsAffected = projectStmt.executeUpdate();
+                if (rowsAffected == 0) {
+                    throw new SQLException("Failed to create project, no rows affected.");
+                }
+
+                try (ResultSet rs = projectStmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        projectId = rs.getInt(1);
+                    } else {
+                        throw new SQLException("Failed to retrieve projectID.");
+                    }
+                }
             }
+
+            try (PreparedStatement projectUserStmt = conn.prepareStatement(insertProjectUserQuery)) {
+                projectUserStmt.setInt(1, projectId);
+                projectUserStmt.setInt(2, currentUser.getUserId());
+                projectUserStmt.setString(3, "Admin");
+
+                int rowsAffected = projectUserStmt.executeUpdate();
+                if (rowsAffected == 0) {
+                    throw new SQLException("Failed to create ProjectUser.");
+                }
+            }
+
+            conn.commit();
+
+            return new Project(
+                    projectId,
+                    projectName,
+                    description,
+                    startDate,
+                    endDate,
+                    status,
+                    avatarID
+            );
+
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
         return null;
     }
